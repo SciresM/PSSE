@@ -46,9 +46,8 @@ namespace Pokemon_Shuffle_Save_Editor
                 }
             }
             PB_Main.Image = PB_Event.Image = PB_Expert.Image = GetStageImage(0);
-            string[] specieslist = Properties.Resources.species.Split(new[] {Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries);
-            string[] monslist = Properties.Resources.mons.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-            mons = new Tuple<int, int, bool>[BitConverter.ToUInt32(mondata, 0)];
+            string[] specieslist = Properties.Resources.species.Split(new[] {Environment.NewLine, "\n"}, StringSplitOptions.RemoveEmptyEntries);
+            string[] monslist = Properties.Resources.mons.Split(new[] { Environment.NewLine, "\n"}, StringSplitOptions.RemoveEmptyEntries);            mons = new Tuple<int, int, bool>[BitConverter.ToUInt32(mondata, 0)];
             int[] forms = new int[specieslist.Length];
             HasMega = new bool[specieslist.Length][];
             for (int i = 0; i < specieslist.Length; i++)
