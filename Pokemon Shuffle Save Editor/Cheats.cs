@@ -1,16 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace Pokemon_Shuffle_Save_Editor
 {
     public partial class Cheats : Form
     {
+        private byte[] mondata;
+        private byte[] stagesMain;
+        private byte[] stagesEvent;
+        private byte[] stagesExpert;
+        private byte[] megaStone;
         public Cheats(byte[] md, byte[] sm, byte[] sev, byte[] sex, byte[] ms, bool[][] hm, Tuple<int, int, bool>[] m, ref byte[] sd)
         {
             InitializeComponent();
@@ -23,13 +22,6 @@ namespace Pokemon_Shuffle_Save_Editor
             savedata = sd;
             mons = m;
         }
-
-        byte[] mondata;
-        byte[] stagesMain;
-        byte[] stagesEvent;
-        byte[] stagesExpert;
-        byte[] megaStone;
-
         bool[][] HasMega; // [X][0] = X, [X][1] = Y
 
         byte[] savedata;
@@ -105,15 +97,15 @@ namespace Pokemon_Shuffle_Save_Editor
         private void B_MaxResources_Click(object sender, EventArgs e)
         {
             Array.Copy(BitConverter.GetBytes((BitConverter.ToUInt32(savedata, 0x68) & 0xF0000007) | ((uint)99999 << 3) | ((uint)150 << 20)), 0, savedata, 0x68, 4);
-            Array.Copy(BitConverter.GetBytes((BitConverter.ToUInt16(savedata, 0x2D4A) & 0xC07F) | ((ushort)99 << 7)), 0, savedata, 0x2D4A, 2);
+            Array.Copy(BitConverter.GetBytes((BitConverter.ToUInt16(savedata, 0x2D4A) & 0xC07F) | (99 << 7)), 0, savedata, 0x2D4A, 2);
             for (int i = 0; i < 7; i++)
             {
                 ushort val = BitConverter.ToUInt16(savedata, 0xd0 + i);
                 val &= 0x7F;
-                val |= (ushort)(99 << 7);
+                val |= (99 << 7);
                 Array.Copy(BitConverter.GetBytes(val), 0, savedata, 0xd0 + i, 2);
             }
-            savedata[0x2D4C] = (byte)(((((int)99) << 1) & 0xFE) | (savedata[0x2D4C] & 1)); // Mega Speedups
+            savedata[0x2D4C] = (byte)((((99) << 1) & 0xFE) | (savedata[0x2D4C] & 1)); // Mega Speedups
             MessageBox.Show("Gave 99 hearts, 99999 coins, 150 jewels, and 99 of every item.");
         }
 
@@ -122,7 +114,7 @@ namespace Pokemon_Shuffle_Save_Editor
             int level_ofs = (((ind - 1) * 4) / 8);
             int level_shift = ((((ind - 1) * 4) + 1) % 8);
             ushort level = BitConverter.ToUInt16(savedata, 0x187 + level_ofs);
-            level = (ushort)((level & (ushort)(~(0xF << level_shift))) | ((int)lev << level_shift));
+            level = (ushort)((level & (ushort)(~(0xF << level_shift))) | (lev << level_shift));
             Array.Copy(BitConverter.GetBytes(level), 0, savedata, 0x187 + level_ofs, 2);
         }
 
