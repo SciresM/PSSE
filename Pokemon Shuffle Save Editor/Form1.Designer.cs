@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            Pokemon_Shuffle_Save_Editor.ShuffleItems shuffleItems1 = new Pokemon_Shuffle_Save_Editor.ShuffleItems();
             this.B_Open = new System.Windows.Forms.Button();
             this.TB_FilePath = new System.Windows.Forms.TextBox();
             this.B_Save = new System.Windows.Forms.Button();
@@ -61,22 +62,6 @@
             this.CB_MonIndex = new System.Windows.Forms.ComboBox();
             this.PB_Mon = new System.Windows.Forms.PictureBox();
             this.GB_Resources = new System.Windows.Forms.GroupBox();
-            this.NUP_MegaSpeedup = new System.Windows.Forms.NumericUpDown();
-            this.label21 = new System.Windows.Forms.Label();
-            this.NUP_AttackUp = new System.Windows.Forms.NumericUpDown();
-            this.NUP_DisruptionDelay = new System.Windows.Forms.NumericUpDown();
-            this.NUP_Complexity = new System.Windows.Forms.NumericUpDown();
-            this.NUP_MegaStart = new System.Windows.Forms.NumericUpDown();
-            this.NUP_PlusEXP = new System.Windows.Forms.NumericUpDown();
-            this.NUP_PlusTime = new System.Windows.Forms.NumericUpDown();
-            this.NUP_PlusMoves = new System.Windows.Forms.NumericUpDown();
-            this.label20 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
             this.NUP_Jewels = new System.Windows.Forms.NumericUpDown();
             this.NUP_Coins = new System.Windows.Forms.NumericUpDown();
             this.NUP_Hearts = new System.Windows.Forms.NumericUpDown();
@@ -84,6 +69,7 @@
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.B_CheatsForm = new System.Windows.Forms.Button();
+            this.ItemsGrid = new System.Windows.Forms.PropertyGrid();
             this.GB_HighScore.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NUP_EventScore)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUP_EventIndex)).BeginInit();
@@ -100,14 +86,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.NUP_Level)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PB_Mon)).BeginInit();
             this.GB_Resources.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NUP_MegaSpeedup)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NUP_AttackUp)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NUP_DisruptionDelay)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NUP_Complexity)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NUP_MegaStart)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NUP_PlusEXP)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NUP_PlusTime)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NUP_PlusMoves)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUP_Jewels)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUP_Coins)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUP_Hearts)).BeginInit();
@@ -163,7 +141,7 @@
             this.GB_HighScore.Controls.Add(this.PB_Expert);
             this.GB_HighScore.Controls.Add(this.PB_Main);
             this.GB_HighScore.Enabled = false;
-            this.GB_HighScore.Location = new System.Drawing.Point(12, 245);
+            this.GB_HighScore.Location = new System.Drawing.Point(12, 330);
             this.GB_HighScore.Name = "GB_HighScore";
             this.GB_HighScore.Size = new System.Drawing.Size(493, 118);
             this.GB_HighScore.TabIndex = 23;
@@ -436,22 +414,7 @@
             // 
             // GB_Resources
             // 
-            this.GB_Resources.Controls.Add(this.NUP_MegaSpeedup);
-            this.GB_Resources.Controls.Add(this.label21);
-            this.GB_Resources.Controls.Add(this.NUP_AttackUp);
-            this.GB_Resources.Controls.Add(this.NUP_DisruptionDelay);
-            this.GB_Resources.Controls.Add(this.NUP_Complexity);
-            this.GB_Resources.Controls.Add(this.NUP_MegaStart);
-            this.GB_Resources.Controls.Add(this.NUP_PlusEXP);
-            this.GB_Resources.Controls.Add(this.NUP_PlusTime);
-            this.GB_Resources.Controls.Add(this.NUP_PlusMoves);
-            this.GB_Resources.Controls.Add(this.label20);
-            this.GB_Resources.Controls.Add(this.label19);
-            this.GB_Resources.Controls.Add(this.label18);
-            this.GB_Resources.Controls.Add(this.label17);
-            this.GB_Resources.Controls.Add(this.label16);
-            this.GB_Resources.Controls.Add(this.label15);
-            this.GB_Resources.Controls.Add(this.label14);
+            this.GB_Resources.Controls.Add(this.ItemsGrid);
             this.GB_Resources.Controls.Add(this.NUP_Jewels);
             this.GB_Resources.Controls.Add(this.NUP_Coins);
             this.GB_Resources.Controls.Add(this.NUP_Hearts);
@@ -461,186 +424,10 @@
             this.GB_Resources.Enabled = false;
             this.GB_Resources.Location = new System.Drawing.Point(252, 6);
             this.GB_Resources.Name = "GB_Resources";
-            this.GB_Resources.Size = new System.Drawing.Size(253, 173);
+            this.GB_Resources.Size = new System.Drawing.Size(253, 318);
             this.GB_Resources.TabIndex = 25;
             this.GB_Resources.TabStop = false;
             this.GB_Resources.Text = "Resources";
-            // 
-            // NUP_MegaSpeedup
-            // 
-            this.NUP_MegaSpeedup.Location = new System.Drawing.Point(199, 146);
-            this.NUP_MegaSpeedup.Maximum = new decimal(new int[] {
-            99,
-            0,
-            0,
-            0});
-            this.NUP_MegaSpeedup.Name = "NUP_MegaSpeedup";
-            this.NUP_MegaSpeedup.Size = new System.Drawing.Size(43, 20);
-            this.NUP_MegaSpeedup.TabIndex = 22;
-            this.NUP_MegaSpeedup.ValueChanged += new System.EventHandler(this.UpdateForm);
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(117, 149);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(83, 13);
-            this.label21.TabIndex = 21;
-            this.label21.Text = "Mega Speedup:";
-            // 
-            // NUP_AttackUp
-            // 
-            this.NUP_AttackUp.Location = new System.Drawing.Point(199, 124);
-            this.NUP_AttackUp.Maximum = new decimal(new int[] {
-            99,
-            0,
-            0,
-            0});
-            this.NUP_AttackUp.Name = "NUP_AttackUp";
-            this.NUP_AttackUp.Size = new System.Drawing.Size(43, 20);
-            this.NUP_AttackUp.TabIndex = 20;
-            this.NUP_AttackUp.ValueChanged += new System.EventHandler(this.UpdateForm);
-            // 
-            // NUP_DisruptionDelay
-            // 
-            this.NUP_DisruptionDelay.Location = new System.Drawing.Point(199, 103);
-            this.NUP_DisruptionDelay.Maximum = new decimal(new int[] {
-            99,
-            0,
-            0,
-            0});
-            this.NUP_DisruptionDelay.Name = "NUP_DisruptionDelay";
-            this.NUP_DisruptionDelay.Size = new System.Drawing.Size(43, 20);
-            this.NUP_DisruptionDelay.TabIndex = 19;
-            this.NUP_DisruptionDelay.ValueChanged += new System.EventHandler(this.UpdateForm);
-            // 
-            // NUP_Complexity
-            // 
-            this.NUP_Complexity.Location = new System.Drawing.Point(199, 81);
-            this.NUP_Complexity.Maximum = new decimal(new int[] {
-            99,
-            0,
-            0,
-            0});
-            this.NUP_Complexity.Name = "NUP_Complexity";
-            this.NUP_Complexity.Size = new System.Drawing.Size(43, 20);
-            this.NUP_Complexity.TabIndex = 18;
-            this.NUP_Complexity.ValueChanged += new System.EventHandler(this.UpdateForm);
-            // 
-            // NUP_MegaStart
-            // 
-            this.NUP_MegaStart.Location = new System.Drawing.Point(66, 147);
-            this.NUP_MegaStart.Maximum = new decimal(new int[] {
-            99,
-            0,
-            0,
-            0});
-            this.NUP_MegaStart.Name = "NUP_MegaStart";
-            this.NUP_MegaStart.Size = new System.Drawing.Size(43, 20);
-            this.NUP_MegaStart.TabIndex = 17;
-            this.NUP_MegaStart.ValueChanged += new System.EventHandler(this.UpdateForm);
-            // 
-            // NUP_PlusEXP
-            // 
-            this.NUP_PlusEXP.Location = new System.Drawing.Point(66, 125);
-            this.NUP_PlusEXP.Maximum = new decimal(new int[] {
-            99,
-            0,
-            0,
-            0});
-            this.NUP_PlusEXP.Name = "NUP_PlusEXP";
-            this.NUP_PlusEXP.Size = new System.Drawing.Size(43, 20);
-            this.NUP_PlusEXP.TabIndex = 16;
-            this.NUP_PlusEXP.ValueChanged += new System.EventHandler(this.UpdateForm);
-            // 
-            // NUP_PlusTime
-            // 
-            this.NUP_PlusTime.Location = new System.Drawing.Point(66, 103);
-            this.NUP_PlusTime.Maximum = new decimal(new int[] {
-            99,
-            0,
-            0,
-            0});
-            this.NUP_PlusTime.Name = "NUP_PlusTime";
-            this.NUP_PlusTime.Size = new System.Drawing.Size(43, 20);
-            this.NUP_PlusTime.TabIndex = 15;
-            this.NUP_PlusTime.ValueChanged += new System.EventHandler(this.UpdateForm);
-            // 
-            // NUP_PlusMoves
-            // 
-            this.NUP_PlusMoves.Location = new System.Drawing.Point(66, 81);
-            this.NUP_PlusMoves.Maximum = new decimal(new int[] {
-            99,
-            0,
-            0,
-            0});
-            this.NUP_PlusMoves.Name = "NUP_PlusMoves";
-            this.NUP_PlusMoves.Size = new System.Drawing.Size(43, 20);
-            this.NUP_PlusMoves.TabIndex = 14;
-            this.NUP_PlusMoves.ValueChanged += new System.EventHandler(this.UpdateForm);
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(143, 127);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(58, 13);
-            this.label20.TabIndex = 13;
-            this.label20.Text = "Attack Up:";
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(114, 105);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(87, 13);
-            this.label19.TabIndex = 12;
-            this.label19.Text = "Disruption Delay:";
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(129, 83);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(72, 13);
-            this.label18.TabIndex = 11;
-            this.label18.Text = "Complexity -1:";
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(4, 149);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(62, 13);
-            this.label17.TabIndex = 10;
-            this.label17.Text = "Mega Start:";
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(16, 127);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(50, 13);
-            this.label16.TabIndex = 9;
-            this.label16.Text = "Exp *1.5:";
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(12, 105);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(54, 13);
-            this.label15.TabIndex = 8;
-            this.label15.Text = "Time +10:";
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(9, 83);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(57, 13);
-            this.label14.TabIndex = 7;
-            this.label14.Text = "Moves +5:";
             // 
             // NUP_Jewels
             // 
@@ -711,7 +498,7 @@
             // B_CheatsForm
             // 
             this.B_CheatsForm.Enabled = false;
-            this.B_CheatsForm.Location = new System.Drawing.Point(252, 191);
+            this.B_CheatsForm.Location = new System.Drawing.Point(12, 245);
             this.B_CheatsForm.Name = "B_CheatsForm";
             this.B_CheatsForm.Size = new System.Drawing.Size(109, 47);
             this.B_CheatsForm.TabIndex = 26;
@@ -719,11 +506,56 @@
             this.B_CheatsForm.UseVisualStyleBackColor = true;
             this.B_CheatsForm.Click += new System.EventHandler(this.B_CheatsForm_Click);
             // 
+            // ItemsGrid
+            // 
+            this.ItemsGrid.Location = new System.Drawing.Point(6, 77);
+            this.ItemsGrid.Name = "ItemsGrid";
+            shuffleItems1.AttackUp = 0;
+            shuffleItems1.Complexity = 0;
+            shuffleItems1.Disruption = 0;
+            shuffleItems1.Enchantments = new int[] {
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0};
+            shuffleItems1.Experience = 0;
+            shuffleItems1.ExperienceBoostL = 0;
+            shuffleItems1.ExperienceBoostM = 0;
+            shuffleItems1.ExperienceBoostS = 0;
+            shuffleItems1.Items = new int[] {
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0};
+            shuffleItems1.LevelUp = 0;
+            shuffleItems1.MegaSpeedup = 0;
+            shuffleItems1.MegaStart = 0;
+            shuffleItems1.Moves = 0;
+            shuffleItems1.RaiseMaxLevel = 0;
+            shuffleItems1.SkillBoosterL = 0;
+            shuffleItems1.SkillBoosterM = 0;
+            shuffleItems1.SkillBoosterS = 0;
+            shuffleItems1.Time = 0;
+            this.ItemsGrid.SelectedObject = shuffleItems1;
+            this.ItemsGrid.Size = new System.Drawing.Size(241, 235);
+            this.ItemsGrid.TabIndex = 27;
+            this.ItemsGrid.ToolbarVisible = false;
+            this.ItemsGrid.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.UpdateProperty);
+            this.ItemsGrid.EnabledChanged += new System.EventHandler(this.ItemsGrid_EnabledChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(519, 376);
+            this.ClientSize = new System.Drawing.Size(519, 455);
             this.Controls.Add(this.B_CheatsForm);
             this.Controls.Add(this.GB_Resources);
             this.Controls.Add(this.GB_Caught);
@@ -731,7 +563,7 @@
             this.Controls.Add(this.B_Save);
             this.Controls.Add(this.TB_FilePath);
             this.Controls.Add(this.B_Open);
-            this.MaximumSize = new System.Drawing.Size(535, 415);
+            this.MaximumSize = new System.Drawing.Size(535, 493);
             this.MinimumSize = new System.Drawing.Size(535, 415);
             this.Name = "Form1";
             this.Text = "Pokemon Shuffle Save Editor";
@@ -754,14 +586,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.PB_Mon)).EndInit();
             this.GB_Resources.ResumeLayout(false);
             this.GB_Resources.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NUP_MegaSpeedup)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NUP_AttackUp)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NUP_DisruptionDelay)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NUP_Complexity)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NUP_MegaStart)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NUP_PlusEXP)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NUP_PlusTime)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NUP_PlusMoves)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUP_Jewels)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUP_Coins)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUP_Hearts)).EndInit();
@@ -807,27 +631,12 @@
         private System.Windows.Forms.NumericUpDown NUP_Hearts;
         private System.Windows.Forms.NumericUpDown NUP_Jewels;
         private System.Windows.Forms.NumericUpDown NUP_Coins;
-        private System.Windows.Forms.NumericUpDown NUP_MegaSpeedup;
-        private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.NumericUpDown NUP_AttackUp;
-        private System.Windows.Forms.NumericUpDown NUP_DisruptionDelay;
-        private System.Windows.Forms.NumericUpDown NUP_Complexity;
-        private System.Windows.Forms.NumericUpDown NUP_MegaStart;
-        private System.Windows.Forms.NumericUpDown NUP_PlusEXP;
-        private System.Windows.Forms.NumericUpDown NUP_PlusTime;
-        private System.Windows.Forms.NumericUpDown NUP_PlusMoves;
-        private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.Label label14;
         private System.Windows.Forms.PictureBox PB_MegaX;
         private System.Windows.Forms.PictureBox PB_MegaY;
         private System.Windows.Forms.CheckBox CHK_MegaX;
         private System.Windows.Forms.CheckBox CHK_MegaY;
         private System.Windows.Forms.Button B_CheatsForm;
+        private System.Windows.Forms.PropertyGrid ItemsGrid;
     }
 }
 

@@ -52,6 +52,7 @@
     <Compile Include="Cheats.Designer.cs">
       <DependentUpon>Cheats.cs</DependentUpon>
     </Compile>
+    <Compile Include="ShuffleItems.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

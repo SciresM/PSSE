@@ -90,7 +90,7 @@ namespace Pokemon_Shuffle_Save_Editor
             NUP_MainScore.Maximum = NUP_ExpertScore.Maximum = NUP_EventScore.Maximum = 0xFFFFFF;
             CHK_MegaY.Visible = CHK_MegaX.Visible = false;
             PB_Mon.Image = GetCaughtImage((int)CB_MonIndex.SelectedValue, CHK_CaughtMon.Checked);
-            NUP_Items = new[] { NUP_PlusMoves, NUP_PlusTime, NUP_PlusEXP, NUP_MegaStart, NUP_Complexity, NUP_DisruptionDelay, NUP_AttackUp };
+            ItemsGrid.SelectedObject = null;
         }
 
         Tuple<int, int, bool>[] mons;
@@ -103,7 +103,7 @@ namespace Pokemon_Shuffle_Save_Editor
 
         bool[][] HasMega; // [X][0] = X, [X][1] = Y
 
-        NumericUpDown[] NUP_Items;
+        ShuffleItems SI_Items = new ShuffleItems();
 
         byte[] savedata;
         bool loaded;
@@ -111,7 +111,7 @@ namespace Pokemon_Shuffle_Save_Editor
         private void B_Open_Click(object sender, EventArgs e)
         {
             TB_FilePath.Text = string.Empty;
-            B_Save.Enabled = GB_Caught.Enabled = GB_HighScore.Enabled = GB_Resources.Enabled = B_CheatsForm.Enabled = loaded = false;
+            B_Save.Enabled = GB_Caught.Enabled = GB_HighScore.Enabled = GB_Resources.Enabled = B_CheatsForm.Enabled = ItemsGrid.Enabled = loaded = false;
 
             OpenFileDialog ofd = new OpenFileDialog {FileName = "savedata.bin"};
             if (ofd.ShowDialog() != DialogResult.OK) return;
@@ -120,8 +120,8 @@ namespace Pokemon_Shuffle_Save_Editor
             TB_FilePath.Text = ofd.FileName;
             savedata = File.ReadAllBytes(ofd.FileName);
             Parse();
-            B_Save.Enabled = GB_Caught.Enabled = GB_HighScore.Enabled = GB_Resources.Enabled = B_CheatsForm.Enabled = loaded = true;
-            UpdateForm(null, null);
+            B_Save.Enabled = GB_Caught.Enabled = GB_HighScore.Enabled = GB_Resources.Enabled = B_CheatsForm.Enabled = ItemsGrid.Enabled = loaded = true;
+            UpdateProperty(null, null);
         }
 
 
@@ -166,14 +166,20 @@ namespace Pokemon_Shuffle_Save_Editor
                 Array.Copy(BitConverter.GetBytes((BitConverter.ToUInt64(savedata, 0x52D5 + 3 * ((int)NUP_EventIndex.Value)) & 0xFFFFFFFFF000000FL) | (((ulong)NUP_EventScore.Value << 4))), 0, savedata, 0x52D5 + 3 * ((int)NUP_EventIndex.Value), 8);
                 Array.Copy(BitConverter.GetBytes((BitConverter.ToUInt32(savedata, 0x68) & 0xF0000007) | ((uint)NUP_Coins.Value << 3) | ((uint)NUP_Jewels.Value << 20)), 0, savedata, 0x68, 4);
                 Array.Copy(BitConverter.GetBytes((BitConverter.ToUInt16(savedata, 0x2D4A) & 0xC07F) | ((ushort)NUP_Hearts.Value << 7)), 0, savedata, 0x2D4A, 2);
-                for (int i = 0; i < NUP_Items.Length; i++)
+                for (int i = 0; i < SI_Items.Items.Length; i++)
                 {
                     ushort val = BitConverter.ToUInt16(savedata, 0xd0 + i);
                     val &= 0x7F;
-                    val |= (ushort)((int)NUP_Items[i].Value << 7);
+                    val |= (ushort)(SI_Items.Items[i] << 7);
                     Array.Copy(BitConverter.GetBytes(val), 0, savedata, 0xd0 + i, 2);
+                    Console.WriteLine("Updated " + i + " to " + SI_Items.Items[i]);
                 }
-                savedata[0x2D4C] = (byte)(((((int)NUP_MegaSpeedup.Value) << 1) & 0xFE) | (savedata[0x2D4C] & 1)); // Mega Speedups
+
+                for (int i = 0; i < SI_Items.Enchantments.Length; i++)
+                {
+                    savedata[0x2D4C + i] = (byte)(((SI_Items.Enchantments[i] << 1) & 0xFE) | (savedata[0x2D4C + i] & 1));
+                }
+
                 int mega_ofs = 0x406 + ((ind + 2) / 4);
                 ushort mega_val = BitConverter.ToUInt16(savedata, mega_ofs);
                 mega_val &= (ushort)(~(3 << ((5 + (ind << 1)) % 8)));
@@ -192,11 +198,15 @@ namespace Pokemon_Shuffle_Save_Editor
             NUP_Coins.Value = (BitConverter.ToUInt32(savedata, 0x68) >> 3) & 0x1FFFF;
             NUP_Jewels.Value = (BitConverter.ToUInt16(savedata, 0x6A) >> 4) & 0xFF;
             NUP_Hearts.Value = (BitConverter.ToUInt16(savedata, 0x2D4A) >> 7) & 0x7F;
-            for (int i = 0; i < NUP_Items.Length; i++)
+            for (int i = 0; i < SI_Items.Items.Length; i++)
             {
-                NUP_Items[i].Value = (BitConverter.ToUInt16(savedata, 0xD0 + i) >> 7) & 0x7F;
+                SI_Items.Items[i] = (BitConverter.ToUInt16(savedata, 0xD0 + i) >> 7) & 0x7F;
             }
-            NUP_MegaSpeedup.Value = (savedata[0x2D4C] >> 1) & 0x7F;
+
+            for (int i = 0; i < SI_Items.Enchantments.Length; i++)
+            {
+                SI_Items.Enchantments[i] = (savedata[0x2D4C + i] >> 1) & 0x7F;
+            }
         }
 
         private void UpdateOwnedBox()
@@ -312,6 +322,15 @@ namespace Pokemon_Shuffle_Save_Editor
             updating = false;
         }
 
+        private void ItemsGrid_EnabledChanged(object sender, EventArgs e)
+        {
+            ItemsGrid.SelectedObject = (ItemsGrid.Enabled) ? SI_Items : null;
+        }
+
+        private void UpdateProperty(object s, PropertyValueChangedEventArgs e)
+        {
+            UpdateForm(s, e);
+        }
     }
 
     public class cbItem
