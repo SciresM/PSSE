@@ -14,12 +14,12 @@ namespace Pokemon_Shuffle_Save_Editor
         public Form1()
         {
             InitializeComponent();
-            string resourcedir  = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)+Path.DirectorySeparatorChar+"resources"+Path.DirectorySeparatorChar;
+            string resourcedir = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + Path.DirectorySeparatorChar + "resources" + Path.DirectorySeparatorChar;
             if (!Directory.Exists(resourcedir))
                 Directory.CreateDirectory(resourcedir);
             byte[][] files = { megaStone, mondata, stagesMain, stagesEvent, stagesExpert };
-            string[] filenames = { "megaStone.bin","pokemonData.bin","stageData.bin","stageDataEvent.bin","stageDataExtra.bin"};
-            for (int i=0;i<files.Length;i++)
+            string[] filenames = { "megaStone.bin", "pokemonData.bin", "stageData.bin", "stageDataEvent.bin", "stageDataExtra.bin" };
+            for (int i = 0; i < files.Length; i++)
             {
                 if (!File.Exists(resourcedir + filenames[i]))
                     File.WriteAllBytes(resourcedir + filenames[i], files[i]);
@@ -46,20 +46,23 @@ namespace Pokemon_Shuffle_Save_Editor
                 }
             }
             PB_Main.Image = PB_Event.Image = PB_Expert.Image = GetStageImage(0);
-            string[] specieslist = Properties.Resources.species.Split(new[] {Environment.NewLine, "\n"}, StringSplitOptions.RemoveEmptyEntries);
-            string[] monslist = Properties.Resources.mons.Split(new[] { Environment.NewLine, "\n"}, StringSplitOptions.RemoveEmptyEntries);            mons = new Tuple<int, int, bool>[BitConverter.ToUInt32(mondata, 0)];
+            string[] specieslist = Properties.Resources.species.Split(new[] { Environment.NewLine, "\n" }, StringSplitOptions.RemoveEmptyEntries);
+            string[] monslist = Properties.Resources.mons.Split(new[] { Environment.NewLine, "\n" }, StringSplitOptions.RemoveEmptyEntries); mons = new Tuple<int, int, bool>[BitConverter.ToUInt32(mondata, 0)];
             int[] forms = new int[specieslist.Length];
             HasMega = new bool[specieslist.Length][];
             for (int i = 0; i < specieslist.Length; i++)
                 HasMega[i] = new bool[2];
-            int[] megas = new int[BitConverter.ToUInt32(megaStone, 0)-1];
+            int[] megas = new int[BitConverter.ToUInt32(megaStone, 0) - 1];
             for (int i = 0; i < megas.Length; i++)
             {
                 megas[i] = BitConverter.ToUInt16(megaStone, 0x54 + i * 4) & 0x3FF;
+
+                string mega = megas[i] < specieslist.Length ? specieslist[megas[i]] : "???";
+                Console.WriteLine("[" + i + "] " + megas[i] + " (" + mega + ")");
             }
             for (int i = 0; i < mons.Length; i++)
             {
-                int entrylen = BitConverter.ToInt32(mondata,0x4);
+                int entrylen = BitConverter.ToInt32(mondata, 0x4);
                 byte[] data = mondata.Skip(0x50 + entrylen * i).Take(entrylen).ToArray();
                 bool isMega = i > 782 && i < 831;
                 int spec = isMega
@@ -78,9 +81,13 @@ namespace Pokemon_Shuffle_Save_Editor
                 monsel.Add(new cbItem { Text = monslist[i], Value = i });
             }
             monsel = monsel.OrderBy(ncbi => ncbi.Text).ToList();
+
             CB_MonIndex.DataSource = monsel;
             CB_MonIndex.DisplayMember = "Text";
             CB_MonIndex.ValueMember = "Value";
+            CB_MonIndex.AutoCompleteSource = AutoCompleteSource.ListItems;
+            CB_MonIndex.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+
             NUP_ExpertIndex.Minimum = NUP_EventIndex.Minimum = 0;
             NUP_MainIndex.Minimum = 1;
             NUP_MainIndex.Maximum = BitConverter.ToInt32(stagesMain, 0) - 1;
@@ -113,25 +120,28 @@ namespace Pokemon_Shuffle_Save_Editor
             TB_FilePath.Text = string.Empty;
             B_Save.Enabled = GB_Caught.Enabled = GB_HighScore.Enabled = GB_Resources.Enabled = B_CheatsForm.Enabled = ItemsGrid.Enabled = loaded = false;
 
-            OpenFileDialog ofd = new OpenFileDialog {FileName = "savedata.bin"};
+            OpenFileDialog ofd = new OpenFileDialog { FileName = "savedata.bin" };
             if (ofd.ShowDialog() != DialogResult.OK) return;
             if (Path.GetFileName(ofd.FileName) != "savedata.bin") return;
 
             TB_FilePath.Text = ofd.FileName;
-            savedata = File.ReadAllBytes(ofd.FileName);
+        }
+
+        private void OpenFile(string filename)
+        {
+            savedata = File.ReadAllBytes(filename);
             Parse();
             B_Save.Enabled = GB_Caught.Enabled = GB_HighScore.Enabled = GB_Resources.Enabled = B_CheatsForm.Enabled = ItemsGrid.Enabled = loaded = true;
             UpdateProperty(null, null);
         }
 
-
         private void B_Save_Click(object sender, EventArgs e)
         {
-            SaveFileDialog sfd = new SaveFileDialog {FileName = TB_FilePath.Text};
+            SaveFileDialog sfd = new SaveFileDialog { FileName = TB_FilePath.Text };
             if (sfd.ShowDialog() != DialogResult.OK) return;
 
             File.WriteAllBytes(sfd.FileName, savedata);
-            MessageBox.Show("Saved save file to " + sfd.FileName + "."+Environment.NewLine+"Remember to delete secure value before importing.");
+            MessageBox.Show("Saved save file to " + sfd.FileName + "." + Environment.NewLine + "Remember to delete secure value before importing.");
         }
 
         private void Parse()
@@ -152,7 +162,7 @@ namespace Pokemon_Shuffle_Save_Editor
                 int ind = (int)CB_MonIndex.SelectedValue;
                 int level_ofs = (((ind - 1) * 4) / 8);
                 int level_shift = ((((ind - 1) * 4) + 1) % 8);
-                ushort level = BitConverter.ToUInt16(savedata, 0x187+level_ofs);
+                ushort level = BitConverter.ToUInt16(savedata, 0x187 + level_ofs);
                 level = (ushort)((level & (ushort)(~(0xF << level_shift))) | ((int)NUP_Level.Value << level_shift));
                 Array.Copy(BitConverter.GetBytes(level), 0, savedata, 0x187 + level_ofs, 2);
                 int caught_ofs = (((ind - 1) + 6) / 8);
@@ -214,17 +224,17 @@ namespace Pokemon_Shuffle_Save_Editor
             int ind = (int)CB_MonIndex.SelectedValue;
             int level_ofs = 0x187 + (((ind - 1) * 4) / 8);
             int level = BitConverter.ToUInt16(savedata, level_ofs);
-            level >>= ((((ind-1)*4)+1) % 8);
+            level >>= ((((ind - 1) * 4) + 1) % 8);
             level &= 0xF;
             NUP_Level.Value = level;
-            int caught_ofs = 0x546+(((ind-1)+6)/8);
-            CHK_CaughtMon.Checked = ((savedata[caught_ofs] >> ((((ind-1)+6) % 8))) & 1) == 1;
+            int caught_ofs = 0x546 + (((ind - 1) + 6) / 8);
+            CHK_CaughtMon.Checked = ((savedata[caught_ofs] >> ((((ind - 1) + 6) % 8))) & 1) == 1;
             PB_Mon.Image = GetCaughtImage(ind, CHK_CaughtMon.Checked);
             #region Mega Visibility
             CHK_MegaY.Visible = HasMega[mons[ind].Item1][0];
             CHK_MegaX.Visible = HasMega[mons[ind].Item1][1];
-            PB_MegaX.Image = HasMega[mons[ind].Item1][1] ? new Bitmap((Image)Properties.Resources.ResourceManager.GetObject("MegaStone" + mons[ind].Item1.ToString("000") + "_X")) : new Bitmap(16, 16);
-            PB_MegaY.Image = HasMega[mons[ind].Item1][0] ? new Bitmap((Image)Properties.Resources.ResourceManager.GetObject("MegaStone" + mons[ind].Item1.ToString("000") + ((HasMega[mons[ind].Item1][0] && HasMega[mons[ind].Item1][1]) ? "_Y" : string.Empty))) : new Bitmap(16, 16);
+            PB_MegaX.Image = HasMega[mons[ind].Item1][1] ? new Bitmap((Image)Properties.Resources.ResourceManager.GetObject("MegaStone" + mons[ind].Item1.ToString("000") + "_Y")) : new Bitmap(16, 16);
+            PB_MegaY.Image = HasMega[mons[ind].Item1][0] ? new Bitmap((Image)Properties.Resources.ResourceManager.GetObject("MegaStone" + mons[ind].Item1.ToString("000") + ((HasMega[mons[ind].Item1][0] && HasMega[mons[ind].Item1][1]) ? "_X" : string.Empty))) : new Bitmap(16, 16);
             #endregion
             int mega_ofs = 0x406 + ((ind + 2) / 4);
             CHK_MegaY.Checked = ((BitConverter.ToUInt16(savedata, mega_ofs) >> ((5 + (ind << 1)) % 8)) & 1) == 1;
@@ -330,6 +340,33 @@ namespace Pokemon_Shuffle_Save_Editor
         private void UpdateProperty(object s, PropertyValueChangedEventArgs e)
         {
             UpdateForm(s, e);
+        }
+
+        private void Form1_DragDrop(object sender, DragEventArgs e)
+        {
+            OpenFile(GetFilename(e));
+        }
+
+        private void Form1_DragEnter(object sender, DragEventArgs e)
+        {
+            string filename = GetFilename(e);
+            e.Effect = (filename != null && filename.ToLower().EndsWith("savedata.bin"))
+                ? DragDropEffects.Copy
+                : DragDropEffects.None;
+        }
+
+        private string GetFilename(DragEventArgs e)
+        {
+            string filename = null;
+            if ((e.AllowedEffect & DragDropEffects.Copy) == DragDropEffects.Copy)
+            {
+                Array data = ((IDataObject)e.Data).GetData("FileName") as Array;
+                if (data != null && (data.Length == 1) && (data.GetValue(0) is String))
+                {
+                    filename = ((string[])data)[0];
+                }
+            }
+            return filename;
         }
     }
 
