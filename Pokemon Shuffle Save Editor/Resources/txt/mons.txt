@@ -778,9 +778,94 @@ Xerneas
 Yveltal
 Zygarde
 Diancie
----
----
----
+Hoopa Bound
+Hoopa Unbound
+Volcanion
+Bulbasaur Winking
+Charmander Winking
+Squirtle Winking
+Pikachu Angry
+Pikachu Winking
+Pikachu Sleeping
+Pikachu Disappointed
+Pikachu Fired Up
+Pikachu Surprised
+Pikachu Enamored
+Pikachu Teary
+Pikachu Dejected
+Pikachu Smiling
+Pikachu Dizzy
+Pikachu Happy
+Pikachu Costumed
+Pikachu Holiday
+Raichu Winking
+Clefairy Winking
+Clefable Winking
+Jigglypuff Winking
+Wigglytuff Winking
+Gengar Smiling
+Chansey Winking
+Shiny Magikarp
+Shiny Gyarados
+Chikorita Winking
+Cyndaquil Winking
+Totodile Winking
+Togetic Winking
+Marill Winking
+Azumarill Winking
+Hoppip Winking
+Skiploom Winking
+Jumpluff Winking
+Snubbull Winking
+Granbull Winking
+Delibird Holiday
+Blissey Winking
+Treecko Winking
+Torchic Winking
+Mudkip Winking
+Shroomish Winking
+Delcatty Winking
+Costumed Sableye
+Plusle Winking
+Minun Winking
+Castform Winking
+Snorunt Winking
+Glalie Winking
+Shiny Rayquaza
+Turtwig Winking
+Chimchar Winking
+Piplup Winking
+Roserade Winking
+Pachirisu Winking
+Cherubi Winking
+Cherrim Winking
+Snover Winking
+Togekiss Winking
+Phione Winking
+Manaphy Winking
+Snivy Winking
+Tepig Winking
+Oshawott Winking
+Audino Winking
+Cottonee Winking
+Whimsicott Winking
+Vanillite Smiling
+Cubchoo Smiling
+Chespin Winking
+Fennekin Winking
+Froakie Winking
+Greninja Ash
+Flabébé Winking
+Floette Winking
+Aromatisse Winking
+Swirlix Winking
+Slurpuff Winking
+Dedenne Winking
+Carbink Winking
+Pumpkaboo Smiling
+Gourgeist Smiling
+Zygarde 10% Forme
+Zygarde Complete Forme
 Mega Venusaur
 Mega Charizard X
 Mega Charizard Y
@@ -829,3 +914,9 @@ Mega Abomasnow
 Mega Gallade
 Mega Audino
 Mega Diancie
+Mega Gyarados Shiny
+Mega Glalie Winking
+Mega Rayquaza Shiny
+Mega Gengar Smiling
+Mega Sableye Costumed
+Mega Audino Winking
