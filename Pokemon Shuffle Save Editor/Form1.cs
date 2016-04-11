@@ -61,9 +61,9 @@ namespace Pokemon_Shuffle_Save_Editor
             {
                 int entrylen = BitConverter.ToInt32(mondata,0x4);
                 byte[] data = mondata.Skip(0x50 + entrylen * i).Take(entrylen).ToArray();
-                bool isMega = i > 867 && i < 919; //changed this because the index was changed
+                bool isMega = i > 882 && i < 934; //changed this because the index was changed
                 int spec = isMega
-                    ? specieslist.ToList().IndexOf(monslist[megas[i - 868]].Replace("Shiny","").Replace("Winking","").Replace("Smiling","").Replace(" ","")) //crappy but needed for IndexOf() to find the pokemon's name in specieslist (only adjectives on megas names matter)
+                    ? specieslist.ToList().IndexOf(monslist[megas[i - 883]].Replace("Shiny","").Replace("Winking","").Replace("Smiling","").Replace(" ","")) //crappy but needed for IndexOf() to find the pokemon's name in specieslist (only adjectives on megas names matter)
                     : (BitConverter.ToInt32(data, 0xE) >> 6) & 0x7FF; //this changed too, also updated the resources.resx file
                 mons[i] = new Tuple<int, int, bool>(spec, forms[spec], isMega);
                 forms[spec]++;
@@ -265,7 +265,9 @@ namespace Pokemon_Shuffle_Save_Editor
         private Bitmap GetMonImage(int mon_num, int form = 0, bool mega = false)
         {
             string imgname = string.Empty;
-            if (mega)
+            if (mega && !HasMega[mon_num][1]) //pretty hacky but necessary to differenciate Rayquaza/Gyarados from Charizard/Mewtwo
+                form -= 2;                    
+            if (mega && HasMega[mon_num][1])  //Otherwise, either stage 300 is Shiny M-Ray or stage 150 is M-mewtwo X
                 form--;
             if (mega)
                 imgname += "mega_";

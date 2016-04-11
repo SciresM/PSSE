@@ -1189,7 +1189,6 @@
     <None Include="Resources\img\pokemon_718_01.png" />
     <Content Include="Resources\img\pokemon_718_02.png" />
     <Content Include="Resources\img\pokemon_719.png" />
-    <None Include="Resources\pokemon_718_02.bmp" />
     <None Include="Resources\img\pokemon_720.png" />
     <None Include="Resources\img\pokemon_720_01.png" />
     <None Include="Resources\img\pokemon_721.png" />
