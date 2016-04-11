@@ -118,296 +118,494 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="mega_pokemon_003" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_003.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_003_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_003_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_006" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_006.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_006_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_006_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_006_01_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_006_01_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_006_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_006_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_009" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_009.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_009_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_009_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_015" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_015.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_015_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_015_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_018" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_018.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_018_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_018_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_065" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_065.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_065_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_065_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_080" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_080.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_080_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_080_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_094" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_094.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_094_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_094_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_115" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_115.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_115_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_115_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_127" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_127.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_127_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_127_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_130" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_130.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_130_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_130_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_142" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_142.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_142_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_142_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_150" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_150.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_150_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_150_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_150_01_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_150_01_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_150_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_150_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_181" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_181.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_181_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_181_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_208" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_208.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_208_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_208_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_212" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_212.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_212_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_212_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_214" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_214.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_214_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_214_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_229" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_229.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_229_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_229_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_248" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_248.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_248_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_248_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_254" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_254.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_254_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_254_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_257" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_257.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_257_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_257_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_260" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_260.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_260_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_260_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_282" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_282.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_282_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_282_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_302" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_302.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_302_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_302_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_303" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_303.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_303_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_303_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_306" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_306.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_306_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_306_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_308" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_308.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_308_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_308_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_310" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_310.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_310_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_310_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_319" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_319.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_319_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_319_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_323" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_323.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_323_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_323_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_334" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_334.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_334_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_334_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_354" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_354.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_354_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_354_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_359" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_359.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_359_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_359_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_362" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_362.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_362_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_362_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_373" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_373.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_373_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_373_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_376" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_376.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_376_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_376_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_380" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_380.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_380_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_380_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_381" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_381.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_381_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_381_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_384" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_384.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_384_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_384_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_428" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_428.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_428_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_428_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_445" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_445.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_445_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_445_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_448" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_448.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_448_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_448_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_460" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_460.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_460_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_460_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_475" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_475.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_475_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_475_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_531" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_531.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_531_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_531_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_719" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_719.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mega_pokemon_719_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\img\mega_pokemon_719_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="mons" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\txt\mons.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="species" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\txt\species.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="megaStone" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\bin\megaStone.bin;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="pokemonData" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\bin\pokemonData.bin;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="stageData" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\bin\stageData.bin;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="stageDataEvent" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\bin\stageDataEvent.bin;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="stageDataExtra" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\bin\stageDataExtra.bin;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="MegaStone003" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\MegaStone003.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MegaStone006_X" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\MegaStone006_X.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MegaStone006_Y" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\MegaStone006_Y.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MegaStone009" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\MegaStone009.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MegaStone015" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\MegaStone015.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MegaStone018" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\MegaStone018.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MegaStone065" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\MegaStone065.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MegaStone080" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\MegaStone080.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MegaStone094" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\MegaStone094.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MegaStone115" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\MegaStone115.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MegaStone127" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\MegaStone127.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MegaStone130" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\MegaStone130.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MegaStone142" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\MegaStone142.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MegaStone150_X" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\MegaStone150_X.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MegaStone150_Y" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\MegaStone150_Y.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MegaStone181" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\MegaStone181.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MegaStone208" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\MegaStone208.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MegaStone212" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\MegaStone212.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MegaStone214" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\MegaStone214.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MegaStone229" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\MegaStone229.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MegaStone248" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\MegaStone248.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MegaStone254" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\MegaStone254.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MegaStone257" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\MegaStone257.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MegaStone260" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\MegaStone260.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MegaStone282" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\MegaStone282.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MegaStone302" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\MegaStone302.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MegaStone303" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\MegaStone303.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MegaStone306" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\MegaStone306.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MegaStone308" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\MegaStone308.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MegaStone310" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\MegaStone310.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MegaStone319" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\MegaStone319.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MegaStone323" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\MegaStone323.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MegaStone334" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\MegaStone334.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MegaStone354" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\MegaStone354.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MegaStone359" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\MegaStone359.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MegaStone362" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\MegaStone362.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MegaStone373" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\MegaStone373.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MegaStone376" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\MegaStone376.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MegaStone380" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\MegaStone380.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MegaStone381" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\MegaStone381.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MegaStone384" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\MegaStone384.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MegaStone428" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\MegaStone428.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MegaStone445" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\MegaStone445.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MegaStone448" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\MegaStone448.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MegaStone460" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\MegaStone460.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MegaStone475" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\MegaStone475.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MegaStone531" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\MegaStone531.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MegaStone719" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\MegaStone719.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_003" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_003.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_003_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_003_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_006" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_006.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_006_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_006_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_006_01_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_006_01_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_006_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_006_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_009" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_009.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_009_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_009_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_015" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_015.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_015_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_015_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_018" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_018.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_018_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_018_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_065" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_065.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_065_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_065_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_080" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_080.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_080_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_080_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_094" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_094.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_094_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_094_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_094_01_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_094_01_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_094_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_094_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_115" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_115.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_115_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_115_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_127" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_127.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_127_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_127_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_130" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_130.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_130_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_130_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_130_01_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_130_01_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_130_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_130_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_142" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_142.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_142_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_142_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_150" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_150.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_150_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_150_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_150_01_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_150_01_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_150_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_150_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_181" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_181.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_181_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_181_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_208" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_208.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_208_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_208_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_212" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_212.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_212_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_212_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_214" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_214.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_214_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_214_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_229" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_229.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_229_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_229_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_248" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_248.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_248_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_248_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_254" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_254.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_254_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_254_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_257" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_257.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_257_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_257_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_260" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_260.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_260_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_260_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_282" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_282.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_282_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_282_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_302" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_302.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_302_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_302_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_302_01_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_302_01_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_302_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_302_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_303" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_303.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_303_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_303_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_306" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_306.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_306_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_306_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_308" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_308.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_308_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_308_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_310" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_310.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_310_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_310_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_319" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_319.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_319_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_319_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_323" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_323.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_323_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_323_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_334" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_334.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_334_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_334_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_354" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_354.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_354_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_354_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_359" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_359.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_359_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_359_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_362" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_362.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_362_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_362_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_362_01_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_362_01_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_362_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_362_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_373" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_373.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_373_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_373_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_376" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_376.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_376_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_376_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_380" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_380.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_380_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_380_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_381" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_381.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_381_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_381_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_384" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_384.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_384_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_384_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_384_01_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_384_01_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_384_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_384_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_428" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_428.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_428_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_428_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_445" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_445.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_445_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_445_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_448" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_448.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_448_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_448_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_460" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_460.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_460_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_460_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_475" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_475.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_475_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_475_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_531" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_531.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_531_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_531_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_531_01_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_531_01_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_531_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_531_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_719" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_719.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mega_pokemon_719_lo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\mega_pokemon_719_lo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Plate" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\Plate.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -418,6 +616,9 @@
   <data name="pokemon_001" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_001.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="pokemon_001_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_001_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="pokemon_002" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_002.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -427,6 +628,9 @@
   <data name="pokemon_004" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_004.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="pokemon_004_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_004_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="pokemon_005" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_005.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -435,6 +639,9 @@
   </data>
   <data name="pokemon_007" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_007.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pokemon_007_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_007_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="pokemon_008" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_008.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -490,8 +697,53 @@
   <data name="pokemon_025" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_025.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="pokemon_025_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_025_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pokemon_025_02" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_025_02.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pokemon_025_03" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_025_03.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pokemon_025_04" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_025_04.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pokemon_025_05" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_025_05.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pokemon_025_06" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_025_06.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pokemon_025_07" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_025_07.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pokemon_025_08" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_025_08.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pokemon_025_09" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_025_09.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pokemon_025_10" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_025_10.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pokemon_025_11" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_025_11.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pokemon_025_12" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_025_12.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pokemon_025_13" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_025_13.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pokemon_025_14" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_025_14.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="pokemon_026" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_026.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pokemon_026_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_026-01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="pokemon_027" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_027.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -520,8 +772,14 @@
   <data name="pokemon_035" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_035.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="pokemon_035_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_035_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="pokemon_036" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_036.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pokemon_036_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_036_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="pokemon_037" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_037.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -532,8 +790,14 @@
   <data name="pokemon_039" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_039.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="pokemon_039_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_039_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="pokemon_040" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_040.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pokemon_040_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_040_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="pokemon_041" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_041.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -697,6 +961,9 @@
   <data name="pokemon_094" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_094.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="pokemon_094_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_094_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="pokemon_095" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_095.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -754,6 +1021,9 @@
   <data name="pokemon_113" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_113.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="pokemon_113_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_113_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="pokemon_114" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_114.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -802,8 +1072,14 @@
   <data name="pokemon_129" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_129.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="pokemon_129_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_129_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="pokemon_130" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_130.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pokemon_130_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_130_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="pokemon_131" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_131.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -871,6 +1147,9 @@
   <data name="pokemon_152" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_152.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="pokemon_152_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_152_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="pokemon_153" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_153.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -880,6 +1159,9 @@
   <data name="pokemon_155" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_155.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="pokemon_155_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_155_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="pokemon_156" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_156.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -888,6 +1170,9 @@
   </data>
   <data name="pokemon_158" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_158.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pokemon_158_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_158_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="pokemon_159" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_159.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -943,6 +1228,9 @@
   <data name="pokemon_176" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_176.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="pokemon_176_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_176_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="pokemon_177" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_177.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -964,8 +1252,14 @@
   <data name="pokemon_183" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_183.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="pokemon_183_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_183_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="pokemon_184" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_184.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pokemon_184_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_184_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="pokemon_185" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_185.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -976,11 +1270,20 @@
   <data name="pokemon_187" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_187.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="pokemon_187_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_187_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="pokemon_188" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_188.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="pokemon_188_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_188_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="pokemon_189" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_189.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pokemon_189_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_189_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="pokemon_190" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_190.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -1123,8 +1426,14 @@
   <data name="pokemon_209" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_209.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="pokemon_209_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_209_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="pokemon_210" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_210.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pokemon_210_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_210_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="pokemon_211" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_211.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -1170,6 +1479,9 @@
   </data>
   <data name="pokemon_225" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_225.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pokemon_225_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_225_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="pokemon_226" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_226.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -1222,6 +1534,9 @@
   <data name="pokemon_242" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_242.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="pokemon_242_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_242_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="pokemon_243" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_243.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -1252,6 +1567,9 @@
   <data name="pokemon_252" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_252.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="pokemon_252_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_252_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="pokemon_253" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_253.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -1261,6 +1579,9 @@
   <data name="pokemon_255" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_255.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="pokemon_255_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_255_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="pokemon_256" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_256.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -1269,6 +1590,9 @@
   </data>
   <data name="pokemon_258" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_258.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pokemon_258_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_258_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="pokemon_259" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_259.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -1351,6 +1675,9 @@
   <data name="pokemon_285" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_285.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="pokemon_285_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_285_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="pokemon_286" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_286.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -1399,8 +1726,14 @@
   <data name="pokemon_301" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_301.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="pokemon_301_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_301_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="pokemon_302" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_302.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pokemon_302_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_302_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="pokemon_303" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_303.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -1429,8 +1762,14 @@
   <data name="pokemon_311" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_311.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="pokemon_311_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_311_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="pokemon_312" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_312.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pokemon_312_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_312_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="pokemon_313" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_313.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -1588,8 +1927,14 @@
   <data name="pokemon_361" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_361.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="pokemon_361_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_361_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="pokemon_362" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_362.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pokemon_362_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_362_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="pokemon_363" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_363.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -1663,6 +2008,9 @@
   <data name="pokemon_384" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_384.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="pokemon_384_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_384_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="pokemon_385" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_385.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -1681,6 +2029,9 @@
   <data name="pokemon_387" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_387.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="pokemon_387_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_387_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="pokemon_388" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_388.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -1690,6 +2041,9 @@
   <data name="pokemon_390" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_390.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="pokemon_390_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_390_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="pokemon_391" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_391.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -1698,6 +2052,9 @@
   </data>
   <data name="pokemon_393" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_393.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pokemon_393_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_393_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="pokemon_394" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_394.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -1741,6 +2098,9 @@
   <data name="pokemon_407" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_407.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="pokemon_407_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_407_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="pokemon_408" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_408.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -1783,6 +2143,9 @@
   <data name="pokemon_417" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_417.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="pokemon_417_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_417_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="pokemon_418" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_418.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -1792,11 +2155,17 @@
   <data name="pokemon_420" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_420.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="pokemon_420_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_420_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="pokemon_421" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_421.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="pokemon_421_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_421_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pokemon_421_02" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_421_02.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="pokemon_422" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_422.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -1918,6 +2287,9 @@
   <data name="pokemon_459" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_459.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="pokemon_459_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_459_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="pokemon_460" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_460.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -1944,6 +2316,9 @@
   </data>
   <data name="pokemon_468" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_468.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pokemon_468_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_468_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="pokemon_469" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_469.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -1978,21 +2353,6 @@
   <data name="pokemon_479" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_479.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="pokemon_479_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img\pokemon_479_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="pokemon_479_02" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img\pokemon_479_02.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="pokemon_479_03" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img\pokemon_479_03.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="pokemon_479_04" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img\pokemon_479_04.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="pokemon_479_05" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img\pokemon_479_05.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="pokemon_480" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_480.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -2026,8 +2386,14 @@
   <data name="pokemon_489" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_489.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="pokemon_489_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_489_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="pokemon_490" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_490.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pokemon_490_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_490_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="pokemon_491" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_491.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -2098,6 +2464,9 @@
   <data name="pokemon_495" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_495.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="pokemon_495_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_495_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="pokemon_496" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_496.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -2107,6 +2476,9 @@
   <data name="pokemon_498" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_498.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="pokemon_498_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_498_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="pokemon_499" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_499.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -2115,6 +2487,9 @@
   </data>
   <data name="pokemon_501" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_501.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pokemon_501_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_501_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="pokemon_502" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_502.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -2206,6 +2581,9 @@
   <data name="pokemon_531" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_531.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="pokemon_531_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_531_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="pokemon_532" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_532.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -2251,8 +2629,14 @@
   <data name="pokemon_546" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_546.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="pokemon_546_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_546_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="pokemon_547" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_547.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pokemon_547_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_547_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="pokemon_548" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_548.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -2364,6 +2748,9 @@
   </data>
   <data name="pokemon_582" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_582.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pokemon_582_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_582_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="pokemon_583" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_583.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -2481,6 +2868,9 @@
   </data>
   <data name="pokemon_613" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_613.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pokemon_613_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_613_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="pokemon_614" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_614.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -2626,6 +3016,9 @@
   <data name="pokemon_650" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_650.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="pokemon_650_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_650_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="pokemon_651" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_651.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -2634,6 +3027,9 @@
   </data>
   <data name="pokemon_653" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_653.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pokemon_653_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_653_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="pokemon_654" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_654.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -2644,11 +3040,17 @@
   <data name="pokemon_656" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_656.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="pokemon_656_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_656_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="pokemon_657" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_657.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="pokemon_658" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_658.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pokemon_658_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_658_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="pokemon_659" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_659.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -2752,6 +3154,9 @@
   <data name="pokemon_669_04" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_669_04.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="pokemon_669_05" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_669_05.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="pokemon_670" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_670.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -2766,6 +3171,9 @@
   </data>
   <data name="pokemon_670_04" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_670_04.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pokemon_670_05" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_670_05.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="pokemon_671" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_671.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -2851,11 +3259,20 @@
   <data name="pokemon_683" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_683.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="pokemon_683_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_683_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="pokemon_684" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_684.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="pokemon_684_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_684_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="pokemon_685" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_685.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pokemon_685_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_685_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="pokemon_686" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_686.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -2908,8 +3325,14 @@
   <data name="pokemon_702" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_702.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="pokemon_702_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_702_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="pokemon_703" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_703.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pokemon_703_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_703_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="pokemon_704" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_704.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -2941,6 +3364,9 @@
   <data name="pokemon_710_03" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_710_03.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="pokemon_710_04" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_710_04.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="pokemon_711" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_711.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -2952,6 +3378,9 @@
   </data>
   <data name="pokemon_711_03" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_711_03.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pokemon_711_04" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_711_04.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="pokemon_712" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_712.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -2974,169 +3403,22 @@
   <data name="pokemon_718" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_718.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="pokemon_718_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_718_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pokemon_718_02" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_718_02.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="pokemon_719" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_719.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="species" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\txt\species.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  <data name="pokemon_720" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_720.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="megaStone" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\bin\megaStone.bin;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="pokemon_720_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_720_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="MegaStone003" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img\MegaStone003.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MegaStone006_X" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img\MegaStone006_X.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MegaStone006_Y" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img\MegaStone006_Y.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MegaStone009" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img\MegaStone009.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MegaStone015" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img\MegaStone015.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MegaStone018" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img\MegaStone018.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MegaStone065" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img\MegaStone065.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MegaStone080" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img\MegaStone080.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MegaStone094" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img\MegaStone094.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MegaStone115" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img\MegaStone115.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MegaStone127" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img\MegaStone127.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MegaStone130" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img\MegaStone130.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MegaStone142" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img\MegaStone142.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MegaStone150_X" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img\MegaStone150_X.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MegaStone150_Y" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img\MegaStone150_Y.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MegaStone181" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img\MegaStone181.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MegaStone208" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img\MegaStone208.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MegaStone212" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img\MegaStone212.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MegaStone214" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img\MegaStone214.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MegaStone229" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img\MegaStone229.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MegaStone248" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img\MegaStone248.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MegaStone254" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img\MegaStone254.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MegaStone257" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img\MegaStone257.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MegaStone260" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img\MegaStone260.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MegaStone282" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img\MegaStone282.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MegaStone302" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img\MegaStone302.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MegaStone303" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img\MegaStone303.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MegaStone306" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img\MegaStone306.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MegaStone308" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img\MegaStone308.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MegaStone310" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img\MegaStone310.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MegaStone319" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img\MegaStone319.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MegaStone323" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img\MegaStone323.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MegaStone334" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img\MegaStone334.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MegaStone354" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img\MegaStone354.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MegaStone359" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img\MegaStone359.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MegaStone362" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img\MegaStone362.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MegaStone373" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img\MegaStone373.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MegaStone376" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img\MegaStone376.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MegaStone380" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img\MegaStone380.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MegaStone381" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img\MegaStone381.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MegaStone384" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img\MegaStone384.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MegaStone428" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img\MegaStone428.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MegaStone445" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img\MegaStone445.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MegaStone448" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img\MegaStone448.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MegaStone460" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img\MegaStone460.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MegaStone475" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img\MegaStone475.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MegaStone531" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img\MegaStone531.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MegaStone719" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img\MegaStone719.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="pokemonData" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\bin\pokemonData.bin;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="stageData" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\bin\stageData.bin;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="stageDataEvent" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\bin\stageDataEvent.bin;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="stageDataExtra" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\bin\stageDataExtra.bin;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="pokemon_721" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\pokemon_721.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
