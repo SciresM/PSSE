@@ -30,7 +30,7 @@ namespace Pokemon_Shuffle_Save_Editor
 
         private void B_CaughtEverything_Click(object sender, EventArgs e)
         {
-            for (int i = 1; i < 780; i++)
+            for (int i = 1; i < 883; i++) //includes 15 reserved slots
             {
                 SetPokemon(i, true);
             }
@@ -84,14 +84,15 @@ namespace Pokemon_Shuffle_Save_Editor
 
         private void B_Level10_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < 780; i++)
+            for (int i = 0; i < 883; i++) //Updated range
             {
                 if (GetPokemon(i))
                 {
-                    SetLevel(i, 10);
+                    int max = 10 + ((BitConverter.ToUInt16(savedata, 0xA9DB + ((i * 6) / 8)) >> ((i * 6) % 8)) & 0x3F); //Reads the amount of lollipops used on that pokemon & set level to current Max.
+                    SetLevel(i, max);                                                                                   //May behave poorly if lollipops > 5 (needs testing)
                 }
             }
-            MessageBox.Show("Everything you've caught is now level 10.");
+            MessageBox.Show("Everything you've caught is now level Max.");
         }
 
         private void B_MaxResources_Click(object sender, EventArgs e)
@@ -105,7 +106,10 @@ namespace Pokemon_Shuffle_Save_Editor
                 val |= (99 << 7);
                 Array.Copy(BitConverter.GetBytes(val), 0, savedata, 0xd0 + i, 2);
             }
-            savedata[0x2D4C] = (byte)((((99) << 1) & 0xFE) | (savedata[0x2D4C] & 1)); // Mega Speedups
+            for (int i = 0; i < 9; i++)
+            {
+                savedata[0x2D4C + i] = (byte)((((99) << 1) & 0xFE) | (savedata[0x2D4C + i] & 1)); // Mega Speedups & other items
+            }
             MessageBox.Show("Gave 99 hearts, 99999 coins, 150 jewels, and 99 of every item.");
         }
 
