@@ -167,7 +167,9 @@ namespace Pokemon_Shuffle_Save_Editor
                 int level_ofs = (((ind - 1) * 4) / 8);
                 int level_shift = ((((ind - 1) * 4) + 1) % 8);
                 ushort level = BitConverter.ToUInt16(savedata, 0x187+level_ofs);
-                level = (ushort)((level & (ushort)(~(0xF << level_shift))) | ((int)NUP_Level.Value << level_shift));
+
+                int set_level = ((int)NUP_Level.Value) == 1 ? 0 : ((int)NUP_Level.Value);
+                level = (ushort)((level & (ushort)(~(0xF << level_shift))) | (set_level << level_shift));
                 Array.Copy(BitConverter.GetBytes(level), 0, savedata, 0x187 + level_ofs, 2);
                 int caught_ofs = (((ind - 1) + 6) / 8);
                 int caught_shift = (((ind - 1) + 6) % 8);
@@ -186,7 +188,6 @@ namespace Pokemon_Shuffle_Save_Editor
                     val &= 0x7F;
                     val |= (ushort)(SI_Items.Items[i] << 7);
                     Array.Copy(BitConverter.GetBytes(val), 0, savedata, 0xd0 + i, 2);
-                    Console.WriteLine("Updated " + i + " to " + SI_Items.Items[i]);
                 }
 
                 for (int i = 0; i < SI_Items.Enchantments.Length; i++)
@@ -230,7 +231,13 @@ namespace Pokemon_Shuffle_Save_Editor
             int level = BitConverter.ToUInt16(savedata, level_ofs);
             level >>= ((((ind-1)*4)+1) % 8);
             level &= 0xF;
-            NUP_Level.Value = level;
+
+            // The max on the box could be higher than 10 now
+            int num_raise_max_level = Math.Min(((BitConverter.ToUInt16(savedata, 0xA9DB + ((ind * 6) / 8)) >> ((ind * 6) % 8)) & 0x3F), 5);
+            NUP_Level.Maximum = 10 + num_raise_max_level;
+            
+            // Stop showing 0 for the level...
+            NUP_Level.Value = level > 0 ? level : 1;
             int caught_ofs = 0x546+(((ind-1)+6)/8);
             CHK_CaughtMon.Checked = ((savedata[caught_ofs] >> ((((ind-1)+6) % 8))) & 1) == 1;
             PB_Mon.Image = GetCaughtImage(ind, CHK_CaughtMon.Checked);
@@ -290,7 +297,6 @@ namespace Pokemon_Shuffle_Save_Editor
                 imgname += "_" + form.ToString("00");
             if (mega)
                 imgname += "_lo";
-            //Console.WriteLine(imgname);
             return new Bitmap((Image)Properties.Resources.ResourceManager.GetObject(imgname));
         }
 

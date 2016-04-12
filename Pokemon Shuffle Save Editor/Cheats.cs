@@ -89,7 +89,7 @@ namespace Pokemon_Shuffle_Save_Editor
                 if (GetPokemon(i))
                 {
                     //Reads the amount of lollipops used on that pokemon & set level to current Max.
-                    int numRaiseMaxLevel = Math.Max(((BitConverter.ToUInt16(savedata, 0xA9DB + ((i * 6) / 8)) >> ((i * 6) % 8)) & 0x3F), 5);
+                    int numRaiseMaxLevel = Math.Min(((BitConverter.ToUInt16(savedata, 0xA9DB + ((i * 6) / 8)) >> ((i * 6) % 8)) & 0x3F), 5);
                     int max = 10 + numRaiseMaxLevel;
                     SetLevel(i, max);
                 }
