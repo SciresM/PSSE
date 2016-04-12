@@ -9,9 +9,9 @@ using System.Windows.Forms;
 
 namespace Pokemon_Shuffle_Save_Editor
 {
-    public partial class Form1 : Form
+    public partial class Main : Form
     {
-        public Form1()
+        public Main()
         {
             InitializeComponent();
             string resourcedir  = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)+Path.DirectorySeparatorChar+"resources"+Path.DirectorySeparatorChar;
@@ -115,15 +115,8 @@ namespace Pokemon_Shuffle_Save_Editor
 
             OpenFileDialog ofd = new OpenFileDialog {FileName = "savedata.bin"};
             if (ofd.ShowDialog() != DialogResult.OK) return;
-            if (Path.GetFileName(ofd.FileName) != "savedata.bin") return;
-
-            TB_FilePath.Text = ofd.FileName;
-            savedata = File.ReadAllBytes(ofd.FileName);
-            Parse();
-            B_Save.Enabled = GB_Caught.Enabled = GB_HighScore.Enabled = GB_Resources.Enabled = B_CheatsForm.Enabled = ItemsGrid.Enabled = loaded = true;
-            UpdateProperty(null, null);
+            if (IsShuffleSave(ofd.FileName)) { Open(ofd.FileName); }
         }
-
 
         private void B_Save_Click(object sender, EventArgs e)
         {
@@ -134,12 +127,33 @@ namespace Pokemon_Shuffle_Save_Editor
             MessageBox.Show("Saved save file to " + sfd.FileName + "."+Environment.NewLine+"Remember to delete secure value before importing.");
         }
 
+        private void Open(string file)
+        {
+            TB_FilePath.Text = file;
+            savedata = File.ReadAllBytes(file);
+            Parse();
+            B_Save.Enabled = GB_Caught.Enabled = GB_HighScore.Enabled = GB_Resources.Enabled = B_CheatsForm.Enabled = ItemsGrid.Enabled = loaded = true;
+            UpdateProperty(null, null);
+        }
+
+        // Try to do a better job at filtering files rather than just saying "oh, it's not savedata.bin quit"
+        private bool IsShuffleSave(string file)
+        {
+            FileInfo info = new FileInfo(file);
+            if (info.Length != 74807) return false; // Probably not
+
+            var contents = new byte[8];
+            File.OpenRead(file).Read(contents, 0, contents.Length);
+            return BitConverter.ToInt64(contents, 0) == 0x4000000009L;
+        }
+
         private void Parse()
         {
             UpdateResourceBox();
             UpdateStageBox();
             UpdateOwnedBox();
         }
+
         private bool updating;
 
         private void UpdateForm(object sender, EventArgs e)
@@ -333,6 +347,33 @@ namespace Pokemon_Shuffle_Save_Editor
         private void UpdateProperty(object s, PropertyValueChangedEventArgs e)
         {
             UpdateForm(s, e);
+        }
+
+        private void Form1_DragEnter(object sender, DragEventArgs e)
+        {
+            string filename = GetDragFilename(e);
+            e.Effect = (filename != null && IsShuffleSave(filename)) ? DragDropEffects.Copy : DragDropEffects.None;
+        }
+
+        private void Form1_DragDrop(object sender, DragEventArgs e)
+        {
+            Open(GetDragFilename(e));
+        }
+
+        protected string GetDragFilename(DragEventArgs e)
+        {
+            if ((e.AllowedEffect & DragDropEffects.Copy) == DragDropEffects.Copy)
+            {
+                Array data = ((IDataObject)e.Data).GetData("FileName") as Array;
+                if (data != null)
+                {
+                    if ((data.Length == 1) && (data.GetValue(0) is String))
+                    {
+                        return ((string[])data)[0];
+                    }
+                }
+            }
+            return null;
         }
     }
 
