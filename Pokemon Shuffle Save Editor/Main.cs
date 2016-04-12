@@ -240,6 +240,10 @@ namespace Pokemon_Shuffle_Save_Editor
             NUP_Level.Value = level > 0 ? level : 1;
             int caught_ofs = 0x546+(((ind-1)+6)/8);
             CHK_CaughtMon.Checked = ((savedata[caught_ofs] >> ((((ind-1)+6) % 8))) & 1) == 1;
+
+            // There's no level if the Pokémon hasn't been caught
+            NUP_Level.Visible = CHK_CaughtMon.Checked;
+
             PB_Mon.Image = GetCaughtImage(ind, CHK_CaughtMon.Checked);
             #region Mega Visibility
             CHK_MegaY.Visible = HasMega[mons[ind].Item1][0];
