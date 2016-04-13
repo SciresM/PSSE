@@ -1,6 +1,6 @@
 ﻿namespace Pokemon_Shuffle_Save_Editor
 {
-    partial class Form1
+    partial class Main
     {
         /// <summary>
         /// Required designer variable.
@@ -57,12 +57,10 @@
             this.CHK_MegaX = new System.Windows.Forms.CheckBox();
             this.CHK_MegaY = new System.Windows.Forms.CheckBox();
             this.NUP_Level = new System.Windows.Forms.NumericUpDown();
-            this.label7 = new System.Windows.Forms.Label();
             this.CHK_CaughtMon = new System.Windows.Forms.CheckBox();
             this.CB_MonIndex = new System.Windows.Forms.ComboBox();
             this.PB_Mon = new System.Windows.Forms.PictureBox();
             this.GB_Resources = new System.Windows.Forms.GroupBox();
-            this.ItemsGrid = new System.Windows.Forms.PropertyGrid();
             this.NUP_Jewels = new System.Windows.Forms.NumericUpDown();
             this.NUP_Coins = new System.Windows.Forms.NumericUpDown();
             this.NUP_Hearts = new System.Windows.Forms.NumericUpDown();
@@ -70,6 +68,7 @@
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.B_CheatsForm = new System.Windows.Forms.Button();
+            this.ItemsGrid = new System.Windows.Forms.PropertyGrid();
             this.GB_HighScore.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NUP_EventScore)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUP_EventIndex)).BeginInit();
@@ -308,7 +307,6 @@
             this.GB_Caught.Controls.Add(this.CHK_MegaX);
             this.GB_Caught.Controls.Add(this.CHK_MegaY);
             this.GB_Caught.Controls.Add(this.NUP_Level);
-            this.GB_Caught.Controls.Add(this.label7);
             this.GB_Caught.Controls.Add(this.CHK_CaughtMon);
             this.GB_Caught.Controls.Add(this.CB_MonIndex);
             this.GB_Caught.Controls.Add(this.PB_Mon);
@@ -358,30 +356,22 @@
             // 
             // NUP_Level
             // 
-            this.NUP_Level.Location = new System.Drawing.Point(130, 98);
+            this.NUP_Level.Location = new System.Drawing.Point(6, 99);
             this.NUP_Level.Maximum = new decimal(new int[] {
             10,
             0,
             0,
             0});
             this.NUP_Level.Name = "NUP_Level";
-            this.NUP_Level.Size = new System.Drawing.Size(49, 20);
+            this.NUP_Level.Size = new System.Drawing.Size(64, 20);
             this.NUP_Level.TabIndex = 19;
             this.NUP_Level.Value = new decimal(new int[] {
             1,
             0,
             0,
             0});
+            this.NUP_Level.Visible = false;
             this.NUP_Level.ValueChanged += new System.EventHandler(this.UpdateForm);
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(85, 100);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(39, 13);
-            this.label7.TabIndex = 18;
-            this.label7.Text = "Level: ";
             // 
             // CHK_CaughtMon
             // 
@@ -428,51 +418,6 @@
             this.GB_Resources.TabIndex = 25;
             this.GB_Resources.TabStop = false;
             this.GB_Resources.Text = "Resources";
-            // 
-            // ItemsGrid
-            // 
-            this.ItemsGrid.Location = new System.Drawing.Point(6, 77);
-            this.ItemsGrid.Name = "ItemsGrid";
-            shuffleItems1.AttackUp = 0;
-            shuffleItems1.Complexity = 0;
-            shuffleItems1.Disruption = 0;
-            shuffleItems1.Enchantments = new int[] {
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0};
-            shuffleItems1.Experience = 0;
-            shuffleItems1.ExperienceBoostL = 0;
-            shuffleItems1.ExperienceBoostM = 0;
-            shuffleItems1.ExperienceBoostS = 0;
-            shuffleItems1.Items = new int[] {
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0};
-            shuffleItems1.LevelUp = 0;
-            shuffleItems1.MegaSpeedup = 0;
-            shuffleItems1.MegaStart = 0;
-            shuffleItems1.Moves = 0;
-            shuffleItems1.RaiseMaxLevel = 0;
-            shuffleItems1.SkillBoosterL = 0;
-            shuffleItems1.SkillBoosterM = 0;
-            shuffleItems1.SkillBoosterS = 0;
-            shuffleItems1.Time = 0;
-            this.ItemsGrid.SelectedObject = shuffleItems1;
-            this.ItemsGrid.Size = new System.Drawing.Size(241, 235);
-            this.ItemsGrid.TabIndex = 27;
-            this.ItemsGrid.ToolbarVisible = false;
-            this.ItemsGrid.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.UpdateProperty);
-            this.ItemsGrid.EnabledChanged += new System.EventHandler(this.ItemsGrid_EnabledChanged);
             // 
             // NUP_Jewels
             // 
@@ -551,8 +496,54 @@
             this.B_CheatsForm.UseVisualStyleBackColor = true;
             this.B_CheatsForm.Click += new System.EventHandler(this.B_CheatsForm_Click);
             // 
-            // Form1
+            // ItemsGrid
             // 
+            this.ItemsGrid.Location = new System.Drawing.Point(6, 77);
+            this.ItemsGrid.Name = "ItemsGrid";
+            shuffleItems1.AttackUp = 0;
+            shuffleItems1.Complexity = 0;
+            shuffleItems1.Disruption = 0;
+            shuffleItems1.Enchantments = new int[] {
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0};
+            shuffleItems1.Experience = 0;
+            shuffleItems1.ExperienceBoostL = 0;
+            shuffleItems1.ExperienceBoostM = 0;
+            shuffleItems1.ExperienceBoostS = 0;
+            shuffleItems1.Items = new int[] {
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0};
+            shuffleItems1.LevelUp = 0;
+            shuffleItems1.MegaSpeedup = 0;
+            shuffleItems1.MegaStart = 0;
+            shuffleItems1.Moves = 0;
+            shuffleItems1.RaiseMaxLevel = 0;
+            shuffleItems1.SkillBoosterL = 0;
+            shuffleItems1.SkillBoosterM = 0;
+            shuffleItems1.SkillBoosterS = 0;
+            shuffleItems1.Time = 0;
+            this.ItemsGrid.SelectedObject = shuffleItems1;
+            this.ItemsGrid.Size = new System.Drawing.Size(241, 235);
+            this.ItemsGrid.TabIndex = 27;
+            this.ItemsGrid.ToolbarVisible = false;
+            this.ItemsGrid.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.UpdateProperty);
+            this.ItemsGrid.EnabledChanged += new System.EventHandler(this.ItemsGrid_EnabledChanged);
+            // 
+            // Main
+            // 
+            this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(519, 454);
@@ -565,8 +556,10 @@
             this.Controls.Add(this.B_Open);
             this.MaximumSize = new System.Drawing.Size(535, 493);
             this.MinimumSize = new System.Drawing.Size(535, 415);
-            this.Name = "Form1";
+            this.Name = "Main";
             this.Text = "Pokemon Shuffle Save Editor";
+            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.Form1_DragDrop);
+            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.Form1_DragEnter);
             this.GB_HighScore.ResumeLayout(false);
             this.GB_HighScore.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NUP_EventScore)).EndInit();
@@ -619,7 +612,6 @@
         private System.Windows.Forms.PictureBox PB_Mon;
         private System.Windows.Forms.ComboBox CB_MonIndex;
         private System.Windows.Forms.CheckBox CHK_CaughtMon;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.NumericUpDown NUP_Level;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;

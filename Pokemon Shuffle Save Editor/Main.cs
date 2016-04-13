@@ -9,9 +9,9 @@ using System.Windows.Forms;
 
 namespace Pokemon_Shuffle_Save_Editor
 {
-    public partial class Form1 : Form
+    public partial class Main : Form
     {
-        public Form1()
+        public Main()
         {
             InitializeComponent();
             string resourcedir  = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)+Path.DirectorySeparatorChar+"resources"+Path.DirectorySeparatorChar;
@@ -115,15 +115,8 @@ namespace Pokemon_Shuffle_Save_Editor
 
             OpenFileDialog ofd = new OpenFileDialog {FileName = "savedata.bin"};
             if (ofd.ShowDialog() != DialogResult.OK) return;
-            if (Path.GetFileName(ofd.FileName) != "savedata.bin") return;
-
-            TB_FilePath.Text = ofd.FileName;
-            savedata = File.ReadAllBytes(ofd.FileName);
-            Parse();
-            B_Save.Enabled = GB_Caught.Enabled = GB_HighScore.Enabled = GB_Resources.Enabled = B_CheatsForm.Enabled = ItemsGrid.Enabled = loaded = true;
-            UpdateProperty(null, null);
+            if (IsShuffleSave(ofd.FileName)) { Open(ofd.FileName); }
         }
-
 
         private void B_Save_Click(object sender, EventArgs e)
         {
@@ -134,12 +127,33 @@ namespace Pokemon_Shuffle_Save_Editor
             MessageBox.Show("Saved save file to " + sfd.FileName + "."+Environment.NewLine+"Remember to delete secure value before importing.");
         }
 
+        private void Open(string file)
+        {
+            TB_FilePath.Text = file;
+            savedata = File.ReadAllBytes(file);
+            Parse();
+            B_Save.Enabled = GB_Caught.Enabled = GB_HighScore.Enabled = GB_Resources.Enabled = B_CheatsForm.Enabled = ItemsGrid.Enabled = loaded = true;
+            UpdateProperty(null, null);
+        }
+
+        // Try to do a better job at filtering files rather than just saying "oh, it's not savedata.bin quit"
+        private bool IsShuffleSave(string file)
+        {
+            FileInfo info = new FileInfo(file);
+            if (info.Length != 74807) return false; // Probably not
+
+            var contents = new byte[8];
+            File.OpenRead(file).Read(contents, 0, contents.Length);
+            return BitConverter.ToInt64(contents, 0) == 0x4000000009L;
+        }
+
         private void Parse()
         {
             UpdateResourceBox();
             UpdateStageBox();
             UpdateOwnedBox();
         }
+
         private bool updating;
 
         private void UpdateForm(object sender, EventArgs e)
@@ -153,7 +167,9 @@ namespace Pokemon_Shuffle_Save_Editor
                 int level_ofs = (((ind - 1) * 4) / 8);
                 int level_shift = ((((ind - 1) * 4) + 1) % 8);
                 ushort level = BitConverter.ToUInt16(savedata, 0x187+level_ofs);
-                level = (ushort)((level & (ushort)(~(0xF << level_shift))) | ((int)NUP_Level.Value << level_shift));
+
+                int set_level = ((int)NUP_Level.Value) == 1 ? 0 : ((int)NUP_Level.Value);
+                level = (ushort)((level & (ushort)(~(0xF << level_shift))) | (set_level << level_shift));
                 Array.Copy(BitConverter.GetBytes(level), 0, savedata, 0x187 + level_ofs, 2);
                 int caught_ofs = (((ind - 1) + 6) / 8);
                 int caught_shift = (((ind - 1) + 6) % 8);
@@ -172,7 +188,6 @@ namespace Pokemon_Shuffle_Save_Editor
                     val &= 0x7F;
                     val |= (ushort)(SI_Items.Items[i] << 7);
                     Array.Copy(BitConverter.GetBytes(val), 0, savedata, 0xd0 + i, 2);
-                    Console.WriteLine("Updated " + i + " to " + SI_Items.Items[i]);
                 }
 
                 for (int i = 0; i < SI_Items.Enchantments.Length; i++)
@@ -216,9 +231,19 @@ namespace Pokemon_Shuffle_Save_Editor
             int level = BitConverter.ToUInt16(savedata, level_ofs);
             level >>= ((((ind-1)*4)+1) % 8);
             level &= 0xF;
-            NUP_Level.Value = level;
+
+            // The max on the box could be higher than 10 now
+            int num_raise_max_level = Math.Min(((BitConverter.ToUInt16(savedata, 0xA9DB + ((ind * 6) / 8)) >> ((ind * 6) % 8)) & 0x3F), 5);
+            NUP_Level.Maximum = 10 + num_raise_max_level;
+            
+            // Stop showing 0 for the level...
+            NUP_Level.Value = level > 0 ? level : 1;
             int caught_ofs = 0x546+(((ind-1)+6)/8);
             CHK_CaughtMon.Checked = ((savedata[caught_ofs] >> ((((ind-1)+6) % 8))) & 1) == 1;
+
+            // There's no level if the Pokémon hasn't been caught
+            NUP_Level.Visible = CHK_CaughtMon.Checked;
+
             PB_Mon.Image = GetCaughtImage(ind, CHK_CaughtMon.Checked);
             #region Mega Visibility
             CHK_MegaY.Visible = HasMega[mons[ind].Item1][0];
@@ -276,7 +301,6 @@ namespace Pokemon_Shuffle_Save_Editor
                 imgname += "_" + form.ToString("00");
             if (mega)
                 imgname += "_lo";
-            //Console.WriteLine(imgname);
             return new Bitmap((Image)Properties.Resources.ResourceManager.GetObject(imgname));
         }
 
@@ -333,6 +357,33 @@ namespace Pokemon_Shuffle_Save_Editor
         private void UpdateProperty(object s, PropertyValueChangedEventArgs e)
         {
             UpdateForm(s, e);
+        }
+
+        private void Form1_DragEnter(object sender, DragEventArgs e)
+        {
+            string filename = GetDragFilename(e);
+            e.Effect = (filename != null && IsShuffleSave(filename)) ? DragDropEffects.Copy : DragDropEffects.None;
+        }
+
+        private void Form1_DragDrop(object sender, DragEventArgs e)
+        {
+            Open(GetDragFilename(e));
+        }
+
+        protected string GetDragFilename(DragEventArgs e)
+        {
+            if ((e.AllowedEffect & DragDropEffects.Copy) == DragDropEffects.Copy)
+            {
+                Array data = ((IDataObject)e.Data).GetData("FileName") as Array;
+                if (data != null)
+                {
+                    if ((data.Length == 1) && (data.GetValue(0) is String))
+                    {
+                        return ((string[])data)[0];
+                    }
+                }
+            }
+            return null;
         }
     }
 

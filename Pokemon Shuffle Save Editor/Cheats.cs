@@ -41,7 +41,7 @@ namespace Pokemon_Shuffle_Save_Editor
         {
             int stagelen = BitConverter.ToInt32(stagesMain, 0x4);
             int Num_MainStages = BitConverter.ToInt32(stagesMain, 0);
-            int Num_ExpertStages = BitConverter.ToInt32(stagesExpert, 0);                     
+            int Num_ExpertStages = BitConverter.ToInt32(stagesExpert, 0);
             for (int i = 1; i < Num_MainStages; i++)
             {
                 int ind = BitConverter.ToUInt16(stagesMain, 0x50 + stagelen * (i)) & 0x3FF;
@@ -88,8 +88,10 @@ namespace Pokemon_Shuffle_Save_Editor
             {
                 if (GetPokemon(i))
                 {
-                    int max = 10 + ((BitConverter.ToUInt16(savedata, 0xA9DB + ((i * 6) / 8)) >> ((i * 6) % 8)) & 0x3F); //Reads the amount of lollipops used on that pokemon & set level to current Max.
-                    SetLevel(i, max);                                                                                   //May behave poorly if lollipops > 5 (needs testing)
+                    //Reads the amount of lollipops used on that pokemon & set level to current Max.
+                    int numRaiseMaxLevel = Math.Min(((BitConverter.ToUInt16(savedata, 0xA9DB + ((i * 6) / 8)) >> ((i * 6) % 8)) & 0x3F), 5);
+                    int max = 10 + numRaiseMaxLevel;
+                    SetLevel(i, max);
                 }
             }
             MessageBox.Show("Everything you've caught is now level Max.");
