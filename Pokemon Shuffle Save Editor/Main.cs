@@ -47,7 +47,7 @@ namespace Pokemon_Shuffle_Save_Editor
             }
             PB_Main.Image = PB_Event.Image = PB_Expert.Image = GetStageImage(0);
             string[] specieslist = Properties.Resources.species.Split(new[] {Environment.NewLine, "\n"}, StringSplitOptions.RemoveEmptyEntries);
-            string[] monslist = Properties.Resources.mons.Split(new[] { Environment.NewLine, "\n"}, StringSplitOptions.RemoveEmptyEntries);            mons = new Tuple<int, int, bool>[BitConverter.ToUInt32(mondata, 0)];
+            string[] monslist = Properties.Resources.mons.Split(new[] { Environment.NewLine, "\n"}, StringSplitOptions.RemoveEmptyEntries);            mons = new Tuple<int, int, bool, int>[BitConverter.ToUInt32(mondata, 0)];
             int[] forms = new int[specieslist.Length];
             HasMega = new bool[specieslist.Length][];
             for (int i = 0; i < specieslist.Length; i++)
@@ -64,8 +64,9 @@ namespace Pokemon_Shuffle_Save_Editor
                 bool isMega = i > 882 && i < 934; //changed this because the index was changed
                 int spec = isMega
                     ? specieslist.ToList().IndexOf(monslist[megas[i - 883]].Replace("Shiny","").Replace("Winking","").Replace("Smiling","").Replace(" ","")) //crappy but needed for IndexOf() to find the pokemon's name in specieslist (only adjectives on megas names matter)
-                    : (BitConverter.ToInt32(data, 0xE) >> 6) & 0x7FF; //this changed too, also updated the resources.resx file
-                mons[i] = new Tuple<int, int, bool>(spec, forms[spec], isMega);
+                    : (BitConverter.ToInt32(data, 0xE) >> 6) & 0x7FF; //this changed too, also updated the resources.resx file with new pics
+                int raiseMaxLevel = (BitConverter.ToInt16(data, 0x4)) & 0x3F;
+                mons[i] = new Tuple<int, int, bool, int>(spec, forms[spec], isMega, raiseMaxLevel);
                 forms[spec]++;
             }
             for (int i = 0; i < megas.Length; i++)
@@ -93,7 +94,7 @@ namespace Pokemon_Shuffle_Save_Editor
             ItemsGrid.SelectedObject = null;
         }
 
-        Tuple<int, int, bool>[] mons;
+        Tuple<int, int, bool, int>[] mons; //specieIndex, formIndex, isMega, raiseMaxLevel
 
         byte[] mondata = Properties.Resources.pokemonData;
         byte[] stagesMain = Properties.Resources.stageData;
@@ -166,11 +167,19 @@ namespace Pokemon_Shuffle_Save_Editor
                 int ind = (int)CB_MonIndex.SelectedValue;
                 int level_ofs = (((ind - 1) * 4) / 8);
                 int level_shift = ((((ind - 1) * 4) + 1) % 8);
-                ushort level = BitConverter.ToUInt16(savedata, 0x187+level_ofs);
-
+                ushort level = BitConverter.ToUInt16(savedata, 0x187+level_ofs);                
                 int set_level = ((int)NUP_Level.Value) == 1 ? 0 : ((int)NUP_Level.Value);
                 level = (ushort)((level & (ushort)(~(0xF << level_shift))) | (set_level << level_shift));
                 Array.Copy(BitConverter.GetBytes(level), 0, savedata, 0x187 + level_ofs, 2);
+
+                //lollipop patcher
+                int rml_ofs = ((ind * 6) / 8);
+                int rml_shift = ((ind * 6) % 8);
+                ushort numRaiseMaxLevel = BitConverter.ToUInt16(savedata, 0xA9DB + rml_ofs);
+                int set_rml = Math.Min(Math.Max((((int)NUP_Level.Value) - 10), ((numRaiseMaxLevel >> rml_shift) & 0x3F)), 5);
+                numRaiseMaxLevel = (ushort)((numRaiseMaxLevel & (ushort)(~(0x3F << rml_shift))) | (set_rml << rml_shift));
+                Array.Copy(BitConverter.GetBytes(numRaiseMaxLevel), 0, savedata, 0xA9DB + rml_ofs, 2);
+
                 int caught_ofs = (((ind - 1) + 6) / 8);
                 int caught_shift = (((ind - 1) + 6) % 8);
                 foreach (int caught_array_start in new[] { 0xE6, 0x546, 0x5E6 })
@@ -232,8 +241,8 @@ namespace Pokemon_Shuffle_Save_Editor
             level >>= ((((ind-1)*4)+1) % 8);
             level &= 0xF;
 
-            // The max on the box could be higher than 10 now
-            int num_raise_max_level = Math.Min(((BitConverter.ToUInt16(savedata, 0xA9DB + ((ind * 6) / 8)) >> ((ind * 6) % 8)) & 0x3F), 5);
+            // The max on the box could be higher than 10 now            
+            int num_raise_max_level = Math.Min(mons[ind].Item4, 5); //int num_raise_max_level = Math.Min(((BitConverter.ToUInt16(savedata, 0xA9DB + ((ind * 6) / 8)) >> ((ind * 6) % 8)) & 0x3F), 5); -> old one, uses current number of lollipops given
             NUP_Level.Maximum = 10 + num_raise_max_level;
             
             // Stop showing 0 for the level...
@@ -248,8 +257,8 @@ namespace Pokemon_Shuffle_Save_Editor
             #region Mega Visibility
             CHK_MegaY.Visible = HasMega[mons[ind].Item1][0];
             CHK_MegaX.Visible = HasMega[mons[ind].Item1][1];
-            PB_MegaX.Image = HasMega[mons[ind].Item1][1] ? new Bitmap((Image)Properties.Resources.ResourceManager.GetObject("MegaStone" + mons[ind].Item1.ToString("000") + "_X")) : new Bitmap(16, 16);
-            PB_MegaY.Image = HasMega[mons[ind].Item1][0] ? new Bitmap((Image)Properties.Resources.ResourceManager.GetObject("MegaStone" + mons[ind].Item1.ToString("000") + ((HasMega[mons[ind].Item1][0] && HasMega[mons[ind].Item1][1]) ? "_Y" : string.Empty))) : new Bitmap(16, 16);
+            PB_MegaX.Image = HasMega[mons[ind].Item1][0] ? new Bitmap((Image)Properties.Resources.ResourceManager.GetObject("MegaStone" + mons[ind].Item1.ToString("000") + ((HasMega[mons[ind].Item1][0] && HasMega[mons[ind].Item1][1]) ? "_X" : string.Empty))) : new Bitmap(16, 16);
+            PB_MegaY.Image = HasMega[mons[ind].Item1][1] ? new Bitmap((Image)Properties.Resources.ResourceManager.GetObject("MegaStone" + mons[ind].Item1.ToString("000") + "_Y")) : new Bitmap(16, 16); 
             #endregion
             int mega_ofs = 0x406 + ((ind + 2) / 4);
             CHK_MegaY.Checked = ((BitConverter.ToUInt16(savedata, mega_ofs) >> ((5 + (ind << 1)) % 8)) & 1) == 1;

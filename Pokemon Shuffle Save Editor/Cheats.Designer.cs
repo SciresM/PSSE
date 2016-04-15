@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.B_CaughtEverything = new System.Windows.Forms.Button();
-            this.B_Level10 = new System.Windows.Forms.Button();
+            this.B_LevelMax = new System.Windows.Forms.Button();
             this.B_CaughtObtainables = new System.Windows.Forms.Button();
             this.B_MaxResources = new System.Windows.Forms.Button();
             this.B_AllStones = new System.Windows.Forms.Button();
@@ -46,15 +46,15 @@
             this.B_CaughtEverything.UseVisualStyleBackColor = true;
             this.B_CaughtEverything.Click += new System.EventHandler(this.B_CaughtEverything_Click);
             // 
-            // B_Level10
+            // B_LevelMax
             // 
-            this.B_Level10.Location = new System.Drawing.Point(12, 78);
-            this.B_Level10.Name = "B_Level10";
-            this.B_Level10.Size = new System.Drawing.Size(138, 23);
-            this.B_Level10.TabIndex = 2;
-            this.B_Level10.Text = "All Owned Lv10";
-            this.B_Level10.UseVisualStyleBackColor = true;
-            this.B_Level10.Click += new System.EventHandler(this.B_Level10_Click);
+            this.B_LevelMax.Location = new System.Drawing.Point(12, 78);
+            this.B_LevelMax.Name = "B_LevelMax";
+            this.B_LevelMax.Size = new System.Drawing.Size(138, 23);
+            this.B_LevelMax.TabIndex = 2;
+            this.B_LevelMax.Text = "All Owned LvMax";
+            this.B_LevelMax.UseVisualStyleBackColor = true;
+            this.B_LevelMax.Click += new System.EventHandler(this.B_LevelMax_Click);
             // 
             // B_CaughtObtainables
             // 
@@ -105,7 +105,7 @@
             this.Controls.Add(this.B_AllStones);
             this.Controls.Add(this.B_MaxResources);
             this.Controls.Add(this.B_CaughtObtainables);
-            this.Controls.Add(this.B_Level10);
+            this.Controls.Add(this.B_LevelMax);
             this.Controls.Add(this.B_CaughtEverything);
             this.Name = "Cheats";
             this.Text = "Bulk Edits";
@@ -116,7 +116,7 @@
         #endregion
 
         private System.Windows.Forms.Button B_CaughtEverything;
-        private System.Windows.Forms.Button B_Level10;
+        private System.Windows.Forms.Button B_LevelMax;
         private System.Windows.Forms.Button B_CaughtObtainables;
         private System.Windows.Forms.Button B_MaxResources;
         private System.Windows.Forms.Button B_AllStones;

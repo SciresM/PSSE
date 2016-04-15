@@ -10,7 +10,7 @@ namespace Pokemon_Shuffle_Save_Editor
         private byte[] stagesEvent;
         private byte[] stagesExpert;
         private byte[] megaStone;
-        public Cheats(byte[] md, byte[] sm, byte[] sev, byte[] sex, byte[] ms, bool[][] hm, Tuple<int, int, bool>[] m, ref byte[] sd)
+        public Cheats(byte[] md, byte[] sm, byte[] sev, byte[] sex, byte[] ms, bool[][] hm, Tuple<int, int, bool, int>[] m, ref byte[] sd)
         {
             InitializeComponent();
             mondata = md;
@@ -26,7 +26,7 @@ namespace Pokemon_Shuffle_Save_Editor
 
         byte[] savedata;
 
-        Tuple<int, int, bool>[] mons;
+        Tuple<int, int, bool, int>[] mons;
 
         private void B_CaughtEverything_Click(object sender, EventArgs e)
         {
@@ -82,14 +82,14 @@ namespace Pokemon_Shuffle_Save_Editor
             MessageBox.Show("All Mega Stones are now owned for everything you've caught.");
         }
 
-        private void B_Level10_Click(object sender, EventArgs e)
+        private void B_LevelMax_Click(object sender, EventArgs e)
         {
             for (int i = 0; i < 883; i++) //Updated range
             {
                 if (GetPokemon(i))
                 {
                     //Reads the amount of lollipops used on that pokemon & set level to current Max.
-                    int numRaiseMaxLevel = Math.Min(((BitConverter.ToUInt16(savedata, 0xA9DB + ((i * 6) / 8)) >> ((i * 6) % 8)) & 0x3F), 5);
+                    int numRaiseMaxLevel = Math.Min(mons[i].Item4, 5);
                     int max = 10 + numRaiseMaxLevel;
                     SetLevel(i, max);
                 }
@@ -122,6 +122,14 @@ namespace Pokemon_Shuffle_Save_Editor
             ushort level = BitConverter.ToUInt16(savedata, 0x187 + level_ofs);
             level = (ushort)((level & (ushort)(~(0xF << level_shift))) | (lev << level_shift));
             Array.Copy(BitConverter.GetBytes(level), 0, savedata, 0x187 + level_ofs, 2);
+
+            //lollipop patcher
+            int rml_ofs = ((ind * 6) / 8);
+            int rml_shift = ((ind * 6) % 8);
+            ushort numRaiseMaxLevel = BitConverter.ToUInt16(savedata, 0xA9DB + rml_ofs);            
+            int set_rml = Math.Min(Math.Max(((lev) - 10), ((numRaiseMaxLevel >> rml_shift) & 0x3F)), 5);
+            numRaiseMaxLevel = (ushort)((numRaiseMaxLevel & (ushort)(~(0x3F << rml_shift))) | (set_rml << rml_shift));
+            Array.Copy(BitConverter.GetBytes(numRaiseMaxLevel), 0, savedata, 0xA9DB + rml_ofs, 2);
         }
 
         private void SetPokemon(int ind, bool caught)
