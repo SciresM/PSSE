@@ -52,7 +52,7 @@ namespace Pokemon_Shuffle_Save_Editor
             HasMega = new bool[specieslist.Length][];
             for (int i = 0; i < specieslist.Length; i++)
                 HasMega[i] = new bool[2];
-            int[] megas = new int[BitConverter.ToUInt32(megaStone, 0)-1];
+            megas = new int[BitConverter.ToUInt32(megaStone, 0)-1];
             for (int i = 0; i < megas.Length; i++)
             {
                 megas[i] = BitConverter.ToUInt16(megaStone, 0x54 + i * 4) & 0x3FF;
@@ -89,7 +89,9 @@ namespace Pokemon_Shuffle_Save_Editor
             NUP_EventIndex.Maximum = BitConverter.ToInt32(stagesEvent, 0) - 1;
             NUP_MainScore.Minimum = NUP_ExpertScore.Minimum = NUP_EventScore.Minimum = 0;
             NUP_MainScore.Maximum = NUP_ExpertScore.Maximum = NUP_EventScore.Maximum = 0xFFFFFF;
-            CHK_MegaY.Visible = CHK_MegaX.Visible = false;
+            CHK_MegaY.Visible = CHK_MegaX.Visible = NUP_SpeedUpX.Visible = NUP_SpeedUpY.Visible = false;
+            NUP_SpeedUpX.Minimum = NUP_SpeedUpY.Minimum = 0;
+            NUP_SpeedUpX.Maximum = NUP_SpeedUpY.Maximum = 127; //need to find the max value for each pokemon, probably in megastone.bin ?
             PB_Mon.Image = GetCaughtImage((int)CB_MonIndex.SelectedValue, CHK_CaughtMon.Checked);
             ItemsGrid.SelectedObject = null;
         }
@@ -103,6 +105,7 @@ namespace Pokemon_Shuffle_Save_Editor
         byte[] megaStone = Properties.Resources.megaStone;
 
         bool[][] HasMega; // [X][0] = X, [X][1] = Y
+        int[] megas;
 
         ShuffleItems SI_Items = new ShuffleItems();
 
@@ -207,9 +210,25 @@ namespace Pokemon_Shuffle_Save_Editor
                 int mega_ofs = 0x406 + ((ind + 2) / 4);
                 ushort mega_val = BitConverter.ToUInt16(savedata, mega_ofs);
                 mega_val &= (ushort)(~(3 << ((5 + (ind << 1)) % 8)));
-                ushort new_mega_insert = (ushort)(0 | (CHK_MegaY.Checked ? 1 : 0) | (CHK_MegaX.Checked ? 2 : 0));
+                ushort new_mega_insert = (ushort)(0 | (CHK_MegaX.Checked ? 1 : 0) | (CHK_MegaY.Checked ? 2 : 0));
                 mega_val |= (ushort)(new_mega_insert << ((5 + (ind << 1)) % 8));
                 Array.Copy(BitConverter.GetBytes(mega_val), 0, savedata, mega_ofs, 2);
+
+                //SpeedUps patcher
+                int suX_ofs = (((megas.ToList().IndexOf(ind) * 7) + 3) / 8);
+                int suX_shift = (((megas.ToList().IndexOf(ind) * 7) + 3) % 8);
+                int suY_ofs = (((megas.ToList().IndexOf(ind, megas.ToList().IndexOf(ind) + 1) * 7) + 3) / 8);
+                int suY_shift = (((megas.ToList().IndexOf(ind, megas.ToList().IndexOf(ind) + 1) * 7) + 3) % 8);
+                ushort speedUp_ValX = BitConverter.ToUInt16(savedata, 0x2D5B + suX_ofs);
+                ushort speedUp_ValY = BitConverter.ToUInt16(savedata, 0x2D5B + suY_ofs);
+                int set_suX = HasMega[mons[ind].Item1][0] ? (int)NUP_SpeedUpX.Value : 0;
+                int set_suY = HasMega[mons[ind].Item1][1] ? (int)NUP_SpeedUpY.Value : 0;                            
+                speedUp_ValX = (ushort)((speedUp_ValX & (ushort)(~(0x7F << suX_shift))) | (set_suX << suX_shift));                
+                speedUp_ValY = (ushort)((speedUp_ValY & (ushort)(~(0x7F << suY_shift))) | (set_suY << suY_shift));                
+                if (HasMega[mons[ind].Item1][0])
+                    Array.Copy(BitConverter.GetBytes(speedUp_ValX), 0, savedata, 0x2D5B + suX_ofs, 2);
+                if (HasMega[mons[ind].Item1][1])
+                    Array.Copy(BitConverter.GetBytes(speedUp_ValY), 0, savedata, 0x2D5B + suY_ofs, 2);
             }
             UpdateResourceBox();
             UpdateStageBox();
@@ -255,14 +274,22 @@ namespace Pokemon_Shuffle_Save_Editor
 
             PB_Mon.Image = GetCaughtImage(ind, CHK_CaughtMon.Checked);
             #region Mega Visibility
-            CHK_MegaY.Visible = HasMega[mons[ind].Item1][0];
-            CHK_MegaX.Visible = HasMega[mons[ind].Item1][1];
+            CHK_MegaX.Visible = HasMega[mons[ind].Item1][0];
+            CHK_MegaY.Visible = HasMega[mons[ind].Item1][1];
             PB_MegaX.Image = HasMega[mons[ind].Item1][0] ? new Bitmap((Image)Properties.Resources.ResourceManager.GetObject("MegaStone" + mons[ind].Item1.ToString("000") + ((HasMega[mons[ind].Item1][0] && HasMega[mons[ind].Item1][1]) ? "_X" : string.Empty))) : new Bitmap(16, 16);
-            PB_MegaY.Image = HasMega[mons[ind].Item1][1] ? new Bitmap((Image)Properties.Resources.ResourceManager.GetObject("MegaStone" + mons[ind].Item1.ToString("000") + "_Y")) : new Bitmap(16, 16); 
-            #endregion
+            PB_MegaY.Image = HasMega[mons[ind].Item1][1] ? new Bitmap((Image)Properties.Resources.ResourceManager.GetObject("MegaStone" + mons[ind].Item1.ToString("000") + "_Y")) : new Bitmap(16, 16);     
             int mega_ofs = 0x406 + ((ind + 2) / 4);
-            CHK_MegaY.Checked = ((BitConverter.ToUInt16(savedata, mega_ofs) >> ((5 + (ind << 1)) % 8)) & 1) == 1;
-            CHK_MegaX.Checked = (((BitConverter.ToUInt16(savedata, mega_ofs) >> ((5 + (ind << 1)) % 8)) >> 1) & 1) == 1;
+            CHK_MegaX.Checked = ((BitConverter.ToUInt16(savedata, mega_ofs) >> ((5 + (ind << 1)) % 8)) & 1) == 1;
+            CHK_MegaY.Checked = (((BitConverter.ToUInt16(savedata, mega_ofs) >> ((5 + (ind << 1)) % 8)) >> 1) & 1) == 1; 
+            NUP_SpeedUpX.Visible = CHK_MegaX.Visible && CHK_MegaX.Checked;
+            NUP_SpeedUpY.Visible = CHK_MegaY.Visible && CHK_MegaY.Checked; //Else NUP_SpeedUpY appears if the next mega in terms of offsets has been obtained
+            #endregion            
+            NUP_SpeedUpX.Value = HasMega[mons[ind].Item1][0]
+                ? ((BitConverter.ToInt32(savedata, 0x2D5B + (((megas.ToList().IndexOf(ind) * 7) + 3) / 8)) >> (((megas.ToList().IndexOf(ind) * 7) + 3) % 8)) & 0x7F)
+                : 0;
+            NUP_SpeedUpY.Value = HasMega[mons[ind].Item1][1]
+                ? ((BitConverter.ToInt32(savedata, 0x2D5B + (((megas.ToList().IndexOf(ind, megas.ToList().IndexOf(ind) + 1) * 7) + 3) / 8)) >> (((megas.ToList().IndexOf(ind, (megas.ToList().IndexOf(ind) + 1)) * 7) + 3) % 8)) & 0x7F) //looped IndexOf() to get index of the second occurence of ind
+                : 0;
         }
 
         private void UpdateStageBox()

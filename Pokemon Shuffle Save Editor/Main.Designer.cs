@@ -52,6 +52,8 @@
             this.PB_Expert = new System.Windows.Forms.PictureBox();
             this.PB_Main = new System.Windows.Forms.PictureBox();
             this.GB_Caught = new System.Windows.Forms.GroupBox();
+            this.NUP_SpeedUpY = new System.Windows.Forms.NumericUpDown();
+            this.NUP_SpeedUpX = new System.Windows.Forms.NumericUpDown();
             this.PB_MegaX = new System.Windows.Forms.PictureBox();
             this.PB_MegaY = new System.Windows.Forms.PictureBox();
             this.CHK_MegaX = new System.Windows.Forms.CheckBox();
@@ -80,6 +82,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.PB_Expert)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PB_Main)).BeginInit();
             this.GB_Caught.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NUP_SpeedUpY)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NUP_SpeedUpX)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PB_MegaX)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PB_MegaY)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUP_Level)).BeginInit();
@@ -302,6 +306,8 @@
             // 
             // GB_Caught
             // 
+            this.GB_Caught.Controls.Add(this.NUP_SpeedUpY);
+            this.GB_Caught.Controls.Add(this.NUP_SpeedUpX);
             this.GB_Caught.Controls.Add(this.PB_MegaX);
             this.GB_Caught.Controls.Add(this.PB_MegaY);
             this.GB_Caught.Controls.Add(this.CHK_MegaX);
@@ -317,6 +323,34 @@
             this.GB_Caught.TabIndex = 24;
             this.GB_Caught.TabStop = false;
             this.GB_Caught.Text = "Owned Pokemon";
+            // 
+            // NUP_SpeedUpY
+            // 
+            this.NUP_SpeedUpY.Location = new System.Drawing.Point(148, 99);
+            this.NUP_SpeedUpY.Maximum = new decimal(new int[] {
+            127,
+            0,
+            0,
+            0});
+            this.NUP_SpeedUpY.Name = "NUP_SpeedUpY";
+            this.NUP_SpeedUpY.Size = new System.Drawing.Size(46, 20);
+            this.NUP_SpeedUpY.TabIndex = 25;
+            this.NUP_SpeedUpY.Visible = false;
+            this.NUP_SpeedUpY.ValueChanged += new System.EventHandler(this.UpdateForm);
+            // 
+            // NUP_SpeedUpX
+            // 
+            this.NUP_SpeedUpX.Location = new System.Drawing.Point(86, 99);
+            this.NUP_SpeedUpX.Maximum = new decimal(new int[] {
+            127,
+            0,
+            0,
+            0});
+            this.NUP_SpeedUpX.Name = "NUP_SpeedUpX";
+            this.NUP_SpeedUpX.Size = new System.Drawing.Size(46, 20);
+            this.NUP_SpeedUpX.TabIndex = 24;
+            this.NUP_SpeedUpX.Visible = false;
+            this.NUP_SpeedUpX.ValueChanged += new System.EventHandler(this.UpdateForm);
             // 
             // PB_MegaX
             // 
@@ -337,7 +371,7 @@
             // CHK_MegaX
             // 
             this.CHK_MegaX.AutoSize = true;
-            this.CHK_MegaX.Location = new System.Drawing.Point(170, 79);
+            this.CHK_MegaX.Location = new System.Drawing.Point(108, 79);
             this.CHK_MegaX.Name = "CHK_MegaX";
             this.CHK_MegaX.Size = new System.Drawing.Size(15, 14);
             this.CHK_MegaX.TabIndex = 21;
@@ -347,7 +381,8 @@
             // CHK_MegaY
             // 
             this.CHK_MegaY.AutoSize = true;
-            this.CHK_MegaY.Location = new System.Drawing.Point(108, 79);
+            this.CHK_MegaY.Cursor = System.Windows.Forms.Cursors.Default;
+            this.CHK_MegaY.Location = new System.Drawing.Point(170, 79);
             this.CHK_MegaY.Name = "CHK_MegaY";
             this.CHK_MegaY.Size = new System.Drawing.Size(15, 14);
             this.CHK_MegaY.TabIndex = 20;
@@ -573,6 +608,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.PB_Main)).EndInit();
             this.GB_Caught.ResumeLayout(false);
             this.GB_Caught.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NUP_SpeedUpY)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NUP_SpeedUpX)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PB_MegaX)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PB_MegaY)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUP_Level)).EndInit();
@@ -629,6 +666,8 @@
         private System.Windows.Forms.CheckBox CHK_MegaY;
         private System.Windows.Forms.Button B_CheatsForm;
         private System.Windows.Forms.PropertyGrid ItemsGrid;
+        private System.Windows.Forms.NumericUpDown NUP_SpeedUpX;
+        private System.Windows.Forms.NumericUpDown NUP_SpeedUpY;
     }
 }
 
