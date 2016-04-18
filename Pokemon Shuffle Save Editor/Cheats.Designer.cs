@@ -34,6 +34,7 @@
             this.B_MaxResources = new System.Windows.Forms.Button();
             this.B_AllStones = new System.Windows.Forms.Button();
             this.B_AllCaughtStones = new System.Windows.Forms.Button();
+            this.B_MaxSpeedups = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // B_CaughtEverything
@@ -96,11 +97,22 @@
             this.B_AllCaughtStones.UseVisualStyleBackColor = true;
             this.B_AllCaughtStones.Click += new System.EventHandler(this.B_AllCaughtStones_Click);
             // 
+            // B_MaxSpeedups
+            // 
+            this.B_MaxSpeedups.Location = new System.Drawing.Point(88, 107);
+            this.B_MaxSpeedups.Name = "B_MaxSpeedups";
+            this.B_MaxSpeedups.Size = new System.Drawing.Size(138, 23);
+            this.B_MaxSpeedups.TabIndex = 7;
+            this.B_MaxSpeedups.Text = "All Owned Max Speedups";
+            this.B_MaxSpeedups.UseVisualStyleBackColor = true;
+            this.B_MaxSpeedups.Click += new System.EventHandler(this.B_MaxSpeedups_Click);
+            // 
             // Cheats
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(312, 111);
+            this.ClientSize = new System.Drawing.Size(312, 137);
+            this.Controls.Add(this.B_MaxSpeedups);
             this.Controls.Add(this.B_AllCaughtStones);
             this.Controls.Add(this.B_AllStones);
             this.Controls.Add(this.B_MaxResources);
@@ -121,5 +133,6 @@
         private System.Windows.Forms.Button B_MaxResources;
         private System.Windows.Forms.Button B_AllStones;
         private System.Windows.Forms.Button B_AllCaughtStones;
+        private System.Windows.Forms.Button B_MaxSpeedups;
     }
 }

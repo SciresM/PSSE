@@ -249,6 +249,7 @@
     <Content Include="Resources\img\mega_pokemon_531_lo.png" />
     <Content Include="Resources\img\mega_pokemon_719.png" />
     <Content Include="Resources\img\mega_pokemon_719_lo.png" />
+    <None Include="Resources\img\mega_speedup.png" />
     <Content Include="Resources\img\Plate.png" />
     <Content Include="Resources\img\pokemon_000.png" />
     <Content Include="Resources\img\pokemon_001.png" />

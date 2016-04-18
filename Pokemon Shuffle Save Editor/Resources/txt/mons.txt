@@ -825,7 +825,7 @@ Torchic Winking
 Mudkip Winking
 Shroomish Winking
 Delcatty Winking
-Costumed Sableye
+Sableye Costumed
 Plusle Winking
 Minun Winking
 Castform Winking

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Pokemon_Shuffle_Save_Editor
@@ -10,7 +11,7 @@ namespace Pokemon_Shuffle_Save_Editor
         private byte[] stagesEvent;
         private byte[] stagesExpert;
         private byte[] megaStone;
-        public Cheats(byte[] md, byte[] sm, byte[] sev, byte[] sex, byte[] ms, bool[][] hm, Tuple<int, int, bool, int>[] m, ref byte[] sd)
+        public Cheats(byte[] md, byte[] sm, byte[] sev, byte[] sex, byte[] ms, bool[][] hm, Tuple<int, int, bool, int>[] m, Tuple<int, int>[] mg, int[] mgl, ref byte[] sd)
         {
             InitializeComponent();
             mondata = md;
@@ -21,12 +22,16 @@ namespace Pokemon_Shuffle_Save_Editor
             HasMega = hm;
             savedata = sd;
             mons = m;
+            megas = mg;            
+            megalist = mgl;            
         }
         bool[][] HasMega; // [X][0] = X, [X][1] = Y
 
         byte[] savedata;
 
         Tuple<int, int, bool, int>[] mons;
+        private Tuple<int, int>[] megas;
+        int[] megalist;     
 
         private void B_CaughtEverything_Click(object sender, EventArgs e)
         {
@@ -88,7 +93,7 @@ namespace Pokemon_Shuffle_Save_Editor
             {
                 if (GetPokemon(i))
                 {
-                    //Reads the amount of lollipops used on that pokemon & set level to current Max.
+                    //Reads the max amount of lollipops for that pokemon & set level to Max.
                     int numRaiseMaxLevel = Math.Min(mons[i].Item4, 5);
                     int max = 10 + numRaiseMaxLevel;
                     SetLevel(i, max);
@@ -113,6 +118,21 @@ namespace Pokemon_Shuffle_Save_Editor
                 savedata[0x2D4C + i] = (byte)((((99) << 1) & 0xFE) | (savedata[0x2D4C + i] & 1)); // Mega Speedups & other items
             }
             MessageBox.Show("Gave 99 hearts, 99999 coins, 150 jewels, and 99 of every item.");
+        }
+
+        private void B_MaxSpeedups_Click(object sender, EventArgs e)
+        {            
+            for (int i = 0; i < 780; i++)
+            {
+                if (GetPokemon(i))
+                {
+                    if (HasMega[mons[i].Item1][0] || HasMega[mons[i].Item1][1])
+                    {
+                        SetMegaSpeedup(i);
+                    }
+                }
+            }
+            MessageBox.Show("All Owned Megas have been fed with Max Mega Speedups.");
         }
 
         private void SetLevel(int ind, int lev)
@@ -158,5 +178,22 @@ namespace Pokemon_Shuffle_Save_Editor
             Array.Copy(BitConverter.GetBytes(mega_val), 0, savedata, mega_ofs, 2);
         }
 
+        private void SetMegaSpeedup(int ind)
+        {            
+            int suX_ofs = (((megalist.ToList().IndexOf(ind) * 7) + 3) / 8);
+            int suX_shift = (((megalist.ToList().IndexOf(ind) * 7) + 3) % 8);
+            int suY_ofs = (((megalist.ToList().IndexOf(ind, megalist.ToList().IndexOf(ind) + 1) * 7) + 3) / 8);
+            int suY_shift = (((megalist.ToList().IndexOf(ind, megalist.ToList().IndexOf(ind) + 1) * 7) + 3) % 8);
+            int speedUp_ValX = BitConverter.ToInt32(savedata, 0x2D5B + suX_ofs);
+            int speedUp_ValY = BitConverter.ToInt32(savedata, 0x2D5B + suY_ofs);            
+            int set_suX = HasMega[mons[ind].Item1][0] ? megas[megalist.ToList().IndexOf(ind)].Item2 : 0;
+            int set_suY = HasMega[mons[ind].Item1][1] ? megas[megalist.ToList().IndexOf(ind, megalist.ToList().IndexOf(ind))].Item2 : 0;            
+            speedUp_ValX = (int)((speedUp_ValX & (int)(~(0x7F << suX_shift))) | (set_suX << suX_shift));
+            speedUp_ValY = (int)((speedUp_ValY & (int)(~(0x7F << suY_shift))) | (set_suY << suY_shift));
+            if (HasMega[mons[ind].Item1][0])
+                Array.Copy(BitConverter.GetBytes(speedUp_ValX), 0, savedata, 0x2D5B + suX_ofs, 4);
+            if (HasMega[mons[ind].Item1][1])
+                Array.Copy(BitConverter.GetBytes(speedUp_ValY), 0, savedata, 0x2D5B + suY_ofs, 4);
+        }
     }
 }
