@@ -226,30 +226,31 @@ namespace Pokemon_Shuffle_Save_Editor
                 Array.Copy(BitConverter.GetBytes(mega_val), 0, savedata, mega_ofs, 2);
 
                 //SpeedUps patcher
-                int suX_ofs = (((megalist.ToList().IndexOf(ind) * 7) + 3) / 8);
-                int suX_shift = (((megalist.ToList().IndexOf(ind) * 7) + 3) % 8);
-                int suY_ofs = (((megalist.ToList().IndexOf(ind, megalist.ToList().IndexOf(ind) + 1) * 7) + 3) / 8);
-                int suY_shift = (((megalist.ToList().IndexOf(ind, megalist.ToList().IndexOf(ind) + 1) * 7) + 3) % 8);
-                int speedUp_ValX = BitConverter.ToInt32(savedata, 0x2D5B + suX_ofs);
-                int speedUp_ValY = BitConverter.ToInt32(savedata, 0x2D5B + suY_ofs);
-                /*Console.WriteLine("Xof = {0:x8}", suX_ofs);
-                Console.WriteLine("Xshift = {0:x8}", suX_shift);
-                Console.WriteLine("Yof = {0:x8}", suY_ofs);
-                Console.WriteLine("Yshift = {0:x8}", suY_shift);
-                Console.WriteLine("ValX = {0:x8}", speedUp_ValX);
-                Console.WriteLine("ValY = {0:x8}", speedUp_ValY);*/
-                int set_suX = HasMega[mons[ind].Item1][0] ? (int)Math.Min(NUP_SpeedUpX.Value, NUP_SpeedUpX.Maximum) : 0;
-                int set_suY = HasMega[mons[ind].Item1][1] ? (int)Math.Min(NUP_SpeedUpY.Value, NUP_SpeedUpY.Maximum) : 0;
-                //Console.WriteLine("Xset = {0:x8}", set_suX);
-                //Console.WriteLine("Yset = {0:x8}", set_suY);
-                speedUp_ValX = (int)((speedUp_ValX & (int)(~(0x7F << suX_shift))) | (set_suX << suX_shift));                
-                speedUp_ValY = (int)((speedUp_ValY & (int)(~(0x7F << suY_shift))) | (set_suY << suY_shift));
-                //Console.WriteLine("NewX = {0:x8}", speedUp_ValX);
-                //Console.WriteLine("NewY = {0:x8}", speedUp_ValY);
-                if (HasMega[mons[ind].Item1][0])
-                    Array.Copy(BitConverter.GetBytes(speedUp_ValX), 0, savedata, 0x2D5B + suX_ofs, 4);
-                if (HasMega[mons[ind].Item1][1])
-                    Array.Copy(BitConverter.GetBytes(speedUp_ValY), 0, savedata, 0x2D5B + suY_ofs, 4);
+                if (HasMega[mons[ind].Item1][0] || HasMega[mons[ind].Item1][1])
+                {
+                    int suX_ofs = (((megalist.ToList().IndexOf(ind) * 7) + 3) / 8);
+                    int suX_shift = (((megalist.ToList().IndexOf(ind) * 7) + 3) % 8);
+                    int suY_ofs = (((megalist.ToList().IndexOf(ind, megalist.ToList().IndexOf(ind) + 1) * 7) + 3) / 8);
+                    int suY_shift = (((megalist.ToList().IndexOf(ind, megalist.ToList().IndexOf(ind) + 1) * 7) + 3) % 8) + ((suY_ofs - suX_ofs) * 8); //relative to suX_ofs
+                    int speedUp_ValX = BitConverter.ToInt32(savedata, 0x2D5B + suX_ofs);
+                    int speedUp_ValY = BitConverter.ToInt32(savedata, 0x2D5B + suY_ofs);
+                    /*Console.WriteLine("Xof = {0:x8}", suX_ofs);
+                    Console.WriteLine("Xshift = {0:x8}", suX_shift);
+                    Console.WriteLine("Yof = {0:x8}", suY_ofs);
+                    Console.WriteLine("Yshift = {0:x8}", suY_shift);
+                    Console.WriteLine("ValX = {0:x8}", speedUp_ValX);
+                    Console.WriteLine("ValY = {0:x8}", speedUp_ValY);*/
+                    int set_suX = HasMega[mons[ind].Item1][0] ? (int)Math.Min(NUP_SpeedUpX.Value, NUP_SpeedUpX.Maximum) : 0;
+                    int set_suY = HasMega[mons[ind].Item1][1] ? (int)Math.Min(NUP_SpeedUpY.Value, NUP_SpeedUpY.Maximum) : 0;
+                    //Console.WriteLine("Xset = {0:x8}", set_suX);
+                    //Console.WriteLine("Yset = {0:x8}", set_suY);
+                    int newSpeedUp = HasMega[mons[ind].Item1][1]
+                        ? ((((speedUp_ValX & ~(0x7F << suX_shift)) & ~(0x7F << suY_shift)) | (set_suX << suX_shift)) | (set_suY << suY_shift)) //Erases both X & Y bits at the same time before updating them to make sure Y doesn't overwrite X bits
+                        : (speedUp_ValX & ~(0x7F << suX_shift)) | (set_suX << suX_shift);
+                    //Console.WriteLine("New = {0:x8}", newSpeedUp);
+                    //Console.WriteLine("BitX = {0:x8}", BitConverter.ToInt32(BitConverter.GetBytes(newSpeedUp), 0));
+                    Array.Copy(BitConverter.GetBytes(newSpeedUp), 0, savedata, 0x2D5B + suX_ofs, 4);
+                }
             }
             UpdateResourceBox();
             UpdateStageBox();

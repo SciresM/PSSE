@@ -179,21 +179,22 @@ namespace Pokemon_Shuffle_Save_Editor
         }
 
         private void SetMegaSpeedup(int ind)
-        {            
-            int suX_ofs = (((megalist.ToList().IndexOf(ind) * 7) + 3) / 8);
-            int suX_shift = (((megalist.ToList().IndexOf(ind) * 7) + 3) % 8);
-            int suY_ofs = (((megalist.ToList().IndexOf(ind, megalist.ToList().IndexOf(ind) + 1) * 7) + 3) / 8);
-            int suY_shift = (((megalist.ToList().IndexOf(ind, megalist.ToList().IndexOf(ind) + 1) * 7) + 3) % 8);
-            int speedUp_ValX = BitConverter.ToInt32(savedata, 0x2D5B + suX_ofs);
-            int speedUp_ValY = BitConverter.ToInt32(savedata, 0x2D5B + suY_ofs);            
-            int set_suX = HasMega[mons[ind].Item1][0] ? megas[megalist.ToList().IndexOf(ind)].Item2 : 0;
-            int set_suY = HasMega[mons[ind].Item1][1] ? megas[megalist.ToList().IndexOf(ind, megalist.ToList().IndexOf(ind))].Item2 : 0;            
-            speedUp_ValX = (int)((speedUp_ValX & (int)(~(0x7F << suX_shift))) | (set_suX << suX_shift));
-            speedUp_ValY = (int)((speedUp_ValY & (int)(~(0x7F << suY_shift))) | (set_suY << suY_shift));
-            if (HasMega[mons[ind].Item1][0])
-                Array.Copy(BitConverter.GetBytes(speedUp_ValX), 0, savedata, 0x2D5B + suX_ofs, 4);
-            if (HasMega[mons[ind].Item1][1])
-                Array.Copy(BitConverter.GetBytes(speedUp_ValY), 0, savedata, 0x2D5B + suY_ofs, 4);
+        {
+            if (HasMega[mons[ind].Item1][0] || HasMega[mons[ind].Item1][1])
+            {
+                int suX_ofs = (((megalist.ToList().IndexOf(ind) * 7) + 3) / 8);
+                int suX_shift = (((megalist.ToList().IndexOf(ind) * 7) + 3) % 8);
+                int suY_ofs = (((megalist.ToList().IndexOf(ind, megalist.ToList().IndexOf(ind) + 1) * 7) + 3) / 8);
+                int suY_shift = (((megalist.ToList().IndexOf(ind, megalist.ToList().IndexOf(ind) + 1) * 7) + 3) % 8) + ((suY_ofs - suX_ofs) * 8); //relative to suX_ofs
+                int speedUp_ValX = BitConverter.ToInt32(savedata, 0x2D5B + suX_ofs);
+                int speedUp_ValY = BitConverter.ToInt32(savedata, 0x2D5B + suY_ofs);
+                int set_suX = HasMega[mons[ind].Item1][0] ? megas[megalist.ToList().IndexOf(ind)].Item2 : 0;
+                int set_suY = HasMega[mons[ind].Item1][1] ? megas[megalist.ToList().IndexOf(ind, megalist.ToList().IndexOf(ind) + 1)].Item2 : 0;
+                int newSpeedUp = HasMega[mons[ind].Item1][1]
+                    ? ((((speedUp_ValX & ~(0x7F << suX_shift)) & ~(0x7F << suY_shift)) | (set_suX << suX_shift)) | (set_suY << suY_shift)) //Erases both X & Y bits at the same time before updating them to make sure Y doesn't overwrite X bits
+                    : (speedUp_ValX & ~(0x7F << suX_shift)) | (set_suX << suX_shift);
+                Array.Copy(BitConverter.GetBytes(newSpeedUp), 0, savedata, 0x2D5B + suX_ofs, 4);
+            }
         }
     }
 }
