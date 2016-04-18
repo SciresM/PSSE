@@ -28,7 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            Pokemon_Shuffle_Save_Editor.ShuffleItems shuffleItems2 = new Pokemon_Shuffle_Save_Editor.ShuffleItems();
+            Pokemon_Shuffle_Save_Editor.ShuffleItems shuffleItems1 = new Pokemon_Shuffle_Save_Editor.ShuffleItems();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.B_Open = new System.Windows.Forms.Button();
             this.TB_FilePath = new System.Windows.Forms.TextBox();
             this.B_Save = new System.Windows.Forms.Button();
@@ -52,6 +53,7 @@
             this.PB_Expert = new System.Windows.Forms.PictureBox();
             this.PB_Main = new System.Windows.Forms.PictureBox();
             this.GB_Caught = new System.Windows.Forms.GroupBox();
+            this.PB_SpeedUpY = new System.Windows.Forms.PictureBox();
             this.PB_SpeedUpX = new System.Windows.Forms.PictureBox();
             this.NUP_SpeedUpY = new System.Windows.Forms.NumericUpDown();
             this.NUP_SpeedUpX = new System.Windows.Forms.NumericUpDown();
@@ -64,6 +66,7 @@
             this.CB_MonIndex = new System.Windows.Forms.ComboBox();
             this.PB_Mon = new System.Windows.Forms.PictureBox();
             this.GB_Resources = new System.Windows.Forms.GroupBox();
+            this.ItemsGrid = new System.Windows.Forms.PropertyGrid();
             this.NUP_Jewels = new System.Windows.Forms.NumericUpDown();
             this.NUP_Coins = new System.Windows.Forms.NumericUpDown();
             this.NUP_Hearts = new System.Windows.Forms.NumericUpDown();
@@ -71,8 +74,6 @@
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.B_CheatsForm = new System.Windows.Forms.Button();
-            this.ItemsGrid = new System.Windows.Forms.PropertyGrid();
-            this.PB_SpeedUpY = new System.Windows.Forms.PictureBox();
             this.GB_HighScore.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NUP_EventScore)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUP_EventIndex)).BeginInit();
@@ -84,6 +85,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.PB_Expert)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PB_Main)).BeginInit();
             this.GB_Caught.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PB_SpeedUpY)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PB_SpeedUpX)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUP_SpeedUpY)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUP_SpeedUpX)).BeginInit();
@@ -95,7 +97,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.NUP_Jewels)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUP_Coins)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUP_Hearts)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PB_SpeedUpY)).BeginInit();
             this.SuspendLayout();
             // 
             // B_Open
@@ -330,6 +331,14 @@
             this.GB_Caught.TabStop = false;
             this.GB_Caught.Text = "Owned Pokemon";
             // 
+            // PB_SpeedUpY
+            // 
+            this.PB_SpeedUpY.Location = new System.Drawing.Point(198, 97);
+            this.PB_SpeedUpY.Name = "PB_SpeedUpY";
+            this.PB_SpeedUpY.Size = new System.Drawing.Size(24, 24);
+            this.PB_SpeedUpY.TabIndex = 27;
+            this.PB_SpeedUpY.TabStop = false;
+            // 
             // PB_SpeedUpX
             // 
             this.PB_SpeedUpX.Location = new System.Drawing.Point(124, 97);
@@ -468,6 +477,51 @@
             this.GB_Resources.TabStop = false;
             this.GB_Resources.Text = "Resources";
             // 
+            // ItemsGrid
+            // 
+            this.ItemsGrid.Location = new System.Drawing.Point(6, 77);
+            this.ItemsGrid.Name = "ItemsGrid";
+            shuffleItems1.AttackUp = 0;
+            shuffleItems1.Complexity = 0;
+            shuffleItems1.Disruption = 0;
+            shuffleItems1.Enchantments = new int[] {
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0};
+            shuffleItems1.Experience = 0;
+            shuffleItems1.ExperienceBoostL = 0;
+            shuffleItems1.ExperienceBoostM = 0;
+            shuffleItems1.ExperienceBoostS = 0;
+            shuffleItems1.Items = new int[] {
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0};
+            shuffleItems1.LevelUp = 0;
+            shuffleItems1.MegaSpeedup = 0;
+            shuffleItems1.MegaStart = 0;
+            shuffleItems1.Moves = 0;
+            shuffleItems1.RaiseMaxLevel = 0;
+            shuffleItems1.SkillBoosterL = 0;
+            shuffleItems1.SkillBoosterM = 0;
+            shuffleItems1.SkillBoosterS = 0;
+            shuffleItems1.Time = 0;
+            this.ItemsGrid.SelectedObject = shuffleItems1;
+            this.ItemsGrid.Size = new System.Drawing.Size(241, 235);
+            this.ItemsGrid.TabIndex = 27;
+            this.ItemsGrid.ToolbarVisible = false;
+            this.ItemsGrid.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.UpdateProperty);
+            this.ItemsGrid.EnabledChanged += new System.EventHandler(this.ItemsGrid_EnabledChanged);
+            // 
             // NUP_Jewels
             // 
             this.NUP_Jewels.Location = new System.Drawing.Point(190, 51);
@@ -545,59 +599,6 @@
             this.B_CheatsForm.UseVisualStyleBackColor = true;
             this.B_CheatsForm.Click += new System.EventHandler(this.B_CheatsForm_Click);
             // 
-            // ItemsGrid
-            // 
-            this.ItemsGrid.Location = new System.Drawing.Point(6, 77);
-            this.ItemsGrid.Name = "ItemsGrid";
-            shuffleItems2.AttackUp = 0;
-            shuffleItems2.Complexity = 0;
-            shuffleItems2.Disruption = 0;
-            shuffleItems2.Enchantments = new int[] {
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0};
-            shuffleItems2.Experience = 0;
-            shuffleItems2.ExperienceBoostL = 0;
-            shuffleItems2.ExperienceBoostM = 0;
-            shuffleItems2.ExperienceBoostS = 0;
-            shuffleItems2.Items = new int[] {
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0};
-            shuffleItems2.LevelUp = 0;
-            shuffleItems2.MegaSpeedup = 0;
-            shuffleItems2.MegaStart = 0;
-            shuffleItems2.Moves = 0;
-            shuffleItems2.RaiseMaxLevel = 0;
-            shuffleItems2.SkillBoosterL = 0;
-            shuffleItems2.SkillBoosterM = 0;
-            shuffleItems2.SkillBoosterS = 0;
-            shuffleItems2.Time = 0;
-            this.ItemsGrid.SelectedObject = shuffleItems2;
-            this.ItemsGrid.Size = new System.Drawing.Size(241, 235);
-            this.ItemsGrid.TabIndex = 27;
-            this.ItemsGrid.ToolbarVisible = false;
-            this.ItemsGrid.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.UpdateProperty);
-            this.ItemsGrid.EnabledChanged += new System.EventHandler(this.ItemsGrid_EnabledChanged);
-            // 
-            // PB_SpeedUpY
-            // 
-            this.PB_SpeedUpY.Location = new System.Drawing.Point(198, 97);
-            this.PB_SpeedUpY.Name = "PB_SpeedUpY";
-            this.PB_SpeedUpY.Size = new System.Drawing.Size(24, 24);
-            this.PB_SpeedUpY.TabIndex = 27;
-            this.PB_SpeedUpY.TabStop = false;
-            // 
             // Main
             // 
             this.AllowDrop = true;
@@ -611,6 +612,7 @@
             this.Controls.Add(this.B_Save);
             this.Controls.Add(this.TB_FilePath);
             this.Controls.Add(this.B_Open);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximumSize = new System.Drawing.Size(535, 493);
             this.MinimumSize = new System.Drawing.Size(535, 415);
             this.Name = "Main";
@@ -630,6 +632,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.PB_Main)).EndInit();
             this.GB_Caught.ResumeLayout(false);
             this.GB_Caught.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PB_SpeedUpY)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PB_SpeedUpX)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUP_SpeedUpY)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUP_SpeedUpX)).EndInit();
@@ -642,7 +645,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.NUP_Jewels)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUP_Coins)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUP_Hearts)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PB_SpeedUpY)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
