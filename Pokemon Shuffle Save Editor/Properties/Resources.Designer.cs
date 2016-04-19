@@ -11094,6 +11094,16 @@ namespace Pokemon_Shuffle_Save_Editor.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] pokemonLevel {
+            get {
+                object obj = ResourceManager.GetObject("pokemonLevel", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ---
         ///Bulbasaur
         ///Ivysaur

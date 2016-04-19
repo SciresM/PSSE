@@ -420,6 +420,11 @@
             0,
             0,
             0});
+            this.NUP_Level.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.NUP_Level.Name = "NUP_Level";
             this.NUP_Level.Size = new System.Drawing.Size(64, 20);
             this.NUP_Level.TabIndex = 19;

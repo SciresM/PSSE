@@ -7,14 +7,16 @@ namespace Pokemon_Shuffle_Save_Editor
     public partial class Cheats : Form
     {
         private byte[] mondata;
+        private byte[] monlevel;
         private byte[] stagesMain;
         private byte[] stagesEvent;
         private byte[] stagesExpert;
         private byte[] megaStone;
-        public Cheats(byte[] md, byte[] sm, byte[] sev, byte[] sex, byte[] ms, bool[][] hm, Tuple<int, int, bool, int>[] m, Tuple<int, int>[] mg, int[] mgl, ref byte[] sd)
+        public Cheats(byte[] md, byte[] ml, byte[] sm, byte[] sev, byte[] sex, byte[] ms, bool[][] hm, Tuple<int, int, bool, int, int>[] m, Tuple<int, int>[] mg, int[] mgl, ref byte[] sd)
         {
             InitializeComponent();
             mondata = md;
+            monlevel = ml;
             stagesMain = sm;
             stagesEvent = sev;
             stagesExpert = sex;
@@ -29,9 +31,9 @@ namespace Pokemon_Shuffle_Save_Editor
 
         byte[] savedata;
 
-        Tuple<int, int, bool, int>[] mons;
-        private Tuple<int, int>[] megas;
-        int[] megalist;     
+        Tuple<int, int, bool, int, int>[] mons; //specieIndex, formIndex, isMega, raiseMaxLevel, basePower
+        private Tuple<int, int>[] megas; //monsIndex, speedups
+        int[] megalist; //derivate an int[] from megas.Item1 to use with ToList() functions (in UpdateForms() & UpdateOwnedBox()) because I don't know how of a "correct" way to do it
 
         private void B_CaughtEverything_Click(object sender, EventArgs e)
         {
@@ -143,6 +145,16 @@ namespace Pokemon_Shuffle_Save_Editor
             level = (ushort)((level & (ushort)(~(0xF << level_shift))) | (lev << level_shift));
             Array.Copy(BitConverter.GetBytes(level), 0, savedata, 0x187 + level_ofs, 2);
 
+            //experience patcher
+            int exp_ofs = ((4 + ((ind - 1) * 24)) / 8);
+            int exp_shift = ((4 + ((ind - 1) * 24)) % 8);
+            int exp = BitConverter.ToInt32(savedata, 0x3241 + exp_ofs);
+            int entrylen = BitConverter.ToInt32(monlevel, 0x4);
+            byte[] data = monlevel.Skip(0x50 + ((lev - 1) * entrylen)).Take(entrylen).ToArray();
+            int set_exp = BitConverter.ToInt32(data, 0x4 * (mons[ind].Item5 - 1));
+            exp = (exp & ~(0xFFFFFF << exp_shift)) | (set_exp << exp_shift);
+            Array.Copy(BitConverter.GetBytes(exp), 0, savedata, 0x3241 + exp_ofs, 4);
+            
             //lollipop patcher
             int rml_ofs = ((ind * 6) / 8);
             int rml_shift = ((ind * 6) % 8);
@@ -150,6 +162,8 @@ namespace Pokemon_Shuffle_Save_Editor
             int set_rml = Math.Min(Math.Max(((lev) - 10), ((numRaiseMaxLevel >> rml_shift) & 0x3F)), 5);
             numRaiseMaxLevel = (ushort)((numRaiseMaxLevel & (ushort)(~(0x3F << rml_shift))) | (set_rml << rml_shift));
             Array.Copy(BitConverter.GetBytes(numRaiseMaxLevel), 0, savedata, 0xA9DB + rml_ofs, 2);
+
+            
         }
 
         private void SetPokemon(int ind, bool caught)
