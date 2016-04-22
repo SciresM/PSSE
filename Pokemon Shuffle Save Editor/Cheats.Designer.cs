@@ -39,17 +39,18 @@
             // 
             // B_CaughtEverything
             // 
-            this.B_CaughtEverything.Location = new System.Drawing.Point(12, 22);
+            this.B_CaughtEverything.Location = new System.Drawing.Point(235, 79);
             this.B_CaughtEverything.Name = "B_CaughtEverything";
-            this.B_CaughtEverything.Size = new System.Drawing.Size(138, 23);
+            this.B_CaughtEverything.Size = new System.Drawing.Size(65, 23);
             this.B_CaughtEverything.TabIndex = 0;
             this.B_CaughtEverything.Text = "Caught All Pokemon";
             this.B_CaughtEverything.UseVisualStyleBackColor = true;
+            this.B_CaughtEverything.Visible = false;
             this.B_CaughtEverything.Click += new System.EventHandler(this.B_CaughtEverything_Click);
             // 
             // B_LevelMax
             // 
-            this.B_LevelMax.Location = new System.Drawing.Point(12, 78);
+            this.B_LevelMax.Location = new System.Drawing.Point(12, 50);
             this.B_LevelMax.Name = "B_LevelMax";
             this.B_LevelMax.Size = new System.Drawing.Size(138, 23);
             this.B_LevelMax.TabIndex = 2;
@@ -59,7 +60,7 @@
             // 
             // B_CaughtObtainables
             // 
-            this.B_CaughtObtainables.Location = new System.Drawing.Point(161, 22);
+            this.B_CaughtObtainables.Location = new System.Drawing.Point(12, 21);
             this.B_CaughtObtainables.Name = "B_CaughtObtainables";
             this.B_CaughtObtainables.Size = new System.Drawing.Size(138, 23);
             this.B_CaughtObtainables.TabIndex = 3;
@@ -69,7 +70,7 @@
             // 
             // B_MaxResources
             // 
-            this.B_MaxResources.Location = new System.Drawing.Point(161, 78);
+            this.B_MaxResources.Location = new System.Drawing.Point(12, 79);
             this.B_MaxResources.Name = "B_MaxResources";
             this.B_MaxResources.Size = new System.Drawing.Size(138, 23);
             this.B_MaxResources.TabIndex = 4;
@@ -79,17 +80,18 @@
             // 
             // B_AllStones
             // 
-            this.B_AllStones.Location = new System.Drawing.Point(12, 50);
+            this.B_AllStones.Location = new System.Drawing.Point(161, 79);
             this.B_AllStones.Name = "B_AllStones";
-            this.B_AllStones.Size = new System.Drawing.Size(138, 23);
+            this.B_AllStones.Size = new System.Drawing.Size(65, 23);
             this.B_AllStones.TabIndex = 5;
-            this.B_AllStones.Text = "Have All Mega Stones";
+            this.B_AllStones.Text = "All Stones";
             this.B_AllStones.UseVisualStyleBackColor = true;
+            this.B_AllStones.Visible = false;
             this.B_AllStones.Click += new System.EventHandler(this.B_AllStones_Click);
             // 
             // B_AllCaughtStones
             // 
-            this.B_AllCaughtStones.Location = new System.Drawing.Point(161, 51);
+            this.B_AllCaughtStones.Location = new System.Drawing.Point(161, 21);
             this.B_AllCaughtStones.Name = "B_AllCaughtStones";
             this.B_AllCaughtStones.Size = new System.Drawing.Size(138, 23);
             this.B_AllCaughtStones.TabIndex = 6;
@@ -99,7 +101,7 @@
             // 
             // B_MaxSpeedups
             // 
-            this.B_MaxSpeedups.Location = new System.Drawing.Point(88, 107);
+            this.B_MaxSpeedups.Location = new System.Drawing.Point(161, 50);
             this.B_MaxSpeedups.Name = "B_MaxSpeedups";
             this.B_MaxSpeedups.Size = new System.Drawing.Size(138, 23);
             this.B_MaxSpeedups.TabIndex = 7;
@@ -111,7 +113,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(312, 137);
+            this.ClientSize = new System.Drawing.Size(312, 112);
             this.Controls.Add(this.B_MaxSpeedups);
             this.Controls.Add(this.B_AllCaughtStones);
             this.Controls.Add(this.B_AllStones);

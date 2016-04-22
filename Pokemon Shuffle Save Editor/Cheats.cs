@@ -12,7 +12,7 @@ namespace Pokemon_Shuffle_Save_Editor
         private byte[] stagesEvent;
         private byte[] stagesExpert;
         private byte[] megaStone;
-        public Cheats(byte[] md, byte[] ml, byte[] sm, byte[] sev, byte[] sex, byte[] ms, bool[][] hm, Tuple<int, int, bool, int, int>[] m, Tuple<int, int>[] mg, int[] mgl, ref byte[] sd)
+        public Cheats(byte[] md, byte[] ml, byte[] sm, byte[] sev, byte[] sex, byte[] ms, bool[][] hm, Tuple<int, int, bool, int, int, int, int, Tuple<int>>[] m, Tuple<int, int>[] mg, int[] mgl, ref byte[] sd)
         {
             InitializeComponent();
             mondata = md;
@@ -31,7 +31,7 @@ namespace Pokemon_Shuffle_Save_Editor
 
         byte[] savedata;
 
-        Tuple<int, int, bool, int, int>[] mons; //specieIndex, formIndex, isMega, raiseMaxLevel, basePower
+        Tuple<int, int, bool, int, int, int, int, Tuple<int>>[] mons; //specieIndex, formIndex, isMega, raiseMaxLevel, basePower, talent, type, rest
         private Tuple<int, int>[] megas; //monsIndex, speedups
         int[] megalist; //derivate an int[] from megas.Item1 to use with ToList() functions (in UpdateForms() & UpdateOwnedBox()) because I don't know how of a "correct" way to do it
 
@@ -46,6 +46,14 @@ namespace Pokemon_Shuffle_Save_Editor
 
         private void B_CaughtObtainables_Click(object sender, EventArgs e)
         {
+            for (int i = 1; i < 883; i++) //includes 15 reserved slots
+            {
+                if ((mons[i].Rest.Item1 != 999) && ((mons[i].Item5 != 1) || (mons[i].Item6 != 1) || (mons[i].Item7 != 0)))
+                {
+                    SetPokemon(i, true);
+                }
+                else SetPokemon(i, false);
+            };
             int stagelen = BitConverter.ToInt32(stagesMain, 0x4);
             int Num_MainStages = BitConverter.ToInt32(stagesMain, 0);
             int Num_ExpertStages = BitConverter.ToInt32(stagesExpert, 0);
@@ -59,7 +67,7 @@ namespace Pokemon_Shuffle_Save_Editor
                 int ind = BitConverter.ToUInt16(stagesExpert, 0x50 + stagelen * (i)) & 0x3FF;
                 SetPokemon(ind, true);
             }
-            MessageBox.Show("All obtainable non-event Pokemon are now caught.");
+            MessageBox.Show("All obtainable Pokemon are now caught.");
         }
 
         private void B_AllStones_Click(object sender, EventArgs e)
