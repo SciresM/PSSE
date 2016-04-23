@@ -142,7 +142,35 @@ namespace Pokemon_Shuffle_Save_Editor
                     }
                 }
             }
-            MessageBox.Show("All Owned Megas have been fed with Max Mega Speedups.");
+            MessageBox.Show("All Owned Megas have been fed with as much Mega Speedups as possible.");
+        }
+
+        private void B_AllCompleted_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < (BitConverter.ToInt32(stagesMain, 0) - 1); i++)
+            {
+                SetStage(i, true, true);
+            }
+            for (int i = 0; i < BitConverter.ToInt32(stagesExpert, 0); i++)
+            {
+                SetStage(i, false, true);
+            }
+            MessageBox.Show("All Normal & Expert stages have been marked as completed.\nRewards like megastones or jewels can still be redeemed by beating the stage.");
+        }
+
+        private void B_SRankCompleted_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < (BitConverter.ToInt32(stagesMain, 0) - 1); i++)
+            {
+                if (GetStage(i, true))    
+                    SetRank(i, true, 3);
+            }
+            for (int i = 0; i < BitConverter.ToInt32(stagesExpert, 0); i++)
+            {
+                if (GetStage(i, false))
+                    SetRank(i, false, 3);
+            }
+            MessageBox.Show("All Completed Normal & Expert stages have been S-ranked");
         }
 
         private void SetLevel(int ind, int lev)
@@ -218,5 +246,32 @@ namespace Pokemon_Shuffle_Save_Editor
                 Array.Copy(BitConverter.GetBytes(newSpeedUp), 0, savedata, 0x2D5B + suX_ofs, 4);
             }
         }
+
+        private void SetStage(int ind, bool main, bool completed)
+        {           
+            int stage_ofs = (main ? 0x688 : 0x84A) + ((ind * 3) / 8);
+            int stage_shift = (ind * 3) % 8; 
+            ushort stage = BitConverter.ToUInt16(savedata, stage_ofs);
+            int status = completed ? 5 : 0;
+            stage = (ushort)((stage & (ushort)(~(0x7 << stage_shift))) | (status << stage_shift));
+            Array.Copy(BitConverter.GetBytes(stage), 0, savedata, stage_ofs, 2);
+        }
+
+        private bool GetStage(int ind, bool main)
+        {
+            int stage_ofs = (main ? 0x688 : 0x84A) + ((ind * 3) / 8);
+            int stage_shift = (ind * 3) % 8;
+            return ((BitConverter.ToInt16(savedata, stage_ofs) >> stage_shift) & 7) == 5;
+        }
+
+        private void SetRank(int ind, bool main, int status)
+        {
+            int rank_ofs = (main ? 0x987 : 0xAB3) + ((7 + (ind * 2)) / 8);
+            int rank_shift = (7 + (ind * 2)) % 8;
+            ushort rank = BitConverter.ToUInt16(savedata, rank_ofs);
+            rank = (ushort)((rank & (ushort)(~(0x3 << rank_shift))) | (status << rank_shift));
+            Array.Copy(BitConverter.GetBytes(rank), 0, savedata, rank_ofs, 2);
+        }
+
     }
 }

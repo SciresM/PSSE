@@ -66,6 +66,7 @@
             this.CB_MonIndex = new System.Windows.Forms.ComboBox();
             this.PB_Mon = new System.Windows.Forms.PictureBox();
             this.GB_Resources = new System.Windows.Forms.GroupBox();
+            this.ItemsGrid = new System.Windows.Forms.PropertyGrid();
             this.NUP_Jewels = new System.Windows.Forms.NumericUpDown();
             this.NUP_Coins = new System.Windows.Forms.NumericUpDown();
             this.NUP_Hearts = new System.Windows.Forms.NumericUpDown();
@@ -77,7 +78,9 @@
             this.PB_Team2 = new System.Windows.Forms.PictureBox();
             this.PB_Team3 = new System.Windows.Forms.PictureBox();
             this.PB_Team4 = new System.Windows.Forms.PictureBox();
-            this.ItemsGrid = new System.Windows.Forms.PropertyGrid();
+            this.RankM = new System.Windows.Forms.Label();
+            this.RankEx = new System.Windows.Forms.Label();
+            this.RankEv = new System.Windows.Forms.Label();
             this.GB_HighScore.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NUP_EventScore)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUP_EventIndex)).BeginInit();
@@ -138,6 +141,9 @@
             // 
             // GB_HighScore
             // 
+            this.GB_HighScore.Controls.Add(this.RankEv);
+            this.GB_HighScore.Controls.Add(this.RankEx);
+            this.GB_HighScore.Controls.Add(this.RankM);
             this.GB_HighScore.Controls.Add(this.label10);
             this.GB_HighScore.Controls.Add(this.label9);
             this.GB_HighScore.Controls.Add(this.label8);
@@ -266,6 +272,11 @@
             this.NUP_ExpertIndex.Name = "NUP_ExpertIndex";
             this.NUP_ExpertIndex.Size = new System.Drawing.Size(39, 20);
             this.NUP_ExpertIndex.TabIndex = 6;
+            this.NUP_ExpertIndex.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.NUP_ExpertIndex.ValueChanged += new System.EventHandler(this.UpdateForm);
             // 
             // NUP_MainScore
@@ -282,6 +293,11 @@
             this.NUP_MainIndex.Name = "NUP_MainIndex";
             this.NUP_MainIndex.Size = new System.Drawing.Size(39, 20);
             this.NUP_MainIndex.TabIndex = 4;
+            this.NUP_MainIndex.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.NUP_MainIndex.ValueChanged += new System.EventHandler(this.UpdateForm);
             // 
             // label1
@@ -490,6 +506,51 @@
             this.GB_Resources.TabStop = false;
             this.GB_Resources.Text = "Resources";
             // 
+            // ItemsGrid
+            // 
+            this.ItemsGrid.Location = new System.Drawing.Point(6, 77);
+            this.ItemsGrid.Name = "ItemsGrid";
+            shuffleItems1.AttackUp = 0;
+            shuffleItems1.Complexity = 0;
+            shuffleItems1.Disruption = 0;
+            shuffleItems1.Enchantments = new int[] {
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0};
+            shuffleItems1.Experience = 0;
+            shuffleItems1.ExperienceBoostL = 0;
+            shuffleItems1.ExperienceBoostM = 0;
+            shuffleItems1.ExperienceBoostS = 0;
+            shuffleItems1.Items = new int[] {
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0};
+            shuffleItems1.LevelUp = 0;
+            shuffleItems1.MegaSpeedup = 0;
+            shuffleItems1.MegaStart = 0;
+            shuffleItems1.Moves = 0;
+            shuffleItems1.RaiseMaxLevel = 0;
+            shuffleItems1.SkillBoosterL = 0;
+            shuffleItems1.SkillBoosterM = 0;
+            shuffleItems1.SkillBoosterS = 0;
+            shuffleItems1.Time = 0;
+            this.ItemsGrid.SelectedObject = shuffleItems1;
+            this.ItemsGrid.Size = new System.Drawing.Size(241, 257);
+            this.ItemsGrid.TabIndex = 27;
+            this.ItemsGrid.ToolbarVisible = false;
+            this.ItemsGrid.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.UpdateProperty);
+            this.ItemsGrid.EnabledChanged += new System.EventHandler(this.ItemsGrid_EnabledChanged);
+            // 
             // NUP_Jewels
             // 
             this.NUP_Jewels.Location = new System.Drawing.Point(190, 51);
@@ -603,50 +664,32 @@
             this.PB_Team4.TabStop = false;
             this.PB_Team4.Click += new System.EventHandler(this.PB_Team_Click);
             // 
-            // ItemsGrid
+            // RankM
             // 
-            this.ItemsGrid.Location = new System.Drawing.Point(6, 77);
-            this.ItemsGrid.Name = "ItemsGrid";
-            shuffleItems1.AttackUp = 0;
-            shuffleItems1.Complexity = 0;
-            shuffleItems1.Disruption = 0;
-            shuffleItems1.Enchantments = new int[] {
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0};
-            shuffleItems1.Experience = 0;
-            shuffleItems1.ExperienceBoostL = 0;
-            shuffleItems1.ExperienceBoostM = 0;
-            shuffleItems1.ExperienceBoostS = 0;
-            shuffleItems1.Items = new int[] {
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0};
-            shuffleItems1.LevelUp = 0;
-            shuffleItems1.MegaSpeedup = 0;
-            shuffleItems1.MegaStart = 0;
-            shuffleItems1.Moves = 0;
-            shuffleItems1.RaiseMaxLevel = 0;
-            shuffleItems1.SkillBoosterL = 0;
-            shuffleItems1.SkillBoosterM = 0;
-            shuffleItems1.SkillBoosterS = 0;
-            shuffleItems1.Time = 0;
-            this.ItemsGrid.SelectedObject = shuffleItems1;
-            this.ItemsGrid.Size = new System.Drawing.Size(241, 257);
-            this.ItemsGrid.TabIndex = 27;
-            this.ItemsGrid.ToolbarVisible = false;
-            this.ItemsGrid.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.UpdateProperty);
-            this.ItemsGrid.EnabledChanged += new System.EventHandler(this.ItemsGrid_EnabledChanged);
+            this.RankM.AutoSize = true;
+            this.RankM.Location = new System.Drawing.Point(144, 76);
+            this.RankM.Name = "RankM";
+            this.RankM.Size = new System.Drawing.Size(10, 13);
+            this.RankM.TabIndex = 18;
+            this.RankM.Text = "-";
+            // 
+            // RankEx
+            // 
+            this.RankEx.AutoSize = true;
+            this.RankEx.Location = new System.Drawing.Point(303, 76);
+            this.RankEx.Name = "RankEx";
+            this.RankEx.Size = new System.Drawing.Size(10, 13);
+            this.RankEx.TabIndex = 19;
+            this.RankEx.Text = "-";
+            // 
+            // RankEv
+            // 
+            this.RankEv.AutoSize = true;
+            this.RankEv.Location = new System.Drawing.Point(460, 76);
+            this.RankEv.Name = "RankEv";
+            this.RankEv.Size = new System.Drawing.Size(10, 13);
+            this.RankEv.TabIndex = 20;
+            this.RankEv.Text = "-";
             // 
             // Main
             // 
@@ -757,6 +800,9 @@
         private System.Windows.Forms.PictureBox PB_Team2;
         private System.Windows.Forms.PictureBox PB_Team3;
         private System.Windows.Forms.PictureBox PB_Team4;
+        private System.Windows.Forms.Label RankEv;
+        private System.Windows.Forms.Label RankEx;
+        private System.Windows.Forms.Label RankM;
     }
 }
 

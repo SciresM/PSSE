@@ -395,6 +395,21 @@ namespace Pokemon_Shuffle_Save_Editor
             NUP_MainScore.Value = (BitConverter.ToUInt64(savedata, 0x4141 + 3 * ((int)NUP_MainIndex.Value - 1)) >> 4) & 0x00FFFFFF;
             NUP_ExpertScore.Value = (BitConverter.ToUInt64(savedata, 0x4F51 + 3 * ((int)NUP_ExpertIndex.Value - 1)) >> 4) & 0x00FFFFFF;
             NUP_EventScore.Value = (BitConverter.ToUInt64(savedata, 0x52D5 + 3 * ((int)NUP_EventIndex.Value)) >> 4) & 0x00FFFFFF;
+            int rankM_ofs = (7 + (((int)NUP_MainIndex.Value - 1) * 2)) / 8;
+            int rankM_shift = (7 + (((int)NUP_MainIndex.Value - 1) * 2)) % 8;
+            int rankM = (BitConverter.ToInt16(savedata, 0x987 + rankM_ofs) >> rankM_shift) & 0x3;
+            bool stateM = ((BitConverter.ToInt16(savedata, 0x688 + ((((int)NUP_MainIndex.Value - 1) * 3) / 8)) >> ((((int)NUP_MainIndex.Value - 1) * 3) % 8)) & 0x7) == 5;
+            GetRankImage(RankM, rankM, stateM);
+            int rankEx_ofs = (7 + (((int)NUP_ExpertIndex.Value - 1) * 2)) / 8;
+            int rankEx_shift = (7 + (((int)NUP_ExpertIndex.Value - 1) * 2)) % 8;
+            int rankEx = (BitConverter.ToInt16(savedata, 0xAB3 + rankEx_ofs) >> rankEx_shift) & 0x3;
+            bool stateEx = ((BitConverter.ToInt16(savedata, 0x84A + ((((int)NUP_ExpertIndex.Value - 1) * 3) / 8)) >> ((((int)NUP_ExpertIndex.Value - 1) * 3) % 8)) & 0x7) == 5;
+            GetRankImage(RankEx, rankEx, stateEx);
+            int rankEv_ofs = (7 + (((int)NUP_EventIndex.Value) * 2)) / 8;
+            int rankEv_shift = (7 + (((int)NUP_EventIndex.Value) * 2)) % 8;
+            int rankEv = (BitConverter.ToInt16(savedata, 0xAFE + rankEv_ofs) >> rankEv_shift) & 0x3;
+            bool stateEv = ((BitConverter.ToInt16(savedata, 0x8BA + ((4 + ((int)NUP_EventIndex.Value * 3)) / 8)) >> ((4 + ((int)NUP_EventIndex.Value * 3)) % 8)) & 0x7) == 5;
+            GetRankImage(RankEv, rankEv, stateEv);
         }
 
         private Bitmap GetCaughtImage(int ind, bool caught = false)
@@ -556,6 +571,32 @@ namespace Pokemon_Shuffle_Save_Editor
                     break;
             }
             CB_MonIndex.SelectedIndex = list.OrderBy(x => x).ToList().IndexOf(name);
+        }
+
+        private void GetRankImage(Label label, int rank = default(int), bool completed = false)
+        {
+            if (completed)
+            {
+                switch (rank)
+                {
+                    case 0:
+                        label.Text = "C";
+                        break;
+                    case 1:
+                        label.Text = "B";
+                        break;
+                    case 2:
+                        label.Text = "A";
+                        break;
+                    case 3:
+                        label.Text = "S";
+                        break;
+                    default:
+                        label.Text = "-";
+                        break;
+                }
+            }
+            else label.Text = "-";
         }
     }
 

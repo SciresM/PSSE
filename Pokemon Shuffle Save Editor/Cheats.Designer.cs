@@ -35,14 +35,16 @@
             this.B_AllStones = new System.Windows.Forms.Button();
             this.B_AllCaughtStones = new System.Windows.Forms.Button();
             this.B_MaxSpeedups = new System.Windows.Forms.Button();
+            this.B_AllCompleted = new System.Windows.Forms.Button();
+            this.B_SRankCompleted = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // B_CaughtEverything
             // 
-            this.B_CaughtEverything.Location = new System.Drawing.Point(235, 79);
+            this.B_CaughtEverything.Location = new System.Drawing.Point(234, 108);
             this.B_CaughtEverything.Name = "B_CaughtEverything";
             this.B_CaughtEverything.Size = new System.Drawing.Size(65, 23);
-            this.B_CaughtEverything.TabIndex = 7;
+            this.B_CaughtEverything.TabIndex = 51;
             this.B_CaughtEverything.Text = "Caught All Pokemon";
             this.B_CaughtEverything.UseVisualStyleBackColor = true;
             this.B_CaughtEverything.Visible = false;
@@ -53,7 +55,7 @@
             this.B_LevelMax.Location = new System.Drawing.Point(12, 50);
             this.B_LevelMax.Name = "B_LevelMax";
             this.B_LevelMax.Size = new System.Drawing.Size(138, 23);
-            this.B_LevelMax.TabIndex = 3;
+            this.B_LevelMax.TabIndex = 2;
             this.B_LevelMax.Text = "All Owned LvMax";
             this.B_LevelMax.UseVisualStyleBackColor = true;
             this.B_LevelMax.Click += new System.EventHandler(this.B_LevelMax_Click);
@@ -73,17 +75,17 @@
             this.B_MaxResources.Location = new System.Drawing.Point(12, 79);
             this.B_MaxResources.Name = "B_MaxResources";
             this.B_MaxResources.Size = new System.Drawing.Size(138, 23);
-            this.B_MaxResources.TabIndex = 5;
+            this.B_MaxResources.TabIndex = 4;
             this.B_MaxResources.Text = "Maximum Resources";
             this.B_MaxResources.UseVisualStyleBackColor = true;
             this.B_MaxResources.Click += new System.EventHandler(this.B_MaxResources_Click);
             // 
             // B_AllStones
             // 
-            this.B_AllStones.Location = new System.Drawing.Point(161, 79);
+            this.B_AllStones.Location = new System.Drawing.Point(161, 108);
             this.B_AllStones.Name = "B_AllStones";
             this.B_AllStones.Size = new System.Drawing.Size(65, 23);
-            this.B_AllStones.TabIndex = 6;
+            this.B_AllStones.TabIndex = 50;
             this.B_AllStones.Text = "All Stones";
             this.B_AllStones.UseVisualStyleBackColor = true;
             this.B_AllStones.Visible = false;
@@ -94,7 +96,7 @@
             this.B_AllCaughtStones.Location = new System.Drawing.Point(161, 21);
             this.B_AllCaughtStones.Name = "B_AllCaughtStones";
             this.B_AllCaughtStones.Size = new System.Drawing.Size(138, 23);
-            this.B_AllCaughtStones.TabIndex = 2;
+            this.B_AllCaughtStones.TabIndex = 1;
             this.B_AllCaughtStones.Text = "All Caught Mega Stones";
             this.B_AllCaughtStones.UseVisualStyleBackColor = true;
             this.B_AllCaughtStones.Click += new System.EventHandler(this.B_AllCaughtStones_Click);
@@ -104,16 +106,38 @@
             this.B_MaxSpeedups.Location = new System.Drawing.Point(161, 50);
             this.B_MaxSpeedups.Name = "B_MaxSpeedups";
             this.B_MaxSpeedups.Size = new System.Drawing.Size(138, 23);
-            this.B_MaxSpeedups.TabIndex = 4;
+            this.B_MaxSpeedups.TabIndex = 3;
             this.B_MaxSpeedups.Text = "All Owned Max Speedups";
             this.B_MaxSpeedups.UseVisualStyleBackColor = true;
             this.B_MaxSpeedups.Click += new System.EventHandler(this.B_MaxSpeedups_Click);
+            // 
+            // B_AllCompleted
+            // 
+            this.B_AllCompleted.Location = new System.Drawing.Point(161, 79);
+            this.B_AllCompleted.Name = "B_AllCompleted";
+            this.B_AllCompleted.Size = new System.Drawing.Size(138, 23);
+            this.B_AllCompleted.TabIndex = 5;
+            this.B_AllCompleted.Text = "Complete All Levels";
+            this.B_AllCompleted.UseVisualStyleBackColor = true;
+            this.B_AllCompleted.Click += new System.EventHandler(this.B_AllCompleted_Click);
+            // 
+            // B_SRankCompleted
+            // 
+            this.B_SRankCompleted.Location = new System.Drawing.Point(12, 108);
+            this.B_SRankCompleted.Name = "B_SRankCompleted";
+            this.B_SRankCompleted.Size = new System.Drawing.Size(138, 23);
+            this.B_SRankCompleted.TabIndex = 6;
+            this.B_SRankCompleted.Text = "S-Rank All Completed";
+            this.B_SRankCompleted.UseVisualStyleBackColor = true;
+            this.B_SRankCompleted.Click += new System.EventHandler(this.B_SRankCompleted_Click);
             // 
             // Cheats
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(312, 112);
+            this.ClientSize = new System.Drawing.Size(312, 142);
+            this.Controls.Add(this.B_SRankCompleted);
+            this.Controls.Add(this.B_AllCompleted);
             this.Controls.Add(this.B_MaxSpeedups);
             this.Controls.Add(this.B_AllCaughtStones);
             this.Controls.Add(this.B_AllStones);
@@ -136,5 +160,7 @@
         private System.Windows.Forms.Button B_AllStones;
         private System.Windows.Forms.Button B_AllCaughtStones;
         private System.Windows.Forms.Button B_MaxSpeedups;
+        private System.Windows.Forms.Button B_AllCompleted;
+        private System.Windows.Forms.Button B_SRankCompleted;
     }
 }
