@@ -49,8 +49,9 @@ namespace Pokemon_Shuffle_Save_Editor
                 }
             }
             PB_Main.Image = PB_Event.Image = PB_Expert.Image = GetStageImage(0);
-            string[] specieslist = Properties.Resources.species.Split(new[] {Environment.NewLine, "\n"}, StringSplitOptions.RemoveEmptyEntries);
-            string[] monslist = Properties.Resources.mons.Split(new[] { Environment.NewLine, "\n"}, StringSplitOptions.RemoveEmptyEntries);       
+            PB_Team1.Image = PB_Team2.Image = PB_Team3.Image = PB_Team4.Image = ResizeImage(GetMonImage(0), 48, 48);
+            specieslist = Properties.Resources.species.Split(new[] {Environment.NewLine, "\n"}, StringSplitOptions.RemoveEmptyEntries);
+            monslist = Properties.Resources.mons.Split(new[] { Environment.NewLine, "\n"}, StringSplitOptions.RemoveEmptyEntries);       
             mons = new Tuple<int, int, bool, int, int, int, int, Tuple<int>>[BitConverter.ToUInt32(mondata, 0)];
             rest = new Tuple<int>[BitConverter.ToUInt32(mondata, 0)];
             int[] forms = new int[specieslist.Length];
@@ -102,10 +103,10 @@ namespace Pokemon_Shuffle_Save_Editor
             CB_MonIndex.DataSource = monsel;
             CB_MonIndex.DisplayMember = "Text";
             CB_MonIndex.ValueMember = "Value";
-            NUP_ExpertIndex.Minimum = NUP_EventIndex.Minimum = 0;
-            NUP_MainIndex.Minimum = 1;
+            NUP_MainIndex.Minimum = NUP_ExpertIndex.Minimum = 1;
+            NUP_EventIndex.Minimum = 0;
             NUP_MainIndex.Maximum = BitConverter.ToInt32(stagesMain, 0) - 1;
-            NUP_ExpertIndex.Maximum = BitConverter.ToInt32(stagesExpert, 0) - 1;
+            NUP_ExpertIndex.Maximum = BitConverter.ToInt32(stagesExpert, 0);
             NUP_EventIndex.Maximum = BitConverter.ToInt32(stagesEvent, 0) - 1;
             NUP_MainScore.Minimum = NUP_ExpertScore.Minimum = NUP_EventScore.Minimum = 0;
             NUP_MainScore.Maximum = NUP_ExpertScore.Maximum = NUP_EventScore.Maximum = 0xFFFFFF;
@@ -125,6 +126,8 @@ namespace Pokemon_Shuffle_Save_Editor
         byte[] stagesExpert = Properties.Resources.stageDataExtra;
         byte[] megaStone = Properties.Resources.megaStone;
         byte[] monlevel = Properties.Resources.pokemonLevel;
+
+        readonly string[] specieslist, monslist;
 
         bool[][] HasMega; // [X][0] = X, [X][1] = Y
         Tuple<int, int>[] megas; //monsIndex, speedups
@@ -304,6 +307,18 @@ namespace Pokemon_Shuffle_Save_Editor
         private void UpdateOwnedBox()
         {
             int ind = (int)CB_MonIndex.SelectedValue;
+            
+            //team preview
+            byte[] teamData = savedata.Skip(0xE0).Take(0x7).ToArray();
+            int teamSlot1 = (BitConverter.ToInt32(teamData, 0) >> 5) & 0xFFF;
+            int teamSlot2 = (BitConverter.ToInt16(teamData, 0x02) >> 1) & 0xFFF;
+            int teamSlot3 = (BitConverter.ToInt32(teamData, 0x03) >> 5) & 0xFFF;
+            int teamSlot4 = (BitConverter.ToInt16(teamData, 0x05) >> 1) & 0xFFF;
+            PB_Team1.Image = ResizeImage(GetMonImage(mons[teamSlot1].Item1, mons[teamSlot1].Item2), 48, 48);
+            PB_Team2.Image = ResizeImage(GetMonImage(mons[teamSlot2].Item1, mons[teamSlot2].Item2), 48, 48);
+            PB_Team3.Image = ResizeImage(GetMonImage(mons[teamSlot3].Item1, mons[teamSlot3].Item2), 48, 48);
+            PB_Team4.Image = ResizeImage(GetMonImage(mons[teamSlot4].Item1, mons[teamSlot4].Item2), 48, 48);
+
             int level_ofs = 0x187 + (((ind - 1) * 4) / 8);
             int level = BitConverter.ToUInt16(savedata, level_ofs);
             level >>= ((((ind-1)*4)+1) % 8);
@@ -372,17 +387,17 @@ namespace Pokemon_Shuffle_Save_Editor
         {
             int stagelen = BitConverter.ToInt32(stagesMain, 0x4);
             int mainspec = BitConverter.ToUInt16(stagesMain, 0x50 + stagelen * ((int)NUP_MainIndex.Value)) & 0x3FF;
-            int expertspec = BitConverter.ToUInt16(stagesExpert, 0x50 + stagelen * ((int)NUP_ExpertIndex.Value)) & 0x3FF;
+            int expertspec = BitConverter.ToUInt16(stagesExpert, 0x50 + stagelen * ((int)NUP_ExpertIndex.Value - 1)) & 0x3FF;
             int eventspec = BitConverter.ToUInt16(stagesEvent, 0x50 + stagelen * ((int)NUP_EventIndex.Value)) & 0x3FF;
-            PB_Main.Image = GetStageImage(mons[mainspec].Item1, mons[mainspec].Item2, mons[mainspec].Item3);
-            PB_Expert.Image = GetStageImage(mons[expertspec].Item1, mons[expertspec].Item2, mons[expertspec].Item3);
-            PB_Event.Image = GetStageImage((mons[eventspec].Item1 == 25) ? 0 : mons[eventspec].Item1, mons[eventspec].Item2, mons[eventspec].Item3);
+            PB_Main.Image = GetStageImage(mons[mainspec].Item1, mons[mainspec].Item2, mons[mainspec].Item3, false);
+            PB_Expert.Image = GetStageImage(mons[expertspec].Item1, mons[expertspec].Item2, mons[expertspec].Item3, false);
+            PB_Event.Image = GetStageImage((mons[eventspec].Item1 == 25) ? 0 : mons[eventspec].Item1, mons[eventspec].Item2, mons[eventspec].Item3, true);
             NUP_MainScore.Value = (BitConverter.ToUInt64(savedata, 0x4141 + 3 * ((int)NUP_MainIndex.Value - 1)) >> 4) & 0x00FFFFFF;
-            NUP_ExpertScore.Value = (BitConverter.ToUInt64(savedata, 0x4F51 + 3 * ((int)NUP_ExpertIndex.Value)) >> 4) & 0x00FFFFFF;
+            NUP_ExpertScore.Value = (BitConverter.ToUInt64(savedata, 0x4F51 + 3 * ((int)NUP_ExpertIndex.Value - 1)) >> 4) & 0x00FFFFFF;
             NUP_EventScore.Value = (BitConverter.ToUInt64(savedata, 0x52D5 + 3 * ((int)NUP_EventIndex.Value)) >> 4) & 0x00FFFFFF;
         }
 
-        private Bitmap GetCaughtImage(int ind, bool caught)
+        private Bitmap GetCaughtImage(int ind, bool caught = false)
         {
             Bitmap bmp = GetMonImage(mons[ind].Item1, mons[ind].Item2, mons[ind].Item3);
             if (!caught)
@@ -416,13 +431,16 @@ namespace Pokemon_Shuffle_Save_Editor
             return new Bitmap((Image)Properties.Resources.ResourceManager.GetObject(imgname));
         }
 
-        private Bitmap GetStageImage(int mon_num, int form = 0, bool mega = false)
+        private Bitmap GetStageImage(int mon_num, int form = 0, bool mega = false, bool special = false)
         {
             Bitmap bmp = new Bitmap(64, 80);
             using (Graphics g = Graphics.FromImage(bmp))
             {
-                g.DrawImage(Properties.Resources.Plate, new Point(0, 16));
-                g.DrawImage(ResizeImage(GetMonImage(mon_num, form, mega), 48, 48), new Point(8, 8));
+                if (mega && !special)
+                    g.DrawImage(Properties.Resources.PlateMega, new Point(0, 16));                    
+                else
+                    g.DrawImage(Properties.Resources.Plate, new Point(0, 16));
+                g.DrawImage(ResizeImage(GetMonImage(mon_num, form, mega), 48, 48), new Point(8, 7));
             }
 
             return bmp;
@@ -499,6 +517,45 @@ namespace Pokemon_Shuffle_Save_Editor
                 }
             }
             return null;
+        }
+
+        private void PB_Team_Click(object sender, EventArgs e)
+        {            
+            byte[] data = savedata.Skip(0xE0).Take(0x7).ToArray();
+            int slot;
+            string name = null;
+            List<string> list = monslist.ToList(); //Create a List object from monslist to use with RemoveRange
+            list.RemoveRange(868, 69); //Remove all mega & "---" entries to match monsel order
+            list.RemoveRange(0, 1); //All of this because I don't know how to search within Values of CB_MonIndex directly
+            int i = 0;
+            if ((sender as Control).Name.ToLower().Contains("1"))
+                i = 1;
+            if ((sender as Control).Name.ToLower().Contains("2"))
+                i = 2;
+            if ((sender as Control).Name.ToLower().Contains("3"))
+                i = 3;
+            if ((sender as Control).Name.ToLower().Contains("4"))
+                i = 4;
+            switch (i)
+            {
+                case 1:
+                    slot = (BitConverter.ToInt32(data, 0) >> 5) & 0xFFF;
+                    name = monslist[slot];
+                    break;
+                case 2:
+                    slot = (BitConverter.ToInt16(data, 0x02) >> 1) & 0xFFF;
+                    name = monslist[slot];
+                    break;
+                case 3:
+                    slot = (BitConverter.ToInt32(data, 0x03) >> 5) & 0xFFF;
+                    name = monslist[slot];
+                    break;
+                case 4:
+                    slot = (BitConverter.ToInt16(data, 0x05) >> 1) & 0xFFF;
+                    name = monslist[slot];
+                    break;
+            }
+            CB_MonIndex.SelectedIndex = list.OrderBy(x => x).ToList().IndexOf(name);
         }
     }
 

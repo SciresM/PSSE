@@ -42,7 +42,7 @@
             this.B_CaughtEverything.Location = new System.Drawing.Point(235, 79);
             this.B_CaughtEverything.Name = "B_CaughtEverything";
             this.B_CaughtEverything.Size = new System.Drawing.Size(65, 23);
-            this.B_CaughtEverything.TabIndex = 0;
+            this.B_CaughtEverything.TabIndex = 7;
             this.B_CaughtEverything.Text = "Caught All Pokemon";
             this.B_CaughtEverything.UseVisualStyleBackColor = true;
             this.B_CaughtEverything.Visible = false;
@@ -53,7 +53,7 @@
             this.B_LevelMax.Location = new System.Drawing.Point(12, 50);
             this.B_LevelMax.Name = "B_LevelMax";
             this.B_LevelMax.Size = new System.Drawing.Size(138, 23);
-            this.B_LevelMax.TabIndex = 2;
+            this.B_LevelMax.TabIndex = 3;
             this.B_LevelMax.Text = "All Owned LvMax";
             this.B_LevelMax.UseVisualStyleBackColor = true;
             this.B_LevelMax.Click += new System.EventHandler(this.B_LevelMax_Click);
@@ -63,7 +63,7 @@
             this.B_CaughtObtainables.Location = new System.Drawing.Point(12, 21);
             this.B_CaughtObtainables.Name = "B_CaughtObtainables";
             this.B_CaughtObtainables.Size = new System.Drawing.Size(138, 23);
-            this.B_CaughtObtainables.TabIndex = 3;
+            this.B_CaughtObtainables.TabIndex = 0;
             this.B_CaughtObtainables.Text = "Caught All Obtainables";
             this.B_CaughtObtainables.UseVisualStyleBackColor = true;
             this.B_CaughtObtainables.Click += new System.EventHandler(this.B_CaughtObtainables_Click);
@@ -73,7 +73,7 @@
             this.B_MaxResources.Location = new System.Drawing.Point(12, 79);
             this.B_MaxResources.Name = "B_MaxResources";
             this.B_MaxResources.Size = new System.Drawing.Size(138, 23);
-            this.B_MaxResources.TabIndex = 4;
+            this.B_MaxResources.TabIndex = 5;
             this.B_MaxResources.Text = "Maximum Resources";
             this.B_MaxResources.UseVisualStyleBackColor = true;
             this.B_MaxResources.Click += new System.EventHandler(this.B_MaxResources_Click);
@@ -83,7 +83,7 @@
             this.B_AllStones.Location = new System.Drawing.Point(161, 79);
             this.B_AllStones.Name = "B_AllStones";
             this.B_AllStones.Size = new System.Drawing.Size(65, 23);
-            this.B_AllStones.TabIndex = 5;
+            this.B_AllStones.TabIndex = 6;
             this.B_AllStones.Text = "All Stones";
             this.B_AllStones.UseVisualStyleBackColor = true;
             this.B_AllStones.Visible = false;
@@ -94,7 +94,7 @@
             this.B_AllCaughtStones.Location = new System.Drawing.Point(161, 21);
             this.B_AllCaughtStones.Name = "B_AllCaughtStones";
             this.B_AllCaughtStones.Size = new System.Drawing.Size(138, 23);
-            this.B_AllCaughtStones.TabIndex = 6;
+            this.B_AllCaughtStones.TabIndex = 2;
             this.B_AllCaughtStones.Text = "All Caught Mega Stones";
             this.B_AllCaughtStones.UseVisualStyleBackColor = true;
             this.B_AllCaughtStones.Click += new System.EventHandler(this.B_AllCaughtStones_Click);
@@ -104,7 +104,7 @@
             this.B_MaxSpeedups.Location = new System.Drawing.Point(161, 50);
             this.B_MaxSpeedups.Name = "B_MaxSpeedups";
             this.B_MaxSpeedups.Size = new System.Drawing.Size(138, 23);
-            this.B_MaxSpeedups.TabIndex = 7;
+            this.B_MaxSpeedups.TabIndex = 4;
             this.B_MaxSpeedups.Text = "All Owned Max Speedups";
             this.B_MaxSpeedups.UseVisualStyleBackColor = true;
             this.B_MaxSpeedups.Click += new System.EventHandler(this.B_MaxSpeedups_Click);
