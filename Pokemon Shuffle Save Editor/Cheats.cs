@@ -94,7 +94,7 @@ namespace Pokemon_Shuffle_Save_Editor
                     }
                 }
             }
-            MessageBox.Show("All Mega Stones are now owned for everything you've caught.");
+            MessageBox.Show("All Mega Stones are now owned for everything you've caught.\n\nThis includes unreleased stones for released pokemons, be sure to uncheck them manually if you want to keep a legit save.");
         }
 
         private void B_LevelMax_Click(object sender, EventArgs e)
@@ -114,19 +114,17 @@ namespace Pokemon_Shuffle_Save_Editor
 
         private void B_MaxResources_Click(object sender, EventArgs e)
         {
-            Array.Copy(BitConverter.GetBytes((BitConverter.ToUInt32(savedata, 0x68) & 0xF0000007) | ((uint)99999 << 3) | ((uint)150 << 20)), 0, savedata, 0x68, 4);
-            Array.Copy(BitConverter.GetBytes((BitConverter.ToUInt16(savedata, 0x2D4A) & 0xC07F) | (99 << 7)), 0, savedata, 0x2D4A, 2);
+            int[] items = new int[7];
             for (int i = 0; i < 7; i++)
             {
-                ushort val = BitConverter.ToUInt16(savedata, 0xd0 + i);
-                val &= 0x7F;
-                val |= (99 << 7);
-                Array.Copy(BitConverter.GetBytes(val), 0, savedata, 0xd0 + i, 2);
+                items[i] = 99;
             }
+            int[] enhancements = new int[9];
             for (int i = 0; i < 9; i++)
             {
-                savedata[0x2D4C + i] = (byte)((((99) << 1) & 0xFE) | (savedata[0x2D4C + i] & 1)); // Mega Speedups & other items
+                enhancements[i] = 99;
             }
+            SetResources(99, 99999, 150, items, enhancements);
             MessageBox.Show("Gave 99 hearts, 99999 coins, 150 jewels, and 99 of every item.");
         }
 
@@ -138,7 +136,7 @@ namespace Pokemon_Shuffle_Save_Editor
                 {
                     if (HasMega[mons[i].Item1][0] || HasMega[mons[i].Item1][1])
                     {
-                        SetMegaSpeedup(i);
+                        SetMegaSpeedup(i, HasMega[mons[i].Item1][0], HasMega[mons[i].Item1][1]);
                     }
                 }
             }
@@ -149,11 +147,11 @@ namespace Pokemon_Shuffle_Save_Editor
         {
             for (int i = 0; i < (BitConverter.ToInt32(stagesMain, 0) - 1); i++)
             {
-                SetStage(i, true, true);
+                SetStage(i, 0, true);
             }
             for (int i = 0; i < BitConverter.ToInt32(stagesExpert, 0); i++)
             {
-                SetStage(i, false, true);
+                SetStage(i, 1, true);
             }
             MessageBox.Show("All Normal & Expert stages have been marked as completed.\nRewards like megastones or jewels can still be redeemed by beating the stage.");
         }
@@ -162,15 +160,87 @@ namespace Pokemon_Shuffle_Save_Editor
         {
             for (int i = 0; i < (BitConverter.ToInt32(stagesMain, 0) - 1); i++)
             {
-                if (GetStage(i, true))    
-                    SetRank(i, true, 3);
+                if (GetStage(i, 0))    
+                    SetRank(i, 0, 3);
             }
             for (int i = 0; i < BitConverter.ToInt32(stagesExpert, 0); i++)
             {
-                if (GetStage(i, false))
-                    SetRank(i, false, 3);
+                if (GetStage(i, 1))
+                    SetRank(i, 1, 3);
             }
             MessageBox.Show("All Completed Normal & Expert stages have been S-ranked");
+        }
+
+        private void B_StreetPassDelete_Click(object sender, EventArgs e)
+        {
+            Array.Copy(BitConverter.GetBytes(0x0000), 0, savedata, 0x5967, 2); //Resets streetpass count to 0
+            byte[] blank = new byte[0x68];
+            for (int i = 0; i < 10; i++)
+            {
+                Array.Copy(blank, 0, savedata, 0x59A7 + (i * 0x68), 0x68); //Erase StreetPass tags
+            }
+            MessageBox.Show("StreetPass data have been cleared & StreetPass count reset to 0.");
+        }
+
+        private void B_MaxExcalationBattle_Click(object sender, EventArgs e)
+        {
+            SetExcalationStep(999);
+            MessageBox.Show("Curent escalation battle has been taken to step 999. You'll get all rewards at once by beating it.\n\nCarefull : only use it when there's exactly one active escalation battle.\nI don't know how this behaves if there is 0 or more than 1 active at the same time.");
+        }
+        
+        private void B_PokemonReset_Click(object sender, EventArgs e)
+        {
+            for (int i = 1; i < 883; i++) //Uncatch
+            {
+                SetPokemon(i, false);
+            }
+            for (int i = 0; i < 883; i++) //Un-level, Un-experience & Un-lollipop
+            {
+                SetLevel(i, 1);                
+            }
+            for (int i = 0; i < 780; i++) //Un-stone
+            {
+                if (HasMega[mons[i].Item1][0] || HasMega[mons[i].Item1][1])
+                {
+                    SetMegaStone(i, false, false);
+                }
+            }
+            for (int i = 0; i < 780; i++) //Unfeed speedups
+            {
+                if (HasMega[mons[i].Item1][0] || HasMega[mons[i].Item1][1])
+                    SetMegaSpeedup(i, false, false);
+            }
+            MessageBox.Show("All pokemons have been uncaught, reset to level 1 & lost their Mega Stones, speedups or lollipops.\n\nEither reset stages too or make sure to catch at least Espurr, Bulbasaur, Squirtle & Charmander manually.");
+        }
+
+        private void B_StageReset_Click(object sender, EventArgs e)
+        {
+            long score = 0;
+            for (int i = 0; i < (BitConverter.ToInt32(stagesMain, 0) - 1); i++)
+            {
+                SetStage(i, 0, false);
+                SetRank(i, 0, 0);
+                Array.Copy(BitConverter.GetBytes(score), 0, savedata, 0x4141 + (3 * i), 8);
+            }
+            for (int i = 0; i < BitConverter.ToInt32(stagesExpert, 0); i++)
+            {
+                SetStage(i, 1, false);
+                SetRank(i, 1, 0);
+                Array.Copy(BitConverter.GetBytes(score), 0, savedata, 0x4F51 + (3 * i), 8);
+            }
+            for (int i = 0; i < 200; i++) //max number of event levels should be 549 but 200 should be enough at any time
+            {
+                SetStage(i, 2, false);
+                SetRank(i, 2, 0);
+                Array.Copy(BitConverter.GetBytes(score), 0, savedata, 0x52D5 + (3 * i), 8);
+            }
+            MessageBox.Show("All stages have been reset to C Rank, 0 score & uncompleted state.\n\n.");
+        }
+
+        private void B_ResourcesReset_Click(object sender, EventArgs e)
+        {            
+            SetResources();
+            MessageBox.Show("Deleted all stock hearts, coins, jewels and Items.");
         }
 
         private void SetLevel(int ind, int lev)
@@ -195,11 +265,9 @@ namespace Pokemon_Shuffle_Save_Editor
             int rml_ofs = ((ind * 6) / 8);
             int rml_shift = ((ind * 6) % 8);
             ushort numRaiseMaxLevel = BitConverter.ToUInt16(savedata, 0xA9DB + rml_ofs);            
-            int set_rml = Math.Min(Math.Max(((lev) - 10), ((numRaiseMaxLevel >> rml_shift) & 0x3F)), 5);
+            int set_rml = Math.Min((lev - 10 < 0) ? 0 : (lev - 10), 5); //hardcoded 5 as the max number of lollipops, change this if needed
             numRaiseMaxLevel = (ushort)((numRaiseMaxLevel & (ushort)(~(0x3F << rml_shift))) | (set_rml << rml_shift));
-            Array.Copy(BitConverter.GetBytes(numRaiseMaxLevel), 0, savedata, 0xA9DB + rml_ofs, 2);
-
-            
+            Array.Copy(BitConverter.GetBytes(numRaiseMaxLevel), 0, savedata, 0xA9DB + rml_ofs, 2);            
         }
 
         private void SetPokemon(int ind, bool caught)
@@ -218,17 +286,17 @@ namespace Pokemon_Shuffle_Save_Editor
             return ((savedata[caught_ofs] >> ((((ind - 1) + 6) % 8))) & 1) == 1;
         }
 
-        private void SetMegaStone(int ind, bool Y, bool X)
+        private void SetMegaStone(int ind, bool X, bool Y)
         {
             int mega_ofs = 0x406 + ((ind + 2) / 4);
             ushort mega_val = BitConverter.ToUInt16(savedata, mega_ofs);
             mega_val &= (ushort)(~(3 << ((5 + (ind << 1)) % 8)));
-            ushort new_mega_insert = (ushort)(0 | (Y ? 1 : 0) | (X ? 2 : 0));
+            ushort new_mega_insert = (ushort)(0 | (X ? 1 : 0) | (Y ? 2 : 0));
             mega_val |= (ushort)(new_mega_insert << ((5 + (ind << 1)) % 8));
             Array.Copy(BitConverter.GetBytes(mega_val), 0, savedata, mega_ofs, 2);
         }
 
-        private void SetMegaSpeedup(int ind)
+        private void SetMegaSpeedup(int ind, bool X, bool Y)
         {
             if (HasMega[mons[ind].Item1][0] || HasMega[mons[ind].Item1][1])
             {
@@ -238,8 +306,8 @@ namespace Pokemon_Shuffle_Save_Editor
                 int suY_shift = (((megalist.ToList().IndexOf(ind, megalist.ToList().IndexOf(ind) + 1) * 7) + 3) % 8) + ((suY_ofs - suX_ofs) * 8); //relative to suX_ofs
                 int speedUp_ValX = BitConverter.ToInt32(savedata, 0x2D5B + suX_ofs);
                 int speedUp_ValY = BitConverter.ToInt32(savedata, 0x2D5B + suY_ofs);
-                int set_suX = HasMega[mons[ind].Item1][0] ? megas[megalist.ToList().IndexOf(ind)].Item2 : 0;
-                int set_suY = HasMega[mons[ind].Item1][1] ? megas[megalist.ToList().IndexOf(ind, megalist.ToList().IndexOf(ind) + 1)].Item2 : 0;
+                int set_suX = X ? megas[megalist.ToList().IndexOf(ind)].Item2 : 0;
+                int set_suY = Y ? megas[megalist.ToList().IndexOf(ind, megalist.ToList().IndexOf(ind) + 1)].Item2 : 0;
                 int newSpeedUp = HasMega[mons[ind].Item1][1]
                     ? ((((speedUp_ValX & ~(0x7F << suX_shift)) & ~(0x7F << suY_shift)) | (set_suX << suX_shift)) | (set_suY << suY_shift)) //Erases both X & Y bits at the same time before updating them to make sure Y doesn't overwrite X bits
                     : (speedUp_ValX & ~(0x7F << suX_shift)) | (set_suX << suX_shift);
@@ -247,9 +315,24 @@ namespace Pokemon_Shuffle_Save_Editor
             }
         }
 
-        private void SetStage(int ind, bool main, bool completed)
-        {           
-            int stage_ofs = (main ? 0x688 : 0x84A) + ((ind * 3) / 8);
+        private void SetStage(int ind, int type, bool completed)
+        {
+            int base_ofs = default(int);
+            switch (type)
+            {
+                case 0:
+                    base_ofs = 0x688; //Main
+                    break;
+                case 1:
+                    base_ofs = 0x84A; //Expert
+                    break;
+                case 2:
+                    base_ofs = 0x8BA; //Event
+                    break;
+                default:
+                    return;
+            }
+            int stage_ofs = base_ofs + ((ind * 3) / 8);
             int stage_shift = (ind * 3) % 8; 
             ushort stage = BitConverter.ToUInt16(savedata, stage_ofs);
             int status = completed ? 5 : 0;
@@ -257,20 +340,88 @@ namespace Pokemon_Shuffle_Save_Editor
             Array.Copy(BitConverter.GetBytes(stage), 0, savedata, stage_ofs, 2);
         }
 
-        private bool GetStage(int ind, bool main)
+        private bool GetStage(int ind, int type)
         {
-            int stage_ofs = (main ? 0x688 : 0x84A) + ((ind * 3) / 8);
+            int base_ofs = default(int);
+            switch (type)
+            {
+                case 0:
+                    base_ofs = 0x688; //Main
+                    break;
+                case 1:
+                    base_ofs = 0x84A; //Expert
+                    break;
+                case 2:
+                    base_ofs = 0x8BA; //Event
+                    break;
+                default:
+                    return false;
+            }
+            int stage_ofs = base_ofs + ((ind * 3) / 8);
             int stage_shift = (ind * 3) % 8;
             return ((BitConverter.ToInt16(savedata, stage_ofs) >> stage_shift) & 7) == 5;
         }
 
-        private void SetRank(int ind, bool main, int status)
+        private void SetRank(int ind, int type, int status)
         {
-            int rank_ofs = (main ? 0x987 : 0xAB3) + ((7 + (ind * 2)) / 8);
+            int base_ofs = default(int);
+            switch (type)
+            {
+                case 0:
+                    base_ofs = 0x688; //Main
+                    break;
+                case 1:
+                    base_ofs = 0x84A; //Expert
+                    break;
+                case 2:
+                    base_ofs = 0x8BA; //Event
+                    break;
+                default:
+                    return;
+            }
+            int rank_ofs = base_ofs + ((7 + (ind * 2)) / 8);
             int rank_shift = (7 + (ind * 2)) % 8;
             ushort rank = BitConverter.ToUInt16(savedata, rank_ofs);
             rank = (ushort)((rank & (ushort)(~(0x3 << rank_shift))) | (status << rank_shift));
             Array.Copy(BitConverter.GetBytes(rank), 0, savedata, rank_ofs, 2);
+        }
+
+        private void SetResources(int hearts = 0, uint coins = 0, uint jewels = 0, int[] items = null, int[] enhancements = null)
+        {
+            if (items == null)
+                items = new int[7];
+            if (enhancements == null)
+                enhancements = new int[9];
+            Array.Copy(BitConverter.GetBytes((BitConverter.ToUInt32(savedata, 0x68) & 0xF0000007) | (coins << 3) | (jewels << 20)), 0, savedata, 0x68, 4);
+            Array.Copy(BitConverter.GetBytes((BitConverter.ToUInt16(savedata, 0x2D4A) & 0xC07F) | (hearts << 7)), 0, savedata, 0x2D4A, 2);
+            for (int i = 0; i < 7; i++) //Items (battle)
+            {
+                ushort val = BitConverter.ToUInt16(savedata, 0xd0 + i);
+                val &= 0x7F;
+                val |= (ushort)(items[i] << 7);
+                Array.Copy(BitConverter.GetBytes(val), 0, savedata, 0xd0 + i, 2);
+            }
+            for (int i = 0; i < 9; i++) //Enhancements (pokemon)
+            {
+                savedata[0x2D4C + i] = (byte)((((enhancements[i]) << 1) & 0xFE) | (savedata[0x2D4C + i] & 1));
+            }
+        }
+
+        private void SetExcalationStep (int step = 0)
+        {
+            if (step < 0)
+                step = 0;
+            if (step > 999)
+                step = 999;
+            int data = BitConverter.ToUInt16(savedata, 0x2D59);
+            data = (data & (~(0x3FF << 2))) | (step << 2);
+            Array.Copy(BitConverter.GetBytes(data), 0, savedata, 0x2D59, 2);
+        }
+
+        private void B_EscalationReset_Click(object sender, EventArgs e)
+        {
+            SetExcalationStep();
+            MessageBox.Show("Curent escalation battle has been reverted to step 1.\n\nCarefull : only use it when there's exactly one active escalation battle.\nI don't know how this behaves if there is 0 or more than 1 active at the same time.");
         }
 
     }

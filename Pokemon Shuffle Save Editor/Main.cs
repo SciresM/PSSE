@@ -127,7 +127,7 @@ namespace Pokemon_Shuffle_Save_Editor
         byte[] megaStone = Properties.Resources.megaStone;
         byte[] monlevel = Properties.Resources.pokemonLevel;
 
-        readonly string[] specieslist, monslist;
+        string[] specieslist, monslist;
 
         bool[][] HasMega; // [X][0] = X, [X][1] = Y
         Tuple<int, int>[] megas; //monsIndex, speedups
@@ -195,10 +195,11 @@ namespace Pokemon_Shuffle_Save_Editor
             {
                 int ind = (int)CB_MonIndex.SelectedValue;
 
+                //level patcher
                 int level_ofs = (((ind - 1) * 4) / 8);
                 int level_shift = ((((ind - 1) * 4) + 1) % 8);
                 ushort level = BitConverter.ToUInt16(savedata, 0x187+level_ofs);                
-                int set_level = ((int)NUP_Level.Value) == 1 ? 0 : ((int)NUP_Level.Value);
+                int set_level = CHK_CaughtMon.Checked ? (((int)NUP_Level.Value) == 1 ? 0 : ((int)NUP_Level.Value)) : 0;
                 level = (ushort)((level & (ushort)(~(0xF << level_shift))) | (set_level << level_shift));
                 Array.Copy(BitConverter.GetBytes(level), 0, savedata, 0x187 + level_ofs, 2);
 
@@ -209,30 +210,31 @@ namespace Pokemon_Shuffle_Save_Editor
                 int entrylen = BitConverter.ToInt32(monlevel, 0x4);
                 byte[] data = monlevel.Skip(0x50 + (((int)(NUP_Level.Value) - 1) * entrylen)).Take(entrylen).ToArray();
                 int set_exp = BitConverter.ToInt32(data, 0x4 * (mons[ind].Item5 - 1));
-                //Console.WriteLine("{0:x8}", exp);
                 exp = (exp & ~(0xFFFFFF << exp_shift)) | (set_exp << exp_shift);
-                //Console.WriteLine(NUP_Level.Value);
-                //Console.WriteLine(set_exp);
-                //Console.WriteLine("{0:x8}", exp);
                 Array.Copy(BitConverter.GetBytes(exp), 0, savedata, 0x3241 + exp_ofs, 4);
 
                 //lollipop patcher
                 int rml_ofs = ((ind * 6) / 8);
                 int rml_shift = ((ind * 6) % 8);
                 ushort numRaiseMaxLevel = BitConverter.ToUInt16(savedata, 0xA9DB + rml_ofs);
-                int set_rml = Math.Min(Math.Max((((int)NUP_Level.Value) - 10), ((numRaiseMaxLevel >> rml_shift) & 0x3F)), 5);
+                int set_rml = Math.Min(((int)NUP_Level.Value - 10 < 0) ? 0 : ((int)NUP_Level.Value - 10), 5); //hardcoded 5 as the max number of lollipops, change this if needed
                 numRaiseMaxLevel = (ushort)((numRaiseMaxLevel & (ushort)(~(0x3F << rml_shift))) | (set_rml << rml_shift));
                 Array.Copy(BitConverter.GetBytes(numRaiseMaxLevel), 0, savedata, 0xA9DB + rml_ofs, 2);
 
+                //caught patcher
                 int caught_ofs = (((ind - 1) + 6) / 8);
                 int caught_shift = (((ind - 1) + 6) % 8);
                 foreach (int caught_array_start in new[] { 0xE6, 0x546, 0x5E6 })
                 {
                     savedata[caught_array_start + caught_ofs] = (byte)(savedata[caught_array_start + caught_ofs] & (byte)(~(1 << caught_shift)) | ((CHK_CaughtMon.Checked ? 1 : 0) << caught_shift));
                 }
+
+                //score patcher
                 Array.Copy(BitConverter.GetBytes((BitConverter.ToUInt64(savedata, 0x4141 + 3 * ((int)NUP_MainIndex.Value - 1)) & 0xFFFFFFFFF000000FL) | (((ulong)NUP_MainScore.Value << 4))), 0, savedata, 0x4141 + 3 * ((int)NUP_MainIndex.Value - 1), 8);
                 Array.Copy(BitConverter.GetBytes((BitConverter.ToUInt64(savedata, 0x4F51 + 3 * ((int)NUP_ExpertIndex.Value)) & 0xFFFFFFFFF000000FL) | (((ulong)NUP_ExpertScore.Value << 4))), 0, savedata, 0x4F51 + 3 * ((int)NUP_ExpertIndex.Value), 8);
                 Array.Copy(BitConverter.GetBytes((BitConverter.ToUInt64(savedata, 0x52D5 + 3 * ((int)NUP_EventIndex.Value)) & 0xFFFFFFFFF000000FL) | (((ulong)NUP_EventScore.Value << 4))), 0, savedata, 0x52D5 + 3 * ((int)NUP_EventIndex.Value), 8);
+
+                //items patcher
                 Array.Copy(BitConverter.GetBytes((BitConverter.ToUInt32(savedata, 0x68) & 0xF0000007) | ((uint)NUP_Coins.Value << 3) | ((uint)NUP_Jewels.Value << 20)), 0, savedata, 0x68, 4);
                 Array.Copy(BitConverter.GetBytes((BitConverter.ToUInt16(savedata, 0x2D4A) & 0xC07F) | ((ushort)NUP_Hearts.Value << 7)), 0, savedata, 0x2D4A, 2);
                 for (int i = 0; i < SI_Items.Items.Length; i++)
@@ -248,6 +250,7 @@ namespace Pokemon_Shuffle_Save_Editor
                     savedata[0x2D4C + i] = (byte)(((SI_Items.Enchantments[i] << 1) & 0xFE) | (savedata[0x2D4C + i] & 1));
                 }
 
+                //megastone patcher
                 int mega_ofs = 0x406 + ((ind + 2) / 4);
                 ushort mega_val = BitConverter.ToUInt16(savedata, mega_ofs);
                 mega_val &= (ushort)(~(3 << ((5 + (ind << 1)) % 8)));
@@ -255,7 +258,7 @@ namespace Pokemon_Shuffle_Save_Editor
                 mega_val |= (ushort)(new_mega_insert << ((5 + (ind << 1)) % 8));
                 Array.Copy(BitConverter.GetBytes(mega_val), 0, savedata, mega_ofs, 2);
 
-                //SpeedUps patcher
+                //speedups patcher
                 if (HasMega[mons[ind].Item1][0] || HasMega[mons[ind].Item1][1])
                 {
                     int suX_ofs = (((megalist.ToList().IndexOf(ind) * 7) + 3) / 8);
@@ -264,21 +267,11 @@ namespace Pokemon_Shuffle_Save_Editor
                     int suY_shift = (((megalist.ToList().IndexOf(ind, megalist.ToList().IndexOf(ind) + 1) * 7) + 3) % 8) + ((suY_ofs - suX_ofs) * 8); //relative to suX_ofs
                     int speedUp_ValX = BitConverter.ToInt32(savedata, 0x2D5B + suX_ofs);
                     int speedUp_ValY = BitConverter.ToInt32(savedata, 0x2D5B + suY_ofs);
-                    /*Console.WriteLine("Xof = {0:x8}", suX_ofs);
-                    Console.WriteLine("Xshift = {0:x8}", suX_shift);
-                    Console.WriteLine("Yof = {0:x8}", suY_ofs);
-                    Console.WriteLine("Yshift = {0:x8}", suY_shift);
-                    Console.WriteLine("ValX = {0:x8}", speedUp_ValX);
-                    Console.WriteLine("ValY = {0:x8}", speedUp_ValY);*/
-                    int set_suX = HasMega[mons[ind].Item1][0] ? (int)Math.Min(NUP_SpeedUpX.Value, NUP_SpeedUpX.Maximum) : 0;
-                    int set_suY = HasMega[mons[ind].Item1][1] ? (int)Math.Min(NUP_SpeedUpY.Value, NUP_SpeedUpY.Maximum) : 0;
-                    //Console.WriteLine("Xset = {0:x8}", set_suX);
-                    //Console.WriteLine("Yset = {0:x8}", set_suY);
+                    int set_suX = (HasMega[mons[ind].Item1][0] && CHK_CaughtMon.Checked && CHK_MegaX.Checked) ? (int)Math.Min(NUP_SpeedUpX.Value, NUP_SpeedUpX.Maximum) : 0;
+                    int set_suY = (HasMega[mons[ind].Item1][1] && CHK_CaughtMon.Checked && CHK_MegaY.Checked) ? (int)Math.Min(NUP_SpeedUpY.Value, NUP_SpeedUpY.Maximum) : 0;
                     int newSpeedUp = HasMega[mons[ind].Item1][1]
                         ? ((((speedUp_ValX & ~(0x7F << suX_shift)) & ~(0x7F << suY_shift)) | (set_suX << suX_shift)) | (set_suY << suY_shift)) //Erases both X & Y bits at the same time before updating them to make sure Y doesn't overwrite X bits
                         : (speedUp_ValX & ~(0x7F << suX_shift)) | (set_suX << suX_shift);
-                    //Console.WriteLine("New = {0:x8}", newSpeedUp);
-                    //Console.WriteLine("BitX = {0:x8}", BitConverter.ToInt32(BitConverter.GetBytes(newSpeedUp), 0));
                     Array.Copy(BitConverter.GetBytes(newSpeedUp), 0, savedata, 0x2D5B + suX_ofs, 4);
                 }
             }
@@ -338,8 +331,8 @@ namespace Pokemon_Shuffle_Save_Editor
 
             PB_Mon.Image = GetCaughtImage(ind, CHK_CaughtMon.Checked);
             #region Mega Visibility
-            CHK_MegaX.Visible = HasMega[mons[ind].Item1][0];
-            CHK_MegaY.Visible = HasMega[mons[ind].Item1][1];
+            PB_MegaX.Visible = CHK_MegaX.Visible = HasMega[mons[ind].Item1][0];
+            PB_MegaY.Visible = CHK_MegaY.Visible = HasMega[mons[ind].Item1][1];
             PB_MegaX.Image = HasMega[mons[ind].Item1][0] ? new Bitmap((Image)Properties.Resources.ResourceManager.GetObject("MegaStone" + mons[ind].Item1.ToString("000") + ((HasMega[mons[ind].Item1][0] && HasMega[mons[ind].Item1][1]) ? "_X" : string.Empty))) : new Bitmap(16, 16);
             PB_MegaY.Image = HasMega[mons[ind].Item1][1] ? new Bitmap((Image)Properties.Resources.ResourceManager.GetObject("MegaStone" + mons[ind].Item1.ToString("000") + "_Y")) : new Bitmap(16, 16);
             PB_SpeedUpX.Image = HasMega[mons[ind].Item1][0] ? new Bitmap(ResizeImage((Image)Properties.Resources.ResourceManager.GetObject("mega_speedup"), 24, 24)) : new Bitmap(16, 16);
@@ -347,8 +340,8 @@ namespace Pokemon_Shuffle_Save_Editor
             int mega_ofs = 0x406 + ((ind + 2) / 4);
             CHK_MegaX.Checked = ((BitConverter.ToUInt16(savedata, mega_ofs) >> ((5 + (ind << 1)) % 8)) & 1) == 1;
             CHK_MegaY.Checked = (((BitConverter.ToUInt16(savedata, mega_ofs) >> ((5 + (ind << 1)) % 8)) >> 1) & 1) == 1; 
-            NUP_SpeedUpX.Visible = PB_SpeedUpX.Visible = CHK_MegaX.Visible && CHK_MegaX.Checked;
-            NUP_SpeedUpY.Visible = PB_SpeedUpY.Visible = CHK_MegaY.Visible && CHK_MegaY.Checked; //Else NUP_SpeedUpY appears if the next mega in terms of offsets has been obtained
+            NUP_SpeedUpX.Visible = PB_SpeedUpX.Visible = CHK_MegaX.Visible && CHK_MegaX.Checked && CHK_CaughtMon.Checked;
+            NUP_SpeedUpY.Visible = PB_SpeedUpY.Visible = CHK_MegaY.Visible && CHK_MegaY.Checked && CHK_CaughtMon.Checked; //Else NUP_SpeedUpY appears if the next mega in terms of offsets has been obtained
             #endregion  
             if (megalist.ToList().IndexOf(ind) != -1) //temporary fix while we don't know how multiple forms for a same megastone are handled
             {
@@ -573,9 +566,9 @@ namespace Pokemon_Shuffle_Save_Editor
             CB_MonIndex.SelectedIndex = list.OrderBy(x => x).ToList().IndexOf(name);
         }
 
-        private void GetRankImage(Label label, int rank = default(int), bool completed = false)
-        {
-            if (completed)
+        private void GetRankImage(Label label, int rank = default(int), bool completed = false) //Plain text until a way is found to extract Rank sprites from game's folders.
+        {                                                                                       //These are in several files in "Layout Archives", #127 for example,
+            if (completed)                                                                      //but I can't get a proper png without it being cropped or its colours distorted.
             {
                 switch (rank)
                 {
