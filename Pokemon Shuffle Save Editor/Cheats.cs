@@ -72,7 +72,7 @@ namespace Pokemon_Shuffle_Save_Editor
 
         private void B_AllStones_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < 780; i++)
+            for (int i = 0; i < 883; i++)
             {
                 if (HasMega[mons[i].Item1][0] || HasMega[mons[i].Item1][1])
                 {
@@ -84,7 +84,7 @@ namespace Pokemon_Shuffle_Save_Editor
 
         private void B_AllCaughtStones_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < 780; i++)
+            for (int i = 0; i < 883; i++)
             {
                 if (GetPokemon(i))
                 {
@@ -130,7 +130,7 @@ namespace Pokemon_Shuffle_Save_Editor
 
         private void B_MaxSpeedups_Click(object sender, EventArgs e)
         {            
-            for (int i = 0; i < 780; i++)
+            for (int i = 0; i < 883; i++)
             {
                 if (GetPokemon(i))
                 {
@@ -153,22 +153,39 @@ namespace Pokemon_Shuffle_Save_Editor
             {
                 SetStage(i, 1, true);
             }
-            MessageBox.Show("All Normal & Expert stages have been marked as completed.\nRewards like megastones or jewels can still be redeemed by beating the stage.");
+            MessageBox.Show("All Normal & Expert stages have been marked as completed.\n\nRewards like megastones or jewels can still be redeemed by beating the stage.");
         }
 
-        private void B_SRankCompleted_Click(object sender, EventArgs e)
-        {
+        private void B_SRankCompleted_Click(object sender, EventArgs e) //Attempt at updating scores not 100% satisfying.
+        {  //Updates some stages that are designed to be beaten with 0 moves left with unlegit highscores (aka 325).
+           //Thought about hardcoding a condition for these stages but that'd be dirty.
+            int entrylen = BitConverter.ToInt32(stagesMain, 0x4);
             for (int i = 0; i < (BitConverter.ToInt32(stagesMain, 0) - 1); i++)
             {
-                if (GetStage(i, 0))    
+                if (GetStage(i, 0))
+                {
                     SetRank(i, 0, 3);
+                    byte[] data = stagesMain.Skip(0x50 + (i + 1) * entrylen).Take(entrylen).ToArray();
+                    ulong score = (BitConverter.ToUInt64(savedata, 0x4141 + 3 * i) >> 4) & 0x00FFFFFF;
+                    ulong hitpoints = BitConverter.ToUInt64(data, 0x4) & 0xFFFFFFFF;
+                    score = Math.Max(score, hitpoints + 2500); //goal is to update unbeaten levels only with dummy "legit" higscores that should be easy to beat. Levels for which you can obtain S rank with 5 or less remaining moves may be updated too.       
+                    Array.Copy(BitConverter.GetBytes((BitConverter.ToUInt64(savedata, 0x4141 + (3 * i)) & 0xFFFFFFFFF000000FL) | (score << 4)), 0, savedata, 0x4141 + (3 * i), 8);
+                }
+
             }
             for (int i = 0; i < BitConverter.ToInt32(stagesExpert, 0); i++)
             {
                 if (GetStage(i, 1))
+                {
                     SetRank(i, 1, 3);
+                    byte[] data = stagesExpert.Skip(0x50 + i * entrylen).Take(entrylen).ToArray();
+                    ulong score = (BitConverter.ToUInt64(savedata, 0x4F51 + 3 * i) >> 4) & 0x00FFFFFF;
+                    ulong hitpoints = BitConverter.ToUInt64(data, 0x4) & 0xFFFFFFFF;
+                    score = Math.Max(score, hitpoints + 2500);
+                    Array.Copy(BitConverter.GetBytes((BitConverter.ToUInt64(savedata, 0x4F51 + (3 * i)) & 0xFFFFFFFFF000000FL) | (score << 4)), 0, savedata, 0x4F51 + (3 * i), 8);
+                }
             }
-            MessageBox.Show("All Completed Normal & Expert stages have been S-ranked");
+            MessageBox.Show("All Completed Normal & Expert stages have been S-ranked.");
         }
 
         private void B_StreetPassDelete_Click(object sender, EventArgs e)
@@ -198,14 +215,14 @@ namespace Pokemon_Shuffle_Save_Editor
             {
                 SetLevel(i, 1);                
             }
-            for (int i = 0; i < 780; i++) //Un-stone
+            for (int i = 0; i < 883; i++) //Un-stone
             {
                 if (HasMega[mons[i].Item1][0] || HasMega[mons[i].Item1][1])
                 {
                     SetMegaStone(i, false, false);
                 }
             }
-            for (int i = 0; i < 780; i++) //Unfeed speedups
+            for (int i = 0; i < 883; i++) //Unfeed speedups
             {
                 if (HasMega[mons[i].Item1][0] || HasMega[mons[i].Item1][1])
                     SetMegaSpeedup(i, false, false);
@@ -234,13 +251,19 @@ namespace Pokemon_Shuffle_Save_Editor
                 SetRank(i, 2, 0);
                 Array.Copy(BitConverter.GetBytes(score), 0, savedata, 0x52D5 + (3 * i), 8);
             }
-            MessageBox.Show("All stages have been reset to C Rank, 0 score & uncompleted state.\n\n.");
+            MessageBox.Show("All stages have been reset to C Rank, 0 score & uncompleted state.");
         }
 
         private void B_ResourcesReset_Click(object sender, EventArgs e)
         {            
             SetResources();
             MessageBox.Show("Deleted all stock hearts, coins, jewels and Items.");
+        }
+
+        private void B_EscalationReset_Click(object sender, EventArgs e)
+        {
+            SetExcalationStep();
+            MessageBox.Show("Curent escalation battle has been reverted to step 1.\n\nCarefull : only use it when there's exactly one active escalation battle.\nI don't know how this behaves if there is 0 or more than 1 active at the same time.");
         }
 
         private void SetLevel(int ind, int lev)
@@ -368,13 +391,13 @@ namespace Pokemon_Shuffle_Save_Editor
             switch (type)
             {
                 case 0:
-                    base_ofs = 0x688; //Main
+                    base_ofs = 0x987; //Main
                     break;
                 case 1:
-                    base_ofs = 0x84A; //Expert
+                    base_ofs = 0xAB3; //Expert
                     break;
                 case 2:
-                    base_ofs = 0x8BA; //Event
+                    base_ofs = 0xAFE; //Event
                     break;
                 default:
                     return;
@@ -416,13 +439,7 @@ namespace Pokemon_Shuffle_Save_Editor
             int data = BitConverter.ToUInt16(savedata, 0x2D59);
             data = (data & (~(0x3FF << 2))) | (step << 2);
             Array.Copy(BitConverter.GetBytes(data), 0, savedata, 0x2D59, 2);
-        }
-
-        private void B_EscalationReset_Click(object sender, EventArgs e)
-        {
-            SetExcalationStep();
-            MessageBox.Show("Curent escalation battle has been reverted to step 1.\n\nCarefull : only use it when there's exactly one active escalation battle.\nI don't know how this behaves if there is 0 or more than 1 active at the same time.");
-        }
+        }               
 
     }
 }

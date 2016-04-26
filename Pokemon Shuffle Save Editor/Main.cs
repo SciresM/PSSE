@@ -229,27 +229,6 @@ namespace Pokemon_Shuffle_Save_Editor
                     savedata[caught_array_start + caught_ofs] = (byte)(savedata[caught_array_start + caught_ofs] & (byte)(~(1 << caught_shift)) | ((CHK_CaughtMon.Checked ? 1 : 0) << caught_shift));
                 }
 
-                //score patcher
-                Array.Copy(BitConverter.GetBytes((BitConverter.ToUInt64(savedata, 0x4141 + 3 * ((int)NUP_MainIndex.Value - 1)) & 0xFFFFFFFFF000000FL) | (((ulong)NUP_MainScore.Value << 4))), 0, savedata, 0x4141 + 3 * ((int)NUP_MainIndex.Value - 1), 8);
-                Array.Copy(BitConverter.GetBytes((BitConverter.ToUInt64(savedata, 0x4F51 + 3 * ((int)NUP_ExpertIndex.Value)) & 0xFFFFFFFFF000000FL) | (((ulong)NUP_ExpertScore.Value << 4))), 0, savedata, 0x4F51 + 3 * ((int)NUP_ExpertIndex.Value), 8);
-                Array.Copy(BitConverter.GetBytes((BitConverter.ToUInt64(savedata, 0x52D5 + 3 * ((int)NUP_EventIndex.Value)) & 0xFFFFFFFFF000000FL) | (((ulong)NUP_EventScore.Value << 4))), 0, savedata, 0x52D5 + 3 * ((int)NUP_EventIndex.Value), 8);
-
-                //items patcher
-                Array.Copy(BitConverter.GetBytes((BitConverter.ToUInt32(savedata, 0x68) & 0xF0000007) | ((uint)NUP_Coins.Value << 3) | ((uint)NUP_Jewels.Value << 20)), 0, savedata, 0x68, 4);
-                Array.Copy(BitConverter.GetBytes((BitConverter.ToUInt16(savedata, 0x2D4A) & 0xC07F) | ((ushort)NUP_Hearts.Value << 7)), 0, savedata, 0x2D4A, 2);
-                for (int i = 0; i < SI_Items.Items.Length; i++)
-                {
-                    ushort val = BitConverter.ToUInt16(savedata, 0xd0 + i);
-                    val &= 0x7F;
-                    val |= (ushort)(SI_Items.Items[i] << 7);
-                    Array.Copy(BitConverter.GetBytes(val), 0, savedata, 0xd0 + i, 2);
-                }
-
-                for (int i = 0; i < SI_Items.Enchantments.Length; i++)
-                {
-                    savedata[0x2D4C + i] = (byte)(((SI_Items.Enchantments[i] << 1) & 0xFE) | (savedata[0x2D4C + i] & 1));
-                }
-
                 //megastone patcher
                 int mega_ofs = 0x406 + ((ind + 2) / 4);
                 ushort mega_val = BitConverter.ToUInt16(savedata, mega_ofs);
@@ -274,10 +253,29 @@ namespace Pokemon_Shuffle_Save_Editor
                         : (speedUp_ValX & ~(0x7F << suX_shift)) | (set_suX << suX_shift);
                     Array.Copy(BitConverter.GetBytes(newSpeedUp), 0, savedata, 0x2D5B + suX_ofs, 4);
                 }
+                
+                //score patcher
+                Array.Copy(BitConverter.GetBytes((BitConverter.ToUInt64(savedata, 0x4141 + 3 * ((int)NUP_MainIndex.Value - 1)) & 0xFFFFFFFFF000000FL) | (((ulong)NUP_MainScore.Value << 4))), 0, savedata, 0x4141 + 3 * ((int)NUP_MainIndex.Value - 1), 8);
+                Array.Copy(BitConverter.GetBytes((BitConverter.ToUInt64(savedata, 0x4F51 + 3 * ((int)NUP_ExpertIndex.Value)) & 0xFFFFFFFFF000000FL) | (((ulong)NUP_ExpertScore.Value << 4))), 0, savedata, 0x4F51 + 3 * ((int)NUP_ExpertIndex.Value), 8);
+                Array.Copy(BitConverter.GetBytes((BitConverter.ToUInt64(savedata, 0x52D5 + 3 * ((int)NUP_EventIndex.Value)) & 0xFFFFFFFFF000000FL) | (((ulong)NUP_EventScore.Value << 4))), 0, savedata, 0x52D5 + 3 * ((int)NUP_EventIndex.Value), 8);
+
+                //items patcher
+                Array.Copy(BitConverter.GetBytes((BitConverter.ToUInt32(savedata, 0x68) & 0xF0000007) | ((uint)NUP_Coins.Value << 3) | ((uint)NUP_Jewels.Value << 20)), 0, savedata, 0x68, 4);
+                Array.Copy(BitConverter.GetBytes((BitConverter.ToUInt16(savedata, 0x2D4A) & 0xC07F) | ((ushort)NUP_Hearts.Value << 7)), 0, savedata, 0x2D4A, 2);
+                for (int i = 0; i < SI_Items.Items.Length; i++)
+                {
+                    ushort val = BitConverter.ToUInt16(savedata, 0xd0 + i);
+                    val &= 0x7F;
+                    val |= (ushort)(SI_Items.Items[i] << 7);
+                    Array.Copy(BitConverter.GetBytes(val), 0, savedata, 0xd0 + i, 2);
+                }
+
+                for (int i = 0; i < SI_Items.Enchantments.Length; i++)
+                {
+                    savedata[0x2D4C + i] = (byte)(((SI_Items.Enchantments[i] << 1) & 0xFE) | (savedata[0x2D4C + i] & 1));
+                }
             }
-            UpdateResourceBox();
-            UpdateStageBox();
-            UpdateOwnedBox();
+            Parse();
             updating = false;
         }
 
@@ -482,6 +480,32 @@ namespace Pokemon_Shuffle_Save_Editor
             return destImage;
         }
 
+        private void GetRankImage(Label label, int rank = default(int), bool completed = false) //Plain text until a way is found to extract Rank sprites from game's folders.
+        {                                                                                       //These are in several files in "Layout Archives", #127 for example,
+            if (completed)                                                                      //but I can't get a proper png without it being cropped or its colours distorted.
+            {
+                switch (rank)
+                {
+                    case 0:
+                        label.Text = "C";
+                        break;
+                    case 1:
+                        label.Text = "B";
+                        break;
+                    case 2:
+                        label.Text = "A";
+                        break;
+                    case 3:
+                        label.Text = "S";
+                        break;
+                    default:
+                        label.Text = "-";
+                        break;
+                }
+            }
+            else label.Text = "-";
+        }
+
         private void B_CheatsForm_Click(object sender, EventArgs e)
         {
             (new Cheats(mondata, monlevel, stagesMain, stagesEvent, stagesExpert, megaStone, HasMega, mons, megas, megalist, ref savedata)).ShowDialog();
@@ -562,35 +586,76 @@ namespace Pokemon_Shuffle_Save_Editor
                     slot = (BitConverter.ToInt16(data, 0x05) >> 1) & 0xFFF;
                     name = monslist[slot];
                     break;
+                default:
+                    return;
             }
             CB_MonIndex.SelectedIndex = list.OrderBy(x => x).ToList().IndexOf(name);
         }
 
-        private void GetRankImage(Label label, int rank = default(int), bool completed = false) //Plain text until a way is found to extract Rank sprites from game's folders.
-        {                                                                                       //These are in several files in "Layout Archives", #127 for example,
-            if (completed)                                                                      //but I can't get a proper png without it being cropped or its colours distorted.
+        private void Rank_Click(object sender, EventArgs e)
+        {            
+            int i = default(int);
+            if ((sender as Control).Name.Contains("M"))
+                i = 1;
+            if ((sender as Control).Name.Contains("Ex"))
+                i = 2;
+            if ((sender as Control).Name.Contains("Ev"))
+                i = 3;
+            int stage_ofs = 0, stage_shift = 0, rank_ofs = 0, rank_shift = 0;
+            ushort stage = 0, rank = 0;
+            switch (i)
             {
-                switch (rank)
+                case 1:
+                    stage_ofs = 0x688 + ((((int)NUP_MainIndex.Value - 1) * 3) / 8);
+                    stage_shift = (((int)NUP_MainIndex.Value - 1) * 3) % 8;
+                    stage = BitConverter.ToUInt16(savedata, stage_ofs);
+                    rank_ofs = 0x987 + ((7 + (((int)NUP_MainIndex.Value - 1) * 2)) / 8);
+                    rank_shift = (7 + (((int)NUP_MainIndex.Value - 1) * 2)) % 8;
+                    rank = BitConverter.ToUInt16(savedata, rank_ofs);                    
+                    break;
+                case 2:
+                    stage_ofs = 0x84A + ((((int)NUP_ExpertIndex.Value - 1) * 3) / 8);
+                    stage_shift = (((int)NUP_ExpertIndex.Value - 1) * 3) % 8;
+                    stage = BitConverter.ToUInt16(savedata, stage_ofs);
+                    rank_ofs = 0xAB3 + ((7 + (((int)NUP_ExpertIndex.Value - 1) * 2)) / 8);
+                    rank_shift = (7 + (((int)NUP_ExpertIndex.Value - 1) * 2)) % 8;
+                    rank = BitConverter.ToUInt16(savedata, rank_ofs);
+                    break;
+                case 3:
+                    stage_ofs = 0x8BA + (((int)NUP_EventIndex.Value * 3) / 8);
+                    stage_shift = ((int)NUP_EventIndex.Value * 3) % 8;
+                    stage = BitConverter.ToUInt16(savedata, stage_ofs);
+                    rank_ofs = 0xAFE + ((7 + ((int)NUP_EventIndex.Value * 2)) / 8);
+                    rank_shift = (7 + ((int)NUP_EventIndex.Value * 2)) % 8;
+                    rank = BitConverter.ToUInt16(savedata, rank_ofs);
+                    break;
+                default:
+                    return;
+            }
+            if (((BitConverter.ToInt16(savedata, stage_ofs) >> stage_shift) & 7) == 5) //is completed
+            {
+                if (((BitConverter.ToUInt16(savedata, rank_ofs) >> rank_shift) & 0x3) > 0) //is rank != C
                 {
-                    case 0:
-                        label.Text = "C";
-                        break;
-                    case 1:
-                        label.Text = "B";
-                        break;
-                    case 2:
-                        label.Text = "A";
-                        break;
-                    case 3:
-                        label.Text = "S";
-                        break;
-                    default:
-                        label.Text = "-";
-                        break;
+                    rank = (ushort)((rank & (ushort)(~(0x3 << rank_shift))) | ((((BitConverter.ToUInt16(savedata, rank_ofs) >> rank_shift) & 0x3) - 1) << rank_shift)); //minus 1 rank
+                }
+                else //is rank = C or unknown
+                {
+                    rank = (ushort)((rank & (ushort)(~(0x3 << rank_shift))) | (0 << rank_shift)); //rank C
+                    stage = (ushort)((stage & (ushort)(~(0x7 << stage_shift))) | (0 << stage_shift)); //uncompleted
                 }
             }
-            else label.Text = "-";
+            else //is uncompleted
+            {
+                rank = (ushort)((rank & (ushort)(~(0x3 << rank_shift))) | (3 << rank_shift)); //rank S
+                stage = (ushort)((stage & (ushort)(~(0x7 << stage_shift))) | (5 << stage_shift)); //completed
+            }
+            Console.WriteLine("{0:x8}",rank);
+            Console.WriteLine("{0:x8}", stage);
+            Array.Copy(BitConverter.GetBytes(rank), 0, savedata, rank_ofs, 2);
+            Array.Copy(BitConverter.GetBytes(stage), 0, savedata, stage_ofs, 2);
+            Parse(); //Update view            
         }
+        
     }
 
     public class cbItem
