@@ -104,7 +104,7 @@
             this.B_AllCaughtStones.Name = "B_AllCaughtStones";
             this.B_AllCaughtStones.Size = new System.Drawing.Size(138, 23);
             this.B_AllCaughtStones.TabIndex = 2;
-            this.B_AllCaughtStones.Text = "/!\\All Caught Megastones";
+            this.B_AllCaughtStones.Text = "All Caught Megastones";
             this.B_AllCaughtStones.UseVisualStyleBackColor = true;
             this.B_AllCaughtStones.Click += new System.EventHandler(this.B_AllCaughtStones_Click);
             // 
