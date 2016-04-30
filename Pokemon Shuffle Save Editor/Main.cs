@@ -142,7 +142,7 @@ namespace Pokemon_Shuffle_Save_Editor
             if (IsShuffleSave(ofd.FileName)) { Open(ofd.FileName); }
         }
 
-        private void B_Save_Click(object sender, EventArgs e) //Crash occurs if clicked too soon after a read from savedata, maybe add some check to prevent this ?
+        private void B_Save_Click(object sender, EventArgs e)
         {
             if (!loaded || updating)
                 return;
@@ -302,10 +302,9 @@ namespace Pokemon_Shuffle_Save_Editor
 
             //caught CHK
             int caught_ofs = 0x546 + (ind-1+6)/8;
-            CHK_CaughtMon.Checked = ((savedata[caught_ofs] >> ((ind-1+6) % 8)) & 1) == 1;            
-            NUP_Level.Visible = CHK_CaughtMon.Checked;  // Hide level if the Pokémon hasn't been caught
-
-            //mon image
+            CHK_CaughtMon.Checked = ((savedata[caught_ofs] >> ((ind-1+6) % 8)) & 1) == 1;   
+                     
+            NUP_Level.Visible = CHK_CaughtMon.Checked; 
             PB_Mon.Image = GetCaughtImage(ind, CHK_CaughtMon.Checked);
 
             #region Mega Visibility
@@ -322,7 +321,7 @@ namespace Pokemon_Shuffle_Save_Editor
             NUP_SpeedUpY.Visible = PB_SpeedUpY.Visible = CHK_MegaY.Visible && CHK_MegaY.Checked && CHK_CaughtMon.Checked; //Else NUP_SpeedUpY appears if the next mega in terms of offsets has been obtained
             #endregion  
             if (megalist.ToList().IndexOf(ind) != -1) //temporary fix while we don't know how multiple forms for a same megastone are handled
-            {               
+            {
                 int suX_ofs = ((megalist.ToList().IndexOf(ind) * 7) + 3) / 8;
                 int suX_shift = ((megalist.ToList().IndexOf(ind) * 7) + 3) % 8;
                 int suY_ofs = ((megalist.ToList().IndexOf(ind, megalist.ToList().IndexOf(ind) + 1) * 7) + 3) / 8; //looped IndexOf() to get index of the second occurence of ind
@@ -336,7 +335,7 @@ namespace Pokemon_Shuffle_Save_Editor
             {
                 NUP_SpeedUpX.Maximum = NUP_SpeedUpY.Maximum = 1;
                 NUP_SpeedUpX.Value = NUP_SpeedUpY.Value = 0;
-            }            
+            }
         }
 
         private void UpdateStageBox()
@@ -456,22 +455,31 @@ namespace Pokemon_Shuffle_Save_Editor
                 {
                     case 0:
                         label.Text = "C";
+                        //label.ForeColor = Color.Orchid;
                         break;
                     case 1:
                         label.Text = "B";
+                        //label.ForeColor = Color.ForestGreen;
                         break;
                     case 2:
                         label.Text = "A";
+                        //label.ForeColor = Color.RoyalBlue;
                         break;
                     case 3:
                         label.Text = "S";
+                        //label.ForeColor = Color.Goldenrod;
                         break;
                     default:
                         label.Text = "-";
+                        //label.ForeColor = Color.Black;
                         break;
                 }
             }
-            else label.Text = "-";
+            else
+            {
+                label.Text = "-";
+                //label.ForeColor = Color.Black;
+            }
         }
 
         private void B_CheatsForm_Click(object sender, EventArgs e)
@@ -561,11 +569,11 @@ namespace Pokemon_Shuffle_Save_Editor
         private void Rank_Click(object sender, EventArgs e)
         {            
             int i = default(int);
-            if ((sender as Control).Name.Contains("RankM"))
+            if ((sender as Control).Name.Contains("Main"))
                 i = 1;
-            if ((sender as Control).Name.Contains("RankEx"))
+            if ((sender as Control).Name.Contains("Expert"))
                 i = 2;
-            if ((sender as Control).Name.Contains("RankEv"))
+            if ((sender as Control).Name.Contains("Event"))
                 i = 3;
             int stage_ofs = 0, stage_shift = 0, rank_ofs = 0, rank_shift = 0;
             ushort stage = 0, rank = 0;
@@ -588,8 +596,8 @@ namespace Pokemon_Shuffle_Save_Editor
                     rank = BitConverter.ToUInt16(savedata, rank_ofs);
                     break;
                 case 3:
-                    stage_ofs = 0x8BA + (int)NUP_EventIndex.Value * 3 / 8;
-                    stage_shift = (int)NUP_EventIndex.Value * 3 % 8;
+                    stage_ofs = 0x8BA + (4 + (int)NUP_EventIndex.Value * 3) / 8;
+                    stage_shift = (4 + (int)NUP_EventIndex.Value * 3) % 8;
                     stage = BitConverter.ToUInt16(savedata, stage_ofs);
                     rank_ofs = 0xAFE + (7 + (int)NUP_EventIndex.Value * 2) / 8;
                     rank_shift = (7 + (int)NUP_EventIndex.Value * 2) % 8;

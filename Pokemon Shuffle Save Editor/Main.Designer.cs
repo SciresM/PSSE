@@ -115,7 +115,7 @@
             this.B_Open.Location = new System.Drawing.Point(12, 38);
             this.B_Open.Name = "B_Open";
             this.B_Open.Size = new System.Drawing.Size(228, 32);
-            this.B_Open.TabIndex = 19;
+            this.B_Open.TabIndex = 1;
             this.B_Open.Text = "Open savedata.bin";
             this.B_Open.UseVisualStyleBackColor = true;
             this.B_Open.Click += new System.EventHandler(this.B_Open_Click);
@@ -126,7 +126,8 @@
             this.TB_FilePath.Name = "TB_FilePath";
             this.TB_FilePath.ReadOnly = true;
             this.TB_FilePath.Size = new System.Drawing.Size(228, 20);
-            this.TB_FilePath.TabIndex = 20;
+            this.TB_FilePath.TabIndex = 0;
+            this.TB_FilePath.TabStop = false;
             // 
             // B_Save
             // 
@@ -134,7 +135,7 @@
             this.B_Save.Location = new System.Drawing.Point(12, 76);
             this.B_Save.Name = "B_Save";
             this.B_Save.Size = new System.Drawing.Size(228, 32);
-            this.B_Save.TabIndex = 22;
+            this.B_Save.TabIndex = 2;
             this.B_Save.Text = "Save savedata.bin";
             this.B_Save.UseVisualStyleBackColor = true;
             this.B_Save.Click += new System.EventHandler(this.B_Save_Click);
@@ -166,39 +167,43 @@
             this.GB_HighScore.Location = new System.Drawing.Point(12, 352);
             this.GB_HighScore.Name = "GB_HighScore";
             this.GB_HighScore.Size = new System.Drawing.Size(493, 118);
-            this.GB_HighScore.TabIndex = 23;
+            this.GB_HighScore.TabIndex = 6;
             this.GB_HighScore.TabStop = false;
             this.GB_HighScore.Text = "High-Scores";
             // 
             // RankEv
             // 
             this.RankEv.AutoSize = true;
-            this.RankEv.Location = new System.Drawing.Point(460, 76);
+            this.RankEv.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.RankEv.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.RankEv.Location = new System.Drawing.Point(464, 76);
             this.RankEv.Name = "RankEv";
             this.RankEv.Size = new System.Drawing.Size(10, 13);
             this.RankEv.TabIndex = 20;
             this.RankEv.Text = "-";
-            this.RankEv.Click += new System.EventHandler(this.Rank_Click);
+            this.RankEv.TextAlign = System.Drawing.ContentAlignment.BottomRight;
             // 
             // RankEx
             // 
             this.RankEx.AutoSize = true;
-            this.RankEx.Location = new System.Drawing.Point(303, 76);
+            this.RankEx.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.RankEx.Location = new System.Drawing.Point(307, 76);
             this.RankEx.Name = "RankEx";
             this.RankEx.Size = new System.Drawing.Size(10, 13);
             this.RankEx.TabIndex = 19;
             this.RankEx.Text = "-";
-            this.RankEx.Click += new System.EventHandler(this.Rank_Click);
+            this.RankEx.TextAlign = System.Drawing.ContentAlignment.BottomRight;
             // 
             // RankM
             // 
             this.RankM.AutoSize = true;
-            this.RankM.Location = new System.Drawing.Point(144, 76);
+            this.RankM.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RankM.Location = new System.Drawing.Point(148, 76);
             this.RankM.Name = "RankM";
             this.RankM.Size = new System.Drawing.Size(10, 13);
             this.RankM.TabIndex = 18;
             this.RankM.Text = "-";
-            this.RankM.Click += new System.EventHandler(this.Rank_Click);
+            this.RankM.TextAlign = System.Drawing.ContentAlignment.BottomRight;
             // 
             // label10
             // 
@@ -277,7 +282,7 @@
             this.NUP_EventScore.Location = new System.Drawing.Point(397, 92);
             this.NUP_EventScore.Name = "NUP_EventScore";
             this.NUP_EventScore.Size = new System.Drawing.Size(77, 20);
-            this.NUP_EventScore.TabIndex = 9;
+            this.NUP_EventScore.TabIndex = 65;
             this.NUP_EventScore.ValueChanged += new System.EventHandler(this.UpdateForm);
             // 
             // NUP_EventIndex
@@ -285,7 +290,7 @@
             this.NUP_EventIndex.Location = new System.Drawing.Point(435, 43);
             this.NUP_EventIndex.Name = "NUP_EventIndex";
             this.NUP_EventIndex.Size = new System.Drawing.Size(39, 20);
-            this.NUP_EventIndex.TabIndex = 8;
+            this.NUP_EventIndex.TabIndex = 64;
             this.NUP_EventIndex.ValueChanged += new System.EventHandler(this.UpdateForm);
             // 
             // NUP_ExpertScore
@@ -293,7 +298,7 @@
             this.NUP_ExpertScore.Location = new System.Drawing.Point(240, 92);
             this.NUP_ExpertScore.Name = "NUP_ExpertScore";
             this.NUP_ExpertScore.Size = new System.Drawing.Size(77, 20);
-            this.NUP_ExpertScore.TabIndex = 7;
+            this.NUP_ExpertScore.TabIndex = 63;
             this.NUP_ExpertScore.ValueChanged += new System.EventHandler(this.UpdateForm);
             // 
             // NUP_ExpertIndex
@@ -301,7 +306,7 @@
             this.NUP_ExpertIndex.Location = new System.Drawing.Point(278, 43);
             this.NUP_ExpertIndex.Name = "NUP_ExpertIndex";
             this.NUP_ExpertIndex.Size = new System.Drawing.Size(39, 20);
-            this.NUP_ExpertIndex.TabIndex = 6;
+            this.NUP_ExpertIndex.TabIndex = 62;
             this.NUP_ExpertIndex.Value = new decimal(new int[] {
             1,
             0,
@@ -314,15 +319,15 @@
             this.NUP_MainScore.Location = new System.Drawing.Point(81, 92);
             this.NUP_MainScore.Name = "NUP_MainScore";
             this.NUP_MainScore.Size = new System.Drawing.Size(77, 20);
-            this.NUP_MainScore.TabIndex = 5;
+            this.NUP_MainScore.TabIndex = 61;
             this.NUP_MainScore.ValueChanged += new System.EventHandler(this.UpdateForm);
             // 
             // NUP_MainIndex
             // 
-            this.NUP_MainIndex.Location = new System.Drawing.Point(117, 43);
+            this.NUP_MainIndex.Location = new System.Drawing.Point(119, 43);
             this.NUP_MainIndex.Name = "NUP_MainIndex";
             this.NUP_MainIndex.Size = new System.Drawing.Size(39, 20);
-            this.NUP_MainIndex.TabIndex = 4;
+            this.NUP_MainIndex.TabIndex = 60;
             this.NUP_MainIndex.Value = new decimal(new int[] {
             1,
             0,
@@ -346,6 +351,7 @@
             this.PB_Event.Size = new System.Drawing.Size(64, 80);
             this.PB_Event.TabIndex = 2;
             this.PB_Event.TabStop = false;
+            this.PB_Event.Click += new System.EventHandler(this.Rank_Click);
             // 
             // PB_Expert
             // 
@@ -354,6 +360,7 @@
             this.PB_Expert.Size = new System.Drawing.Size(64, 80);
             this.PB_Expert.TabIndex = 1;
             this.PB_Expert.TabStop = false;
+            this.PB_Expert.Click += new System.EventHandler(this.Rank_Click);
             // 
             // PB_Main
             // 
@@ -362,6 +369,7 @@
             this.PB_Main.Size = new System.Drawing.Size(64, 80);
             this.PB_Main.TabIndex = 0;
             this.PB_Main.TabStop = false;
+            this.PB_Main.Click += new System.EventHandler(this.Rank_Click);
             // 
             // GB_Caught
             // 
@@ -381,7 +389,7 @@
             this.GB_Caught.Location = new System.Drawing.Point(12, 168);
             this.GB_Caught.Name = "GB_Caught";
             this.GB_Caught.Size = new System.Drawing.Size(228, 125);
-            this.GB_Caught.TabIndex = 24;
+            this.GB_Caught.TabIndex = 3;
             this.GB_Caught.TabStop = false;
             this.GB_Caught.Text = "Owned Pokemon";
             // 
@@ -411,7 +419,7 @@
             0});
             this.NUP_SpeedUpY.Name = "NUP_SpeedUpY";
             this.NUP_SpeedUpY.Size = new System.Drawing.Size(37, 20);
-            this.NUP_SpeedUpY.TabIndex = 25;
+            this.NUP_SpeedUpY.TabIndex = 36;
             this.NUP_SpeedUpY.Visible = false;
             this.NUP_SpeedUpY.ValueChanged += new System.EventHandler(this.UpdateForm);
             // 
@@ -425,7 +433,7 @@
             0});
             this.NUP_SpeedUpX.Name = "NUP_SpeedUpX";
             this.NUP_SpeedUpX.Size = new System.Drawing.Size(37, 20);
-            this.NUP_SpeedUpX.TabIndex = 24;
+            this.NUP_SpeedUpX.TabIndex = 34;
             this.NUP_SpeedUpX.Visible = false;
             this.NUP_SpeedUpX.ValueChanged += new System.EventHandler(this.UpdateForm);
             // 
@@ -451,7 +459,7 @@
             this.CHK_MegaX.Location = new System.Drawing.Point(108, 79);
             this.CHK_MegaX.Name = "CHK_MegaX";
             this.CHK_MegaX.Size = new System.Drawing.Size(15, 14);
-            this.CHK_MegaX.TabIndex = 21;
+            this.CHK_MegaX.TabIndex = 33;
             this.CHK_MegaX.UseVisualStyleBackColor = true;
             this.CHK_MegaX.CheckedChanged += new System.EventHandler(this.UpdateForm);
             // 
@@ -462,7 +470,7 @@
             this.CHK_MegaY.Location = new System.Drawing.Point(182, 79);
             this.CHK_MegaY.Name = "CHK_MegaY";
             this.CHK_MegaY.Size = new System.Drawing.Size(15, 14);
-            this.CHK_MegaY.TabIndex = 20;
+            this.CHK_MegaY.TabIndex = 35;
             this.CHK_MegaY.UseVisualStyleBackColor = true;
             this.CHK_MegaY.CheckedChanged += new System.EventHandler(this.UpdateForm);
             // 
@@ -481,7 +489,7 @@
             0});
             this.NUP_Level.Name = "NUP_Level";
             this.NUP_Level.Size = new System.Drawing.Size(64, 20);
-            this.NUP_Level.TabIndex = 19;
+            this.NUP_Level.TabIndex = 32;
             this.NUP_Level.Value = new decimal(new int[] {
             1,
             0,
@@ -496,7 +504,7 @@
             this.CHK_CaughtMon.Location = new System.Drawing.Point(88, 56);
             this.CHK_CaughtMon.Name = "CHK_CaughtMon";
             this.CHK_CaughtMon.Size = new System.Drawing.Size(60, 17);
-            this.CHK_CaughtMon.TabIndex = 17;
+            this.CHK_CaughtMon.TabIndex = 31;
             this.CHK_CaughtMon.Text = "Caught";
             this.CHK_CaughtMon.UseVisualStyleBackColor = true;
             this.CHK_CaughtMon.CheckedChanged += new System.EventHandler(this.UpdateForm);
@@ -508,7 +516,7 @@
             this.CB_MonIndex.Location = new System.Drawing.Point(88, 29);
             this.CB_MonIndex.Name = "CB_MonIndex";
             this.CB_MonIndex.Size = new System.Drawing.Size(121, 21);
-            this.CB_MonIndex.TabIndex = 16;
+            this.CB_MonIndex.TabIndex = 30;
             this.CB_MonIndex.SelectedValueChanged += new System.EventHandler(this.UpdateForm);
             // 
             // PB_Mon
@@ -532,7 +540,7 @@
             this.GB_Resources.Location = new System.Drawing.Point(252, 6);
             this.GB_Resources.Name = "GB_Resources";
             this.GB_Resources.Size = new System.Drawing.Size(253, 340);
-            this.GB_Resources.TabIndex = 25;
+            this.GB_Resources.TabIndex = 5;
             this.GB_Resources.TabStop = false;
             this.GB_Resources.Text = "Resources";
             // 
@@ -546,7 +554,7 @@
             0});
             this.NUP_Jewels.Name = "NUP_Jewels";
             this.NUP_Jewels.Size = new System.Drawing.Size(52, 20);
-            this.NUP_Jewels.TabIndex = 6;
+            this.NUP_Jewels.TabIndex = 53;
             this.NUP_Jewels.ValueChanged += new System.EventHandler(this.UpdateForm);
             // 
             // NUP_Coins
@@ -559,7 +567,7 @@
             0});
             this.NUP_Coins.Name = "NUP_Coins";
             this.NUP_Coins.Size = new System.Drawing.Size(67, 20);
-            this.NUP_Coins.TabIndex = 5;
+            this.NUP_Coins.TabIndex = 52;
             this.NUP_Coins.ValueChanged += new System.EventHandler(this.UpdateForm);
             // 
             // NUP_Hearts
@@ -572,7 +580,7 @@
             0});
             this.NUP_Hearts.Name = "NUP_Hearts";
             this.NUP_Hearts.Size = new System.Drawing.Size(43, 20);
-            this.NUP_Hearts.TabIndex = 3;
+            this.NUP_Hearts.TabIndex = 51;
             this.NUP_Hearts.ValueChanged += new System.EventHandler(this.UpdateForm);
             // 
             // label13
@@ -608,7 +616,7 @@
             this.B_CheatsForm.Location = new System.Drawing.Point(12, 299);
             this.B_CheatsForm.Name = "B_CheatsForm";
             this.B_CheatsForm.Size = new System.Drawing.Size(109, 47);
-            this.B_CheatsForm.TabIndex = 26;
+            this.B_CheatsForm.TabIndex = 4;
             this.B_CheatsForm.Text = "Bulk Edits";
             this.B_CheatsForm.UseVisualStyleBackColor = true;
             this.B_CheatsForm.Click += new System.EventHandler(this.B_CheatsForm_Click);
@@ -689,7 +697,7 @@
             shuffleItems1.Time = 0;
             this.ItemsGrid.SelectedObject = shuffleItems1;
             this.ItemsGrid.Size = new System.Drawing.Size(241, 257);
-            this.ItemsGrid.TabIndex = 27;
+            this.ItemsGrid.TabIndex = 54;
             this.ItemsGrid.ToolbarVisible = false;
             this.ItemsGrid.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.UpdateProperty);
             this.ItemsGrid.EnabledChanged += new System.EventHandler(this.ItemsGrid_EnabledChanged);

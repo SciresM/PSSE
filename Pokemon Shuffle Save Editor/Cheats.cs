@@ -141,35 +141,37 @@ namespace Pokemon_Shuffle_Save_Editor
             MessageBox.Show("All Normal & Expert stages have been marked as completed.\n\nRewards like megastones or jewels can still be redeemed by beating the stage.");
         }
 
-        private void B_SRankCompleted_Click(object sender, EventArgs e) //Attempt at updating scores not 100% satisfying.
-        {  //Updates some stages that are designed to be beaten with 0 moves left with unlegit highscores (aka 325).
-           //Thought about hardcoding a condition for these stages but that'd be dirty.
+        private void B_SRankCompleted_Click(object sender, EventArgs e) 
+        {  
             int entrylen = BitConverter.ToInt32(stagesMain, 0x4);
+            int rank = 3;
             for (int i = 0; i < (BitConverter.ToInt32(stagesMain, 0) - 1); i++)
             {
                 if (GetStage(i, 0))
                 {
-                    SetRank(i, 0, 3);
+                    SetRank(i, 0, rank);
                     byte[] data = stagesMain.Skip(0x50 + (i + 1) * entrylen).Take(entrylen).ToArray();
-                    ulong score = (BitConverter.ToUInt64(savedata, 0x4141 + 3 * i) >> 4) & 0x00FFFFFF;
-                    ulong hitpoints = BitConverter.ToUInt64(data, 0x4) & 0xFFFFFFFF;
-                    score = Math.Max(score, hitpoints + 2500); //goal is to update unbeaten levels only with dummy "legit" higscores that should be easy to beat. Levels for which you can obtain S rank with 5 or less remaining moves may be updated too.       
-                    Array.Copy(BitConverter.GetBytes((BitConverter.ToUInt64(savedata, 0x4141 + (3 * i)) & 0xFFFFFFFFF000000FL) | (score << 4)), 0, savedata, 0x4141 + (3 * i), 8);
-                }
-
+                    SetScore(i, 0, Math.Max(GetScore(i, 0), (BitConverter.ToUInt64(data, 0x4) & 0xFFFFFFFF) + (ulong)Math.Min(7000, ((BitConverter.ToInt16(data, 0x30 + (rank - 1)) >> 4) & 0xFF) * 500))); //score = Max(current_highscore, hitpoints + minimum_bonus_points (a.k.a min moves left times 500, capped at 7000))
+                }                    
             }
             for (int i = 0; i < BitConverter.ToInt32(stagesExpert, 0); i++)
             {
                 if (GetStage(i, 1))
                 {
-                    SetRank(i, 1, 3);
+                    SetRank(i, 1, rank);
                     byte[] data = stagesExpert.Skip(0x50 + i * entrylen).Take(entrylen).ToArray();
-                    ulong score = (BitConverter.ToUInt64(savedata, 0x4F51 + 3 * i) >> 4) & 0x00FFFFFF;
-                    ulong hitpoints = BitConverter.ToUInt64(data, 0x4) & 0xFFFFFFFF;
-                    score = Math.Max(score, hitpoints + 2500);
-                    Array.Copy(BitConverter.GetBytes((BitConverter.ToUInt64(savedata, 0x4F51 + (3 * i)) & 0xFFFFFFFFF000000FL) | (score << 4)), 0, savedata, 0x4F51 + (3 * i), 8);
-                }
+                    SetScore(i, 1, Math.Max(GetScore(i, 1), (BitConverter.ToUInt64(data, 0x4) & 0xFFFFFFFF) + (ulong)Math.Min(7000, ((BitConverter.ToInt16(data, 0x30 + (rank - 1)) >> 4) & 0xFF) * 500))); 
+                }                       
             }
+            //for (int i = 0; i < BitConverter.ToInt32(stagesEvent, 0); i++) -->Better not to S Rank Event stages yet because it has no interest while potentially misbehaves
+            //{
+            //    if (GetStage(i, 2))
+            //    {
+            //        SetRank(i, 2, rank);
+            //        byte[] data = stagesEvent.Skip(0x50 + i * entrylen).Take(entrylen).ToArray();
+            //        SetScore(i, 2, Math.Max(GetScore(i, 2), (BitConverter.ToUInt64(data, 0x4) & 0xFFFFFFFF) + (ulong)Math.Min(7000, ((BitConverter.ToInt16(data, 0x30 + (rank - 1)) >> 4) & 0xFF) * 500))); 
+            //    }
+            //}
             MessageBox.Show("All Completed Normal & Expert stages have been S-ranked.");
         }
 
@@ -193,7 +195,7 @@ namespace Pokemon_Shuffle_Save_Editor
             for (int i = 1; i < 883; i++) //Uncatch
                 SetPokemon(i, false);
             for (int i = 0; i < 883; i++) //Un-level, Un-experience & Un-lollipop
-                SetLevel(i, 1);    
+                SetLevel(i);    
             for (int i = 0; i < 883; i++) //Un-stone
             {
                 if (HasMega[mons[i].Item1][0] || HasMega[mons[i].Item1][1])
@@ -209,24 +211,23 @@ namespace Pokemon_Shuffle_Save_Editor
 
         private void B_StageReset_Click(object sender, EventArgs e)
         {
-            long score = 0;
             for (int i = 0; i < (BitConverter.ToInt32(stagesMain, 0) - 1); i++)
             {
-                SetStage(i, 0, false);
-                SetRank(i, 0, 0);
-                Array.Copy(BitConverter.GetBytes(score), 0, savedata, 0x4141 + (3 * i), 8);
+                SetStage(i, 0);
+                SetRank(i, 0);
+                SetScore(i, 0);
             }
             for (int i = 0; i < BitConverter.ToInt32(stagesExpert, 0); i++)
             {
-                SetStage(i, 1, false);
-                SetRank(i, 1, 0);
-                Array.Copy(BitConverter.GetBytes(score), 0, savedata, 0x4F51 + (3 * i), 8);
+                SetStage(i, 1);
+                SetRank(i, 1);
+                SetScore(i, 1);
             }
-            for (int i = 0; i < 200; i++) //max number of event levels should be 549 but 200 should be enough at any time
+            for (int i = 0; i < 100; i++) //max number of event levels should be 549 but 100 should be enough to wipe all data from event stages at any time
             {
-                SetStage(i, 2, false);
-                SetRank(i, 2, 0);
-                Array.Copy(BitConverter.GetBytes(score), 0, savedata, 0x52D5 + (3 * i), 8);
+                SetStage(i, 2);
+                SetRank(i, 2);
+                SetScore(i, 2);
             }
             MessageBox.Show("All stages have been reset to C Rank, 0 score & uncompleted state.");
         }
@@ -243,8 +244,14 @@ namespace Pokemon_Shuffle_Save_Editor
             MessageBox.Show("Curent escalation battle has been reverted to step 1.\n\nCarefull : only use it when there's exactly one active escalation battle.\nI don't know how this behaves if there is 0 or more than 1 active at the same time.");
         }
 
-        private void SetLevel(int ind, int lev)
+        #region Tool functions
+
+        private void SetLevel(int ind, int lev = 1)
         {
+            if (lev < 1)
+                lev = 1;
+            if (lev > 15)
+                lev = 15;   //hardcoded 5 as the max number of lollipops, change this if needed
             int level_ofs = (((ind - 1) * 4) / 8);
             int level_shift = ((((ind - 1) * 4) + 1) % 8);
             ushort level = BitConverter.ToUInt16(savedata, 0x187 + level_ofs);
@@ -313,7 +320,7 @@ namespace Pokemon_Shuffle_Save_Editor
             }
         }
 
-        private void SetStage(int ind, int type, bool completed)
+        private void SetStage(int ind, int type, bool completed = false)
         {
             int base_ofs = default(int);
             switch (type)
@@ -333,55 +340,111 @@ namespace Pokemon_Shuffle_Save_Editor
             int stage_ofs = base_ofs + ((ind * 3) / 8);
             int stage_shift = (ind * 3) % 8; 
             ushort stage = BitConverter.ToUInt16(savedata, stage_ofs);
-            int status = completed ? 5 : 0;
-            stage = (ushort)((stage & (ushort)(~(0x7 << stage_shift))) | (status << stage_shift));
+            stage = (ushort)((stage & (ushort)(~(0x7 << stage_shift))) | ((completed ? 5 : 0) << stage_shift));
             Array.Copy(BitConverter.GetBytes(stage), 0, savedata, stage_ofs, 2);
         }
 
         private bool GetStage(int ind, int type)
         {
-            int base_ofs = default(int);
+            int stage_ofs;
             switch (type)
             {
                 case 0:
-                    base_ofs = 0x688; //Main
+                    stage_ofs = 0x688 + ind * 3 / 8; //Main
                     break;
                 case 1:
-                    base_ofs = 0x84A; //Expert
+                    stage_ofs = 0x84A + ind * 3 / 8; //Expert
                     break;
                 case 2:
-                    base_ofs = 0x8BA; //Event
+                    stage_ofs = 0x8BA + ind * 3 / 8; //Event
                     break;
                 default:
                     return false;
             }
-            int stage_ofs = base_ofs + ((ind * 3) / 8);
-            int stage_shift = (ind * 3) % 8;
-            return ((BitConverter.ToInt16(savedata, stage_ofs) >> stage_shift) & 7) == 5;
+            return ((BitConverter.ToInt16(savedata, stage_ofs) >> ind * 3 % 8) & 7) == 5;
         }
 
-        private void SetRank(int ind, int type, int status)
+        private void SetRank(int ind, int type, int newRank = 0)
         {
-            int base_ofs = default(int);
+            int rank_ofs;
             switch (type)
             {
                 case 0:
-                    base_ofs = 0x987; //Main
+                    rank_ofs = 0x987 + (7 + ind * 2) / 8; //Main
                     break;
                 case 1:
-                    base_ofs = 0xAB3; //Expert
+                    rank_ofs = 0xAB3 + (7 + ind * 2) / 8; //Expert
                     break;
                 case 2:
-                    base_ofs = 0xAFE; //Event
+                    rank_ofs = 0xAFE + (7 + ind * 2) / 8; //Event
                     break;
                 default:
                     return;
             }
-            int rank_ofs = base_ofs + ((7 + (ind * 2)) / 8);
-            int rank_shift = (7 + (ind * 2)) % 8;
+            int rank_shift = (7 + ind * 2) % 8;
             ushort rank = BitConverter.ToUInt16(savedata, rank_ofs);
-            rank = (ushort)((rank & (ushort)(~(0x3 << rank_shift))) | (status << rank_shift));
+            rank = (ushort)((rank & (ushort)(~(0x3 << rank_shift))) | (newRank << rank_shift));
             Array.Copy(BitConverter.GetBytes(rank), 0, savedata, rank_ofs, 2);
+        }
+
+        private int GetRank (int ind, int type)
+        {
+            int rank_ofs;
+            switch (type)
+            {
+                case 0:
+                    rank_ofs = 0x987 + (7 + ind * 2) / 8; //Main
+                    break;
+                case 1:
+                    rank_ofs = 0xAB3 + (7 + ind * 2) / 8; //Expert
+                    break;
+                case 2:
+                    rank_ofs = 0xAFE + (7 + ind * 2) / 8; //Event
+                    break;
+                default:
+                    return 0;
+            }
+            return ((BitConverter.ToInt16(savedata, rank_ofs) >> (7 + ind * 2) % 8) & 0x3);
+        }
+
+        private void SetScore (int ind, int type, ulong newScore = 0)
+        {
+            int score_ofs, entrylen = BitConverter.ToInt32(stagesMain, 0x4);
+            switch (type)
+            {
+                case 0:
+                    score_ofs = 0x4141 + 3 * ind; //Main
+                    break;
+                case 1:
+                    score_ofs = 0x4F51 + 3 * ind; //Expert
+                    break;
+                case 2:
+                    score_ofs = 0x52D5 + 3 * ind; //Event
+                    break;
+                default:
+                    return;
+            }
+            Array.Copy(BitConverter.GetBytes((BitConverter.ToUInt64(savedata, score_ofs) & 0xFFFFFFFFF000000FL) | (newScore << 4)), 0, savedata, score_ofs, 8);
+        }
+
+        private ulong GetScore (int ind, int type)
+        {
+            int score_ofs, entrylen = BitConverter.ToInt32(stagesMain, 0x4);
+            switch (type)
+            {
+                case 0:
+                    score_ofs = 0x4141 + 3 * ind; //Main
+                    break;
+                case 1:
+                    score_ofs = 0x4F51 + 3 * ind; //Expert
+                    break;
+                case 2:
+                    score_ofs = 0x52D5 + 3 * ind; //Event
+                    break;
+                default:
+                    return 0;
+            }
+            return (BitConverter.ToUInt64(savedata, score_ofs) >> 4) & 0x00FFFFFF;
         }
 
         private void SetResources(int hearts = 0, uint coins = 0, uint jewels = 0, int[] items = null, int[] enhancements = null)
@@ -411,8 +474,19 @@ namespace Pokemon_Shuffle_Save_Editor
                 step = 999;
             int data = BitConverter.ToUInt16(savedata, 0x2D59);
             data = (data & (~(0x3FF << 2))) | (step << 2);
-            Array.Copy(BitConverter.GetBytes(data), 0, savedata, 0x2D59, 2);
-        }               
+            Array.Copy(BitConverter.GetBytes(data), 0, savedata, 0x2D59, 2); //Will only update 1 escalation battle. Update offsets if there ever are more than 1 at once
+        }
+        #endregion
+
+        protected override bool ProcessDialogKey(Keys keyData)  //Allows quit when Esc is pressed
+        {
+            if (Form.ModifierKeys == Keys.None && keyData == Keys.Escape)
+            {
+                this.Close();
+                return true;
+            }
+            return base.ProcessDialogKey(keyData);
+        }
 
     }
 }
