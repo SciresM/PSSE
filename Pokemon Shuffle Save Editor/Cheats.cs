@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -12,7 +13,7 @@ namespace Pokemon_Shuffle_Save_Editor
         private byte[] stagesEvent;
         private byte[] stagesExpert;
         private byte[] megaStone;
-        public Cheats(byte[] md, byte[] ml, byte[] sm, byte[] sev, byte[] sex, byte[] ms, bool[][] hm, Tuple<int, int, bool, int, int, int, int, Tuple<int>>[] m, Tuple<int, int>[] mg, int[] mgl, ref byte[] sd)
+        public Cheats(byte[] md, byte[] ml, byte[] sm, byte[] sev, byte[] sex, byte[] ms, bool[][] hm, Tuple<int, int, bool, int, int, int, int, Tuple<int>>[] m, Tuple<int, int>[] mg, List<int> mgl, int mgA, ref byte[] sd)
         {
             InitializeComponent();
             mondata = md;
@@ -25,7 +26,8 @@ namespace Pokemon_Shuffle_Save_Editor
             savedata = sd;
             mons = m;
             megas = mg;            
-            megalist = mgl;            
+            megalist = mgl;
+            megaArray_start = mgA;     
         }
         bool[][] HasMega; // [X][0] = X, [X][1] = Y
 
@@ -33,18 +35,19 @@ namespace Pokemon_Shuffle_Save_Editor
 
         Tuple<int, int, bool, int, int, int, int, Tuple<int>>[] mons; //specieIndex, formIndex, isMega, raiseMaxLevel, basePower, talent, type, rest
         private Tuple<int, int>[] megas; //monsIndex, speedups
-        int[] megalist; //derivate an int[] from megas.Item1 to use with ToList() functions (in UpdateForms() & UpdateOwnedBox()) because I don't know how of a "correct" way to do it
+        List<int> megalist;
+        int megaArray_start;
 
         private void B_CaughtEverything_Click(object sender, EventArgs e)
         {
-            for (int i = 1; i < 883; i++) //includes 15 reserved slots
+            for (int i = 1; i < megaArray_start; i++) //includes 15 reserved slots
                 SetPokemon(i, true);
             MessageBox.Show("All Pokemon are now caught.");
         }
 
         private void B_CaughtObtainables_Click(object sender, EventArgs e)
         {
-            for (int i = 1; i < 883; i++) //includes 15 reserved slots
+            for (int i = 1; i < megaArray_start; i++) //includes 15 reserved slots
             {
                 if ((mons[i].Rest.Item1 != 999) && ((mons[i].Item5 != 1) || (mons[i].Item6 != 1) || (mons[i].Item7 != 0)))
                     SetPokemon(i, true);
@@ -68,7 +71,7 @@ namespace Pokemon_Shuffle_Save_Editor
 
         private void B_AllStones_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < 883; i++)
+            for (int i = 0; i < megaArray_start; i++)
             {
                 if (HasMega[mons[i].Item1][0] || HasMega[mons[i].Item1][1])
                     SetMegaStone(i, HasMega[mons[i].Item1][0], HasMega[mons[i].Item1][1]);
@@ -78,13 +81,13 @@ namespace Pokemon_Shuffle_Save_Editor
 
         private void B_AllCaughtStones_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < 883; i++)
+            for (int i = 0; i < megaArray_start; i++)
             {
                 if (GetPokemon(i))
                 {
                     if (HasMega[mons[i].Item1][0] || HasMega[mons[i].Item1][1])
                     {
-                        if ((mons[883 + megalist.ToList().IndexOf(i)].Item6 != 7) || (mons[883 + megalist.ToList().IndexOf(i)].Item7 != 0) || (megas[megalist.ToList().IndexOf(i)].Item2 != 1)) //Checks type, "talent" & max speedups.Doesn't check if Y form has been released, but both Charizard's & Mewtwo's already have.
+                        if ((mons[megaArray_start + megalist.IndexOf(i)].Item6 != 7) || (mons[megaArray_start + megalist.IndexOf(i)].Item7 != 0) || (megas[megalist.IndexOf(i)].Item2 != 1)) //Checks type, "talent" & max speedups.Doesn't check if Y form has been released, but both Charizard's & Mewtwo's already have.
                             SetMegaStone(i, HasMega[mons[i].Item1][0], HasMega[mons[i].Item1][1]);
                     }
                 }
@@ -94,7 +97,7 @@ namespace Pokemon_Shuffle_Save_Editor
 
         private void B_LevelMax_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < 883; i++) //Includes 15 reserved slots
+            for (int i = 0; i < megaArray_start; i++) //Includes 15 reserved slots
             {
                 if (GetPokemon(i))
                 {
@@ -121,7 +124,7 @@ namespace Pokemon_Shuffle_Save_Editor
 
         private void B_MaxSpeedups_Click(object sender, EventArgs e)
         {            
-            for (int i = 0; i < 883; i++)
+            for (int i = 0; i < megaArray_start; i++)
             {
                 if (GetPokemon(i))
                 {
@@ -192,16 +195,16 @@ namespace Pokemon_Shuffle_Save_Editor
         
         private void B_PokemonReset_Click(object sender, EventArgs e)
         {
-            for (int i = 1; i < 883; i++) //Uncatch
+            for (int i = 1; i < megaArray_start; i++) //Uncatch
                 SetPokemon(i, false);
-            for (int i = 0; i < 883; i++) //Un-level, Un-experience & Un-lollipop
+            for (int i = 0; i < megaArray_start; i++) //Un-level, Un-experience & Un-lollipop
                 SetLevel(i);    
-            for (int i = 0; i < 883; i++) //Un-stone
+            for (int i = 0; i < megaArray_start; i++) //Un-stone
             {
                 if (HasMega[mons[i].Item1][0] || HasMega[mons[i].Item1][1])
                     SetMegaStone(i, false, false);
             }
-            for (int i = 0; i < 883; i++) //Unfeed speedups
+            for (int i = 0; i < megaArray_start; i++) //Unfeed speedups
             {
                 if (HasMega[mons[i].Item1][0] || HasMega[mons[i].Item1][1])
                     SetMegaSpeedup(i, false, false);
@@ -305,14 +308,14 @@ namespace Pokemon_Shuffle_Save_Editor
         {
             if (HasMega[mons[ind].Item1][0] || HasMega[mons[ind].Item1][1])
             {
-                int suX_ofs = (((megalist.ToList().IndexOf(ind) * 7) + 3) / 8);
-                int suX_shift = (((megalist.ToList().IndexOf(ind) * 7) + 3) % 8);
-                int suY_ofs = (((megalist.ToList().IndexOf(ind, megalist.ToList().IndexOf(ind) + 1) * 7) + 3) / 8);
-                int suY_shift = (((megalist.ToList().IndexOf(ind, megalist.ToList().IndexOf(ind) + 1) * 7) + 3) % 8) + ((suY_ofs - suX_ofs) * 8); //relative to suX_ofs
+                int suX_ofs = (((megalist.IndexOf(ind) * 7) + 3) / 8);
+                int suX_shift = (((megalist.IndexOf(ind) * 7) + 3) % 8);
+                int suY_ofs = (((megalist.IndexOf(ind, megalist.IndexOf(ind) + 1) * 7) + 3) / 8);
+                int suY_shift = (((megalist.IndexOf(ind, megalist.IndexOf(ind) + 1) * 7) + 3) % 8) + ((suY_ofs - suX_ofs) * 8); //relative to suX_ofs
                 int speedUp_ValX = BitConverter.ToInt32(savedata, 0x2D5B + suX_ofs);
                 int speedUp_ValY = BitConverter.ToInt32(savedata, 0x2D5B + suY_ofs);
-                int set_suX = X ? megas[megalist.ToList().IndexOf(ind)].Item2 : 0;
-                int set_suY = Y ? megas[megalist.ToList().IndexOf(ind, megalist.ToList().IndexOf(ind) + 1)].Item2 : 0;
+                int set_suX = X ? megas[megalist.IndexOf(ind)].Item2 : 0;
+                int set_suY = Y ? megas[megalist.IndexOf(ind, megalist.IndexOf(ind) + 1)].Item2 : 0;
                 int newSpeedUp = HasMega[mons[ind].Item1][1]
                     ? ((((speedUp_ValX & ~(0x7F << suX_shift)) & ~(0x7F << suY_shift)) | (set_suX << suX_shift)) | (set_suY << suY_shift)) //Erases both X & Y bits at the same time before updating them to make sure Y doesn't overwrite X bits
                     : (speedUp_ValX & ~(0x7F << suX_shift)) | (set_suX << suX_shift);

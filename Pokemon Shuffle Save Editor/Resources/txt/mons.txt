@@ -1,4 +1,4 @@
----
+﻿---
 Bulbasaur
 Ivysaur
 Venusaur
@@ -628,11 +628,11 @@ Vanillish
 Vanilluxe
 Deerling Spring
 Deerling Summer
-Deerling Fall
+Deerling Autumn
 Deerling Winter
 Sawsbuck Spring
 Sawsbuck Summer
-Sawsbuck Fall
+Sawsbuck Autumn
 Sawsbuck Winter
 Emolga
 Karrablast
