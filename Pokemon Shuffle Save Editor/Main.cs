@@ -134,16 +134,16 @@ namespace Pokemon_Shuffle_Save_Editor
 
         byte[] savedata;
         bool loaded;
-        private bool updating;
+        bool updating;
 
         private void B_Open_Click(object sender, EventArgs e)
         {
             TB_FilePath.Text = string.Empty;
             B_Save.Enabled = GB_Caught.Enabled = GB_HighScore.Enabled = GB_Resources.Enabled = B_CheatsForm.Enabled = ItemsGrid.Enabled = loaded = false;
 
-            OpenFileDialog ofd = new OpenFileDialog {FileName = "savedata.bin"};
+            OpenFileDialog ofd = new OpenFileDialog { FileName = "savedata.bin" };
             if (ofd.ShowDialog() != DialogResult.OK) return;
-            if (IsShuffleSave(ofd.FileName)) { Open(ofd.FileName); }
+            Open(ofd.FileName);
         }
 
         private void B_Save_Click(object sender, EventArgs e)
@@ -151,21 +151,24 @@ namespace Pokemon_Shuffle_Save_Editor
             if (!loaded || updating)
                 return;
             updating = true;
-            SaveFileDialog sfd = new SaveFileDialog {FileName = TB_FilePath.Text};
+            SaveFileDialog sfd = new SaveFileDialog { FileName = TB_FilePath.Text };
             if (sfd.ShowDialog() != DialogResult.OK) return;
 
             File.WriteAllBytes(sfd.FileName, savedata);
-            MessageBox.Show("Saved save file to " + sfd.FileName + "."+Environment.NewLine+"Remember to delete secure value before importing.");
+            MessageBox.Show("Saved save file to " + sfd.FileName + "." + Environment.NewLine + "Remember to delete secure value before importing.");
             updating = false;
         }
 
         private void Open(string file)
         {
-            TB_FilePath.Text = file;
-            savedata = File.ReadAllBytes(file);
-            Parse();
-            B_Save.Enabled = GB_Caught.Enabled = GB_HighScore.Enabled = GB_Resources.Enabled = B_CheatsForm.Enabled = ItemsGrid.Enabled = loaded = true;
-            UpdateForm(null, null);
+            if (IsShuffleSave(file))
+            {
+                TB_FilePath.Text = file;
+                savedata = File.ReadAllBytes(file);
+                Parse();
+                B_Save.Enabled = GB_Caught.Enabled = GB_HighScore.Enabled = GB_Resources.Enabled = B_CheatsForm.Enabled = ItemsGrid.Enabled = loaded = true;
+                UpdateForm(null, null);
+            }            
         }
               
         private bool IsShuffleSave(string file) // Try to do a better job at filtering files rather than just saying "oh, it's not savedata.bin quit"
@@ -194,31 +197,36 @@ namespace Pokemon_Shuffle_Save_Editor
             {
                 int ind = (int)CB_MonIndex.SelectedValue;
 
-                //level patcher
+                //level & lollipop patcher
                 int level_ofs = 0x187 + (((ind - 1) * 4) / 8);
                 int level_shift = ((((ind - 1) * 4) + 1) % 8);
                 ushort level = BitConverter.ToUInt16(savedata, level_ofs);                
-                int set_level = CHK_CaughtMon.Checked ? ((int)NUP_Level.Value == 1 ? 0 : (int)NUP_Level.Value) : 0;
+                ushort set_level = (ushort)(CHK_CaughtMon.Checked ? (NUP_Level.Value == 1 ? 0 : NUP_Level.Value) : 0);
+                int rml_ofs = 0xA9DB + (ind * 6) / 8;
+                int rml_shift = (ind * 6) % 8;
+                ushort numRaiseMaxLevel = BitConverter.ToUInt16(savedata, rml_ofs);
+                ushort set_rml = (ushort)NUP_Lollipop.Value;
+                if (set_level > 10 + set_rml)
+                {
+                    if ((sender as Control).Name.Contains("Level"))
+                        set_rml = (ushort)(set_level - 10);
+                    if ((sender as Control).Name.Contains("Lollipop"))
+                        set_level = (ushort)(10 + set_rml);
+                }
                 level = (ushort)((level & (ushort)(~(0xF << level_shift))) | (set_level << level_shift));
                 Array.Copy(BitConverter.GetBytes(level), 0, savedata, level_ofs, 2);
+                numRaiseMaxLevel = (ushort)((numRaiseMaxLevel & (ushort)(~(0x3F << rml_shift))) | (set_rml << rml_shift));    //int set_rml = Math.Min(((int)NUP_Level.Value - 10 < 0) ? 0 : (int)NUP_Level.Value - 10, 5); //Hardcoded 5 as the max number of lollipops, change this if needed later                
+                Array.Copy(BitConverter.GetBytes(numRaiseMaxLevel), 0, savedata, rml_ofs, 2);
 
                 //experience patcher
                 int exp_ofs = 0x3241 + (4 + (ind - 1) * 24) / 8;
                 int exp_shift = (4 + (ind - 1) * 24) % 8;
                 int exp = BitConverter.ToInt32(savedata, exp_ofs);
                 int entrylen = BitConverter.ToInt32(monlevel, 0x4);
-                byte[] data = monlevel.Skip(0x50 + ((int)NUP_Level.Value - 1) * entrylen).Take(entrylen).ToArray();
+                byte[] data = monlevel.Skip(0x50 + (set_level - 1) * entrylen).Take(entrylen).ToArray();
                 int set_exp = BitConverter.ToInt32(data, 0x4 * (mons[ind].Item5 - 1));
                 exp = (exp & ~(0xFFFFFF << exp_shift)) | (set_exp << exp_shift);
                 Array.Copy(BitConverter.GetBytes(exp), 0, savedata, exp_ofs, 4);
-
-                //lollipop patcher
-                int rml_ofs = 0xA9DB + (ind * 6) / 8;
-                int rml_shift = (ind * 6) % 8;
-                ushort numRaiseMaxLevel = BitConverter.ToUInt16(savedata, rml_ofs);
-                //int set_rml = Math.Min(((int)NUP_Level.Value - 10 < 0) ? 0 : (int)NUP_Level.Value - 10, 5); //Hardcoded 5 as the max number of lollipops, change this if needed later
-                numRaiseMaxLevel = (ushort)((numRaiseMaxLevel & (ushort)(~(0x3F << rml_shift))) | ((ushort)NUP_Lollipop.Value << rml_shift));
-                Array.Copy(BitConverter.GetBytes(numRaiseMaxLevel), 0, savedata, rml_ofs, 2);
 
                 //caught patcher
                 int caught_ofs = (ind - 1 + 6) / 8;
@@ -303,11 +311,10 @@ namespace Pokemon_Shuffle_Save_Editor
             //level view
             int level_ofs = 0x187 + (ind - 1) * 4 / 8;
             int level = (BitConverter.ToUInt16(savedata, level_ofs) >> (((ind - 1) * 4) + 1) % 8) & 0xF;
-            int num_raise_max_level = Math.Min(mons[ind].Item4, 5); //int num_raise_max_level = Math.Min(((BitConverter.ToUInt16(savedata, 0xA9DB + ((ind * 6) / 8)) >> ((ind * 6) % 8)) & 0x3F), 5); -> old one, uses current number of lollipops given
-            NUP_Level.Maximum = 10 + num_raise_max_level;   // The max on the box could be higher than 10 now  
+            NUP_Lollipop.Maximum = Math.Min(mons[ind].Item4, 5);    //int num_raise_max_level = Math.Min(((BitConverter.ToUInt16(savedata, 0xA9DB + ((ind * 6) / 8)) >> ((ind * 6) % 8)) & 0x3F), 5); -> old way of getting number of given lollipops
+            NUP_Lollipop.Value = Math.Min(((BitConverter.ToUInt16(savedata, 0xA9DB + ((ind * 6) / 8)) >> ((ind * 6) % 8)) & 0x3F), 5);  //hardcoded 5 as a maximum
+            NUP_Level.Maximum = 10 + NUP_Lollipop.Maximum;   // The max on the box could be higher than 10 now  
             NUP_Level.Value = level > 0 ? level : 1;    // Stop showing 0 for the level...
-            NUP_Lollipop.Maximum = num_raise_max_level;
-            NUP_Lollipop.Value = Math.Min(((BitConverter.ToUInt16(savedata, 0xA9DB + ((ind * 6) / 8)) >> ((ind * 6) % 8)) & 0x3F), 5);
 
             //caught CHK
             int caught_ofs = 0x546 + (ind-1+6)/8;
@@ -431,32 +438,6 @@ namespace Pokemon_Shuffle_Save_Editor
             return bmp;
         }
 
-        public static Bitmap ResizeImage(Image image, int width, int height)
-        {
-            var destRect = new Rectangle(0, 0, width, height);
-            var destImage = new Bitmap(width, height);
-
-            if (image.HorizontalResolution > 0 && image.VerticalResolution > 0)
-                destImage.SetResolution(image.HorizontalResolution, image.VerticalResolution);
-
-            using (var graphics = Graphics.FromImage(destImage))
-            {
-                graphics.CompositingMode = CompositingMode.SourceCopy;
-                graphics.CompositingQuality = CompositingQuality.HighQuality;
-                graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                graphics.SmoothingMode = SmoothingMode.HighQuality;
-                graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
-
-                using (var wrapMode = new ImageAttributes())
-                {
-                    wrapMode.SetWrapMode(WrapMode.TileFlipXY);
-                    graphics.DrawImage(image, destRect, 0, 0, image.Width, image.Height, GraphicsUnit.Pixel, wrapMode);
-                }
-            }
-
-            return destImage;
-        }
-
         private void GetRankImage(Label label, int rank = default(int), bool completed = false) //Plain text until a way is found to extract Rank sprites from game's folders.
         {                                                                                       //These are in several files in "Layout Archives", #127 for example,
             if (completed)                                                                      //but I can't get a proper png without it being cropped or its colours distorted.
@@ -492,31 +473,39 @@ namespace Pokemon_Shuffle_Save_Editor
             }
         }
 
-        private void B_CheatsForm_Click(object sender, EventArgs e)
+        public static Bitmap ResizeImage(Image image, int width, int height)
         {
-            new Cheats(mondata, monlevel, stagesMain, stagesEvent, stagesExpert, megaStone, HasMega, mons, megas, megalist, megaArray_start, ref savedata).ShowDialog();
-            updating = true;
-            Parse();
-            updating = false;
+            var destRect = new Rectangle(0, 0, width, height);
+            var destImage = new Bitmap(width, height);
+
+            if (image.HorizontalResolution > 0 && image.VerticalResolution > 0)
+                destImage.SetResolution(image.HorizontalResolution, image.VerticalResolution);
+
+            using (var graphics = Graphics.FromImage(destImage))
+            {
+                graphics.CompositingMode = CompositingMode.SourceCopy;
+                graphics.CompositingQuality = CompositingQuality.HighQuality;
+                graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                graphics.SmoothingMode = SmoothingMode.HighQuality;
+                graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
+
+                using (var wrapMode = new ImageAttributes())
+                {
+                    wrapMode.SetWrapMode(WrapMode.TileFlipXY);
+                    graphics.DrawImage(image, destRect, 0, 0, image.Width, image.Height, GraphicsUnit.Pixel, wrapMode);
+                }
+            }
+
+            return destImage;
         }
 
-        private void ItemsGrid_EnabledChanged(object sender, EventArgs e)
-        {
-            ItemsGrid.SelectedObject = (ItemsGrid.Enabled) ? SI_Items : null;
-        }
-
-        private void UpdateProperty(object s, PropertyValueChangedEventArgs e)
-        {            
-            UpdateForm(s, e);
-        }
-
-        private void Form1_DragEnter(object sender, DragEventArgs e)
+        private void Main_DragEnter(object sender, DragEventArgs e)
         {
             string filename = GetDragFilename(e);
             e.Effect = (filename != null && IsShuffleSave(filename)) ? DragDropEffects.Copy : DragDropEffects.None;
         }
 
-        private void Form1_DragDrop(object sender, DragEventArgs e)
+        private void Main_DragDrop(object sender, DragEventArgs e)
         {
             Open(GetDragFilename(e));
         }
@@ -533,6 +522,24 @@ namespace Pokemon_Shuffle_Save_Editor
                 }
             }
             return null;
+        }
+
+        private void ItemsGrid_EnabledChanged(object sender, EventArgs e)
+        {
+            ItemsGrid.SelectedObject = (ItemsGrid.Enabled) ? SI_Items : null;
+        }
+
+        private void UpdateProperty(object s, PropertyValueChangedEventArgs e)
+        {
+            UpdateForm(s, e);
+        }
+
+        private void B_CheatsForm_Click(object sender, EventArgs e)
+        {
+            new Cheats(mondata, monlevel, stagesMain, stagesEvent, stagesExpert, megaStone, HasMega, mons, megas, megalist, megaArray_start, ref savedata).ShowDialog();
+            updating = true;
+            Parse();
+            updating = false;
         }
 
         private void PB_Team_Click(object sender, EventArgs e)
@@ -590,6 +597,7 @@ namespace Pokemon_Shuffle_Save_Editor
                     break;
                 case 3:
                     NUP_Lollipop.Value = (NUP_Lollipop.Value == 0) ? NUP_Lollipop.Maximum : 0;
+                    NUP_Level.Value = 10 + NUP_Lollipop.Value;
                     break;
                 default:
                     return;
@@ -654,7 +662,7 @@ namespace Pokemon_Shuffle_Save_Editor
             Array.Copy(BitConverter.GetBytes(stage), 0, savedata, stage_ofs, 2);
             Parse(); //Update view            
         }
-        
+
     }
 
     public class cbItem
@@ -662,4 +670,5 @@ namespace Pokemon_Shuffle_Save_Editor
         public string Text { get; set; }
         public int Value { get; set; }
     }
+
 }

@@ -658,7 +658,7 @@
             // B_CheatsForm
             // 
             this.B_CheatsForm.Enabled = false;
-            this.B_CheatsForm.Location = new System.Drawing.Point(18, 355);
+            this.B_CheatsForm.Location = new System.Drawing.Point(12, 346);
             this.B_CheatsForm.Name = "B_CheatsForm";
             this.B_CheatsForm.Size = new System.Drawing.Size(109, 47);
             this.B_CheatsForm.TabIndex = 4;
@@ -766,12 +766,13 @@
             this.Controls.Add(this.TB_FilePath);
             this.Controls.Add(this.B_Open);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(535, 577);
             this.MinimumSize = new System.Drawing.Size(535, 577);
             this.Name = "Main";
             this.Text = "Pokemon Shuffle Save Editor";
-            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.Form1_DragDrop);
-            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.Form1_DragEnter);
+            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.Main_DragDrop);
+            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.Main_DragEnter);
             this.GB_HighScore.ResumeLayout(false);
             this.GB_HighScore.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NUP_EventScore)).EndInit();
