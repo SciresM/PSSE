@@ -113,6 +113,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icon.ico" />
+    <None Include="Resources\img\lollipop.png" />
+    <None Include="Resources\img\icon.ico" />
     <Content Include="Resources\img\MegaStone003.png" />
     <Content Include="Resources\img\MegaStone006_X.png" />
     <Content Include="Resources\img\MegaStone006_Y.png" />

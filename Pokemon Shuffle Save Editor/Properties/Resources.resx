@@ -3445,4 +3445,7 @@
   <data name="pokemon_585_03" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\pokemon_585_03.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="lollipop" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\lollipop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

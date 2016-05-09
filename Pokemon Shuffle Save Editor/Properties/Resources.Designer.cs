@@ -63,6 +63,16 @@ namespace Pokemon_Shuffle_Save_Editor.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap lollipop {
+            get {
+                object obj = ResourceManager.GetObject("lollipop", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap mega_pokemon_003 {
             get {
                 object obj = ResourceManager.GetObject("mega_pokemon_003", resourceCulture);

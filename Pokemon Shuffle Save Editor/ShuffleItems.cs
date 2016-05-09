@@ -175,7 +175,7 @@ namespace Pokemon_Shuffle_Save_Editor
         [ReadOnly(false)]
         [Category("Pokémon Enhancements")]
         [DisplayName("Skill\t Booster S")]
-        [Description("This item will slightly fill your Pokémon's Skill Gauge.")]
+        [Description("This item will slightly fill your Pokémon's Skill Gauge. (UNRELEASED)")]
         public int SkillBoosterS
         {
             get { return enchantments[6]; }
@@ -186,7 +186,7 @@ namespace Pokemon_Shuffle_Save_Editor
         [ReadOnly(false)]
         [Category("Pokémon Enhancements")]
         [DisplayName("Skill\t\t Booster M")]
-        [Description("This item will moderately fill your Pokémon's Skill Gauge.")]
+        [Description("This item will moderately fill your Pokémon's Skill Gauge. (UNRELEASED)")]
         public int SkillBoosterM
         {
             get { return enchantments[7]; }
@@ -196,7 +196,7 @@ namespace Pokemon_Shuffle_Save_Editor
         [ReadOnly(false)]
         [Category("Pokémon Enhancements")]
         [DisplayName("Skill\t\t\t Booster L")]
-        [Description("This item will significantly fill your Pokémon's Skill Gauge.")]
+        [Description("This item will significantly fill your Pokémon's Skill Gauge. (UNRELEASED)")]
         public int SkillBoosterL
         {
             get { return enchantments[8]; }

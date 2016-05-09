@@ -50,10 +50,11 @@ namespace Pokemon_Shuffle_Save_Editor
             }
             PB_Main.Image = PB_Event.Image = PB_Expert.Image = GetStageImage(0);
             PB_Team1.Image = PB_Team2.Image = PB_Team3.Image = PB_Team4.Image = ResizeImage(GetMonImage(0), 48, 48);
+            PB_Lollipop.Image = new Bitmap(ResizeImage((Image)Properties.Resources.ResourceManager.GetObject("lollipop"), 24, 24));
             specieslist = Properties.Resources.species.Split(new[] {Environment.NewLine, "\n"}, StringSplitOptions.RemoveEmptyEntries);
             monslist = Properties.Resources.mons.Split(new[] { Environment.NewLine, "\n"}, StringSplitOptions.RemoveEmptyEntries);
             megaArray_start = monslist.ToList().IndexOf("Mega Venusaur");
-            int monArray_stop = monslist.ToList().IndexOf("---", monslist.ToList().IndexOf("---") + 1); //Indexes of first mega & second "---", respectively, should allow PSSE to work longer without needing an update.          
+            int monArray_stop = monslist.ToList().IndexOf("---", 1); //Indexes of first mega & second "---", respectively, should allow PSSE to work longer without needing an update.          
             HasMega = new bool[specieslist.Length][];
             for (int i = 0; i < specieslist.Length; i++)
                 HasMega[i] = new bool[2];
@@ -62,7 +63,7 @@ namespace Pokemon_Shuffle_Save_Editor
             for (int i = 0; i < megas.Length; i++)
             {
                 int monIndex = BitConverter.ToUInt16(megaStone, 0x54 + i * 4) & 0x3FF;
-                byte[] data = mondata.Skip(0x50 + entrylen * (i+monArray_stop)).Take(entrylen).ToArray();
+                byte[] data = mondata.Skip(0x50 + entrylen * (i+megaArray_start)).Take(entrylen).ToArray();
                 int maxSpeedup = (BitConverter.ToInt32(data, 0xA) >> 7) & 0x7F;
                 megas[i] = new Tuple<int, int>(monIndex, maxSpeedup);
             }
@@ -164,7 +165,7 @@ namespace Pokemon_Shuffle_Save_Editor
             savedata = File.ReadAllBytes(file);
             Parse();
             B_Save.Enabled = GB_Caught.Enabled = GB_HighScore.Enabled = GB_Resources.Enabled = B_CheatsForm.Enabled = ItemsGrid.Enabled = loaded = true;
-            UpdateProperty(null, null);
+            UpdateForm(null, null);
         }
               
         private bool IsShuffleSave(string file) // Try to do a better job at filtering files rather than just saying "oh, it's not savedata.bin quit"
@@ -215,8 +216,8 @@ namespace Pokemon_Shuffle_Save_Editor
                 int rml_ofs = 0xA9DB + (ind * 6) / 8;
                 int rml_shift = (ind * 6) % 8;
                 ushort numRaiseMaxLevel = BitConverter.ToUInt16(savedata, rml_ofs);
-                int set_rml = Math.Min(((int)NUP_Level.Value - 10 < 0) ? 0 : (int)NUP_Level.Value - 10, 5); //Hardcoded 5 as the max number of lollipops, change this if needed later
-                numRaiseMaxLevel = (ushort)((numRaiseMaxLevel & (ushort)(~(0x3F << rml_shift))) | (set_rml << rml_shift));
+                //int set_rml = Math.Min(((int)NUP_Level.Value - 10 < 0) ? 0 : (int)NUP_Level.Value - 10, 5); //Hardcoded 5 as the max number of lollipops, change this if needed later
+                numRaiseMaxLevel = (ushort)((numRaiseMaxLevel & (ushort)(~(0x3F << rml_shift))) | ((ushort)NUP_Lollipop.Value << rml_shift));
                 Array.Copy(BitConverter.GetBytes(numRaiseMaxLevel), 0, savedata, rml_ofs, 2);
 
                 //caught patcher
@@ -280,7 +281,8 @@ namespace Pokemon_Shuffle_Save_Editor
             for (int i = 0; i < SI_Items.Items.Length; i++)
                 SI_Items.Items[i] = (BitConverter.ToUInt16(savedata, 0xD0 + i) >> 7) & 0x7F;
             for (int i = 0; i < SI_Items.Enchantments.Length; i++)
-                SI_Items.Enchantments[i] = (savedata[0x2D4C + i] >> 1) & 0x7F;  
+                SI_Items.Enchantments[i] = (savedata[0x2D4C + i] >> 1) & 0x7F;
+            ItemsGrid.Refresh();  
         }
 
         private void UpdateOwnedBox()
@@ -304,12 +306,15 @@ namespace Pokemon_Shuffle_Save_Editor
             int num_raise_max_level = Math.Min(mons[ind].Item4, 5); //int num_raise_max_level = Math.Min(((BitConverter.ToUInt16(savedata, 0xA9DB + ((ind * 6) / 8)) >> ((ind * 6) % 8)) & 0x3F), 5); -> old one, uses current number of lollipops given
             NUP_Level.Maximum = 10 + num_raise_max_level;   // The max on the box could be higher than 10 now  
             NUP_Level.Value = level > 0 ? level : 1;    // Stop showing 0 for the level...
+            NUP_Lollipop.Maximum = num_raise_max_level;
+            NUP_Lollipop.Value = Math.Min(((BitConverter.ToUInt16(savedata, 0xA9DB + ((ind * 6) / 8)) >> ((ind * 6) % 8)) & 0x3F), 5);
 
             //caught CHK
             int caught_ofs = 0x546 + (ind-1+6)/8;
             CHK_CaughtMon.Checked = ((savedata[caught_ofs] >> ((ind-1+6) % 8)) & 1) == 1;   
                      
-            NUP_Level.Visible = CHK_CaughtMon.Checked; 
+            label7.Visible = NUP_Level.Visible = CHK_CaughtMon.Checked;
+            PB_Lollipop.Visible = NUP_Lollipop.Visible = (CHK_CaughtMon.Checked && NUP_Lollipop.Maximum != 0);
             PB_Mon.Image = GetCaughtImage(ind, CHK_CaughtMon.Checked);
 
             #region Mega Visibility
@@ -501,7 +506,7 @@ namespace Pokemon_Shuffle_Save_Editor
         }
 
         private void UpdateProperty(object s, PropertyValueChangedEventArgs e)
-        {
+        {            
             UpdateForm(s, e);
         }
 
@@ -564,6 +569,32 @@ namespace Pokemon_Shuffle_Save_Editor
                     return;
             }
             CB_MonIndex.SelectedIndex = list.IndexOf(slot);
+        }
+
+        private void PB_Enhancements_Click(object sender, EventArgs e)
+        {
+            int s = 0;
+            if ((sender as Control).Name.Contains("SpeedUpX"))
+                s = 1;
+            if ((sender as Control).Name.Contains("SpeedUpY"))
+                s = 2;
+            if ((sender as Control).Name.Contains("Lollipop"))
+                s = 3;
+            switch (s)
+            {
+                case 1:
+                    NUP_SpeedUpX.Value = (NUP_SpeedUpX.Value == 0) ? NUP_SpeedUpX.Maximum : 0;
+                    break;
+                case 2:
+                    NUP_SpeedUpY.Value = (NUP_SpeedUpY.Value == 0) ? NUP_SpeedUpY.Maximum : 0;
+                    break;
+                case 3:
+                    NUP_Lollipop.Value = (NUP_Lollipop.Value == 0) ? NUP_Lollipop.Maximum : 0;
+                    break;
+                default:
+                    return;
+            }
+            Parse();
         }
 
         private void Rank_Click(object sender, EventArgs e)
