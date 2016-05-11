@@ -70,6 +70,7 @@
     <Compile Include="Cheats.Designer.cs">
       <DependentUpon>Cheats.cs</DependentUpon>
     </Compile>
+    <Compile Include="Database.cs" />
     <Compile Include="ShuffleItems.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
@@ -79,6 +80,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ToolFunctions.cs" />
     <EmbeddedResource Include="Cheats.resx">
       <DependentUpon>Cheats.cs</DependentUpon>
     </EmbeddedResource>
