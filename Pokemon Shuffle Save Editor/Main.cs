@@ -225,7 +225,7 @@ namespace Pokemon_Shuffle_Save_Editor
             int caught_ofs = 0x546 + (ind-1+6)/8;
             CHK_CaughtMon.Checked = ((db.SaveData[caught_ofs] >> ((ind-1+6) % 8)) & 1) == 1;   
                      
-            label7.Visible = NUP_Level.Visible = CHK_CaughtMon.Checked;
+            L_Level.Visible = NUP_Level.Visible = CHK_CaughtMon.Checked;
             PB_Lollipop.Visible = NUP_Lollipop.Visible = (CHK_CaughtMon.Checked && NUP_Lollipop.Maximum != 0);
             PB_Mon.Image = GetCaughtImage(db, ind, CHK_CaughtMon.Checked);
 
@@ -272,17 +272,17 @@ namespace Pokemon_Shuffle_Save_Editor
             int rankM_shift = (7 + (((int)NUP_MainIndex.Value - 1) * 2)) % 8;
             int rankM = (BitConverter.ToInt16(db.SaveData, 0x987 + rankM_ofs) >> rankM_shift) & 0x3;
             bool stateM = ((BitConverter.ToInt16(db.SaveData, 0x688 + ((((int)NUP_MainIndex.Value - 1) * 3) / 8)) >> ((((int)NUP_MainIndex.Value - 1) * 3) % 8)) & 0x7) == 5;
-            GetRankImage(RankM, rankM, stateM);
+            GetRankImage(L_RankM, rankM, stateM);
             int rankEx_ofs = (7 + (((int)NUP_ExpertIndex.Value - 1) * 2)) / 8;
             int rankEx_shift = (7 + (((int)NUP_ExpertIndex.Value - 1) * 2)) % 8;
             int rankEx = (BitConverter.ToInt16(db.SaveData, 0xAB3 + rankEx_ofs) >> rankEx_shift) & 0x3;
             bool stateEx = ((BitConverter.ToInt16(db.SaveData, 0x84A + ((((int)NUP_ExpertIndex.Value - 1) * 3) / 8)) >> ((((int)NUP_ExpertIndex.Value - 1) * 3) % 8)) & 0x7) == 5;
-            GetRankImage(RankEx, rankEx, stateEx);
+            GetRankImage(L_RankEx, rankEx, stateEx);
             int rankEv_ofs = (7 + (((int)NUP_EventIndex.Value) * 2)) / 8;
             int rankEv_shift = (7 + (((int)NUP_EventIndex.Value) * 2)) % 8;
             int rankEv = (BitConverter.ToInt16(db.SaveData, 0xAFE + rankEv_ofs) >> rankEv_shift) & 0x3;
             bool stateEv = ((BitConverter.ToInt16(db.SaveData, 0x8BA + ((4 + ((int)NUP_EventIndex.Value * 3)) / 8)) >> ((4 + ((int)NUP_EventIndex.Value * 3)) % 8)) & 0x7) == 5;
-            GetRankImage(RankEv, rankEv, stateEv);
+            GetRankImage(L_RankEv, rankEv, stateEv);
 
             //Score
             NUP_MainScore.Value = (BitConverter.ToUInt64(db.SaveData, 0x4141 + 3 * ((int)NUP_MainIndex.Value - 1)) >> 4) & 0x00FFFFFF;
@@ -290,7 +290,7 @@ namespace Pokemon_Shuffle_Save_Editor
             NUP_EventScore.Value = (BitConverter.ToUInt64(db.SaveData, 0x52D5 + 3 * ((int)NUP_EventIndex.Value)) >> 4) & 0x00FFFFFF;
 
             //Stage sprite
-            PB_Main.Image = GetStageImage(db, mainspec, (RankM.Text != "-" || overrideHS));
+            PB_Main.Image = GetStageImage(db, mainspec, (L_RankM.Text != "-" || overrideHS));
             PB_Expert.Image = GetStageImage(db, expertspec, true, 1);
             PB_Event.Image = GetStageImage(db, (eventspec == 25) ? 0 : eventspec, true, 2);
         }

@@ -34,31 +34,31 @@
             this.TB_FilePath = new System.Windows.Forms.TextBox();
             this.B_Save = new System.Windows.Forms.Button();
             this.GB_HighScore = new System.Windows.Forms.GroupBox();
-            this.RankEv = new System.Windows.Forms.Label();
-            this.RankEx = new System.Windows.Forms.Label();
-            this.RankM = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
+            this.L_RankEv = new System.Windows.Forms.Label();
+            this.L_RankEx = new System.Windows.Forms.Label();
+            this.L_RankM = new System.Windows.Forms.Label();
+            this.L_ScoreEv = new System.Windows.Forms.Label();
+            this.L_ScoreEx = new System.Windows.Forms.Label();
+            this.L_ScoreM = new System.Windows.Forms.Label();
+            this.L_Event = new System.Windows.Forms.Label();
+            this.L_Expert = new System.Windows.Forms.Label();
             this.L_Main = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.L_IndexEv = new System.Windows.Forms.Label();
+            this.L_IndexEx = new System.Windows.Forms.Label();
             this.NUP_EventScore = new System.Windows.Forms.NumericUpDown();
             this.NUP_EventIndex = new System.Windows.Forms.NumericUpDown();
             this.NUP_ExpertScore = new System.Windows.Forms.NumericUpDown();
             this.NUP_ExpertIndex = new System.Windows.Forms.NumericUpDown();
             this.NUP_MainScore = new System.Windows.Forms.NumericUpDown();
             this.NUP_MainIndex = new System.Windows.Forms.NumericUpDown();
-            this.label1 = new System.Windows.Forms.Label();
+            this.L_IndexM = new System.Windows.Forms.Label();
             this.PB_Event = new System.Windows.Forms.PictureBox();
             this.PB_Expert = new System.Windows.Forms.PictureBox();
             this.PB_Main = new System.Windows.Forms.PictureBox();
             this.GB_Caught = new System.Windows.Forms.GroupBox();
             this.PB_Lollipop = new System.Windows.Forms.PictureBox();
             this.NUP_Lollipop = new System.Windows.Forms.NumericUpDown();
-            this.label7 = new System.Windows.Forms.Label();
+            this.L_Level = new System.Windows.Forms.Label();
             this.PB_SpeedUpY = new System.Windows.Forms.PictureBox();
             this.PB_SpeedUpX = new System.Windows.Forms.PictureBox();
             this.NUP_SpeedUpY = new System.Windows.Forms.NumericUpDown();
@@ -72,18 +72,18 @@
             this.CB_MonIndex = new System.Windows.Forms.ComboBox();
             this.PB_Mon = new System.Windows.Forms.PictureBox();
             this.GB_Resources = new System.Windows.Forms.GroupBox();
-            this.ItemsGrid = new System.Windows.Forms.PropertyGrid();
             this.NUP_Jewels = new System.Windows.Forms.NumericUpDown();
             this.NUP_Coins = new System.Windows.Forms.NumericUpDown();
             this.NUP_Hearts = new System.Windows.Forms.NumericUpDown();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
+            this.L_Jewels = new System.Windows.Forms.Label();
+            this.L_Coins = new System.Windows.Forms.Label();
+            this.L_Hearts = new System.Windows.Forms.Label();
             this.B_CheatsForm = new System.Windows.Forms.Button();
             this.PB_Team1 = new System.Windows.Forms.PictureBox();
             this.PB_Team2 = new System.Windows.Forms.PictureBox();
             this.PB_Team3 = new System.Windows.Forms.PictureBox();
             this.PB_Team4 = new System.Windows.Forms.PictureBox();
+            this.ItemsGrid = new System.Windows.Forms.PropertyGrid();
             this.GB_HighScore.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NUP_EventScore)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUP_EventIndex)).BeginInit();
@@ -148,24 +148,24 @@
             // GB_HighScore
             // 
             this.GB_HighScore.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.GB_HighScore.Controls.Add(this.RankEv);
-            this.GB_HighScore.Controls.Add(this.RankEx);
-            this.GB_HighScore.Controls.Add(this.RankM);
-            this.GB_HighScore.Controls.Add(this.label10);
-            this.GB_HighScore.Controls.Add(this.label9);
-            this.GB_HighScore.Controls.Add(this.label8);
-            this.GB_HighScore.Controls.Add(this.label6);
-            this.GB_HighScore.Controls.Add(this.label5);
+            this.GB_HighScore.Controls.Add(this.L_RankEv);
+            this.GB_HighScore.Controls.Add(this.L_RankEx);
+            this.GB_HighScore.Controls.Add(this.L_RankM);
+            this.GB_HighScore.Controls.Add(this.L_ScoreEv);
+            this.GB_HighScore.Controls.Add(this.L_ScoreEx);
+            this.GB_HighScore.Controls.Add(this.L_ScoreM);
+            this.GB_HighScore.Controls.Add(this.L_Event);
+            this.GB_HighScore.Controls.Add(this.L_Expert);
             this.GB_HighScore.Controls.Add(this.L_Main);
-            this.GB_HighScore.Controls.Add(this.label3);
-            this.GB_HighScore.Controls.Add(this.label2);
+            this.GB_HighScore.Controls.Add(this.L_IndexEv);
+            this.GB_HighScore.Controls.Add(this.L_IndexEx);
             this.GB_HighScore.Controls.Add(this.NUP_EventScore);
             this.GB_HighScore.Controls.Add(this.NUP_EventIndex);
             this.GB_HighScore.Controls.Add(this.NUP_ExpertScore);
             this.GB_HighScore.Controls.Add(this.NUP_ExpertIndex);
             this.GB_HighScore.Controls.Add(this.NUP_MainScore);
             this.GB_HighScore.Controls.Add(this.NUP_MainIndex);
-            this.GB_HighScore.Controls.Add(this.label1);
+            this.GB_HighScore.Controls.Add(this.L_IndexM);
             this.GB_HighScore.Controls.Add(this.PB_Event);
             this.GB_HighScore.Controls.Add(this.PB_Expert);
             this.GB_HighScore.Controls.Add(this.PB_Main);
@@ -177,84 +177,84 @@
             this.GB_HighScore.TabStop = false;
             this.GB_HighScore.Text = "High-Scores";
             // 
-            // RankEv
+            // L_RankEv
             // 
-            this.RankEv.AutoSize = true;
-            this.RankEv.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.RankEv.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.RankEv.Location = new System.Drawing.Point(464, 76);
-            this.RankEv.Name = "RankEv";
-            this.RankEv.Size = new System.Drawing.Size(10, 13);
-            this.RankEv.TabIndex = 20;
-            this.RankEv.Text = "-";
-            this.RankEv.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.L_RankEv.AutoSize = true;
+            this.L_RankEv.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.L_RankEv.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.L_RankEv.Location = new System.Drawing.Point(464, 76);
+            this.L_RankEv.Name = "L_RankEv";
+            this.L_RankEv.Size = new System.Drawing.Size(10, 13);
+            this.L_RankEv.TabIndex = 20;
+            this.L_RankEv.Text = "-";
+            this.L_RankEv.TextAlign = System.Drawing.ContentAlignment.BottomRight;
             // 
-            // RankEx
+            // L_RankEx
             // 
-            this.RankEx.AutoSize = true;
-            this.RankEx.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.RankEx.Location = new System.Drawing.Point(307, 76);
-            this.RankEx.Name = "RankEx";
-            this.RankEx.Size = new System.Drawing.Size(10, 13);
-            this.RankEx.TabIndex = 19;
-            this.RankEx.Text = "-";
-            this.RankEx.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.L_RankEx.AutoSize = true;
+            this.L_RankEx.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.L_RankEx.Location = new System.Drawing.Point(307, 76);
+            this.L_RankEx.Name = "L_RankEx";
+            this.L_RankEx.Size = new System.Drawing.Size(10, 13);
+            this.L_RankEx.TabIndex = 19;
+            this.L_RankEx.Text = "-";
+            this.L_RankEx.TextAlign = System.Drawing.ContentAlignment.BottomRight;
             // 
-            // RankM
+            // L_RankM
             // 
-            this.RankM.AutoSize = true;
-            this.RankM.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RankM.Location = new System.Drawing.Point(148, 76);
-            this.RankM.Name = "RankM";
-            this.RankM.Size = new System.Drawing.Size(10, 13);
-            this.RankM.TabIndex = 18;
-            this.RankM.Text = "-";
-            this.RankM.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.L_RankM.AutoSize = true;
+            this.L_RankM.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.L_RankM.Location = new System.Drawing.Point(148, 76);
+            this.L_RankM.Name = "L_RankM";
+            this.L_RankM.Size = new System.Drawing.Size(10, 13);
+            this.L_RankM.TabIndex = 18;
+            this.L_RankM.Text = "-";
+            this.L_RankM.TextAlign = System.Drawing.ContentAlignment.BottomRight;
             // 
-            // label10
+            // L_ScoreEv
             // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(394, 76);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(38, 13);
-            this.label10.TabIndex = 17;
-            this.label10.Text = "Score:";
+            this.L_ScoreEv.AutoSize = true;
+            this.L_ScoreEv.Location = new System.Drawing.Point(394, 76);
+            this.L_ScoreEv.Name = "L_ScoreEv";
+            this.L_ScoreEv.Size = new System.Drawing.Size(38, 13);
+            this.L_ScoreEv.TabIndex = 17;
+            this.L_ScoreEv.Text = "Score:";
             // 
-            // label9
+            // L_ScoreEx
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(234, 76);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(38, 13);
-            this.label9.TabIndex = 16;
-            this.label9.Text = "Score:";
+            this.L_ScoreEx.AutoSize = true;
+            this.L_ScoreEx.Location = new System.Drawing.Point(234, 76);
+            this.L_ScoreEx.Name = "L_ScoreEx";
+            this.L_ScoreEx.Size = new System.Drawing.Size(38, 13);
+            this.L_ScoreEx.TabIndex = 16;
+            this.L_ScoreEx.Text = "Score:";
             // 
-            // label8
+            // L_ScoreM
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(76, 76);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(38, 13);
-            this.label8.TabIndex = 15;
-            this.label8.Text = "Score:";
+            this.L_ScoreM.AutoSize = true;
+            this.L_ScoreM.Location = new System.Drawing.Point(76, 76);
+            this.L_ScoreM.Name = "L_ScoreM";
+            this.L_ScoreM.Size = new System.Drawing.Size(38, 13);
+            this.L_ScoreM.TabIndex = 15;
+            this.L_ScoreM.Text = "Score:";
             // 
-            // label6
+            // L_Event
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(401, 19);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(71, 13);
-            this.label6.TabIndex = 14;
-            this.label6.Text = "Event Stages";
+            this.L_Event.AutoSize = true;
+            this.L_Event.Location = new System.Drawing.Point(401, 19);
+            this.L_Event.Name = "L_Event";
+            this.L_Event.Size = new System.Drawing.Size(71, 13);
+            this.L_Event.TabIndex = 14;
+            this.L_Event.Text = "Event Stages";
             // 
-            // label5
+            // L_Expert
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(237, 19);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(73, 13);
-            this.label5.TabIndex = 13;
-            this.label5.Text = "Expert Stages";
+            this.L_Expert.AutoSize = true;
+            this.L_Expert.Location = new System.Drawing.Point(237, 19);
+            this.L_Expert.Name = "L_Expert";
+            this.L_Expert.Size = new System.Drawing.Size(73, 13);
+            this.L_Expert.TabIndex = 13;
+            this.L_Expert.Text = "Expert Stages";
             // 
             // L_Main
             // 
@@ -266,23 +266,23 @@
             this.L_Main.Text = "Main Stages";
             this.L_Main.Click += new System.EventHandler(this.L_Main_Click);
             // 
-            // label3
+            // L_IndexEv
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(393, 45);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(36, 13);
-            this.label3.TabIndex = 11;
-            this.label3.Text = "Index:";
+            this.L_IndexEv.AutoSize = true;
+            this.L_IndexEv.Location = new System.Drawing.Point(393, 45);
+            this.L_IndexEv.Name = "L_IndexEv";
+            this.L_IndexEv.Size = new System.Drawing.Size(36, 13);
+            this.L_IndexEv.TabIndex = 11;
+            this.L_IndexEv.Text = "Index:";
             // 
-            // label2
+            // L_IndexEx
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(234, 45);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(36, 13);
-            this.label2.TabIndex = 10;
-            this.label2.Text = "Index:";
+            this.L_IndexEx.AutoSize = true;
+            this.L_IndexEx.Location = new System.Drawing.Point(234, 45);
+            this.L_IndexEx.Name = "L_IndexEx";
+            this.L_IndexEx.Size = new System.Drawing.Size(36, 13);
+            this.L_IndexEx.TabIndex = 10;
+            this.L_IndexEx.Text = "Index:";
             // 
             // NUP_EventScore
             // 
@@ -342,14 +342,14 @@
             0});
             this.NUP_MainIndex.ValueChanged += new System.EventHandler(this.UpdateForm);
             // 
-            // label1
+            // L_IndexM
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(76, 45);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(36, 13);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Index:";
+            this.L_IndexM.AutoSize = true;
+            this.L_IndexM.Location = new System.Drawing.Point(76, 45);
+            this.L_IndexM.Name = "L_IndexM";
+            this.L_IndexM.Size = new System.Drawing.Size(36, 13);
+            this.L_IndexM.TabIndex = 3;
+            this.L_IndexM.Text = "Index:";
             // 
             // PB_Event
             // 
@@ -382,7 +382,7 @@
             // 
             this.GB_Caught.Controls.Add(this.PB_Lollipop);
             this.GB_Caught.Controls.Add(this.NUP_Lollipop);
-            this.GB_Caught.Controls.Add(this.label7);
+            this.GB_Caught.Controls.Add(this.L_Level);
             this.GB_Caught.Controls.Add(this.PB_SpeedUpY);
             this.GB_Caught.Controls.Add(this.PB_SpeedUpX);
             this.GB_Caught.Controls.Add(this.NUP_SpeedUpY);
@@ -427,15 +427,15 @@
             this.NUP_Lollipop.Visible = false;
             this.NUP_Lollipop.ValueChanged += new System.EventHandler(this.UpdateForm);
             // 
-            // label7
+            // L_Level
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(6, 96);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(36, 13);
-            this.label7.TabIndex = 32;
-            this.label7.Text = "Level:";
-            this.label7.Visible = false;
+            this.L_Level.AutoSize = true;
+            this.L_Level.Location = new System.Drawing.Point(6, 96);
+            this.L_Level.Name = "L_Level";
+            this.L_Level.Size = new System.Drawing.Size(36, 13);
+            this.L_Level.TabIndex = 32;
+            this.L_Level.Text = "Level:";
+            this.L_Level.Visible = false;
             // 
             // PB_SpeedUpY
             // 
@@ -580,9 +580,9 @@
             this.GB_Resources.Controls.Add(this.NUP_Jewels);
             this.GB_Resources.Controls.Add(this.NUP_Coins);
             this.GB_Resources.Controls.Add(this.NUP_Hearts);
-            this.GB_Resources.Controls.Add(this.label13);
-            this.GB_Resources.Controls.Add(this.label12);
-            this.GB_Resources.Controls.Add(this.label11);
+            this.GB_Resources.Controls.Add(this.L_Jewels);
+            this.GB_Resources.Controls.Add(this.L_Coins);
+            this.GB_Resources.Controls.Add(this.L_Hearts);
             this.GB_Resources.Enabled = false;
             this.GB_Resources.Location = new System.Drawing.Point(252, 6);
             this.GB_Resources.Name = "GB_Resources";
@@ -590,52 +590,6 @@
             this.GB_Resources.TabIndex = 5;
             this.GB_Resources.TabStop = false;
             this.GB_Resources.Text = "Resources";
-            // 
-            // ItemsGrid
-            // 
-            this.ItemsGrid.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.ItemsGrid.Location = new System.Drawing.Point(6, 77);
-            this.ItemsGrid.Name = "ItemsGrid";
-            shuffleItems1.AttackUp = 0;
-            shuffleItems1.Complexity = 0;
-            shuffleItems1.Disruption = 0;
-            shuffleItems1.Enchantments = new int[] {
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0};
-            shuffleItems1.Experience = 0;
-            shuffleItems1.ExperienceBoostL = 0;
-            shuffleItems1.ExperienceBoostM = 0;
-            shuffleItems1.ExperienceBoostS = 0;
-            shuffleItems1.Items = new int[] {
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0};
-            shuffleItems1.LevelUp = 0;
-            shuffleItems1.MegaSpeedup = 0;
-            shuffleItems1.MegaStart = 0;
-            shuffleItems1.Moves = 0;
-            shuffleItems1.RaiseMaxLevel = 0;
-            shuffleItems1.SkillBoosterL = 0;
-            shuffleItems1.SkillBoosterM = 0;
-            shuffleItems1.SkillBoosterS = 0;
-            shuffleItems1.Time = 0;
-            this.ItemsGrid.SelectedObject = shuffleItems1;
-            this.ItemsGrid.Size = new System.Drawing.Size(241, 304);
-            this.ItemsGrid.TabIndex = 54;
-            this.ItemsGrid.ToolbarVisible = false;
-            this.ItemsGrid.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.UpdateProperty);
-            this.ItemsGrid.EnabledChanged += new System.EventHandler(this.ItemsGrid_EnabledChanged);
             // 
             // NUP_Jewels
             // 
@@ -676,32 +630,32 @@
             this.NUP_Hearts.TabIndex = 51;
             this.NUP_Hearts.ValueChanged += new System.EventHandler(this.UpdateForm);
             // 
-            // label13
+            // L_Jewels
             // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(193, 21);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(39, 13);
-            this.label13.TabIndex = 2;
-            this.label13.Text = "Jewels";
+            this.L_Jewels.AutoSize = true;
+            this.L_Jewels.Location = new System.Drawing.Point(193, 21);
+            this.L_Jewels.Name = "L_Jewels";
+            this.L_Jewels.Size = new System.Drawing.Size(39, 13);
+            this.L_Jewels.TabIndex = 2;
+            this.L_Jewels.Text = "Jewels";
             // 
-            // label12
+            // L_Coins
             // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(103, 20);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(33, 13);
-            this.label12.TabIndex = 1;
-            this.label12.Text = "Coins";
+            this.L_Coins.AutoSize = true;
+            this.L_Coins.Location = new System.Drawing.Point(103, 20);
+            this.L_Coins.Name = "L_Coins";
+            this.L_Coins.Size = new System.Drawing.Size(33, 13);
+            this.L_Coins.TabIndex = 1;
+            this.L_Coins.Text = "Coins";
             // 
-            // label11
+            // L_Hearts
             // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(20, 19);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(38, 13);
-            this.label11.TabIndex = 0;
-            this.label11.Text = "Hearts";
+            this.L_Hearts.AutoSize = true;
+            this.L_Hearts.Location = new System.Drawing.Point(20, 19);
+            this.L_Hearts.Name = "L_Hearts";
+            this.L_Hearts.Size = new System.Drawing.Size(38, 13);
+            this.L_Hearts.TabIndex = 0;
+            this.L_Hearts.Text = "Hearts";
             // 
             // B_CheatsForm
             // 
@@ -749,6 +703,52 @@
             this.PB_Team4.TabIndex = 31;
             this.PB_Team4.TabStop = false;
             this.PB_Team4.Click += new System.EventHandler(this.PB_Team_Click);
+            // 
+            // ItemsGrid
+            // 
+            this.ItemsGrid.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.ItemsGrid.Location = new System.Drawing.Point(6, 77);
+            this.ItemsGrid.Name = "ItemsGrid";
+            shuffleItems1.AttackUp = 0;
+            shuffleItems1.Complexity = 0;
+            shuffleItems1.Disruption = 0;
+            shuffleItems1.Enchantments = new int[] {
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0};
+            shuffleItems1.Experience = 0;
+            shuffleItems1.ExperienceBoostL = 0;
+            shuffleItems1.ExperienceBoostM = 0;
+            shuffleItems1.ExperienceBoostS = 0;
+            shuffleItems1.Items = new int[] {
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0};
+            shuffleItems1.LevelUp = 0;
+            shuffleItems1.MegaSpeedup = 0;
+            shuffleItems1.MegaStart = 0;
+            shuffleItems1.Moves = 0;
+            shuffleItems1.RaiseMaxLevel = 0;
+            shuffleItems1.SkillBoosterL = 0;
+            shuffleItems1.SkillBoosterM = 0;
+            shuffleItems1.SkillBoosterS = 0;
+            shuffleItems1.Time = 0;
+            this.ItemsGrid.SelectedObject = shuffleItems1;
+            this.ItemsGrid.Size = new System.Drawing.Size(241, 304);
+            this.ItemsGrid.TabIndex = 54;
+            this.ItemsGrid.ToolbarVisible = false;
+            this.ItemsGrid.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.UpdateProperty);
+            this.ItemsGrid.EnabledChanged += new System.EventHandler(this.ItemsGrid_EnabledChanged);
             // 
             // Main
             // 
@@ -822,29 +822,29 @@
         private System.Windows.Forms.PictureBox PB_Event;
         private System.Windows.Forms.PictureBox PB_Expert;
         private System.Windows.Forms.GroupBox GB_Caught;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label L_IndexM;
         private System.Windows.Forms.NumericUpDown NUP_MainIndex;
         private System.Windows.Forms.NumericUpDown NUP_MainScore;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label L_IndexEv;
+        private System.Windows.Forms.Label L_IndexEx;
         private System.Windows.Forms.NumericUpDown NUP_EventScore;
         private System.Windows.Forms.NumericUpDown NUP_EventIndex;
         private System.Windows.Forms.NumericUpDown NUP_ExpertScore;
         private System.Windows.Forms.NumericUpDown NUP_ExpertIndex;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label L_Event;
+        private System.Windows.Forms.Label L_Expert;
         private System.Windows.Forms.Label L_Main;
         private System.Windows.Forms.PictureBox PB_Mon;
         private System.Windows.Forms.ComboBox CB_MonIndex;
         private System.Windows.Forms.CheckBox CHK_CaughtMon;
         private System.Windows.Forms.NumericUpDown NUP_Level;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label L_ScoreEv;
+        private System.Windows.Forms.Label L_ScoreEx;
+        private System.Windows.Forms.Label L_ScoreM;
         private System.Windows.Forms.GroupBox GB_Resources;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label L_Jewels;
+        private System.Windows.Forms.Label L_Coins;
+        private System.Windows.Forms.Label L_Hearts;
         private System.Windows.Forms.NumericUpDown NUP_Hearts;
         private System.Windows.Forms.NumericUpDown NUP_Jewels;
         private System.Windows.Forms.NumericUpDown NUP_Coins;
@@ -862,12 +862,12 @@
         private System.Windows.Forms.PictureBox PB_Team2;
         private System.Windows.Forms.PictureBox PB_Team3;
         private System.Windows.Forms.PictureBox PB_Team4;
-        private System.Windows.Forms.Label RankEv;
-        private System.Windows.Forms.Label RankEx;
-        private System.Windows.Forms.Label RankM;
+        private System.Windows.Forms.Label L_RankEv;
+        private System.Windows.Forms.Label L_RankEx;
+        private System.Windows.Forms.Label L_RankM;
         private System.Windows.Forms.PictureBox PB_Lollipop;
         private System.Windows.Forms.NumericUpDown NUP_Lollipop;
-        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label L_Level;
     }
 }
 

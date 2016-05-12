@@ -98,7 +98,7 @@ namespace Pokemon_Shuffle_Save_Editor
                     stage_ofs = 0x84A + ((ind * 3) / 8); //Expert
                     break;
                 case 2:
-                    stage_ofs = 0x8BA + ((ind * 3) / 8); //Event
+                    stage_ofs = 0x8BA + (4 + ind * 3) / 8; //Event
                     stage_shift = (4 + ind * 3) % 8;
                     break;
                 default:
@@ -109,6 +109,8 @@ namespace Pokemon_Shuffle_Save_Editor
             Array.Copy(BitConverter.GetBytes(stage), 0, db.SaveData, stage_ofs, 2);
             if (!completed)
                 SetRank(db, ind, type, 0);
+            else
+                SetRank(db, ind, type, GetRank(db, ind, type));
         }
 
         public static bool GetStage(Database db, int ind, int type)
