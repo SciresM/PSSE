@@ -27,11 +27,13 @@ namespace Pokemon_Shuffle_Save_Editor
         }
 
         private byte[] savedata, mondata, monlevel, stagesMain, stagesExpert, stagesEvent, megaStone;
-        private Tuple<int, int, bool, int, int, int, int, Tuple<int>>[] mons; //specieIndex, formIndex, isMega, raiseMaxLevel, basePower, talent, type, rest
+
+        private Tuple<int, int, bool, int, int, int, int, Tuple<int>>[] mons; //specieIndex, formIndex, isMega, raiseMaxLevel, basePower, talent, type, stageNum
         private Tuple<int, int>[] megas; //monsIndex, speedups
         private List<int> megalist;
         private int megaArray_start;
         private bool[][] HasMega; // [X][0] = X, [X][1] = Y
+
         private Database dtb;
 
         private void B_CaughtEverything_Click(object sender, EventArgs e)
@@ -44,10 +46,9 @@ namespace Pokemon_Shuffle_Save_Editor
         private void B_CaughtObtainables_Click(object sender, EventArgs e)
         {
             for (int i = 1; i < megaArray_start; i++) 
-                SetPokemon(ref savedata, dtb, i, (mons[i].Rest.Item1 != 999) && ((mons[i].Item5 != 1) || (mons[i].Item6 != 1) || (mons[i].Item7 != 0)));
+                SetPokemon(ref savedata, dtb, i, (mons[i].Rest.Item1 != 999) && ((mons[i].Item5 != 1) || (mons[i].Item6 != 1) || (mons[i].Item7 != 0))); //((displayed number isn't 999) && (at least 1 of these isn't "default" : base power, talent, type))
             int stagelen = BitConverter.ToInt32(stagesMain, 0x4);
-            byte[][] stages = new byte[][] { stagesMain, stagesExpert };
-            foreach (byte[] stage in stages)
+            foreach (byte[] stage in new byte[][] { stagesMain, stagesExpert })
             {
                 for (int i = 1; i < BitConverter.ToInt32(stage, 0); i++)
                 {
@@ -71,30 +72,19 @@ namespace Pokemon_Shuffle_Save_Editor
         private void B_AllCaughtStones_Click(object sender, EventArgs e)
         {
             for (int i = 0; i < megaArray_start; i++)
-            {
-                if (GetPokemon(ref savedata, dtb, i))
-                {
-                    if (HasMega[mons[i].Item1][0] || HasMega[mons[i].Item1][1])
-                    {
-                        if ((mons[megaArray_start + megalist.IndexOf(i)].Item6 != 7) || (mons[megaArray_start + megalist.IndexOf(i)].Item7 != 0) || (megas[megalist.IndexOf(i)].Item2 != 1)) //Checks type, "talent" & max speedups.Doesn't check if Y form has been released, but both Charizard's & Mewtwo's already have.
-                            SetMegaStone(ref savedata, dtb, i, HasMega[mons[i].Item1][0], HasMega[mons[i].Item1][1]);
-                    }
-                }
+            {   //if (caught && (hasMegaX || hasMegaY) && (at least 1 of these not equals to "default" : talent, type, max speedups). Doesn't check if Y form has been released, but both Charizard's & Mewtwo's already have.
+                if (GetPokemon(ref savedata, dtb, i) && (HasMega[mons[i].Item1][0] || HasMega[mons[i].Item1][1]) && ((mons[megaArray_start + megalist.IndexOf(i)].Item6 != 7) || (mons[megaArray_start + megalist.IndexOf(i)].Item7 != 0) || (megas[megalist.IndexOf(i)].Item2 != 1))) 
+                    SetMegaStone(ref savedata, dtb, i, HasMega[mons[i].Item1][0], HasMega[mons[i].Item1][1]);                        
             }
             MessageBox.Show("All available megastones have been owned for everything you've caught.");
         }
 
         private void B_LevelMax_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < megaArray_start; i++) //Includes 15 reserved slots
+            for (int i = 0; i < megaArray_start; i++)
             {
                 if (GetPokemon(ref savedata, dtb, i))
-                {
-                    //Reads the max amount of lollipops for that pokemon & set level to Max.
-                    int numRaiseMaxLevel = Math.Min(mons[i].Item4, 5);
-                    int max = 10 + numRaiseMaxLevel;
-                    SetLevel(ref savedata, dtb, i, max);
-                }
+                    SetLevel(ref savedata, dtb, i, 10 + Math.Min(mons[i].Item4, 5));
             }
             MessageBox.Show("Everything you've caught is now level Max.");
         }
@@ -114,21 +104,17 @@ namespace Pokemon_Shuffle_Save_Editor
         private void B_MaxSpeedups_Click(object sender, EventArgs e)
         {            
             for (int i = 0; i < megaArray_start; i++)
-            {
-                if (GetPokemon(ref savedata, dtb, i))
-                {
-                    if (HasMega[mons[i].Item1][0] || HasMega[mons[i].Item1][1])
-                        SetMegaSpeedup(ref savedata, dtb, i, HasMega[mons[i].Item1][0], HasMega[mons[i].Item1][1]);
-                }
+            {   //if (caught && (hasMegaX || hasMegaY) && (at least one stone owned))
+                if (GetPokemon(ref savedata, dtb, i) && (HasMega[mons[i].Item1][0] || HasMega[mons[i].Item1][1]) && (GetMegaStone(ref savedata, dtb, i) > 0 || GetMegaStone(ref savedata, dtb, i) < 4))
+                    SetMegaSpeedup(ref savedata, dtb, i, (HasMega[mons[i].Item1][0] && ((GetMegaStone(ref savedata, dtb, i) & 1) == 1)), (HasMega[mons[i].Item1][1] && ((GetMegaStone(ref savedata, dtb, i) & 2) == 2)));   //(hasMega(X/Y) && stone(X/Y) is owned)
             }
-            MessageBox.Show("All Owned Megas have been fed with as much Mega Speedups as possible.");
+            MessageBox.Show("All Owned Megas (for which you own the stone too) have been fed with as much Mega Speedups as possible.");
         }
 
         private void B_AllCompleted_Click(object sender, EventArgs e)
         {
-            byte[][] stages = new byte[][] { stagesMain, stagesExpert };
             int j = 0;
-            foreach (byte[] stage in stages)
+            foreach (byte[] stage in new byte[][] { stagesMain, stagesExpert })
             {
                 for (int i = 0; i < (BitConverter.ToInt32(stage, 0) - 1); i++)
                 {
@@ -142,9 +128,8 @@ namespace Pokemon_Shuffle_Save_Editor
 
         private void B_SRankCompleted_Click(object sender, EventArgs e) 
         {  
-            byte[][] stages = new byte[][] { stagesMain, stagesExpert };
             int j = 0;
-            foreach (byte[] stage in stages)
+            foreach (byte[] stage in new byte[][] { stagesMain, stagesExpert })
             {
                 int entrylen = BitConverter.ToInt32(stage, 0x4);
                 for (int i = 0; i < (BitConverter.ToInt32(stage, 0) - ((stage == stagesMain) ? 1 : 0)); i++)
@@ -177,27 +162,23 @@ namespace Pokemon_Shuffle_Save_Editor
         
         private void B_PokemonReset_Click(object sender, EventArgs e)
         {
-            for (int i = 1; i < megaArray_start; i++) //Uncatch
-                SetPokemon(ref savedata, dtb, i, false);
-            for (int i = 0; i < megaArray_start; i++) //Un-level, Un-experience & Un-lollipop
-                SetLevel(ref savedata, dtb, i);    
-            for (int i = 0; i < megaArray_start; i++) 
+            for (int i = 1; i < megaArray_start; i++) 
             {
+                SetPokemon(ref savedata, dtb, i, false);    //Uncatch
+                SetLevel(ref savedata, dtb, i); //Un-level, Un-experience & Un-lollipop
                 if (HasMega[mons[i].Item1][0] || HasMega[mons[i].Item1][1])
                 {
                     SetMegaStone(ref savedata, dtb, i); //Un-stone
                     SetMegaSpeedup(ref savedata, dtb, i);   //Unfeed speedups
                 }
-                    
             }
             MessageBox.Show("All pokemons have been uncaught, reset to level 1 & lost their Mega Stones, speedups or lollipops.\n\nEither reset stages too or make sure to catch at least Espurr, Bulbasaur, Squirtle & Charmander manually.");
         }
 
         private void B_StageReset_Click(object sender, EventArgs e)
         {
-            int[] lengths = { (BitConverter.ToInt32(stagesMain, 0) - 1), BitConverter.ToInt32(stagesExpert, 0), 100 };  //max number of event levels should be 549 but 100 should be enough to wipe all data from event stages at any time
             int j = 0;
-            foreach (int length in lengths)
+            foreach (int length in new int[] { (BitConverter.ToInt32(stagesMain, 0) - 1), BitConverter.ToInt32(stagesExpert, 0), 100 })//{number of Main stages, number of Expert stages, 100}. Max number of event levels could be up to 549 but it's unlikely there ever are more than 100 at any given time (and that space could be used for something else later).
             {                
                 for (int i = 0; i < length; i++)
                 {

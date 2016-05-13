@@ -34,7 +34,7 @@ namespace Pokemon_Shuffle_Save_Editor
             int rml_ofs = ((ind * 6) / 8);
             int rml_shift = ((ind * 6) % 8);
             ushort numRaiseMaxLevel = BitConverter.ToUInt16(savedata, 0xA9DB + rml_ofs);
-            int set_rml = Math.Min((lev - 10 < 0) ? 0 : (lev - 10), 5); //hardcoded 5 as the max number of lollipops, change this if needed
+            int set_rml = (lev - 10 < 0) ? 0 : (lev - 10);
             numRaiseMaxLevel = (ushort)((numRaiseMaxLevel & (ushort)(~(0x3F << rml_shift))) | (set_rml << rml_shift));
             Array.Copy(BitConverter.GetBytes(numRaiseMaxLevel), 0, savedata, 0xA9DB + rml_ofs, 2);
         }
@@ -50,7 +50,8 @@ namespace Pokemon_Shuffle_Save_Editor
         public static bool GetPokemon(ref byte[] savedata, Database db, int ind)
         {
             int caught_ofs = 0x546 + (((ind - 1) + 6) / 8);
-            return ((savedata[caught_ofs] >> ((((ind - 1) + 6) % 8))) & 1) == 1;
+            int caught_shift = ((((ind - 1) + 6) % 8));
+            return ((savedata[caught_ofs] >> caught_shift) & 1) == 1;
         }
 
         public static void SetMegaStone(ref byte[] savedata, Database db, int ind, bool X = false, bool Y = false)
@@ -61,6 +62,13 @@ namespace Pokemon_Shuffle_Save_Editor
             ushort new_mega_insert = (ushort)(0 | (X ? 1 : 0) | (Y ? 2 : 0));
             mega_val |= (ushort)(new_mega_insert << ((5 + (ind << 1)) % 8));
             Array.Copy(BitConverter.GetBytes(mega_val), 0, savedata, mega_ofs, 2);
+        }
+
+        public static int GetMegaStone(ref byte[] savedata, Database db, int ind)
+        {
+            int mega_ofs = 0x406 + ((ind + 2) / 4);
+            int mega_shift = ((5 + (ind << 1)) % 8);
+            return (savedata[mega_ofs] >> mega_shift) & 3;  //1 = X0, 2 = 0Y, 3 = XY
         }
 
         public static void SetMegaSpeedup(ref byte[] savedata, Database db, int ind, bool X = false, bool Y = false)
