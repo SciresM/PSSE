@@ -34,6 +34,7 @@
             this.TB_FilePath = new System.Windows.Forms.TextBox();
             this.B_Save = new System.Windows.Forms.Button();
             this.GB_HighScore = new System.Windows.Forms.GroupBox();
+            this.PB_override = new System.Windows.Forms.PictureBox();
             this.L_RankEv = new System.Windows.Forms.Label();
             this.L_RankEx = new System.Windows.Forms.Label();
             this.L_RankM = new System.Windows.Forms.Label();
@@ -85,6 +86,7 @@
             this.PB_Team4 = new System.Windows.Forms.PictureBox();
             this.ItemsGrid = new System.Windows.Forms.PropertyGrid();
             this.GB_HighScore.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PB_override)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUP_EventScore)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUP_EventIndex)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUP_ExpertScore)).BeginInit();
@@ -133,6 +135,7 @@
             this.TB_FilePath.Size = new System.Drawing.Size(228, 20);
             this.TB_FilePath.TabIndex = 0;
             this.TB_FilePath.TabStop = false;
+            this.TB_FilePath.DoubleClick += new System.EventHandler(this.TB_Filepath_DoubleClick);
             // 
             // B_Save
             // 
@@ -148,6 +151,7 @@
             // GB_HighScore
             // 
             this.GB_HighScore.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.GB_HighScore.Controls.Add(this.PB_override);
             this.GB_HighScore.Controls.Add(this.L_RankEv);
             this.GB_HighScore.Controls.Add(this.L_RankEx);
             this.GB_HighScore.Controls.Add(this.L_RankM);
@@ -176,6 +180,15 @@
             this.GB_HighScore.TabIndex = 6;
             this.GB_HighScore.TabStop = false;
             this.GB_HighScore.Text = "High-Scores";
+            // 
+            // PB_override
+            // 
+            this.PB_override.Location = new System.Drawing.Point(6, 17);
+            this.PB_override.Name = "PB_override";
+            this.PB_override.Size = new System.Drawing.Size(16, 16);
+            this.PB_override.TabIndex = 69;
+            this.PB_override.TabStop = false;
+            this.PB_override.Click += new System.EventHandler(this.PB_Override_Click);
             // 
             // L_RankEv
             // 
@@ -264,7 +277,6 @@
             this.L_Main.Size = new System.Drawing.Size(66, 13);
             this.L_Main.TabIndex = 12;
             this.L_Main.Text = "Main Stages";
-            this.L_Main.Click += new System.EventHandler(this.L_Main_Click);
             // 
             // L_IndexEv
             // 
@@ -287,6 +299,11 @@
             // NUP_EventScore
             // 
             this.NUP_EventScore.Location = new System.Drawing.Point(397, 92);
+            this.NUP_EventScore.Maximum = new decimal(new int[] {
+            16777215,
+            0,
+            0,
+            0});
             this.NUP_EventScore.Name = "NUP_EventScore";
             this.NUP_EventScore.Size = new System.Drawing.Size(77, 20);
             this.NUP_EventScore.TabIndex = 65;
@@ -303,6 +320,11 @@
             // NUP_ExpertScore
             // 
             this.NUP_ExpertScore.Location = new System.Drawing.Point(240, 92);
+            this.NUP_ExpertScore.Maximum = new decimal(new int[] {
+            16777215,
+            0,
+            0,
+            0});
             this.NUP_ExpertScore.Name = "NUP_ExpertScore";
             this.NUP_ExpertScore.Size = new System.Drawing.Size(77, 20);
             this.NUP_ExpertScore.TabIndex = 63;
@@ -311,6 +333,11 @@
             // NUP_ExpertIndex
             // 
             this.NUP_ExpertIndex.Location = new System.Drawing.Point(278, 43);
+            this.NUP_ExpertIndex.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.NUP_ExpertIndex.Name = "NUP_ExpertIndex";
             this.NUP_ExpertIndex.Size = new System.Drawing.Size(39, 20);
             this.NUP_ExpertIndex.TabIndex = 62;
@@ -324,6 +351,11 @@
             // NUP_MainScore
             // 
             this.NUP_MainScore.Location = new System.Drawing.Point(81, 92);
+            this.NUP_MainScore.Maximum = new decimal(new int[] {
+            16777215,
+            0,
+            0,
+            0});
             this.NUP_MainScore.Name = "NUP_MainScore";
             this.NUP_MainScore.Size = new System.Drawing.Size(77, 20);
             this.NUP_MainScore.TabIndex = 61;
@@ -332,6 +364,11 @@
             // NUP_MainIndex
             // 
             this.NUP_MainIndex.Location = new System.Drawing.Point(119, 43);
+            this.NUP_MainIndex.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.NUP_MainIndex.Name = "NUP_MainIndex";
             this.NUP_MainIndex.Size = new System.Drawing.Size(39, 20);
             this.NUP_MainIndex.TabIndex = 60;
@@ -444,6 +481,7 @@
             this.PB_SpeedUpY.Size = new System.Drawing.Size(24, 24);
             this.PB_SpeedUpY.TabIndex = 27;
             this.PB_SpeedUpY.TabStop = false;
+            this.PB_SpeedUpY.Visible = false;
             this.PB_SpeedUpY.Click += new System.EventHandler(this.PB_Owned_Click);
             // 
             // PB_SpeedUpX
@@ -453,6 +491,7 @@
             this.PB_SpeedUpX.Size = new System.Drawing.Size(24, 24);
             this.PB_SpeedUpX.TabIndex = 26;
             this.PB_SpeedUpX.TabStop = false;
+            this.PB_SpeedUpX.Visible = false;
             this.PB_SpeedUpX.Click += new System.EventHandler(this.PB_Owned_Click);
             // 
             // NUP_SpeedUpY
@@ -490,6 +529,7 @@
             this.PB_MegaX.Size = new System.Drawing.Size(16, 16);
             this.PB_MegaX.TabIndex = 23;
             this.PB_MegaX.TabStop = false;
+            this.PB_MegaX.Visible = false;
             // 
             // PB_MegaY
             // 
@@ -498,6 +538,7 @@
             this.PB_MegaY.Size = new System.Drawing.Size(16, 16);
             this.PB_MegaY.TabIndex = 22;
             this.PB_MegaY.TabStop = false;
+            this.PB_MegaY.Visible = false;
             // 
             // CHK_MegaX
             // 
@@ -507,6 +548,7 @@
             this.CHK_MegaX.Size = new System.Drawing.Size(15, 14);
             this.CHK_MegaX.TabIndex = 35;
             this.CHK_MegaX.UseVisualStyleBackColor = true;
+            this.CHK_MegaX.Visible = false;
             this.CHK_MegaX.CheckedChanged += new System.EventHandler(this.UpdateForm);
             // 
             // CHK_MegaY
@@ -518,6 +560,7 @@
             this.CHK_MegaY.Size = new System.Drawing.Size(15, 14);
             this.CHK_MegaY.TabIndex = 37;
             this.CHK_MegaY.UseVisualStyleBackColor = true;
+            this.CHK_MegaY.Visible = false;
             this.CHK_MegaY.CheckedChanged += new System.EventHandler(this.UpdateForm);
             // 
             // NUP_Level
@@ -777,6 +820,7 @@
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.Main_DragEnter);
             this.GB_HighScore.ResumeLayout(false);
             this.GB_HighScore.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PB_override)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUP_EventScore)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUP_EventIndex)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUP_ExpertScore)).EndInit();
@@ -868,6 +912,7 @@
         private System.Windows.Forms.PictureBox PB_Lollipop;
         private System.Windows.Forms.NumericUpDown NUP_Lollipop;
         private System.Windows.Forms.Label L_Level;
+        private System.Windows.Forms.PictureBox PB_override;
     }
 }
 
