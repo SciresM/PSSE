@@ -57,7 +57,7 @@ namespace Pokemon_Shuffle_Save_Editor
             if (!loaded || updating)
                 return;
             updating = true;
-            SaveFileDialog sfd = new SaveFileDialog { FileName = TB_FilePath.Text };
+            SaveFileDialog sfd = new SaveFileDialog { FileName = TB_FilePath.Text, Filter = ".bin files (*.bin)|*.bin|All files (*.*)|*.*", FilterIndex = 1 };
             if (sfd.ShowDialog() != DialogResult.OK) return;
 
             File.WriteAllBytes(sfd.FileName, savedata);

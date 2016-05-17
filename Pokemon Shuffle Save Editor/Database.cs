@@ -15,6 +15,7 @@ namespace Pokemon_Shuffle_Save_Editor
         public byte[] StagesExpert { get; private set; }
         public byte[] MegaStone { get; private set; }
         public byte[] MonLevel { get; private set; }
+        public byte[] MonAbility { get; private set; }
 
         public string[] SpeciesList { get; private set; }
         public string[] MonsList { get; private set; }
@@ -37,11 +38,12 @@ namespace Pokemon_Shuffle_Save_Editor
             StagesExpert = Properties.Resources.stageDataExtra;
             MegaStone = Properties.Resources.megaStone;
             MonLevel = Properties.Resources.pokemonLevel;
+            MonAbility = Properties.Resources.pokemonAbility;
             string resourcedir = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + Path.DirectorySeparatorChar + "resources" + Path.DirectorySeparatorChar;
             if (!Directory.Exists(resourcedir))
                 Directory.CreateDirectory(resourcedir);
             byte[][] files = { MegaStone, MonData, StagesMain, StagesEvent, StagesExpert, MonLevel };
-            string[] filenames = { "MegaStone.bin", "pokemonData.bin", "stageData.bin", "stageDataEvent.bin", "stageDataExtra.bin", "pokemonLevel.bin" };
+            string[] filenames = { "MegaStone.bin", "pokemonData.bin", "stageData.bin", "stageDataEvent.bin", "stageDataExtra.bin", "pokemonLevel.bin", "pokemonAbility.bin" };
             for (int i = 0; i < files.Length; i++)
             {
                 if (!File.Exists(resourcedir + filenames[i]))
@@ -67,6 +69,9 @@ namespace Pokemon_Shuffle_Save_Editor
                             break;
                         case 5:
                             MonLevel = File.ReadAllBytes(resourcedir + filenames[i]);
+                            break;
+                        case 6:
+                            MonAbility = File.ReadAllBytes(resourcedir + filenames[i]);
                             break;
                     }
                 }

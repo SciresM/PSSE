@@ -160,7 +160,24 @@ namespace Pokemon_Shuffle_Save_Editor
             SetExcalationStep(999);
             MessageBox.Show("Curent escalation battle has been taken to step 999. You'll get all rewards at once by beating it.\n\nCarefull : only use it when there's exactly one active escalation battle.\nI don't know how this behaves if there is 0 or more than 1 active at the same time.");
         }
-        
+
+        private void B_MaxTalent_Click(object sender, EventArgs e)
+        {
+            int entrylen = BitConverter.ToInt32(db.MonData, 0x4);
+            for (int i = 0; i < megaArray_start; i++)
+            {
+                if (GetCaught(i))
+                {
+                    int talentlvl = BitConverter.ToInt16(savedata, 0xAD9B + (i * 3) / 8);
+                    talentlvl = (talentlvl & ~(0x7 << ((i * 3) % 8))) | (5 << ((i * 3) % 8));
+                    Array.Copy(BitConverter.GetBytes(talentlvl), 0, savedata, 0xAD9B + (i * 3) / 8, 2);
+                    byte[] data = db.MonAbility.Skip(0x50 + db.Mons[i].Item6 * entrylen).Take(entrylen).ToArray();
+                    savedata[0xC9BB + i] = data[0x20];  //talent exp
+                }                    
+            }
+            MessageBox.Show("Every pokemon that you have caught now has its talent fully powered !");
+        }
+
         private void B_PokemonReset_Click(object sender, EventArgs e)
         {
             for (int i = 1; i < megaArray_start; i++) 

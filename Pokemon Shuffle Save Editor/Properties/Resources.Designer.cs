@@ -11156,6 +11156,16 @@ namespace Pokemon_Shuffle_Save_Editor.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] pokemonAbility {
+            get {
+                object obj = ResourceManager.GetObject("pokemonAbility", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] pokemonData {
             get {
                 object obj = ResourceManager.GetObject("pokemonData", resourceCulture);
