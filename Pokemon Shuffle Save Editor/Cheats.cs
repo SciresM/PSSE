@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using static Pokemon_Shuffle_Save_Editor.ToolFunctions;
+using static Pokemon_Shuffle_Save_Editor.Main;
 
 namespace Pokemon_Shuffle_Save_Editor
 {
     public partial class Cheats : Form
     {
-        public Cheats(Database db, ref byte[] savedata)
+        public Cheats()
         {
             InitializeComponent();
             mondata = db.MonData;
@@ -22,11 +23,9 @@ namespace Pokemon_Shuffle_Save_Editor
             megas = db.Megas;            
             megalist = db.MegaList;
             megaArray_start = db.MegaStartIndex;
-            dtb = db;
-            this.savedata = savedata;
         }
 
-        private byte[] savedata, mondata, monlevel, stagesMain, stagesExpert, stagesEvent, megaStone;
+        private byte[] mondata, monlevel, stagesMain, stagesExpert, stagesEvent, megaStone;
 
         private Tuple<int, int, bool, int, int, int, int, Tuple<int>>[] mons; //specieIndex, formIndex, isMega, raiseMaxLevel, basePower, talent, type, stageNum
         private Tuple<int, int>[] megas; //monsIndex, speedups
@@ -34,26 +33,24 @@ namespace Pokemon_Shuffle_Save_Editor
         private int megaArray_start;
         private bool[][] HasMega; // [X][0] = X, [X][1] = Y
 
-        private Database dtb;
-
         private void B_CaughtEverything_Click(object sender, EventArgs e)
         {
             for (int i = 1; i < megaArray_start; i++) //includes 15 reserved slots
-                SetPokemon(ref savedata, dtb, i, true);
+                SetCaught(i, true);
             MessageBox.Show("All Pokemon are now caught.");
         }
 
         private void B_CaughtObtainables_Click(object sender, EventArgs e)
         {
             for (int i = 1; i < megaArray_start; i++) 
-                SetPokemon(ref savedata, dtb, i, (mons[i].Rest.Item1 != 999) && ((mons[i].Item5 != 1) || (mons[i].Item6 != 1) || (mons[i].Item7 != 0))); //((displayed number isn't 999) && (at least 1 of these isn't "default" : base power, talent, type))
+                SetCaught(i, (mons[i].Rest.Item1 != 999) && ((mons[i].Item5 != 1) || (mons[i].Item6 != 1) || (mons[i].Item7 != 0))); //((displayed number isn't 999) && (at least 1 of these isn't "default" : base power, talent, type))
             int stagelen = BitConverter.ToInt32(stagesMain, 0x4);
             foreach (byte[] stage in new byte[][] { stagesMain, stagesExpert })
             {
                 for (int i = 1; i < BitConverter.ToInt32(stage, 0); i++)
                 {
                     int ind = BitConverter.ToUInt16(stage, 0x50 + stagelen * (i)) & 0x3FF;
-                    SetPokemon(ref savedata, dtb, ind, true);
+                    SetCaught(ind, true);
                 }
             }                
             MessageBox.Show("All obtainable Pokemon have now been caught.");
@@ -64,7 +61,7 @@ namespace Pokemon_Shuffle_Save_Editor
             for (int i = 0; i < megaArray_start; i++)
             {
                 if (HasMega[mons[i].Item1][0] || HasMega[mons[i].Item1][1])
-                    SetMegaStone(ref savedata, dtb, i, HasMega[mons[i].Item1][0], HasMega[mons[i].Item1][1]);
+                    SetStone(i, HasMega[mons[i].Item1][0], HasMega[mons[i].Item1][1]);
             }
             MessageBox.Show("All Mega Stones are now owned.");
         }
@@ -73,8 +70,8 @@ namespace Pokemon_Shuffle_Save_Editor
         {
             for (int i = 0; i < megaArray_start; i++)
             {   //if (caught && (hasMegaX || hasMegaY) && (at least 1 of these not equals to "default" : talent, type, max speedups). Doesn't check if Y form has been released, but both Charizard's & Mewtwo's already have.
-                if (GetPokemon(ref savedata, dtb, i) && (HasMega[mons[i].Item1][0] || HasMega[mons[i].Item1][1]) && ((mons[megaArray_start + megalist.IndexOf(i)].Item6 != 7) || (mons[megaArray_start + megalist.IndexOf(i)].Item7 != 0) || (megas[megalist.IndexOf(i)].Item2 != 1))) 
-                    SetMegaStone(ref savedata, dtb, i, HasMega[mons[i].Item1][0], HasMega[mons[i].Item1][1]);                        
+                if (GetCaught(i) && (HasMega[mons[i].Item1][0] || HasMega[mons[i].Item1][1]) && ((mons[megaArray_start + megalist.IndexOf(i)].Item6 != 7) || (mons[megaArray_start + megalist.IndexOf(i)].Item7 != 0) || (megas[megalist.IndexOf(i)].Item2 != 1))) 
+                    SetStone(i, HasMega[mons[i].Item1][0], HasMega[mons[i].Item1][1]);                        
             }
             MessageBox.Show("All available megastones have been owned for everything you've caught.");
         }
@@ -83,8 +80,8 @@ namespace Pokemon_Shuffle_Save_Editor
         {
             for (int i = 0; i < megaArray_start; i++)
             {
-                if (GetPokemon(ref savedata, dtb, i))
-                    SetLevel(ref savedata, dtb, i, 10 + Math.Min(mons[i].Item4, 5));
+                if (GetCaught(i))
+                    SetLevel(i, 10 + Math.Min(mons[i].Item4, 5));
             }
             MessageBox.Show("Everything you've caught is now level Max.");
         }
@@ -97,7 +94,7 @@ namespace Pokemon_Shuffle_Save_Editor
             int[] enhancements = new int[9];
             for (int i = 0; i < 9; i++)
                 enhancements[i] = 99;
-            SetResources(ref savedata, dtb, 99, 99999, 150, items, enhancements);
+            SetResources(99, 99999, 150, items, enhancements);
             MessageBox.Show("Gave 99 hearts, 99999 coins, 150 jewels, and 99 of every item.");
         }
 
@@ -105,8 +102,12 @@ namespace Pokemon_Shuffle_Save_Editor
         {            
             for (int i = 0; i < megaArray_start; i++)
             {   //if (caught && (hasMegaX || hasMegaY) && (at least one stone owned))
-                if (GetPokemon(ref savedata, dtb, i) && (HasMega[mons[i].Item1][0] || HasMega[mons[i].Item1][1]) && (GetMegaStone(ref savedata, dtb, i) > 0 || GetMegaStone(ref savedata, dtb, i) < 4))
-                    SetMegaSpeedup(ref savedata, dtb, i, (HasMega[mons[i].Item1][0] && ((GetMegaStone(ref savedata, dtb, i) & 1) == 1)), (HasMega[mons[i].Item1][1] && ((GetMegaStone(ref savedata, dtb, i) & 2) == 2)));   //(hasMega(X/Y) && stone(X/Y) is owned)
+                if (GetCaught(i) && (HasMega[mons[i].Item1][0] || HasMega[mons[i].Item1][1]) && (GetStone(i) > 0 || GetStone(i) < 4))
+                {
+                    int suX = HasMega[mons[i].Item1][0] ? db.Megas[db.MegaList.IndexOf(i)].Item2 : 0;
+                    int suY = HasMega[mons[i].Item1][1] ? db.Megas[db.MegaList.IndexOf(i, db.MegaList.IndexOf(i) + 1)].Item2 : 0;
+                    SetSpeedup(i, (HasMega[mons[i].Item1][0] && ((GetStone(i) & 1) == 1)), suX, (HasMega[mons[i].Item1][1] && ((GetStone(i) & 2) == 2)), suY);   //(i, (hasMegaX && owned stoneX), max X value from db, (hasMegaY && owned stoneY), max Y value from db)
+                } 
             }
             MessageBox.Show("All Owned Megas (for which you own the stone too) have been fed with as much Mega Speedups as possible.");
         }
@@ -118,8 +119,8 @@ namespace Pokemon_Shuffle_Save_Editor
             {
                 for (int i = 0; i < (BitConverter.ToInt32(stage, 0) - 1); i++)
                 {
-                    SetStage(ref savedata, dtb, i, j, true);
-                    PatchScore(ref savedata, dtb, i, j);
+                    SetStage(i, j, true);
+                    PatchScore(i, j);
                 }                    
                 j++;
             }
@@ -134,10 +135,10 @@ namespace Pokemon_Shuffle_Save_Editor
                 int entrylen = BitConverter.ToInt32(stage, 0x4);
                 for (int i = 0; i < (BitConverter.ToInt32(stage, 0) - ((stage == stagesMain) ? 1 : 0)); i++)
                 {
-                    if (GetStage(ref savedata, dtb, i, j))
+                    if (GetStage(i, j))
                     {
-                        SetRank(ref savedata, dtb, i, j, 3);
-                        PatchScore(ref savedata, dtb, i, j);
+                        SetRank(i, j, 3);
+                        PatchScore(i, j);
                     }
                 }
                 j++;
@@ -156,7 +157,7 @@ namespace Pokemon_Shuffle_Save_Editor
 
         private void B_MaxExcalationBattle_Click(object sender, EventArgs e)
         {
-            SetExcalationStep(ref savedata, dtb, 999);
+            SetExcalationStep(999);
             MessageBox.Show("Curent escalation battle has been taken to step 999. You'll get all rewards at once by beating it.\n\nCarefull : only use it when there's exactly one active escalation battle.\nI don't know how this behaves if there is 0 or more than 1 active at the same time.");
         }
         
@@ -164,12 +165,12 @@ namespace Pokemon_Shuffle_Save_Editor
         {
             for (int i = 1; i < megaArray_start; i++) 
             {
-                SetPokemon(ref savedata, dtb, i, false);    //Uncatch
-                SetLevel(ref savedata, dtb, i); //Un-level, Un-experience & Un-lollipop
+                SetCaught(i, false);    //Uncatch
+                SetLevel(i); //Un-level, Un-experience & Un-lollipop
                 if (HasMega[mons[i].Item1][0] || HasMega[mons[i].Item1][1])
                 {
-                    SetMegaStone(ref savedata, dtb, i); //Un-stone
-                    SetMegaSpeedup(ref savedata, dtb, i);   //Unfeed speedups
+                    SetStone(i); //Un-stone
+                    SetSpeedup(i);   //Unfeed speedups
                 }
             }
             MessageBox.Show("All pokemons have been uncaught, reset to level 1 & lost their Mega Stones, speedups or lollipops.\n\nEither reset stages too or make sure to catch at least Espurr, Bulbasaur, Squirtle & Charmander manually.");
@@ -182,9 +183,9 @@ namespace Pokemon_Shuffle_Save_Editor
             {                
                 for (int i = 0; i < length; i++)
                 {
-                    SetStage(ref savedata, dtb, i, j);
-                    SetRank(ref savedata, dtb, i, j);
-                    SetScore(ref savedata, dtb, i, j);
+                    SetStage(i, j);
+                    SetRank(i, j);
+                    SetScore(i, j);
                 }
                 j++;
             }
@@ -193,13 +194,13 @@ namespace Pokemon_Shuffle_Save_Editor
 
         private void B_ResourcesReset_Click(object sender, EventArgs e)
         {            
-            SetResources(ref savedata, dtb);
+            SetResources();
             MessageBox.Show("Deleted all stock hearts, coins, jewels and Items.");
         }
 
         private void B_EscalationReset_Click(object sender, EventArgs e)
         {
-            SetExcalationStep(ref savedata, dtb);
+            SetExcalationStep();
             MessageBox.Show("Curent escalation battle has been reverted to step 1.\n\nCarefull : only use it when there's exactly one active escalation battle.\nI don't know how this behaves if there is 0 or more than 1 active at the same time.");
         }
         

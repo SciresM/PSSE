@@ -22,20 +22,20 @@ namespace Pokemon_Shuffle_Save_Editor
             FormInit();
         }
 
-        Database db = new Database();
+        public static Database db = new Database();
         List<cbItem> monsel = new List<cbItem>();
         ShuffleItems SI_Items = new ShuffleItems();
 
         bool loaded, updating, overrideHS;
         
-        public byte[] savedata;
+        public static byte[] savedata = null;
 
         private void FormInit()
         {
             B_Save.Enabled = GB_Caught.Enabled = GB_HighScore.Enabled = GB_Resources.Enabled = B_CheatsForm.Enabled = ItemsGrid.Enabled = loaded = false;
-            PB_Mon.Image = GetCaughtImage(db, (int)CB_MonIndex.SelectedValue, CHK_CaughtMon.Checked);
-            PB_Main.Image = PB_Event.Image = PB_Expert.Image = GetStageImage(db, 0);
-            PB_Team1.Image = PB_Team2.Image = PB_Team3.Image = PB_Team4.Image = ResizeImage(GetMonImage(db, 0), 48, 48);
+            PB_Mon.Image = GetCaughtImage((int)CB_MonIndex.SelectedValue, CHK_CaughtMon.Checked);
+            PB_Main.Image = PB_Event.Image = PB_Expert.Image = GetStageImage(0, 0);
+            PB_Team1.Image = PB_Team2.Image = PB_Team3.Image = PB_Team4.Image = ResizeImage(GetMonImage(0), 48, 48);
             PB_Lollipop.Image = new Bitmap(ResizeImage((Image)Properties.Resources.ResourceManager.GetObject("lollipop"), 24, 24));
             NUP_MainIndex.Maximum = BitConverter.ToInt32(db.StagesMain, 0) - 1;
             NUP_ExpertIndex.Maximum = BitConverter.ToInt32(db.StagesExpert, 0);
@@ -49,14 +49,7 @@ namespace Pokemon_Shuffle_Save_Editor
         {
             OpenFileDialog ofd = new OpenFileDialog { FileName = "savedata.bin", Filter = ".bin files (*.bin)|*.bin|All files (*.*)|*.*" , FilterIndex = 1};
             if (ofd.ShowDialog() == DialogResult.OK)
-            {
-                if (IsShuffleSave(ofd.FileName))
                     Open(ofd.FileName);
-                else
-                {
-                    MessageBox.Show("Couldn't open your file, it wasn't detected as a proper Pokemon Shuffle savefile.");
-                }
-            }
         }
 
         private void B_Save_Click(object sender, EventArgs e)
@@ -81,7 +74,9 @@ namespace Pokemon_Shuffle_Save_Editor
                 Parse();
                 B_Save.Enabled = GB_Caught.Enabled = GB_HighScore.Enabled = GB_Resources.Enabled = B_CheatsForm.Enabled = ItemsGrid.Enabled = loaded = true;
                 UpdateForm(null, null);
-            }            
+            }
+            else
+                MessageBox.Show("Couldn't open your file, it wasn't detected as a proper Pokemon Shuffle savefile.");
         }
               
         private bool IsShuffleSave(string file) // Try to do a better job at filtering files rather than just saying "oh, it's not savedata.bin quit"
@@ -108,87 +103,29 @@ namespace Pokemon_Shuffle_Save_Editor
             updating = true;
             if (sender != null && !((sender as Control).Name.ToLower().Contains("index")))
             {
+                //Owned Bow Properties
                 int ind = (int)CB_MonIndex.SelectedValue;
-
-                //caught patcher
-                int caught_ofs = (ind - 1 + 6) / 8;
-                int caught_shift = (ind - 1 + 6) % 8;
-                foreach (int caught_array_start in new[] { 0xE6, 0x546, 0x5E6 })
-                    savedata[caught_array_start + caught_ofs] = (byte)(savedata[caught_array_start + caught_ofs] & (byte)(~(1 << caught_shift)) | ((CHK_CaughtMon.Checked ? 1 : 0) << caught_shift));
-
-                //level & lollipop patcher
-                int level_ofs = 0x187 + (((ind - 1) * 4) / 8);
-                int level_shift = ((((ind - 1) * 4) + 1) % 8);
-                ushort level = BitConverter.ToUInt16(savedata, level_ofs);                
                 ushort set_level = (ushort)(CHK_CaughtMon.Checked ? (NUP_Level.Value == 1 ? 0 : NUP_Level.Value) : 0);
-                int rml_ofs = 0xA9DB + (ind * 6) / 8;
-                int rml_shift = (ind * 6) % 8;
-                ushort numRaiseMaxLevel = BitConverter.ToUInt16(savedata, rml_ofs);
                 ushort set_rml = (ushort)(CHK_CaughtMon.Checked ? NUP_Lollipop.Value : 0);
                 if (set_level > 10 + set_rml)
                 {
                     if ((sender as Control).Name.Contains("Level"))
                         set_rml = (ushort)(set_level - 10);
-                    if ((sender as Control).Name.Contains("Lollipop"))
+                    else if ((sender as Control).Name.Contains("Lollipop"))
                         set_level = (ushort)(10 + set_rml);
                 }
-                level = (ushort)((level & (ushort)(~(0xF << level_shift))) | (set_level << level_shift));
-                Array.Copy(BitConverter.GetBytes(level), 0, savedata, level_ofs, 2);
-                numRaiseMaxLevel = (ushort)((numRaiseMaxLevel & (ushort)(~(0x3F << rml_shift))) | (set_rml << rml_shift));    //int set_rml = Math.Min(((int)NUP_Level.Value - 10 < 0) ? 0 : (int)NUP_Level.Value - 10, 5); //Hardcoded 5 as the max number of lollipops, change this if needed later                
-                Array.Copy(BitConverter.GetBytes(numRaiseMaxLevel), 0, savedata, rml_ofs, 2);
+                SetCaught(ind, CHK_CaughtMon.Checked);
+                SetLevel(ind, set_level, set_rml);
+                SetStone(ind, CHK_MegaX.Checked, CHK_MegaY.Checked);
+                SetSpeedup(ind, (db.HasMega[db.Mons[ind].Item1][0] && CHK_CaughtMon.Checked && CHK_MegaX.Checked), (int)Math.Min(NUP_SpeedUpX.Value, NUP_SpeedUpX.Maximum), (db.HasMega[db.Mons[ind].Item1][1] && CHK_CaughtMon.Checked && CHK_MegaY.Checked), (int)Math.Min(NUP_SpeedUpY.Value, NUP_SpeedUpY.Maximum));   
+                   
+                //Stages Box Properties          
+                SetScore((int)NUP_MainIndex.Value - 1, 0, (ulong)NUP_MainScore.Value);
+                SetScore((int)NUP_ExpertIndex.Value - 1, 1, (ulong)NUP_ExpertScore.Value);
+                SetScore((int)NUP_EventIndex.Value, 2, (ulong)NUP_EventScore.Value);
 
-                //experience patcher
-                int exp_ofs = 0x3241 + (4 + (ind - 1) * 24) / 8;
-                int exp_shift = (4 + (ind - 1) * 24) % 8;
-                int exp = BitConverter.ToInt32(savedata, exp_ofs);
-                int entrylen = BitConverter.ToInt32(db.MonLevel, 0x4);
-                byte[] data = db.MonLevel.Skip(0x50 + (set_level - 1) * entrylen).Take(entrylen).ToArray();
-                int set_exp = BitConverter.ToInt32(data, 0x4 * (db.Mons[ind].Item5 - 1));
-                exp = (exp & ~(0xFFFFFF << exp_shift)) | (set_exp << exp_shift);
-                Array.Copy(BitConverter.GetBytes(exp), 0, savedata, exp_ofs, 4);
-
-                //megastone patcher
-                int mega_ofs = 0x406 + (ind + 2) / 4;
-                ushort mega_val = BitConverter.ToUInt16(savedata, mega_ofs);
-                mega_val &= (ushort)(~(3 << ((5 + (ind << 1)) % 8)));
-                ushort new_mega_insert = (ushort)(0 | (CHK_MegaX.Checked ? 1 : 0) | (CHK_MegaY.Checked ? 2 : 0));
-                mega_val |= (ushort)(new_mega_insert << ((5 + (ind << 1)) % 8));
-                Array.Copy(BitConverter.GetBytes(mega_val), 0, savedata, mega_ofs, 2);
-
-                //speedups patcher
-                if (db.HasMega[db.Mons[ind].Item1][0] || db.HasMega[db.Mons[ind].Item1][1])
-                {
-                    int suX_ofs = 0x2D5B + (db.MegaList.IndexOf(ind) * 7 + 3) / 8;
-                    int suX_shift = (db.MegaList.IndexOf(ind) * 7 + 3) % 8;
-                    int suY_ofs = 0x2D5B + ((db.MegaList.IndexOf(ind, db.MegaList.IndexOf(ind) + 1) * 7) + 3) / 8;
-                    int suY_shift = ((db.MegaList.IndexOf(ind, db.MegaList.IndexOf(ind) + 1) * 7) + 3) % 8 + (suY_ofs - suX_ofs) * 8; //relative to suX_ofs
-                    int speedUp_ValX = BitConverter.ToInt32(savedata, suX_ofs);
-                    int speedUp_ValY = BitConverter.ToInt32(savedata, suY_ofs);
-                    int set_suX = (db.HasMega[db.Mons[ind].Item1][0] && CHK_CaughtMon.Checked && CHK_MegaX.Checked) ? (int)Math.Min(NUP_SpeedUpX.Value, NUP_SpeedUpX.Maximum) : 0;
-                    int set_suY = (db.HasMega[db.Mons[ind].Item1][1] && CHK_CaughtMon.Checked && CHK_MegaY.Checked) ? (int)Math.Min(NUP_SpeedUpY.Value, NUP_SpeedUpY.Maximum) : 0;
-                    int newSpeedUp = db.HasMega[db.Mons[ind].Item1][1]
-                        ? ((speedUp_ValX & ~(0x7F << suX_shift)) & ~(0x7F << suY_shift)) | (set_suX << suX_shift) | (set_suY << suY_shift) //Erases both X & Y bits at the same time before updating them to make sure Y doesn't overwrite X bits
-                        : (speedUp_ValX & ~(0x7F << suX_shift)) | (set_suX << suX_shift);
-                    Array.Copy(BitConverter.GetBytes(newSpeedUp), 0, savedata, suX_ofs, 4);
-                }
-                
-                //score patcher
-                Array.Copy(BitConverter.GetBytes((BitConverter.ToUInt64(savedata, 0x4141 + 3 * ((int)NUP_MainIndex.Value - 1)) & 0xFFFFFFFFF000000FL) | (((ulong)NUP_MainScore.Value << 4))), 0, savedata, 0x4141 + 3 * ((int)NUP_MainIndex.Value - 1), 8);
-                Array.Copy(BitConverter.GetBytes((BitConverter.ToUInt64(savedata, 0x4F51 + 3 * ((int)NUP_ExpertIndex.Value)) & 0xFFFFFFFFF000000FL) | (((ulong)NUP_ExpertScore.Value << 4))), 0, savedata, 0x4F51 + 3 * ((int)NUP_ExpertIndex.Value), 8);
-                Array.Copy(BitConverter.GetBytes((BitConverter.ToUInt64(savedata, 0x52D5 + 3 * ((int)NUP_EventIndex.Value)) & 0xFFFFFFFFF000000FL) | (((ulong)NUP_EventScore.Value << 4))), 0, savedata, 0x52D5 + 3 * ((int)NUP_EventIndex.Value), 8);
-
-                //items patcher
-                Array.Copy(BitConverter.GetBytes((BitConverter.ToUInt32(savedata, 0x68) & 0xF0000007) | ((uint)NUP_Coins.Value << 3) | ((uint)NUP_Jewels.Value << 20)), 0, savedata, 0x68, 4);
-                Array.Copy(BitConverter.GetBytes((BitConverter.ToUInt16(savedata, 0x2D4A) & 0xC07F) | ((ushort)NUP_Hearts.Value << 7)), 0, savedata, 0x2D4A, 2);
-                for (int i = 0; i < SI_Items.Items.Length; i++)
-                {
-                    ushort val = BitConverter.ToUInt16(savedata, 0xd0 + i);
-                    val &= 0x7F;
-                    val |= (ushort)(SI_Items.Items[i] << 7);
-                    Array.Copy(BitConverter.GetBytes(val), 0, savedata, 0xd0 + i, 2);
-                }
-                for (int i = 0; i < SI_Items.Enchantments.Length; i++)
-                    savedata[0x2D4C + i] = (byte)(((SI_Items.Enchantments[i] << 1) & 0xFE) | (savedata[0x2D4C + i] & 1));
+                //Ressources Box Properties
+                SetResources((int)NUP_Hearts.Value, (uint)NUP_Coins.Value, (uint)NUP_Jewels.Value, SI_Items.Items, SI_Items.Enchantments);
             }
             Parse();
             updating = false;
@@ -196,48 +133,55 @@ namespace Pokemon_Shuffle_Save_Editor
 
         private void UpdateResourceBox()
         {
-            NUP_Coins.Value = (BitConverter.ToUInt32(savedata, 0x68) >> 3) & 0x1FFFF;
-            NUP_Jewels.Value = (BitConverter.ToUInt16(savedata, 0x6A) >> 4) & 0xFF;
-            NUP_Hearts.Value = (BitConverter.ToUInt16(savedata, 0x2D4A) >> 7) & 0x7F;
+            NUP_Coins.Value = GetRessources().Coins;
+            NUP_Jewels.Value = GetRessources().Jewels;
+            NUP_Hearts.Value = GetRessources().Hearts;
             for (int i = 0; i < SI_Items.Items.Length; i++)
-                SI_Items.Items[i] = (BitConverter.ToUInt16(savedata, 0xD0 + i) >> 7) & 0x7F;
+                SI_Items.Items[i] = GetRessources().Items[i];
             for (int i = 0; i < SI_Items.Enchantments.Length; i++)
-                SI_Items.Enchantments[i] = (savedata[0x2D4C + i] >> 1) & 0x7F;
+                SI_Items.Enchantments[i] = GetRessources().Enhancements[i];
             ItemsGrid.Refresh();  
         }
 
         private void UpdateOwnedBox()
         {
-            int ind = (int)CB_MonIndex.SelectedValue;
+            int ind = (int)CB_MonIndex.SelectedValue, lev, exp, rml;    //exp variable ready for an exp viewer
             
             //team preview
             byte[] teamData = savedata.Skip(0xE0).Take(0x7).ToArray();
-            int teamSlot1 = (BitConverter.ToInt32(teamData, 0) >> 5) & 0xFFF;
-            int teamSlot2 = (BitConverter.ToInt16(teamData, 0x02) >> 1) & 0xFFF;
-            int teamSlot3 = (BitConverter.ToInt32(teamData, 0x03) >> 5) & 0xFFF;
-            int teamSlot4 = (BitConverter.ToInt16(teamData, 0x05) >> 1) & 0xFFF;
-            PB_Team1.Image = ResizeImage(GetMonImage(db, teamSlot1), 48, 48);
-            PB_Team2.Image = ResizeImage(GetMonImage(db, teamSlot2), 48, 48);
-            PB_Team3.Image = ResizeImage(GetMonImage(db, teamSlot3), 48, 48);
-            PB_Team4.Image = ResizeImage(GetMonImage(db, teamSlot4), 48, 48);
+            PB_Team1.Image = ResizeImage(GetMonImage((BitConverter.ToInt32(teamData, 0) >> 5) & 0xFFF), 48, 48);
+            PB_Team2.Image = ResizeImage(GetMonImage((BitConverter.ToInt16(teamData, 0x02) >> 1) & 0xFFF), 48, 48);
+            PB_Team3.Image = ResizeImage(GetMonImage((BitConverter.ToInt32(teamData, 0x03) >> 5) & 0xFFF), 48, 48);
+            PB_Team4.Image = ResizeImage(GetMonImage((BitConverter.ToInt16(teamData, 0x05) >> 1) & 0xFFF), 48, 48);
             
-            //level view
-            int level_ofs = 0x187 + (ind - 1) * 4 / 8;
-            int level = (BitConverter.ToUInt16(savedata, level_ofs) >> (((ind - 1) * 4) + 1) % 8) & 0xF;
-            NUP_Lollipop.Maximum = Math.Min(db.Mons[ind].Item4, 5);    
-            NUP_Lollipop.Value = Math.Min(((BitConverter.ToUInt16(savedata, 0xA9DB + ((ind * 6) / 8)) >> ((ind * 6) % 8)) & 0x3F), 5);  //hardcoded 5 as a maximum
-            NUP_Level.Maximum = 10 + NUP_Lollipop.Maximum;   // The max on the box could be higher than 10 now  
-            NUP_Level.Value = level > 0 ? level : 1;    // Stop showing 0 for the level...
-
             //caught CHK
-            int caught_ofs = 0x546 + (ind-1+6)/8;
-            CHK_CaughtMon.Checked = ((savedata[caught_ofs] >> ((ind-1+6) % 8)) & 1) == 1;   
-                     
+            CHK_CaughtMon.Checked = GetCaught(ind);
+
+            //level view
+            GetLevel(ind, out lev, out exp, out rml);
+            NUP_Lollipop.Maximum = Math.Min(db.Mons[ind].Item4, 5);
+            NUP_Lollipop.Value = rml;
+            NUP_Level.Maximum = 10 + NUP_Lollipop.Maximum;   // The max on the box could be higher than 10 now  
+            NUP_Level.Value = lev;
+             
+            //Speedup values
+            if (db.MegaList.IndexOf(ind) != -1) //temporary fix while there are still some mega forms missing in megastone.bin
+            {        
+                NUP_SpeedUpX.Maximum = db.HasMega[db.Mons[ind].Item1][0] ? db.Megas[db.MegaList.IndexOf(ind)].Item2 : 0;
+                NUP_SpeedUpY.Maximum = db.HasMega[db.Mons[ind].Item1][1] ? db.Megas[db.MegaList.IndexOf(ind, db.MegaList.IndexOf(ind) + 1)].Item2 : 0;
+                NUP_SpeedUpX.Value = GetSpeedupX(ind);
+                NUP_SpeedUpY.Value = GetSpeedupY(ind);
+            }
+            else
+            {
+                NUP_SpeedUpX.Maximum = NUP_SpeedUpY.Maximum = 1;
+                NUP_SpeedUpX.Value = NUP_SpeedUpY.Value = 0;
+            }
+
+            #region Visibility
             L_Level.Visible = NUP_Level.Visible = CHK_CaughtMon.Checked;
             PB_Lollipop.Visible = NUP_Lollipop.Visible = (CHK_CaughtMon.Checked && NUP_Lollipop.Maximum != 0);
-            PB_Mon.Image = GetCaughtImage(db, ind, CHK_CaughtMon.Checked);
-
-            #region Mega Visibility
+            PB_Mon.Image = GetCaughtImage(ind, CHK_CaughtMon.Checked);
             PB_MegaX.Visible = CHK_MegaX.Visible = db.HasMega[db.Mons[ind].Item1][0];
             PB_MegaY.Visible = CHK_MegaY.Visible = db.HasMega[db.Mons[ind].Item1][1];
             PB_MegaX.Image = db.HasMega[db.Mons[ind].Item1][0] ? new Bitmap((Image)Properties.Resources.ResourceManager.GetObject("MegaStone" + db.Mons[ind].Item1.ToString("000") + (db.HasMega[db.Mons[ind].Item1][1] ? "_X" : string.Empty))) : new Bitmap(16, 16);
@@ -249,59 +193,48 @@ namespace Pokemon_Shuffle_Save_Editor
             NUP_SpeedUpY.Visible = PB_SpeedUpY.Visible = CHK_CaughtMon.Checked && CHK_MegaY.Visible && CHK_MegaY.Checked; //Else NUP_SpeedUpY appears if the next mega in terms of offsets has been obtained
             PB_SpeedUpX.Image = db.HasMega[db.Mons[ind].Item1][0] ? new Bitmap(ResizeImage((Image)Properties.Resources.ResourceManager.GetObject("mega_speedup"), 24, 24)) : new Bitmap(16, 16);
             PB_SpeedUpY.Image = db.HasMega[db.Mons[ind].Item1][1] ? new Bitmap(ResizeImage((Image)Properties.Resources.ResourceManager.GetObject("mega_speedup"), 24, 24)) : new Bitmap(16, 16);
-            
-            #endregion  
-            if (db.MegaList.IndexOf(ind) != -1) //temporary fix while there are still some mega forms missing in megastone.bin
-            {
-                int suX_ofs = ((db.MegaList.IndexOf(ind) * 7) + 3) / 8;
-                int suX_shift = ((db.MegaList.IndexOf(ind) * 7) + 3) % 8;
-                int suY_ofs = ((db.MegaList.IndexOf(ind, db.MegaList.IndexOf(ind) + 1) * 7) + 3) / 8; //looped IndexOf() to get the second occurence of ind
-                int suY_shift = ((db.MegaList.IndexOf(ind, db.MegaList.IndexOf(ind) + 1) * 7) + 3) % 8;
-                NUP_SpeedUpX.Maximum = db.HasMega[db.Mons[ind].Item1][0] ? db.Megas[db.MegaList.IndexOf(ind)].Item2 : 0;
-                NUP_SpeedUpY.Maximum = db.HasMega[db.Mons[ind].Item1][1] ? db.Megas[db.MegaList.IndexOf(ind, db.MegaList.IndexOf(ind) + 1)].Item2 : 0;
-                NUP_SpeedUpX.Value = db.HasMega[db.Mons[ind].Item1][0] ? Math.Min((BitConverter.ToInt32(savedata, 0x2D5B + suX_ofs) >> suX_shift) & 0x7F, NUP_SpeedUpX.Maximum) : 0;
-                NUP_SpeedUpY.Value = db.HasMega[db.Mons[ind].Item1][1] ? Math.Min((BitConverter.ToInt32(savedata, 0x2D5B + suY_ofs) >> suY_shift) & 0x7F, NUP_SpeedUpY.Maximum) : 0;
-            }
-            else
-            {
-                NUP_SpeedUpX.Maximum = NUP_SpeedUpY.Maximum = 1;
-                NUP_SpeedUpX.Value = NUP_SpeedUpY.Value = 0;
-            }
+            #endregion
         }
 
         private void UpdateStageBox()
         {
+            //Ranks
+            int rank;
+            bool completed;
+            foreach (Label lbl in new[] { L_RankM, L_RankEx, L_RankEv})
+            {
+                if (lbl == L_RankM)
+                {
+                    rank = GetRank((int)NUP_MainIndex.Value - 1, 0);
+                    completed = GetStage((int)NUP_MainIndex.Value - 1, 0);
+                }
+                else if (lbl == L_RankEx)
+                {
+                    rank = GetRank((int)NUP_ExpertIndex.Value - 1, 1);
+                    completed = GetStage((int)NUP_ExpertIndex.Value - 1, 1);
+                }
+                else if (lbl == L_RankEv)
+                {
+                    rank = GetRank((int)NUP_EventIndex.Value, 2);
+                    completed = GetStage((int)NUP_EventIndex.Value, 2);
+                }
+                else return;
+                GetRankImage(lbl, rank, completed);
+            }
+
+            //Score
+            NUP_MainScore.Value = GetScore((int)NUP_MainIndex.Value - 1, 0);
+            NUP_ExpertScore.Value = GetScore((int)NUP_ExpertIndex.Value - 1, 1);
+            NUP_EventScore.Value = GetScore((int)NUP_EventIndex.Value, 2);
+
+            //Stage sprite
             int stagelen = BitConverter.ToInt32(db.StagesMain, 0x4);
             int mainspec = BitConverter.ToUInt16(db.StagesMain, 0x50 + stagelen * (int)NUP_MainIndex.Value) & 0x3FF;
             int expertspec = BitConverter.ToUInt16(db.StagesExpert, 0x50 + stagelen * ((int)NUP_ExpertIndex.Value - 1)) & 0x3FF;
             int eventspec = BitConverter.ToUInt16(db.StagesEvent, 0x50 + stagelen * (int)NUP_EventIndex.Value) & 0x3FF;
-
-            //Rank
-            int rankM_ofs = (7 + (((int)NUP_MainIndex.Value - 1) * 2)) / 8;
-            int rankM_shift = (7 + (((int)NUP_MainIndex.Value - 1) * 2)) % 8;
-            int rankM = (BitConverter.ToInt16(savedata, 0x987 + rankM_ofs) >> rankM_shift) & 0x3;
-            bool stateM = ((BitConverter.ToInt16(savedata, 0x688 + ((((int)NUP_MainIndex.Value - 1) * 3) / 8)) >> ((((int)NUP_MainIndex.Value - 1) * 3) % 8)) & 0x7) == 5;
-            GetRankImage(L_RankM, rankM, stateM);
-            int rankEx_ofs = (7 + (((int)NUP_ExpertIndex.Value - 1) * 2)) / 8;
-            int rankEx_shift = (7 + (((int)NUP_ExpertIndex.Value - 1) * 2)) % 8;
-            int rankEx = (BitConverter.ToInt16(savedata, 0xAB3 + rankEx_ofs) >> rankEx_shift) & 0x3;
-            bool stateEx = ((BitConverter.ToInt16(savedata, 0x84A + ((((int)NUP_ExpertIndex.Value - 1) * 3) / 8)) >> ((((int)NUP_ExpertIndex.Value - 1) * 3) % 8)) & 0x7) == 5;
-            GetRankImage(L_RankEx, rankEx, stateEx);
-            int rankEv_ofs = (7 + (((int)NUP_EventIndex.Value) * 2)) / 8;
-            int rankEv_shift = (7 + (((int)NUP_EventIndex.Value) * 2)) % 8;
-            int rankEv = (BitConverter.ToInt16(savedata, 0xAFE + rankEv_ofs) >> rankEv_shift) & 0x3;
-            bool stateEv = ((BitConverter.ToInt16(savedata, 0x8BA + ((4 + ((int)NUP_EventIndex.Value * 3)) / 8)) >> ((4 + ((int)NUP_EventIndex.Value * 3)) % 8)) & 0x7) == 5;
-            GetRankImage(L_RankEv, rankEv, stateEv);
-
-            //Score
-            NUP_MainScore.Value = (BitConverter.ToUInt64(savedata, 0x4141 + 3 * ((int)NUP_MainIndex.Value - 1)) >> 4) & 0x00FFFFFF;
-            NUP_ExpertScore.Value = (BitConverter.ToUInt64(savedata, 0x4F51 + 3 * ((int)NUP_ExpertIndex.Value - 1)) >> 4) & 0x00FFFFFF;
-            NUP_EventScore.Value = (BitConverter.ToUInt64(savedata, 0x52D5 + 3 * ((int)NUP_EventIndex.Value)) >> 4) & 0x00FFFFFF;
-
-            //Stage sprite
-            PB_Main.Image = GetStageImage(db, mainspec, (L_RankM.Text != "-" || overrideHS));
-            PB_Expert.Image = GetStageImage(db, expertspec, true, 1);
-            PB_Event.Image = GetStageImage(db, (eventspec == 25) ? 0 : eventspec, true, 2);
+            PB_Main.Image = GetStageImage(mainspec, 0, (L_RankM.Text != "-" || overrideHS));
+            PB_Expert.Image = GetStageImage(expertspec, 1, true);
+            PB_Event.Image = GetStageImage((eventspec == 25) ? 0 : eventspec,2, true);
 
             PB_override.Image = overrideHS ? new Bitmap((Image)Properties.Resources.ResourceManager.GetObject("warn")) : new Bitmap((Image)Properties.Resources.ResourceManager.GetObject("valid"));
         }
@@ -380,7 +313,7 @@ namespace Pokemon_Shuffle_Save_Editor
 
         private void B_CheatsForm_Click(object sender, EventArgs e)
         {
-            new Cheats(db,ref savedata).ShowDialog();
+            new Cheats().ShowDialog();
             updating = true;
             Parse();
             updating = false;
@@ -499,33 +432,33 @@ namespace Pokemon_Shuffle_Save_Editor
             MouseEventArgs me = (MouseEventArgs)e;
             if (me.Button == System.Windows.Forms.MouseButtons.Left)    //Left Click
             {
-                if (GetStage(ref savedata, db, ind, i - 1)) //is completed
+                if (GetStage(ind, i - 1)) //is completed
                 {
-                    if (GetRank(ref savedata, db, ind, i - 1) > 0 && GetRank(ref savedata, db, ind, i - 1) < 4) //is rank != C
-                        SetRank(ref savedata, db, ind, i - 1, GetRank(ref savedata, db, ind, i - 1) - 1);   //minus 1 rank
+                    if (GetRank(ind, i - 1) > 0 && GetRank(ind, i - 1) < 4) //is rank != C
+                        SetRank(ind, i - 1, GetRank(ind, i - 1) - 1);   //minus 1 rank
                     else //is rank = C or unknown    
                     {
-                        SetRank(ref savedata, db, ind, i - 1, 3);  //rank S
-                        PatchScore(ref savedata, db, ind, i - 1);
+                        SetRank(ind, i - 1, 3);  //rank S
+                        PatchScore(ind, i - 1);
                     }    
                 }
                 //Nothing happens if uncompleted
             }
             if (me.Button == System.Windows.Forms.MouseButtons.Right)   //Right Click
             {
-                SetStage(ref savedata, db, ind, i - 1, !GetStage(ref savedata, db, ind, i - 1));    //invert completed state
-                if (GetStage(ref savedata, db, ind, i - 1)) //is completed (was uncompleted)
+                SetStage(ind, i - 1, !GetStage(ind, i - 1));    //invert completed state
+                if (GetStage(ind, i - 1)) //is completed (was uncompleted)
                 {
                     if (i == 1 && !overrideHS) //Main stages
                     {
                         for (int j = ind; j >= 0; j--)
                         {
-                            SetStage(ref savedata, db, j, i - 1, true); //completed for every previous stage
-                            PatchScore(ref savedata, db, j, i - 1);
+                            SetStage(j, i - 1, true); //completed for every previous stage
+                            PatchScore(j, i - 1);
                         }
                     }
-                    SetRank(ref savedata, db, ind, i - 1, 3);  //rank S
-                    PatchScore(ref savedata, db, ind, i - 1);
+                    SetRank(ind, i - 1, 3);  //rank S
+                    PatchScore(ind, i - 1);
                 }
                 else //is uncompleted (was completed)
                 {
@@ -533,9 +466,9 @@ namespace Pokemon_Shuffle_Save_Editor
                     {
                         for (int j = ind; j < max; j++) //revert every next stage to default
                         {
-                            SetStage(ref savedata, db, j, i - 1); 
-                            SetRank(ref savedata, db, j, i - 1, 0);
-                            SetScore(ref savedata, db, j, i - 1, 0);
+                            SetStage(j, i - 1); 
+                            SetRank(j, i - 1, 0);
+                            SetScore(j, i - 1, 0);
                         }
                     }
                 }
@@ -544,12 +477,5 @@ namespace Pokemon_Shuffle_Save_Editor
             Parse();
             updating = false;
         }        
-    }
-
-    public class cbItem
-    {
-        public string Text { get; set; }
-        public int Value { get; set; }
-    }
-
+    }   
 }

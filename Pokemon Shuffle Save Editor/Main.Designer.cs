@@ -73,6 +73,7 @@
             this.CB_MonIndex = new System.Windows.Forms.ComboBox();
             this.PB_Mon = new System.Windows.Forms.PictureBox();
             this.GB_Resources = new System.Windows.Forms.GroupBox();
+            this.ItemsGrid = new System.Windows.Forms.PropertyGrid();
             this.NUP_Jewels = new System.Windows.Forms.NumericUpDown();
             this.NUP_Coins = new System.Windows.Forms.NumericUpDown();
             this.NUP_Hearts = new System.Windows.Forms.NumericUpDown();
@@ -84,7 +85,6 @@
             this.PB_Team2 = new System.Windows.Forms.PictureBox();
             this.PB_Team3 = new System.Windows.Forms.PictureBox();
             this.PB_Team4 = new System.Windows.Forms.PictureBox();
-            this.ItemsGrid = new System.Windows.Forms.PropertyGrid();
             this.GB_HighScore.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PB_override)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUP_EventScore)).BeginInit();
@@ -307,6 +307,7 @@
             this.NUP_EventScore.Name = "NUP_EventScore";
             this.NUP_EventScore.Size = new System.Drawing.Size(77, 20);
             this.NUP_EventScore.TabIndex = 65;
+            this.NUP_EventScore.ThousandsSeparator = true;
             this.NUP_EventScore.ValueChanged += new System.EventHandler(this.UpdateForm);
             // 
             // NUP_EventIndex
@@ -328,6 +329,7 @@
             this.NUP_ExpertScore.Name = "NUP_ExpertScore";
             this.NUP_ExpertScore.Size = new System.Drawing.Size(77, 20);
             this.NUP_ExpertScore.TabIndex = 63;
+            this.NUP_ExpertScore.ThousandsSeparator = true;
             this.NUP_ExpertScore.ValueChanged += new System.EventHandler(this.UpdateForm);
             // 
             // NUP_ExpertIndex
@@ -359,6 +361,7 @@
             this.NUP_MainScore.Name = "NUP_MainScore";
             this.NUP_MainScore.Size = new System.Drawing.Size(77, 20);
             this.NUP_MainScore.TabIndex = 61;
+            this.NUP_MainScore.ThousandsSeparator = true;
             this.NUP_MainScore.ValueChanged += new System.EventHandler(this.UpdateForm);
             // 
             // NUP_MainIndex
@@ -634,6 +637,52 @@
             this.GB_Resources.TabStop = false;
             this.GB_Resources.Text = "Resources";
             // 
+            // ItemsGrid
+            // 
+            this.ItemsGrid.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.ItemsGrid.Location = new System.Drawing.Point(6, 77);
+            this.ItemsGrid.Name = "ItemsGrid";
+            shuffleItems1.AttackUp = 0;
+            shuffleItems1.Complexity = 0;
+            shuffleItems1.Disruption = 0;
+            shuffleItems1.Enchantments = new int[] {
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0};
+            shuffleItems1.Experience = 0;
+            shuffleItems1.ExperienceBoostL = 0;
+            shuffleItems1.ExperienceBoostM = 0;
+            shuffleItems1.ExperienceBoostS = 0;
+            shuffleItems1.Items = new int[] {
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0};
+            shuffleItems1.LevelUp = 0;
+            shuffleItems1.MegaSpeedup = 0;
+            shuffleItems1.MegaStart = 0;
+            shuffleItems1.Moves = 0;
+            shuffleItems1.RaiseMaxLevel = 0;
+            shuffleItems1.SkillBoosterL = 0;
+            shuffleItems1.SkillBoosterM = 0;
+            shuffleItems1.SkillBoosterS = 0;
+            shuffleItems1.Time = 0;
+            this.ItemsGrid.SelectedObject = shuffleItems1;
+            this.ItemsGrid.Size = new System.Drawing.Size(241, 304);
+            this.ItemsGrid.TabIndex = 54;
+            this.ItemsGrid.ToolbarVisible = false;
+            this.ItemsGrid.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.UpdateProperty);
+            this.ItemsGrid.EnabledChanged += new System.EventHandler(this.ItemsGrid_EnabledChanged);
+            // 
             // NUP_Jewels
             // 
             this.NUP_Jewels.Location = new System.Drawing.Point(187, 39);
@@ -658,6 +707,7 @@
             this.NUP_Coins.Name = "NUP_Coins";
             this.NUP_Coins.Size = new System.Drawing.Size(67, 20);
             this.NUP_Coins.TabIndex = 52;
+            this.NUP_Coins.ThousandsSeparator = true;
             this.NUP_Coins.ValueChanged += new System.EventHandler(this.UpdateForm);
             // 
             // NUP_Hearts
@@ -746,52 +796,6 @@
             this.PB_Team4.TabIndex = 31;
             this.PB_Team4.TabStop = false;
             this.PB_Team4.Click += new System.EventHandler(this.PB_Team_Click);
-            // 
-            // ItemsGrid
-            // 
-            this.ItemsGrid.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.ItemsGrid.Location = new System.Drawing.Point(6, 77);
-            this.ItemsGrid.Name = "ItemsGrid";
-            shuffleItems1.AttackUp = 0;
-            shuffleItems1.Complexity = 0;
-            shuffleItems1.Disruption = 0;
-            shuffleItems1.Enchantments = new int[] {
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0};
-            shuffleItems1.Experience = 0;
-            shuffleItems1.ExperienceBoostL = 0;
-            shuffleItems1.ExperienceBoostM = 0;
-            shuffleItems1.ExperienceBoostS = 0;
-            shuffleItems1.Items = new int[] {
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0};
-            shuffleItems1.LevelUp = 0;
-            shuffleItems1.MegaSpeedup = 0;
-            shuffleItems1.MegaStart = 0;
-            shuffleItems1.Moves = 0;
-            shuffleItems1.RaiseMaxLevel = 0;
-            shuffleItems1.SkillBoosterL = 0;
-            shuffleItems1.SkillBoosterM = 0;
-            shuffleItems1.SkillBoosterS = 0;
-            shuffleItems1.Time = 0;
-            this.ItemsGrid.SelectedObject = shuffleItems1;
-            this.ItemsGrid.Size = new System.Drawing.Size(241, 304);
-            this.ItemsGrid.TabIndex = 54;
-            this.ItemsGrid.ToolbarVisible = false;
-            this.ItemsGrid.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.UpdateProperty);
-            this.ItemsGrid.EnabledChanged += new System.EventHandler(this.ItemsGrid_EnabledChanged);
             // 
             // Main
             // 

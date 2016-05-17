@@ -6,40 +6,63 @@ using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using static Pokemon_Shuffle_Save_Editor.Main;
 
 namespace Pokemon_Shuffle_Save_Editor
 {
     class ToolFunctions
     {
-        public static void SetLevel(ref byte[] savedata, Database db, int ind, int lev = 1)
+        public static void SetLevel(int ind, int lev = 1, int set_rml = -1, int set_exp = -1)
         {
-            lev = (lev < 1) ? 1 : ((lev > 15) ? 15 : lev);    //hardcoded 5 as the max number of lollipops, change this if needed
-            int level_ofs = (((ind - 1) * 4) / 8);
-            int level_shift = ((((ind - 1) * 4) + 1) % 8);
-            ushort level = BitConverter.ToUInt16(savedata, 0x187 + level_ofs);
-            level = (ushort)((level & (ushort)(~(0xF << level_shift))) | (lev << level_shift));
-            Array.Copy(BitConverter.GetBytes(level), 0, savedata, 0x187 + level_ofs, 2);
+            if (savedata != null)
+            {
+                lev = (lev < 2) ? 0 : ((lev > 15) ? 15 : lev);    //hardcoded 15 as the max level, change this if ever needed
+                int level_ofs = 0x187 + ((((ind - 1) * 4) + 1) / 8);
+                int level_shift = ((((ind - 1) * 4) + 1) % 8);
+                ushort level = BitConverter.ToUInt16(savedata, level_ofs);
+                level = (ushort)((level & (ushort)(~(0xF << level_shift))) | (lev << level_shift));
+                Array.Copy(BitConverter.GetBytes(level), 0, savedata, level_ofs, 2);
 
-            //experience patcher
-            int exp_ofs = ((4 + ((ind - 1) * 24)) / 8);
-            int exp_shift = ((4 + ((ind - 1) * 24)) % 8);
-            int exp = BitConverter.ToInt32(savedata, 0x3241 + exp_ofs);
-            int entrylen = BitConverter.ToInt32(db.MonLevel, 0x4);
-            byte[] data = db.MonLevel.Skip(0x50 + ((lev - 1) * entrylen)).Take(entrylen).ToArray();
-            int set_exp = BitConverter.ToInt32(data, 0x4 * (db.Mons[ind].Item5 - 1));
-            exp = (exp & ~(0xFFFFFF << exp_shift)) | (set_exp << exp_shift);
-            Array.Copy(BitConverter.GetBytes(exp), 0, savedata, 0x3241 + exp_ofs, 4);
+                //lollipop patcher
+                int rml_ofs = 0xA9DB + ((ind * 6) / 8);
+                int rml_shift = ((ind * 6) % 8);
+                ushort numRaiseMaxLevel = BitConverter.ToUInt16(savedata, rml_ofs);
+                set_rml = (set_rml < 0) ? ((lev - 10 < 0) ? 0 : (lev - 10)) : set_rml;
+                numRaiseMaxLevel = (ushort)((numRaiseMaxLevel & (ushort)(~(0x3F << rml_shift))) | (set_rml << rml_shift));
+                Array.Copy(BitConverter.GetBytes(numRaiseMaxLevel), 0, savedata, rml_ofs, 2);
 
-            //lollipop patcher
-            int rml_ofs = ((ind * 6) / 8);
-            int rml_shift = ((ind * 6) % 8);
-            ushort numRaiseMaxLevel = BitConverter.ToUInt16(savedata, 0xA9DB + rml_ofs);
-            int set_rml = (lev - 10 < 0) ? 0 : (lev - 10);
-            numRaiseMaxLevel = (ushort)((numRaiseMaxLevel & (ushort)(~(0x3F << rml_shift))) | (set_rml << rml_shift));
-            Array.Copy(BitConverter.GetBytes(numRaiseMaxLevel), 0, savedata, 0xA9DB + rml_ofs, 2);
+                //experience patcher
+                int exp_ofs = 0x3241 + ((4 + ((ind - 1) * 24)) / 8);
+                int exp_shift = ((4 + ((ind - 1) * 24)) % 8);
+                int exp = BitConverter.ToInt32(savedata, exp_ofs);
+                int entrylen = BitConverter.ToInt32(db.MonLevel, 0x4);
+                byte[] data = db.MonLevel.Skip(0x50 + ((((lev < 2) ? 1 : lev) - 1) * entrylen)).Take(entrylen).ToArray(); //corrected level value, because if it's 0 then it means 1
+                set_exp = (set_exp < 0) ? BitConverter.ToInt32(data, 0x4 * (db.Mons[ind].Item5 - 1)) : set_exp;
+                exp = (exp & ~(0xFFFFFF << exp_shift)) | (set_exp << exp_shift);
+                Array.Copy(BitConverter.GetBytes(exp), 0, savedata, exp_ofs, 4);
+            }            
         }
 
-        public static void SetPokemon(ref byte[] savedata, Database db, int ind, bool caught)
+        public static void GetLevel(int ind, out int lev, out int exp, out int rml)
+        {
+            //out level
+            int level_ofs = 0x187 + ((((ind - 1) * 4) + 1) / 8);
+            int level_shift = ((((ind - 1) * 4) + 1) % 8);
+            lev = (BitConverter.ToUInt16(savedata, level_ofs) >> level_shift) & 0xF;
+            lev = (lev == 0) ? 1 : lev;
+
+            //out exp
+            int exp_ofs = 0x3241 + ((4 + ((ind - 1) * 24)) / 8);
+            int exp_shift = ((4 + ((ind - 1) * 24)) % 8);
+            exp = (BitConverter.ToInt32(savedata, exp_ofs) >> exp_shift) & 0xFFFFFF;
+
+            //out lollipop
+            int rml_ofs = 0xA9DB + ((ind * 6) / 8);
+            int rml_shift = ((ind * 6) % 8);
+            rml = Math.Min((BitConverter.ToUInt16(savedata, rml_ofs) >> rml_shift) & 0x3F, 5); //hardcoded 5 as a maximum
+        }
+
+        public static void SetCaught(int ind, bool caught)
         {
             int caught_ofs = (((ind - 1) + 6) / 8);
             int caught_shift = (((ind - 1) + 6) % 8);
@@ -47,14 +70,14 @@ namespace Pokemon_Shuffle_Save_Editor
                 savedata[caught_array_start + caught_ofs] = (byte)(savedata[caught_array_start + caught_ofs] & (byte)(~(1 << caught_shift)) | ((caught ? 1 : 0) << caught_shift));
         }
 
-        public static bool GetPokemon(ref byte[] savedata, Database db, int ind)
+        public static bool GetCaught(int ind)
         {
             int caught_ofs = 0x546 + (((ind - 1) + 6) / 8);
             int caught_shift = ((((ind - 1) + 6) % 8));
             return ((savedata[caught_ofs] >> caught_shift) & 1) == 1;
         }
 
-        public static void SetMegaStone(ref byte[] savedata, Database db, int ind, bool X = false, bool Y = false)
+        public static void SetStone(int ind, bool X = false, bool Y = false)
         {
             int mega_ofs = 0x406 + ((ind + 2) / 4);
             ushort mega_val = BitConverter.ToUInt16(savedata, mega_ofs);
@@ -64,33 +87,53 @@ namespace Pokemon_Shuffle_Save_Editor
             Array.Copy(BitConverter.GetBytes(mega_val), 0, savedata, mega_ofs, 2);
         }
 
-        public static int GetMegaStone(ref byte[] savedata, Database db, int ind)
+        public static int GetStone(int ind)
         {
             int mega_ofs = 0x406 + ((ind + 2) / 4);
             int mega_shift = ((5 + (ind << 1)) % 8);
-            return (savedata[mega_ofs] >> mega_shift) & 3;  //1 = X0, 2 = 0Y, 3 = XY
+            return (savedata[mega_ofs] >> mega_shift) & 3;  //0 = 00, 1 = X0, 2 = 0Y, 3 = XY
         }
 
-        public static void SetMegaSpeedup(ref byte[] savedata, Database db, int ind, bool X = false, bool Y = false)
+        public static void SetSpeedup(int ind, bool X = false, int suX = 0, bool Y = false, int suY = 0)
         {
             if (db.HasMega[db.Mons[ind].Item1][0] || db.HasMega[db.Mons[ind].Item1][1])
             {
-                int suX_ofs = (((db.MegaList.IndexOf(ind) * 7) + 3) / 8);
-                int suX_shift = (((db.MegaList.IndexOf(ind) * 7) + 3) % 8);
-                int suY_ofs = (((db.MegaList.IndexOf(ind, db.MegaList.IndexOf(ind) + 1) * 7) + 3) / 8);
-                int suY_shift = (((db.MegaList.IndexOf(ind, db.MegaList.IndexOf(ind) + 1) * 7) + 3) % 8) + ((suY_ofs - suX_ofs) * 8); //relative to suX_ofs
-                int speedUp_ValX = BitConverter.ToInt32(savedata, 0x2D5B + suX_ofs);
-                int speedUp_ValY = BitConverter.ToInt32(savedata, 0x2D5B + suY_ofs);
-                int set_suX = X ? db.Megas[db.MegaList.IndexOf(ind)].Item2 : 0;
-                int set_suY = Y ? db.Megas[db.MegaList.IndexOf(ind, db.MegaList.IndexOf(ind) + 1)].Item2 : 0;
+                int suX_ofs = 0x2D5B + (db.MegaList.IndexOf(ind) * 7 + 3) / 8;
+                int suX_shift = (db.MegaList.IndexOf(ind) * 7 + 3) % 8;
+                int suY_ofs = 0x2D5B + (db.MegaList.IndexOf(ind, db.MegaList.IndexOf(ind) + 1) * 7 + 3) / 8;
+                int suY_shift = (db.MegaList.IndexOf(ind, db.MegaList.IndexOf(ind) + 1) * 7 + 3) % 8 + (suY_ofs - suX_ofs) * 8; //relative to suX_ofs
+                int speedUp_ValX = BitConverter.ToInt32(savedata, suX_ofs);
+                int speedUp_ValY = BitConverter.ToInt32(savedata, suY_ofs);
                 int newSpeedUp = db.HasMega[db.Mons[ind].Item1][1]
-                    ? ((((speedUp_ValX & ~(0x7F << suX_shift)) & ~(0x7F << suY_shift)) | (set_suX << suX_shift)) | (set_suY << suY_shift)) //Erases both X & Y bits at the same time before updating them to make sure Y doesn't overwrite X bits
-                    : (speedUp_ValX & ~(0x7F << suX_shift)) | (set_suX << suX_shift);
-                Array.Copy(BitConverter.GetBytes(newSpeedUp), 0, savedata, 0x2D5B + suX_ofs, 4);
+                    ? ((speedUp_ValX & ~(0x7F << suX_shift)) & ~(0x7F << suY_shift)) | ((X ? suX : 0) << suX_shift) | ((Y ? suY : 0) << suY_shift) //Erases both X & Y bits at the same time before updating them to make sure Y doesn't overwrite X bits
+                    : (speedUp_ValX & ~(0x7F << suX_shift)) | ((X ? suX : 0) << suX_shift);
+                Array.Copy(BitConverter.GetBytes(newSpeedUp), 0, savedata, suX_ofs, 4);
             }
         }
 
-        public static void SetStage(ref byte[] savedata, Database db, int ind, int type, bool completed = false)
+        public static int GetSpeedupX(int ind)
+        {
+            if (db.HasMega[db.Mons[ind].Item1][0])
+            {
+                int suX_ofs = 0x2D5B + (db.MegaList.IndexOf(ind) * 7 + 3) / 8;
+                int suX_shift = (db.MegaList.IndexOf(ind) * 7 + 3) % 8;
+                return (BitConverter.ToInt32(savedata, suX_ofs) >> suX_shift) & 0x7F;
+            }
+            else return 0;
+        }
+
+        public static int GetSpeedupY(int ind)
+        {
+            if (db.HasMega[db.Mons[ind].Item1][1])
+            {
+                int suY_ofs = 0x2D5B + ((db.MegaList.IndexOf(ind, db.MegaList.IndexOf(ind) + 1) * 7) + 3) / 8;
+                int suY_shift = (db.MegaList.IndexOf(ind, db.MegaList.IndexOf(ind) + 1) * 7 + 3) % 8;
+                return (BitConverter.ToInt32(savedata, suY_ofs) >> suY_shift) & 0x7F;
+            }
+            else return 0;
+        }
+
+        public static void SetStage(int ind, int type, bool completed = false)
         {
             int stage_ofs, stage_shift = (ind * 3) % 8;
             int entrylen = BitConverter.ToInt32(db.StagesMain, 0x4);
@@ -114,7 +157,7 @@ namespace Pokemon_Shuffle_Save_Editor
             Array.Copy(BitConverter.GetBytes(stage), 0, savedata, stage_ofs, 2);
         }
 
-        public static bool GetStage(ref byte[] savedata, Database db, int ind, int type)
+        public static bool GetStage(int ind, int type)
         {
             int stage_ofs, stage_shift = ind * 3 % 8;
             switch (type)
@@ -135,7 +178,7 @@ namespace Pokemon_Shuffle_Save_Editor
             return ((BitConverter.ToInt16(savedata, stage_ofs) >> stage_shift) & 7) == 5;
         }
 
-        public static void SetRank(ref byte[] savedata, Database db, int ind, int type, int newRank = 0)
+        public static void SetRank(int ind, int type, int newRank = 0)
         {
             int rank_ofs;
             switch (type)
@@ -158,7 +201,7 @@ namespace Pokemon_Shuffle_Save_Editor
             Array.Copy(BitConverter.GetBytes(rank), 0, savedata, rank_ofs, 2);
         }
 
-        public static int GetRank(ref byte[] savedata, Database db, int ind, int type)
+        public static int GetRank(int ind, int type)
         {
             int rank_ofs;
             switch (type)
@@ -178,9 +221,9 @@ namespace Pokemon_Shuffle_Save_Editor
             return ((BitConverter.ToInt16(savedata, rank_ofs) >> (7 + ind * 2) % 8) & 0x3);
         }
 
-        public static void SetScore(ref byte[] savedata, Database db, int ind, int type, ulong newScore = 0)
+        public static void SetScore(int ind, int type, ulong newScore = 0)
         {
-            int score_ofs, entrylen = BitConverter.ToInt32(db.StagesMain, 0x4);
+            int score_ofs;
             switch (type)
             {
                 case 0:
@@ -198,9 +241,9 @@ namespace Pokemon_Shuffle_Save_Editor
             Array.Copy(BitConverter.GetBytes((BitConverter.ToUInt64(savedata, score_ofs) & 0xFFFFFFFFF000000FL) | (newScore << 4)), 0, savedata, score_ofs, 8);
         }
 
-        public static ulong GetScore(ref byte[] savedata, Database db, int ind, int type)
+        public static ulong GetScore(int ind, int type)
         {
-            int score_ofs, entrylen = BitConverter.ToInt32(db.StagesMain, 0x4);
+            int score_ofs;
             switch (type)
             {
                 case 0:
@@ -218,14 +261,14 @@ namespace Pokemon_Shuffle_Save_Editor
             return (BitConverter.ToUInt64(savedata, score_ofs) >> 4) & 0x00FFFFFF;
         }
 
-        public static void PatchScore(ref byte[] savedata, Database db, int ind, int type)
+        public static void PatchScore(int ind, int type)
         {
             int entrylen = BitConverter.ToInt32(db.StagesMain, 0x4);
             byte[] data = db.StagesMain.Skip(0x50 + (ind + 1) * entrylen).Take(entrylen).ToArray();
-            SetScore(ref savedata, db, ind, type, Math.Max(GetScore(ref savedata, db, ind, type), (BitConverter.ToUInt64(data, 0x4) & 0xFFFFFFFF) + (ulong)Math.Min(7000, ((GetRank(ref savedata, db, ind, type) > 0) ? ((BitConverter.ToInt16(data, 0x30 + GetRank(ref savedata, db, ind, type) - 1) >> 4) & 0xFF) : 0) * 500))); //score = Max(current_highscore, hitpoints + minimum_bonus_points (a.k.a min moves left times 500, capped at 7000))
+            SetScore(ind, type, Math.Max(GetScore(ind, type), (BitConverter.ToUInt64(data, 0x4) & 0xFFFFFFFF) + (ulong)Math.Min(7000, ((GetRank(ind, type) > 0) ? ((BitConverter.ToInt16(data, 0x30 + GetRank(ind, type) - 1) >> 4) & 0xFF) : 0) * 500))); //score = Max(current_highscore, hitpoints + minimum_bonus_points (a.k.a min moves left times 500, capped at 7000))
         }
 
-        public static void SetResources(ref byte[] savedata, Database db, int hearts = 0, uint coins = 0, uint jewels = 0, int[] items = null, int[] enhancements = null)
+        public static void SetResources(int hearts = 0, uint coins = 0, uint jewels = 0, int[] items = null, int[] enhancements = null)
         {
             if (items == null)
                 items = new int[7];
@@ -244,7 +287,20 @@ namespace Pokemon_Shuffle_Save_Editor
                 savedata[0x2D4C + i] = (byte)((((enhancements[i]) << 1) & 0xFE) | (savedata[0x2D4C + i] & 1));
         }
 
-        public static void SetExcalationStep(ref byte[] savedata, Database db, int step = 0)
+        public static rsItem GetRessources()
+        {
+            int hearts = (BitConverter.ToUInt16(savedata, 0x2D4A) >> 7) & 0x7F;
+            int coins = (BitConverter.ToInt32(savedata, 0x68) >> 3) & 0x1FFFF;
+            int jewels = (BitConverter.ToInt32(savedata, 0x68) >> 20) & 0xFF;
+            int[] items = new int[7], enhancements = new int[9];
+            for (int i = 0; i < items.Length; i++) 
+                items[i] = (BitConverter.ToUInt16(savedata, 0xD0 + i) >> 7) & 0x7F;
+            for (int i = 0; i < enhancements.Length; i++)
+                enhancements[i] = (savedata[0x2D4C + i] >> 1) & 0x7F;
+            return new rsItem { Hearts = hearts, Coins = coins, Jewels = jewels, Items = items, Enhancements = enhancements};
+        }
+
+        public static void SetExcalationStep(int step = 0)
         {
             if (step < 0)
                 step = 0;
@@ -255,14 +311,14 @@ namespace Pokemon_Shuffle_Save_Editor
             Array.Copy(BitConverter.GetBytes(data), 0, savedata, 0x2D59, 2); //Will only update 1 escalation battle. Update offsets if there ever are more than 1 at once
         }
 
-        public static Bitmap GetCaughtImage(Database db, int ind, bool caught = false)
+        public static Bitmap GetCaughtImage(int ind, bool caught = false)
         {
-            Bitmap bmp = GetMonImage(db, ind);
+            Bitmap bmp = GetMonImage(ind);
             GetBlackImage(bmp, caught);
             return bmp;
         }
 
-        public static Bitmap GetMonImage(Database db, int ind)
+        public static Bitmap GetMonImage(int ind)
         {
             string imgname = string.Empty;
             int mon_num = db.Mons[ind].Item1, form = db.Mons[ind].Item2;
@@ -280,7 +336,7 @@ namespace Pokemon_Shuffle_Save_Editor
             return new Bitmap((Image)Properties.Resources.ResourceManager.GetObject(imgname));
         }
 
-        public static Bitmap GetStageImage(Database db, int ind, bool completed = true, int type = 0, bool overridePB = false)
+        public static Bitmap GetStageImage(int ind, int type, bool completed = true, bool overridePB = false)
         {
             int mon_num = db.Mons[ind].Item1, form = db.Mons[ind].Item2;
             bool mega = db.Mons[ind].Item3;
@@ -291,7 +347,7 @@ namespace Pokemon_Shuffle_Save_Editor
                     g.DrawImage(Properties.Resources.PlateMega, new Point(0, 16));
                 else
                     g.DrawImage(Properties.Resources.Plate, new Point(0, 16));
-                g.DrawImage(ResizeImage(GetMonImage(db, ind), 48, 48), new Point(8, 7));
+                g.DrawImage(ResizeImage(GetMonImage(ind), 48, 48), new Point(8, 7));
                 GetBlackImage(bmp, (type == 0) ? completed : true);
             }
 
@@ -374,5 +430,20 @@ namespace Pokemon_Shuffle_Save_Editor
 
             return destImage;
         }
+    }
+
+    public class cbItem
+    {
+        public string Text { get; set; }
+        public int Value { get; set; }
+    }
+
+    public class rsItem
+    {
+        public int Hearts { get; set; }
+        public int Coins { get; set; }
+        public int Jewels { get; set; }
+        public int[] Items { get; set; }
+        public int[] Enhancements { get; set; }
     }
 }
