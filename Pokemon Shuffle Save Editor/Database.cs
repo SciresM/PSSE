@@ -42,7 +42,7 @@ namespace Pokemon_Shuffle_Save_Editor
             string resourcedir = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + Path.DirectorySeparatorChar + "resources" + Path.DirectorySeparatorChar;
             if (!Directory.Exists(resourcedir))
                 Directory.CreateDirectory(resourcedir);
-            byte[][] files = { MegaStone, MonData, StagesMain, StagesEvent, StagesExpert, MonLevel };
+            byte[][] files = { MegaStone, MonData, StagesMain, StagesEvent, StagesExpert, MonLevel, MonAbility };
             string[] filenames = { "MegaStone.bin", "pokemonData.bin", "stageData.bin", "stageDataEvent.bin", "stageDataExtra.bin", "pokemonLevel.bin", "pokemonAbility.bin" };
             for (int i = 0; i < files.Length; i++)
             {
