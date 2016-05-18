@@ -398,7 +398,7 @@
             this.PB_Event.Size = new System.Drawing.Size(64, 80);
             this.PB_Event.TabIndex = 2;
             this.PB_Event.TabStop = false;
-            this.PB_Event.Click += new System.EventHandler(this.Rank_Click);
+            this.PB_Event.Click += new System.EventHandler(this.PB_Stage_Click);
             // 
             // PB_Expert
             // 
@@ -407,7 +407,7 @@
             this.PB_Expert.Size = new System.Drawing.Size(64, 80);
             this.PB_Expert.TabIndex = 1;
             this.PB_Expert.TabStop = false;
-            this.PB_Expert.Click += new System.EventHandler(this.Rank_Click);
+            this.PB_Expert.Click += new System.EventHandler(this.PB_Stage_Click);
             // 
             // PB_Main
             // 
@@ -416,7 +416,7 @@
             this.PB_Main.Size = new System.Drawing.Size(64, 80);
             this.PB_Main.TabIndex = 0;
             this.PB_Main.TabStop = false;
-            this.PB_Main.Click += new System.EventHandler(this.Rank_Click);
+            this.PB_Main.Click += new System.EventHandler(this.PB_Stage_Click);
             // 
             // GB_Caught
             // 

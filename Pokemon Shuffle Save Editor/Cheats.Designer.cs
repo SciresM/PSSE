@@ -57,7 +57,7 @@
             this.B_CaughtEverything.Location = new System.Drawing.Point(164, 229);
             this.B_CaughtEverything.Name = "B_CaughtEverything";
             this.B_CaughtEverything.Size = new System.Drawing.Size(65, 23);
-            this.B_CaughtEverything.TabIndex = 50;
+            this.B_CaughtEverything.TabIndex = 100;
             this.B_CaughtEverything.Text = "Caught All Pokemon";
             this.toolTip1.SetToolTip(this.B_CaughtEverything, "Marks all pokemon in the game\'s database as caught. \r\n\r\nResearchers only.");
             this.B_CaughtEverything.UseVisualStyleBackColor = true;
@@ -89,10 +89,10 @@
             // 
             // B_MaxResources
             // 
-            this.B_MaxResources.Location = new System.Drawing.Point(12, 128);
+            this.B_MaxResources.Location = new System.Drawing.Point(156, 99);
             this.B_MaxResources.Name = "B_MaxResources";
             this.B_MaxResources.Size = new System.Drawing.Size(138, 23);
-            this.B_MaxResources.TabIndex = 8;
+            this.B_MaxResources.TabIndex = 7;
             this.B_MaxResources.Text = "Maximum Resources";
             this.toolTip1.SetToolTip(this.B_MaxResources, "Will give you 99 stock hearts, 99.999 coins, 150 jewels, 99 of all \"in-battle\" it" +
         "ems\r\n& 99 of all \"enhancements\" items.");
@@ -106,7 +106,7 @@
             this.B_AllStones.Location = new System.Drawing.Point(235, 229);
             this.B_AllStones.Name = "B_AllStones";
             this.B_AllStones.Size = new System.Drawing.Size(65, 23);
-            this.B_AllStones.TabIndex = 51;
+            this.B_AllStones.TabIndex = 101;
             this.B_AllStones.Text = "All Stones";
             this.toolTip1.SetToolTip(this.B_AllStones, "Gives you all megastones currently in the game\'s database.\r\n\r\nFor research only.");
             this.B_AllStones.UseVisualStyleBackColor = true;
@@ -166,7 +166,7 @@
             this.B_StreetPassDelete.Location = new System.Drawing.Point(162, 200);
             this.B_StreetPassDelete.Name = "B_StreetPassDelete";
             this.B_StreetPassDelete.Size = new System.Drawing.Size(138, 23);
-            this.B_StreetPassDelete.TabIndex = 12;
+            this.B_StreetPassDelete.TabIndex = 53;
             this.B_StreetPassDelete.Text = "Delete StreetPass tags";
             this.toolTip1.SetToolTip(this.B_StreetPassDelete, "Sets number of streetpass encounters to 0 and deletes the 10 last ones that you c" +
         "an see\r\nin \"Streetpass encounters\" menu. This is usefull if entering this menu c" +
@@ -176,10 +176,10 @@
             // 
             // B_MaxExcalationBattle
             // 
-            this.B_MaxExcalationBattle.Location = new System.Drawing.Point(156, 99);
+            this.B_MaxExcalationBattle.Location = new System.Drawing.Point(12, 128);
             this.B_MaxExcalationBattle.Name = "B_MaxExcalationBattle";
             this.B_MaxExcalationBattle.Size = new System.Drawing.Size(138, 23);
-            this.B_MaxExcalationBattle.TabIndex = 7;
+            this.B_MaxExcalationBattle.TabIndex = 8;
             this.B_MaxExcalationBattle.Text = "/!\\ Escalation Battle 999";
             this.toolTip1.SetToolTip(this.B_MaxExcalationBattle, resources.GetString("B_MaxExcalationBattle.ToolTip"));
             this.B_MaxExcalationBattle.UseVisualStyleBackColor = true;
@@ -195,7 +195,7 @@
             this.Line.MinimumSize = new System.Drawing.Size(20, 2);
             this.Line.Name = "Line";
             this.Line.Size = new System.Drawing.Size(288, 2);
-            this.Line.TabIndex = 99;
+            this.Line.TabIndex = 100;
             // 
             // B_PokemonReset
             // 
@@ -204,7 +204,7 @@
             this.B_PokemonReset.Location = new System.Drawing.Point(12, 171);
             this.B_PokemonReset.Name = "B_PokemonReset";
             this.B_PokemonReset.Size = new System.Drawing.Size(138, 23);
-            this.B_PokemonReset.TabIndex = 9;
+            this.B_PokemonReset.TabIndex = 50;
             this.B_PokemonReset.Text = "Reset Pokemon";
             this.toolTip1.SetToolTip(this.B_PokemonReset, resources.GetString("B_PokemonReset.ToolTip"));
             this.B_PokemonReset.UseVisualStyleBackColor = true;
@@ -217,7 +217,7 @@
             this.B_StageReset.Location = new System.Drawing.Point(162, 171);
             this.B_StageReset.Name = "B_StageReset";
             this.B_StageReset.Size = new System.Drawing.Size(138, 23);
-            this.B_StageReset.TabIndex = 10;
+            this.B_StageReset.TabIndex = 51;
             this.B_StageReset.Text = "Reset Stages";
             this.toolTip1.SetToolTip(this.B_StageReset, "-Marks every Normal & Expert stages a uncompleted\r\n-Sets their rank to C & highsc" +
         "ore to 0\r\n\r\n/!\\ Manually un-own any pokemon that should have been caught in one " +
@@ -232,7 +232,7 @@
             this.B_ResourcesReset.Location = new System.Drawing.Point(12, 200);
             this.B_ResourcesReset.Name = "B_ResourcesReset";
             this.B_ResourcesReset.Size = new System.Drawing.Size(138, 23);
-            this.B_ResourcesReset.TabIndex = 11;
+            this.B_ResourcesReset.TabIndex = 52;
             this.B_ResourcesReset.Text = "Reset Resources";
             this.toolTip1.SetToolTip(this.B_ResourcesReset, "Sets stock hearts, coins, jewels and every item to 0.");
             this.B_ResourcesReset.UseVisualStyleBackColor = true;
@@ -245,7 +245,7 @@
             this.B_EscalationReset.Location = new System.Drawing.Point(12, 229);
             this.B_EscalationReset.Name = "B_EscalationReset";
             this.B_EscalationReset.Size = new System.Drawing.Size(138, 23);
-            this.B_EscalationReset.TabIndex = 13;
+            this.B_EscalationReset.TabIndex = 54;
             this.B_EscalationReset.Text = "Escalation Battle 1";
             this.toolTip1.SetToolTip(this.B_EscalationReset, "Will set the current ongoing escalation battle to step 1.\r\n\r\n/!\\ See step 999\'s c" +
         "ode.");
