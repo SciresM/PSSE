@@ -208,9 +208,9 @@ namespace Pokemon_Shuffle_Save_Editor
                 }
                 else break;
                 GetRankImage(lbl, GetStage(ind, type).Rank, GetStage(ind, type).Completed);
-                (nup as NumericUpDown).Value = GetScore(ind, type);
+                (nup as NumericUpDown).Value = GetStage(ind, type).Score;
                 int stagelen = BitConverter.ToInt32(stage, 0x4);
-                (pb as PictureBox).Image = GetCompletedImage(BitConverter.ToInt16(stage, 0x50 + BitConverter.ToInt32(stage, 0x4) * ind) & 0x3FF, type, (lbl == L_RankM) ? (GetStage(ind, type).Completed || overrideHS) : true);
+                (pb as PictureBox).Image = GetCompletedImage(BitConverter.ToInt16(stage, 0x50 + BitConverter.ToInt32(stage, 0x4) * ((type == 0) ? ind + 1 : ind)) & 0x3FF, type, (lbl == L_RankM) ? (GetStage(ind, type).Completed || overrideHS) : true);
             }
             PB_override.Image = overrideHS ? new Bitmap((Image)Properties.Resources.ResourceManager.GetObject("warn")) : new Bitmap((Image)Properties.Resources.ResourceManager.GetObject("valid"));
         }
@@ -322,8 +322,8 @@ namespace Pokemon_Shuffle_Save_Editor
             {
                 if (GetStage(ind, i - 1).Completed) //is completed
                 {
-                    if (GetRank(ind, i - 1) > 0 && GetRank(ind, i - 1) < 4) //is rank != C
-                        SetRank(ind, i - 1, GetRank(ind, i - 1) - 1);   //minus 1 rank
+                    if (GetStage(ind, i - 1).Rank > 0 && GetStage(ind, i - 1).Rank < 4) //is rank != C
+                        SetRank(ind, i - 1, GetStage(ind, i - 1).Rank - 1);   //minus 1 rank
                     else //is rank = C or unknown    
                     {
                         SetRank(ind, i - 1, 3);  //rank S
