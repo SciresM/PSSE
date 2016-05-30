@@ -73,7 +73,7 @@
             this.CB_MonIndex = new System.Windows.Forms.ComboBox();
             this.PB_Mon = new System.Windows.Forms.PictureBox();
             this.GB_Resources = new System.Windows.Forms.GroupBox();
-            this.ItemsGrid = new System.Windows.Forms.PropertyGrid();
+            this.ItemsGrid = new Pokemon_Shuffle_Save_Editor.TabbedPropertyGrid();
             this.NUP_Jewels = new System.Windows.Forms.NumericUpDown();
             this.NUP_Coins = new System.Windows.Forms.NumericUpDown();
             this.NUP_Hearts = new System.Windows.Forms.NumericUpDown();
@@ -174,7 +174,7 @@
             this.GB_HighScore.Controls.Add(this.PB_Expert);
             this.GB_HighScore.Controls.Add(this.PB_Main);
             this.GB_HighScore.Enabled = false;
-            this.GB_HighScore.Location = new System.Drawing.Point(12, 399);
+            this.GB_HighScore.Location = new System.Drawing.Point(12, 430);
             this.GB_HighScore.Name = "GB_HighScore";
             this.GB_HighScore.Size = new System.Drawing.Size(493, 118);
             this.GB_HighScore.TabIndex = 6;
@@ -632,15 +632,15 @@
             this.GB_Resources.Enabled = false;
             this.GB_Resources.Location = new System.Drawing.Point(252, 6);
             this.GB_Resources.Name = "GB_Resources";
-            this.GB_Resources.Size = new System.Drawing.Size(253, 387);
+            this.GB_Resources.Size = new System.Drawing.Size(253, 423);
             this.GB_Resources.TabIndex = 5;
             this.GB_Resources.TabStop = false;
             this.GB_Resources.Text = "Resources";
             // 
             // ItemsGrid
             // 
-            this.ItemsGrid.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.ItemsGrid.Location = new System.Drawing.Point(6, 77);
+            this.ItemsGrid.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.ItemsGrid.Location = new System.Drawing.Point(6, 65);
             this.ItemsGrid.Name = "ItemsGrid";
             shuffleItems1.AttackUp = 0;
             shuffleItems1.Complexity = 0;
@@ -677,11 +677,13 @@
             shuffleItems1.SkillBoosterS = 0;
             shuffleItems1.Time = 0;
             this.ItemsGrid.SelectedObject = shuffleItems1;
-            this.ItemsGrid.Size = new System.Drawing.Size(241, 304);
+            this.ItemsGrid.Size = new System.Drawing.Size(241, 353);
             this.ItemsGrid.TabIndex = 54;
             this.ItemsGrid.ToolbarVisible = false;
             this.ItemsGrid.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.UpdateProperty);
             this.ItemsGrid.EnabledChanged += new System.EventHandler(this.ItemsGrid_EnabledChanged);
+            this.ItemsGrid.Click += new System.EventHandler(this.ItemsGrid_Click);
+            this.ItemsGrid.Enter += new System.EventHandler(this.ItemsGrid_Enter);
             // 
             // NUP_Jewels
             // 
@@ -802,7 +804,7 @@
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(517, 529);
+            this.ClientSize = new System.Drawing.Size(517, 560);
             this.Controls.Add(this.PB_Team4);
             this.Controls.Add(this.PB_Team3);
             this.Controls.Add(this.PB_Team2);
@@ -816,8 +818,8 @@
             this.Controls.Add(this.B_Open);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(533, 568);
-            this.MinimumSize = new System.Drawing.Size(533, 568);
+            this.MaximumSize = new System.Drawing.Size(533, 599);
+            this.MinimumSize = new System.Drawing.Size(533, 599);
             this.Name = "Main";
             this.Text = "Pokemon Shuffle Save Editor";
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.Main_DragDrop);
@@ -901,7 +903,7 @@
         private System.Windows.Forms.CheckBox CHK_MegaX;
         private System.Windows.Forms.CheckBox CHK_MegaY;
         private System.Windows.Forms.Button B_CheatsForm;
-        private System.Windows.Forms.PropertyGrid ItemsGrid;
+        private Pokemon_Shuffle_Save_Editor.TabbedPropertyGrid ItemsGrid;
         private System.Windows.Forms.NumericUpDown NUP_SpeedUpX;
         private System.Windows.Forms.NumericUpDown NUP_SpeedUpY;
         private System.Windows.Forms.PictureBox PB_SpeedUpX;

@@ -80,6 +80,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TabbedPropertyGrid.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ToolFunctions.cs" />
     <EmbeddedResource Include="Cheats.resx">
       <DependentUpon>Cheats.cs</DependentUpon>

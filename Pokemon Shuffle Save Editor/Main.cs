@@ -12,6 +12,7 @@ namespace Pokemon_Shuffle_Save_Editor
     {
         public static Database db = new Database();
         public static byte[] savedata = null;
+        public static Keys lastkeys;
 
         bool loaded, updating, overrideHS;
 
@@ -20,7 +21,8 @@ namespace Pokemon_Shuffle_Save_Editor
 
         public Main()
         {
-            InitializeComponent();     
+            InitializeComponent();
+            //this.ItemsGrid.SetParent(this);
             for (int i = 1; i < db.MonStopIndex; i++)
                 monsel.Add(new cbItem { Text = db.MonsList[i], Value = i });
             monsel = monsel.OrderBy(x => x.Text).ToList();
@@ -49,10 +51,9 @@ namespace Pokemon_Shuffle_Save_Editor
         {
             if (IsShuffleSave(file))
             {
+                B_Save.Enabled = GB_Caught.Enabled = GB_HighScore.Enabled = GB_Resources.Enabled = B_CheatsForm.Enabled = ItemsGrid.Enabled = loaded = true;
                 TB_FilePath.Text = file;
                 savedata = File.ReadAllBytes(file);
-                Parse();
-                B_Save.Enabled = GB_Caught.Enabled = GB_HighScore.Enabled = GB_Resources.Enabled = B_CheatsForm.Enabled = ItemsGrid.Enabled = loaded = true;
                 UpdateForm(null, null);
             }
             else
@@ -402,7 +403,7 @@ namespace Pokemon_Shuffle_Save_Editor
             CB_MonIndex.SelectedIndex = list.IndexOf(slot);
         }
 
-        private void TB_Filepath_DoubleClick(object sender, EventArgs e)    //Resets Form when double-clicked
+        private void TB_Filepath_DoubleClick(object sender, EventArgs e)
         {
             if ((sender as Control).Enabled == true)
             {
@@ -469,9 +470,26 @@ namespace Pokemon_Shuffle_Save_Editor
             ItemsGrid.SelectedObject = (ItemsGrid.Enabled) ? SI_Items : null;
         }
 
+        private void ItemsGrid_Click(object sender, EventArgs e)
+        {
+            lastkeys = default(Keys);
+        }
+
+        private void ItemsGrid_Enter(object sender, EventArgs e)
+        {
+            if (lastkeys == Keys.Tab) { ItemsGrid.SelectedGridItem = ItemsGrid.EnumerateAllItems().First((item) => item.PropertyDescriptor != null); }
+            else if (lastkeys == (Keys.Tab | Keys.Shift)) { ItemsGrid.SelectedGridItem = ItemsGrid.EnumerateAllItems().Last(); }
+        }
+
         private void UpdateProperty(object s, PropertyValueChangedEventArgs e)
         {
             UpdateForm(s, e);
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            lastkeys = keyData;
+            return base.ProcessCmdKey(ref msg, keyData);
         }
     }   
 }
