@@ -291,6 +291,7 @@ namespace Pokemon_Shuffle_Save_Editor
                         CHK_MegaY.Checked = db.HasMega[db.Mons[(int)CB_MonIndex.SelectedValue].Item1][1];
                         NUP_SpeedUpX.Value = (db.HasMega[db.Mons[(int)CB_MonIndex.SelectedValue].Item1][0]) ? NUP_SpeedUpX.Maximum : 0;
                         NUP_SpeedUpY.Value = (db.HasMega[db.Mons[(int)CB_MonIndex.SelectedValue].Item1][1]) ? NUP_SpeedUpY.Maximum : 0;
+                        NUP_Skill.Value = NUP_Skill.Maximum;
                     }
                     else CHK_CaughtMon.Checked = CHK_MegaX.Checked = CHK_MegaY.Checked = false;
                     break;
