@@ -136,7 +136,6 @@ namespace Pokemon_Shuffle_Save_Editor
 
         private void B_MaxTalent_Click(object sender, EventArgs e)
         {
-            int entrylen = BitConverter.ToInt32(db.MonData, 0x4);
             for (int i = 0; i < db.MegaStartIndex; i++)
             {
                 if (GetMon(i).Caught)
@@ -151,6 +150,7 @@ namespace Pokemon_Shuffle_Save_Editor
             {
                 SetCaught(i, false);    //Uncatch
                 SetLevel(i); //Un-level, Un-experience & Un-lollipop
+                SetSkill(i);
                 if (db.HasMega[db.Mons[i].Item1][0] || db.HasMega[db.Mons[i].Item1][1])
                 {
                     SetStone(i); //Un-stone

@@ -22,7 +22,6 @@ namespace Pokemon_Shuffle_Save_Editor
         public Main()
         {
             InitializeComponent();
-            //this.ItemsGrid.SetParent(this);
             for (int i = 1; i < db.MonStopIndex; i++)
                 monsel.Add(new cbItem { Text = db.MonsList[i], Value = i });
             monsel = monsel.OrderBy(x => x.Text).ToList();
@@ -39,6 +38,7 @@ namespace Pokemon_Shuffle_Save_Editor
             PB_Main.Image = PB_Event.Image = PB_Expert.Image = GetStageImage(0, 0);
             PB_Team1.Image = PB_Team2.Image = PB_Team3.Image = PB_Team4.Image = ResizeImage(GetMonImage(0), 48, 48);
             PB_Lollipop.Image = new Bitmap(ResizeImage((Image)Properties.Resources.ResourceManager.GetObject("lollipop"), 24, 24));
+            PB_Skill.Image = new Bitmap(ResizeImage((Image)Properties.Resources.ResourceManager.GetObject("skill"), 24, 24));
             NUP_MainIndex.Maximum = BitConverter.ToInt32(db.StagesMain, 0) - 1;
             NUP_ExpertIndex.Maximum = BitConverter.ToInt32(db.StagesExpert, 0);
             NUP_EventIndex.Maximum = BitConverter.ToInt32(db.StagesEvent, 0) - 1;
@@ -98,8 +98,9 @@ namespace Pokemon_Shuffle_Save_Editor
                 SetCaught(ind, CHK_CaughtMon.Checked);
                 SetLevel(ind, set_level, set_rml);
                 SetStone(ind, CHK_MegaX.Checked, CHK_MegaY.Checked);
-                SetSpeedup(ind, (db.HasMega[db.Mons[ind].Item1][0] && CHK_CaughtMon.Checked && CHK_MegaX.Checked), (int)Math.Min(NUP_SpeedUpX.Value, NUP_SpeedUpX.Maximum), (db.HasMega[db.Mons[ind].Item1][1] && CHK_CaughtMon.Checked && CHK_MegaY.Checked), (int)Math.Min(NUP_SpeedUpY.Value, NUP_SpeedUpY.Maximum));   
-                   
+                SetSpeedup(ind, (db.HasMega[db.Mons[ind].Item1][0] && CHK_CaughtMon.Checked && CHK_MegaX.Checked), (int)Math.Min(NUP_SpeedUpX.Value, NUP_SpeedUpX.Maximum), (db.HasMega[db.Mons[ind].Item1][1] && CHK_CaughtMon.Checked && CHK_MegaY.Checked), (int)Math.Min(NUP_SpeedUpY.Value, NUP_SpeedUpY.Maximum));
+                SetSkill(ind, (int)NUP_Skill.Value);
+
                 //Stages Box Properties          
                 SetScore((int)NUP_MainIndex.Value - 1, 0, (ulong)NUP_MainScore.Value);
                 SetScore((int)NUP_ExpertIndex.Value - 1, 1, (ulong)NUP_ExpertScore.Value);
@@ -132,6 +133,9 @@ namespace Pokemon_Shuffle_Save_Editor
             NUP_Level.Maximum = 10 + NUP_Lollipop.Maximum;
             NUP_Level.Value = GetMon(ind).Level;
 
+            //Skill level value
+            NUP_Skill.Value = GetMon(ind).SkillLevel;
+
             //Speedup values
             if (db.MegaList.IndexOf(ind) != -1) //temporary fix while there are still some mega forms missing in megastone.bin
             {
@@ -147,7 +151,7 @@ namespace Pokemon_Shuffle_Save_Editor
             }
 
             #region Visibility
-            L_Level.Visible = NUP_Level.Visible = CHK_CaughtMon.Checked;
+            L_Level.Visible = NUP_Level.Visible = PB_Skill.Visible = NUP_Skill.Visible = CHK_CaughtMon.Checked;
             PB_Lollipop.Visible = NUP_Lollipop.Visible = (CHK_CaughtMon.Checked && NUP_Lollipop.Maximum != 0);
             PB_Mon.Image = GetCaughtImage(ind, CHK_CaughtMon.Checked);
             PB_MegaX.Visible = CHK_MegaX.Visible = db.HasMega[db.Mons[ind].Item1][0];
@@ -211,7 +215,7 @@ namespace Pokemon_Shuffle_Save_Editor
                 GetRankImage(lbl, GetStage(ind, type).Rank, GetStage(ind, type).Completed);
                 (nup as NumericUpDown).Value = GetStage(ind, type).Score;
                 int stagelen = BitConverter.ToInt32(stage, 0x4);
-                (pb as PictureBox).Image = GetCompletedImage(BitConverter.ToInt16(stage, 0x50 + BitConverter.ToInt32(stage, 0x4) * ((type == 0) ? ind + 1 : ind)) & 0x3FF, type, (lbl == L_RankM) ? (GetStage(ind, type).Completed || overrideHS) : true);
+                (pb as PictureBox).Image = GetCompletedImage(BitConverter.ToInt16(stage, 0x50 + BitConverter.ToInt32(stage, 0x4) * ((type == 0) ? ind + 1 : ind)) & 0x3FF, type, (type == 0) ? (GetStage(ind, type).Completed || overrideHS) : true);
             }
             PB_override.Image = overrideHS ? new Bitmap((Image)Properties.Resources.ResourceManager.GetObject("warn")) : new Bitmap((Image)Properties.Resources.ResourceManager.GetObject("valid"));
         }
@@ -263,6 +267,8 @@ namespace Pokemon_Shuffle_Save_Editor
                 s = 3;
             if ((sender as Control).Name.Contains("Mon"))
                 s = 4;
+            if ((sender as Control).Name.Contains("Skill"))
+                s = 5;
             switch (s)
             {
                 case 1:
@@ -287,6 +293,9 @@ namespace Pokemon_Shuffle_Save_Editor
                         NUP_SpeedUpY.Value = (db.HasMega[db.Mons[(int)CB_MonIndex.SelectedValue].Item1][1]) ? NUP_SpeedUpY.Maximum : 0;
                     }
                     else CHK_CaughtMon.Checked = CHK_MegaX.Checked = CHK_MegaY.Checked = false;
+                    break;
+                case 5:
+                    NUP_Skill.Value = (NUP_Skill.Value == 1) ? NUP_Skill.Maximum : NUP_Skill.Minimum;
                     break;
                 default:
                     return;
@@ -468,11 +477,6 @@ namespace Pokemon_Shuffle_Save_Editor
         private void ItemsGrid_EnabledChanged(object sender, EventArgs e)
         {
             ItemsGrid.SelectedObject = (ItemsGrid.Enabled) ? SI_Items : null;
-        }
-
-        private void ItemsGrid_Click(object sender, EventArgs e)
-        {
-            lastkeys = default(Keys);
         }
 
         private void ItemsGrid_Enter(object sender, EventArgs e)

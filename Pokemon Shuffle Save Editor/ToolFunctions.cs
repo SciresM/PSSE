@@ -28,6 +28,7 @@ namespace Pokemon_Shuffle_Save_Editor
             short speedUpX = (short)(db.HasMega[db.Mons[ind].Item1][0] ? (BitConverter.ToInt16(savedata, SpeedUpX.Ofset(ind)) >> SpeedUpX.Shift(ind)) & 0x7F : 0);
             short speedUpY = (short)(db.HasMega[db.Mons[ind].Item1][1] ? (BitConverter.ToInt32(savedata, SpeedUpY.Ofset(ind)) >> SpeedUpY.Shift(ind)) & 0x7F : 0);
             short skillLvl = (short)((BitConverter.ToInt16(savedata, SkillLevel.Ofset(ind)) >> SkillLevel.Shift(ind)) & 0x7);
+            skillLvl = (skillLvl < 2) ? (short)1 : skillLvl;
             short skillExp = savedata[SkillExp.Ofset(ind)];
 
             return new monItem { Caught = caught, Level = lev, Lollipops = rml, Exp = exp, Stone = stone, SpeedUpX = speedUpX, SpeedUpY = speedUpY, SkillLevel = skillLvl, SkillExp = skillExp };
@@ -81,17 +82,17 @@ namespace Pokemon_Shuffle_Save_Editor
             }
         }
 
-        public static void SetSkill(int ind, int lvl)
+        public static void SetSkill(int ind, int lvl = 1)
         {
             //level
-            lvl = (lvl < 2) ? 1 : ((lvl > 5) ? 5 : lvl);
-            int talentlvl = BitConverter.ToInt16(savedata, SkillLevel.Ofset(ind));
-            talentlvl = (talentlvl & ~(0x7 << SkillLevel.Shift(ind))) | (lvl << SkillLevel.Shift(ind));
-            Array.Copy(BitConverter.GetBytes(talentlvl), 0, savedata, SkillLevel.Ofset(ind), 2);
+            lvl = (lvl < 2) ? 0 : ((lvl > 5) ? 5 : lvl);    //hardcoded skill level to be 5 max
+            int skilllvl = BitConverter.ToInt16(savedata, SkillLevel.Ofset(ind));
+            skilllvl = (skilllvl & ~(0x7 << SkillLevel.Shift(ind))) | (lvl << SkillLevel.Shift(ind));
+            Array.Copy(BitConverter.GetBytes(skilllvl), 0, savedata, SkillLevel.Ofset(ind), 2);
 
             //exp
-            int entrylen = BitConverter.ToInt32(db.MonData, 0x4);
-            savedata[SkillExp.Ofset(ind)] = (lvl < 2) ? (byte)0 : db.MonAbility.Skip(0x50 + db.Mons[ind].Item6 * entrylen).Take(entrylen).ToArray()[0x1B + lvl - 2];
+            int entrylen = BitConverter.ToInt32(db.MonAbility, 0x4);
+            savedata[SkillExp.Ofset(ind)] = (lvl < 2) ? (byte)0 : db.MonAbility.Skip(0x50 + db.Mons[ind].Item6 * entrylen).Take(entrylen).ToArray()[0x1A + lvl];
         }
 
         public static stgItem GetStage(int ind, int type)

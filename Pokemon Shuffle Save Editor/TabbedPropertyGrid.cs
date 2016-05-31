@@ -80,68 +80,6 @@ namespace Pokemon_Shuffle_Save_Editor
                     break;
             }
         }
-
-        //public void SetParent(Form form)
-        //{
-        //    // Catch null arguments
-        //    if (form == null)
-        //    {
-        //        throw new ArgumentNullException("form");
-        //    }
-
-        //    // Set this property to intercept all events
-        //    form.KeyPreview = true;
-
-        //    // Listen for keydown event
-        //    form.KeyDown += new KeyEventHandler(this.Form_KeyDown);
-        //}
-
-        //private void Form_KeyDown(object sender, KeyEventArgs e)
-        //{
-        //    // Exit if cursor not in control or not Tab pressed
-        //    if (!(sender as Form).ActiveControl.Equals(this)) { return; }
-
-        //    if (e.KeyCode != Keys.Tab) { return; }
-        //    e.Handled = true;
-        //    e.SuppressKeyPress = true;
-
-        //    // Get selected griditem
-        //    if (this.SelectedGridItem == null) { return; }
-
-        //    // Create a collection all visible child griditems in propertygrid
-        //    GridItem root = this.SelectedGridItem;
-        //    while (root.GridItemType != GridItemType.Root)
-        //    {
-        //        root = root.Parent;
-        //    }
-        //    List<GridItem> gridItems = new List<GridItem>();
-        //    this.FindItems(root, gridItems);
-
-        //    // Get position of selected griditem in collection
-        //    int index = gridItems.IndexOf(this.SelectedGridItem);
-
-        //    // Select next griditem in collection
-        //    if (e.Modifiers == Keys.Shift)
-        //    {
-        //        if (index > 0)
-        //            this.SelectedGridItem = gridItems[--index];
-        //        else
-        //        {
-        //            this.SelectedGridItem = gridItems[0];
-        //            this.SelectNextControl(this, false, true, true, true);
-        //        }
-        //    }
-        //    else
-        //    {
-        //        if (index < gridItems.Count - 1)
-        //            this.SelectedGridItem = gridItems[++index];
-        //        else
-        //        {
-        //            this.SelectedGridItem = gridItems[0];
-        //            this.SelectNextControl(this, true, true, true, true);
-        //        }
-        //    }
-        //}
     }
 
     public static class PropertyGridExtensions
