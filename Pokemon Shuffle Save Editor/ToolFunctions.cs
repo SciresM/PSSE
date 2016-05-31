@@ -73,12 +73,18 @@ namespace Pokemon_Shuffle_Save_Editor
         {
             if (db.HasMega[db.Mons[ind].Item1][0] || db.HasMega[db.Mons[ind].Item1][1])
             {
-                int speedUp_ValX = BitConverter.ToInt32(savedata, SpeedUpX.Ofset(ind));
-                int speedUp_ValY = BitConverter.ToInt32(savedata, SpeedUpY.Ofset(ind));
-                int newSpeedUp = db.HasMega[db.Mons[ind].Item1][1]
-                    ? ((speedUp_ValX & ~(0x7F << SpeedUpX.Shift(ind))) & ~(0x7F << SpeedUpY.Shift(ind))) | ((X ? suX : 0) << SpeedUpX.Shift(ind)) | ((Y ? suY : 0) << SpeedUpY.Shift(ind)) //Erases both X & Y bits at the same time before updating them to make sure Y doesn't overwrite X bits
-                    : (speedUp_ValX & ~(0x7F << SpeedUpX.Shift(ind))) | ((X ? suX : 0) << SpeedUpX.Shift(ind));
-                Array.Copy(BitConverter.GetBytes(newSpeedUp), 0, savedata, SpeedUpX.Ofset(ind), 4);
+                int speedUp_Val = BitConverter.ToInt32(savedata, SpeedUpX.Ofset(ind));
+                if (db.HasMega[db.Mons[ind].Item1][0])
+                {
+                    speedUp_Val &= ~(0x7F << SpeedUpX.Shift(ind));
+                    speedUp_Val |= (X ? suX : 0) << SpeedUpX.Shift(ind);
+                }
+                if (db.HasMega[db.Mons[ind].Item1][1])
+                {   //Y shifts are relative to X ofsets.
+                    speedUp_Val &= ~(0x7F << ((SpeedUpY.Ofset(ind) - SpeedUpX.Ofset(ind)) * 8 + SpeedUpY.Shift(ind)));
+                    speedUp_Val |= (Y ? suY : 0) << ((SpeedUpY.Ofset(ind) - SpeedUpX.Ofset(ind)) * 8 + SpeedUpY.Shift(ind));
+                }
+                Array.Copy(BitConverter.GetBytes(speedUp_Val), 0, savedata, SpeedUpX.Ofset(ind), 4);
             }
         }
 
