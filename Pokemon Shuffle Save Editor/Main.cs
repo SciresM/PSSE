@@ -39,6 +39,7 @@ namespace Pokemon_Shuffle_Save_Editor
             PB_Team1.Image = PB_Team2.Image = PB_Team3.Image = PB_Team4.Image = ResizeImage(GetMonImage(0), 48, 48);
             PB_Lollipop.Image = new Bitmap(ResizeImage((Image)Properties.Resources.ResourceManager.GetObject("lollipop"), 24, 24));
             PB_Skill.Image = new Bitmap(ResizeImage((Image)Properties.Resources.ResourceManager.GetObject("skill"), 24, 24));
+            PB_Lollipop.Visible = PB_Skill.Visible = false;
             NUP_MainIndex.Maximum = BitConverter.ToInt32(db.StagesMain, 0) - 1;
             NUP_ExpertIndex.Maximum = BitConverter.ToInt32(db.StagesExpert, 0);
             NUP_EventIndex.Maximum = BitConverter.ToInt32(db.StagesEvent, 0) - 1;
