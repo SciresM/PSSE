@@ -98,8 +98,8 @@ namespace Pokemon_Shuffle_Save_Editor
                 SetCaught(ind, CHK_CaughtMon.Checked);
                 SetLevel(ind, set_level, set_rml);
                 SetStone(ind, CHK_MegaX.Checked, CHK_MegaY.Checked);
-                SetSpeedup(ind, (db.HasMega[db.Mons[ind].Item1][0] && CHK_CaughtMon.Checked && CHK_MegaX.Checked), (int)Math.Min(NUP_SpeedUpX.Value, NUP_SpeedUpX.Maximum), (db.HasMega[db.Mons[ind].Item1][1] && CHK_CaughtMon.Checked && CHK_MegaY.Checked), (int)Math.Min(NUP_SpeedUpY.Value, NUP_SpeedUpY.Maximum));
-                SetSkill(ind, (int)NUP_Skill.Value);
+                SetSpeedup(ind, (db.HasMega[db.Mons[ind].Item1][0] && CHK_CaughtMon.Checked && CHK_MegaX.Checked), (int)NUP_SpeedUpX.Value, (db.HasMega[db.Mons[ind].Item1][1] && CHK_CaughtMon.Checked && CHK_MegaY.Checked), (int)NUP_SpeedUpY.Value);
+                SetSkill(ind, (int)(CHK_CaughtMon.Checked ? NUP_Skill.Value : 1));
 
                 //Stages Box Properties          
                 SetScore((int)NUP_MainIndex.Value - 1, 0, (ulong)NUP_MainScore.Value);
