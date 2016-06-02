@@ -408,9 +408,9 @@ Registeel
 Latias
 Latios
 Kyogre
-Primal Kyogre
+Kyogre Primal
 Groudon
-Primal Groudon
+Groudon Primal
 Rayquaza
 Jirachi
 Deoxys
@@ -705,7 +705,7 @@ Keldeo
 Keldeo Resolute
 Meloetta
 Genesect
-Shiny Genesect
+Genesect Shiny
 Chespin
 Quilladin
 Chesnaught
@@ -805,8 +805,8 @@ Jigglypuff Winking
 Wigglytuff Winking
 Gengar Smiling
 Chansey Winking
-Shiny Magikarp
-Shiny Gyarados
+Magikarp Shiny
+Gyarados Shiny
 Chikorita Winking
 Cyndaquil Winking
 Totodile Winking
@@ -831,7 +831,7 @@ Minun Winking
 Castform Winking
 Snorunt Winking
 Glalie Winking
-Shiny Rayquaza
+Rayquaza Shiny
 Turtwig Winking
 Chimchar Winking
 Piplup Winking

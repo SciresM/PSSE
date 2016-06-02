@@ -11194,8 +11194,7 @@ namespace Pokemon_Shuffle_Save_Editor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ---
-        ///Bulbasaur
+        ///   Looks up a localized string similar to Bulbasaur
         ///Ivysaur
         ///Venusaur
         ///Charmander
@@ -11254,7 +11253,7 @@ namespace Pokemon_Shuffle_Save_Editor.Properties {
         ///Primeape
         ///Growlithe
         ///Arcanine
-        ///Pol [rest of string was truncated]&quot;;.
+        ///Poliwag [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string species {
             get {

@@ -120,6 +120,13 @@
   <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <data name="B_LevelMax.ToolTip" xml:space="preserve">
+    <value>Sets everyone of your caught pokemon to their maximum level, and
+gives them the corresponding amount of experience &amp; lollipops.
+
+Ctrl + Click to select which level you want to set your pokemons to.
+A pokemon will be set to its maximum instead if selected level is higher.</value>
+  </data>
   <data name="B_CaughtObtainables.ToolTip" xml:space="preserve">
     <value>Marks as caught every pokemon that has been released.
 
@@ -130,7 +137,16 @@ and has 30BP &amp; "Opportunist" talent will be skiped. Add it manually if neede
     <value>Gives you megastones for everything that you've caught and for which a megastone has been released.
 
 /!\ May include stones that are about to be released or for which the competition is ongoing, as it will
-add any megastone for which the mega differs from the "default" type &amp; talent.</value>
+add any megastone for which the mega differs from the "default" type &amp; talent.
+
+Ctrl + click to un-own every stone.</value>
+  </data>
+  <data name="B_MaxSpeedups.ToolTip" xml:space="preserve">
+    <value>If you own both a pokemon and its megastone, it'll be fed with the maximum number
+of Mega speedups.
+
+Ctrl + click to select a number of speedups, if a pokemon cannot be fed this amount of speedups
+it'll be fed its maximum instead.</value>
   </data>
   <data name="B_AllCompleted.ToolTip" xml:space="preserve">
     <value>All stages will be marked as completed, with the default C-rank and 0 highscore. Any 
@@ -140,10 +156,20 @@ unredeemed reward for a stage (a.k.a megastones) will be redeemable by beating i
 code after using this one.
 </value>
   </data>
-  <data name="B_MaxExcalationBattle.ToolTip" xml:space="preserve">
-    <value>Will set an active escalation battle to step 999. Beat it to get all rewards at once.
+  <data name="B_SRankCompleted.ToolTip" xml:space="preserve">
+    <value>Will mark every completed Main or Expert stage as S-rank. 
+Highscores will be set as the smallest "legitimately" possible too, unless your current highscore
+is already enough.
 
-/!\ Should do nothing if there aren't any active escalation battle. If there is more
+Ctrl + Click to select a rank manually (0 = C, 1 = B, 2 = A, 3 = S).</value>
+  </data>
+  <data name="B_MaxExcalationBattle.ToolTip" xml:space="preserve">
+    <value>Opens a popup to select your desired step (Ctrl + click sets step 999 by default).
+
+Will set an active escalation battle to selected step (it'll not have been beaten yet).
+Beat it to get all rewards at once.
+
+/!\ Should do nothing if there aren't any active escalation battle. If there ever is more
 than one active at the same time, only one should be affected.</value>
   </data>
   <data name="B_PokemonReset.ToolTip" xml:space="preserve">

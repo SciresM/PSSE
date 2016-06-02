@@ -152,14 +152,14 @@ namespace Pokemon_Shuffle_Save_Editor
             SetScore(ind, type, Math.Max((ulong)GetStage(ind, type).Score, (BitConverter.ToUInt64(data, 0x4) & 0xFFFFFFFF) + (ulong)(Math.Min(7000, ((GetStage(ind, type).Rank > 0) ? ((BitConverter.ToInt16(data, 0x30 + GetStage(ind, type).Rank - 1) >> 4) & 0xFF) : 0) * 500)))); //score = Max(current_highscore, hitpoints + minimum_bonus_points (a.k.a min moves left times 500, capped at 7000))
         }
 
-        public static void SetExcalationStep(int step = 0)  //Will only update 1 escalation battle. Update offsets if there ever are more than 1 at once
+        public static void SetExcalationStep(int step = 1)  //Will only update 1 escalation battle. Update offsets if there ever are more than 1 at once
         {
-            if (step < 0)
-                step = 0;
+            if (step < 1)
+                step = 1;
             if (step > 999)
                 step = 999;
             int data = BitConverter.ToUInt16(savedata, EscalationStep.Ofset());
-            data = (data & (~(0x3FF << EscalationStep.Shift()))) | (step << EscalationStep.Shift());
+            data = (data & (~(0x3FF << EscalationStep.Shift()))) | (step-- << EscalationStep.Shift());  //sets previous step as beaten = selected step shown in game 
             Array.Copy(BitConverter.GetBytes(data), 0, savedata, EscalationStep.Ofset(), 2); 
         }
 

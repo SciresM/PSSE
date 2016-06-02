@@ -45,16 +45,14 @@
             this.B_PokemonReset = new System.Windows.Forms.Button();
             this.B_StageReset = new System.Windows.Forms.Button();
             this.B_ResourcesReset = new System.Windows.Forms.Button();
-            this.B_EscalationReset = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.B_MaxTalent = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // B_CaughtEverything
             // 
-            this.B_CaughtEverything.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.B_CaughtEverything.Location = new System.Drawing.Point(164, 229);
+            this.B_CaughtEverything.Location = new System.Drawing.Point(196, 128);
             this.B_CaughtEverything.Name = "B_CaughtEverything";
             this.B_CaughtEverything.Size = new System.Drawing.Size(65, 23);
             this.B_CaughtEverything.TabIndex = 100;
@@ -70,9 +68,8 @@
             this.B_LevelMax.Name = "B_LevelMax";
             this.B_LevelMax.Size = new System.Drawing.Size(138, 23);
             this.B_LevelMax.TabIndex = 1;
-            this.B_LevelMax.Text = "All Owned LvMax";
-            this.toolTip1.SetToolTip(this.B_LevelMax, "Sets everyone of your caught pokemon to their maximum level\r\n& give them the corr" +
-        "esponding amount of experience & \"Raise\r\nMax Level\" items.");
+            this.B_LevelMax.Text = "All Owned Lv (Max)";
+            this.toolTip1.SetToolTip(this.B_LevelMax, resources.GetString("B_LevelMax.ToolTip"));
             this.B_LevelMax.UseVisualStyleBackColor = true;
             this.B_LevelMax.Click += new System.EventHandler(this.B_LevelMax_Click);
             // 
@@ -101,9 +98,7 @@
             // 
             // B_AllStones
             // 
-            this.B_AllStones.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.B_AllStones.Location = new System.Drawing.Point(235, 229);
+            this.B_AllStones.Location = new System.Drawing.Point(156, 128);
             this.B_AllStones.Name = "B_AllStones";
             this.B_AllStones.Size = new System.Drawing.Size(65, 23);
             this.B_AllStones.TabIndex = 101;
@@ -130,9 +125,8 @@
             this.B_MaxSpeedups.Name = "B_MaxSpeedups";
             this.B_MaxSpeedups.Size = new System.Drawing.Size(138, 23);
             this.B_MaxSpeedups.TabIndex = 4;
-            this.B_MaxSpeedups.Text = "All Owned Max Speedups";
-            this.toolTip1.SetToolTip(this.B_MaxSpeedups, "If you own both a pokemon and its megastone, it\'ll be fed with the maximum number" +
-        "\r\nof Mega speedups.");
+            this.B_MaxSpeedups.Text = "All Owned (Max) Speedup";
+            this.toolTip1.SetToolTip(this.B_MaxSpeedups, resources.GetString("B_MaxSpeedups.ToolTip"));
             this.B_MaxSpeedups.UseVisualStyleBackColor = true;
             this.B_MaxSpeedups.Click += new System.EventHandler(this.B_MaxSpeedups_Click);
             // 
@@ -153,16 +147,13 @@
             this.B_SRankCompleted.Name = "B_SRankCompleted";
             this.B_SRankCompleted.Size = new System.Drawing.Size(138, 23);
             this.B_SRankCompleted.TabIndex = 6;
-            this.B_SRankCompleted.Text = "S-Rank All Completed";
-            this.toolTip1.SetToolTip(this.B_SRankCompleted, "Will mark every completed stage as S-rank. Highscores will be set as the smallest" +
-        "\r\n\"legitimately\" possible too. ");
+            this.B_SRankCompleted.Text = "(S)-Rank All Completed";
+            this.toolTip1.SetToolTip(this.B_SRankCompleted, resources.GetString("B_SRankCompleted.ToolTip"));
             this.B_SRankCompleted.UseVisualStyleBackColor = true;
             this.B_SRankCompleted.Click += new System.EventHandler(this.B_SRankCompleted_Click);
             // 
             // B_StreetPassDelete
             // 
-            this.B_StreetPassDelete.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.B_StreetPassDelete.Location = new System.Drawing.Point(162, 200);
             this.B_StreetPassDelete.Name = "B_StreetPassDelete";
             this.B_StreetPassDelete.Size = new System.Drawing.Size(138, 23);
@@ -180,15 +171,13 @@
             this.B_MaxExcalationBattle.Name = "B_MaxExcalationBattle";
             this.B_MaxExcalationBattle.Size = new System.Drawing.Size(138, 23);
             this.B_MaxExcalationBattle.TabIndex = 8;
-            this.B_MaxExcalationBattle.Text = "/!\\ Escalation Battle 999";
+            this.B_MaxExcalationBattle.Text = "Escalation Battle (999)";
             this.toolTip1.SetToolTip(this.B_MaxExcalationBattle, resources.GetString("B_MaxExcalationBattle.ToolTip"));
             this.B_MaxExcalationBattle.UseVisualStyleBackColor = true;
             this.B_MaxExcalationBattle.Click += new System.EventHandler(this.B_MaxExcalationBattle_Click);
             // 
             // Line
             // 
-            this.Line.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.Line.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.Line.Location = new System.Drawing.Point(12, 159);
             this.Line.MaximumSize = new System.Drawing.Size(288, 2);
@@ -199,8 +188,6 @@
             // 
             // B_PokemonReset
             // 
-            this.B_PokemonReset.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.B_PokemonReset.Location = new System.Drawing.Point(12, 171);
             this.B_PokemonReset.Name = "B_PokemonReset";
             this.B_PokemonReset.Size = new System.Drawing.Size(138, 23);
@@ -212,8 +199,6 @@
             // 
             // B_StageReset
             // 
-            this.B_StageReset.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.B_StageReset.Location = new System.Drawing.Point(162, 171);
             this.B_StageReset.Name = "B_StageReset";
             this.B_StageReset.Size = new System.Drawing.Size(138, 23);
@@ -227,8 +212,6 @@
             // 
             // B_ResourcesReset
             // 
-            this.B_ResourcesReset.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.B_ResourcesReset.Location = new System.Drawing.Point(12, 200);
             this.B_ResourcesReset.Name = "B_ResourcesReset";
             this.B_ResourcesReset.Size = new System.Drawing.Size(138, 23);
@@ -237,20 +220,6 @@
             this.toolTip1.SetToolTip(this.B_ResourcesReset, "Sets stock hearts, coins, jewels and every item to 0.");
             this.B_ResourcesReset.UseVisualStyleBackColor = true;
             this.B_ResourcesReset.Click += new System.EventHandler(this.B_ResourcesReset_Click);
-            // 
-            // B_EscalationReset
-            // 
-            this.B_EscalationReset.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.B_EscalationReset.Location = new System.Drawing.Point(12, 229);
-            this.B_EscalationReset.Name = "B_EscalationReset";
-            this.B_EscalationReset.Size = new System.Drawing.Size(138, 23);
-            this.B_EscalationReset.TabIndex = 54;
-            this.B_EscalationReset.Text = "Escalation Battle 1";
-            this.toolTip1.SetToolTip(this.B_EscalationReset, "Will set the current ongoing escalation battle to step 1.\r\n\r\n/!\\ See step 999\'s c" +
-        "ode.");
-            this.B_EscalationReset.UseVisualStyleBackColor = true;
-            this.B_EscalationReset.Click += new System.EventHandler(this.B_EscalationReset_Click);
             // 
             // toolTip1
             // 
@@ -264,22 +233,36 @@
             this.B_MaxTalent.Name = "B_MaxTalent";
             this.B_MaxTalent.Size = new System.Drawing.Size(138, 23);
             this.B_MaxTalent.TabIndex = 2;
-            this.B_MaxTalent.Text = "All Owned Max Talent";
+            this.B_MaxTalent.Text = "All Owned Skill Lvl (5)";
             this.toolTip1.SetToolTip(this.B_MaxTalent, "For every pokemon that you\'ve caught, sets their talent to lvl 5 with the proper " +
-        "amount of \"experience\" needed.");
+        "amount of \"experience\" needed.\r\n\r\nCtrl + click to select which level you want to" +
+        " set your pokemons\'s skills to.");
             this.B_MaxTalent.UseVisualStyleBackColor = true;
             this.B_MaxTalent.Click += new System.EventHandler(this.B_MaxTalent_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(235, 128);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(65, 23);
+            this.button1.TabIndex = 102;
+            this.button1.Text = "Test stuff";
+            this.toolTip1.SetToolTip(this.button1, "Used w/ button1_Click event to search for the \"skill+ drop\" flags in stagedata(s)" +
+        ".bin");
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Visible = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // Cheats
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(312, 263);
+            this.ClientSize = new System.Drawing.Size(312, 235);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.B_CaughtEverything);
             this.Controls.Add(this.B_AllStones);
             this.Controls.Add(this.B_MaxTalent);
             this.Controls.Add(this.Line);
-            this.Controls.Add(this.B_EscalationReset);
             this.Controls.Add(this.B_ResourcesReset);
             this.Controls.Add(this.B_StageReset);
             this.Controls.Add(this.B_PokemonReset);
@@ -295,7 +278,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(328, 999);
+            this.MaximumSize = new System.Drawing.Size(328, 274);
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(328, 274);
             this.Name = "Cheats";
@@ -324,8 +307,8 @@
         private System.Windows.Forms.Button B_PokemonReset;
         private System.Windows.Forms.Button B_StageReset;
         private System.Windows.Forms.Button B_ResourcesReset;
-        private System.Windows.Forms.Button B_EscalationReset;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Button B_MaxTalent;
+        private System.Windows.Forms.Button button1;
     }
 }
