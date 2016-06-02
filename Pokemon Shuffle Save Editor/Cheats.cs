@@ -35,8 +35,8 @@ namespace Pokemon_Shuffle_Save_Editor
             {
                 for (int i = 0; i < db.MegaStartIndex; i++)
                 {   //if (caught && (hasMegaX || hasMegaY) && (at least 1 of these not equals to "default" : talent, type, max speedups). Doesn't check if Y form has been released, but both Charizard's & Mewtwo's already have.
-                    if (GetMon(i).Caught && (db.HasMega[db.Mons[i].Item1][0] || db.HasMega[db.Mons[i].Item1][1]) && ((db.Mons[db.MegaStartIndex + db.MegaList.IndexOf(i)].Item6 != 7) || (db.Mons[db.MegaStartIndex + db.MegaList.IndexOf(i)].Item7 != 0) || (db.Megas[db.MegaList.IndexOf(i)].Item2 != 1)))
-                        SetStone(i, db.HasMega[db.Mons[i].Item1][0], db.HasMega[db.Mons[i].Item1][1]);
+                    if (GetMon(i).Caught && (db.HasMega[i][0] || db.HasMega[i][1]) && ((db.Mons[db.MegaStartIndex + db.MegaList.IndexOf(i)].Item6 != 7) || (db.Mons[db.MegaStartIndex + db.MegaList.IndexOf(i)].Item7 != 0) || (db.Megas[db.MegaList.IndexOf(i)].Item2 != 1)))
+                        SetStone(i, db.HasMega[i][0], db.HasMega[i][1]);
                 }
                 MessageBox.Show("All available megastones have been owned for everything you've caught.");
             }                
@@ -66,8 +66,8 @@ namespace Pokemon_Shuffle_Save_Editor
         {   //advanced user stuff
             for (int i = 0; i < db.MegaStartIndex; i++)
             {
-                if (db.HasMega[db.Mons[i].Item1][0] || db.HasMega[db.Mons[i].Item1][1])
-                    SetStone(i, db.HasMega[db.Mons[i].Item1][0], db.HasMega[db.Mons[i].Item1][1]);
+                if (db.HasMega[i][0] || db.HasMega[i][1])
+                    SetStone(i, db.HasMega[i][0], db.HasMega[i][1]);
             }
             MessageBox.Show("All Mega Stones are now owned.");
         }
@@ -165,11 +165,11 @@ namespace Pokemon_Shuffle_Save_Editor
             }
             for (int i = 0; i < db.MegaStartIndex; i++)
             {   //if (caught && (hasMegaX || hasMegaY) && (at least one stone owned))
-                if (GetMon(i).Caught && (db.HasMega[db.Mons[i].Item1][0] || db.HasMega[db.Mons[i].Item1][1]) && (GetMon(i).Stone > 0 || GetMon(i).Stone < 4))
+                if (GetMon(i).Caught && (db.HasMega[i][0] || db.HasMega[i][1]) && (GetMon(i).Stone > 0 || GetMon(i).Stone < 4))
                 {
-                    int suX = Math.Min(db.HasMega[db.Mons[i].Item1][0] ? db.Megas[db.MegaList.IndexOf(i)].Item2 : 0, value);          //db.HasMega[db.Mons[i].Item1][0] ? db.Megas[db.MegaList.IndexOf(i)].Item2 : 0;
-                    int suY = Math.Min(db.HasMega[db.Mons[i].Item1][1] ? db.Megas[db.MegaList.IndexOf(i, db.MegaList.IndexOf(i) + 1)].Item2 : 0, value);           //db.HasMega[db.Mons[i].Item1][1] ? db.Megas[db.MegaList.IndexOf(i, db.MegaList.IndexOf(i) + 1)].Item2 : 0;
-                    SetSpeedup(i, (db.HasMega[db.Mons[i].Item1][0] && ((GetMon(i).Stone & 1) == 1)), suX, (db.HasMega[db.Mons[i].Item1][1] && ((GetMon(i).Stone & 2) == 2)), suY);   //(i, (hasMegaX && owned stoneX), max X value from db, (hasMegaY && owned stoneY), max Y value from db)
+                    int suX = Math.Min(db.HasMega[i][0] ? db.Megas[db.MegaList.IndexOf(i)].Item2 : 0, value);          //db.HasMega[i][0] ? db.Megas[db.MegaList.IndexOf(i)].Item2 : 0;
+                    int suY = Math.Min(db.HasMega[i][1] ? db.Megas[db.MegaList.IndexOf(i, db.MegaList.IndexOf(i) + 1)].Item2 : 0, value);           //db.HasMega[i][1] ? db.Megas[db.MegaList.IndexOf(i, db.MegaList.IndexOf(i) + 1)].Item2 : 0;
+                    SetSpeedup(i, (db.HasMega[i][0] && ((GetMon(i).Stone & 1) == 1)), suX, (db.HasMega[i][1] && ((GetMon(i).Stone & 2) == 2)), suY);   //(i, (hasMegaX && owned stoneX), max X value from db, (hasMegaY && owned stoneY), max Y value from db)
                 }
             }
             if (boool)
@@ -204,7 +204,7 @@ namespace Pokemon_Shuffle_Save_Editor
                 SetCaught(i, false);    //Uncatch
                 SetLevel(i); //Un-level, Un-experience & Un-lollipop
                 SetSkill(i);
-                if (db.HasMega[db.Mons[i].Item1][0] || db.HasMega[db.Mons[i].Item1][1])
+                if (db.HasMega[i][0] || db.HasMega[i][1])
                 {
                     SetStone(i); //Un-stone
                     SetSpeedup(i);   //Unfeed speedups

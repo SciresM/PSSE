@@ -99,7 +99,7 @@ namespace Pokemon_Shuffle_Save_Editor
                 SetCaught(ind, CHK_CaughtMon.Checked);
                 SetLevel(ind, set_level, set_rml);
                 SetStone(ind, CHK_MegaX.Checked, CHK_MegaY.Checked);
-                SetSpeedup(ind, (db.HasMega[db.Mons[ind].Item1][0] && CHK_CaughtMon.Checked && CHK_MegaX.Checked), (int)NUP_SpeedUpX.Value, (db.HasMega[db.Mons[ind].Item1][1] && CHK_CaughtMon.Checked && CHK_MegaY.Checked), (int)NUP_SpeedUpY.Value);
+                SetSpeedup(ind, (db.HasMega[ind][0] && CHK_CaughtMon.Checked && CHK_MegaX.Checked), (int)NUP_SpeedUpX.Value, (db.HasMega[ind][1] && CHK_CaughtMon.Checked && CHK_MegaY.Checked), (int)NUP_SpeedUpY.Value);
                 SetSkill(ind, (int)(CHK_CaughtMon.Checked ? NUP_Skill.Value : 1));
 
                 //Stages Box Properties          
@@ -140,8 +140,8 @@ namespace Pokemon_Shuffle_Save_Editor
             //Speedup values
             if (db.MegaList.IndexOf(ind) != -1) //temporary fix while there are still some mega forms missing in megastone.bin
             {
-                NUP_SpeedUpX.Maximum = db.HasMega[db.Mons[ind].Item1][0] ? db.Megas[db.MegaList.IndexOf(ind)].Item2 : 0;
-                NUP_SpeedUpY.Maximum = db.HasMega[db.Mons[ind].Item1][1] ? db.Megas[db.MegaList.IndexOf(ind, db.MegaList.IndexOf(ind) + 1)].Item2 : 0;
+                NUP_SpeedUpX.Maximum = db.HasMega[ind][0] ? db.Megas[db.MegaList.IndexOf(ind)].Item2 : 0;
+                NUP_SpeedUpY.Maximum = db.HasMega[ind][1] ? db.Megas[db.MegaList.IndexOf(ind, db.MegaList.IndexOf(ind) + 1)].Item2 : 0;
                 NUP_SpeedUpX.Value = GetMon(ind).SpeedUpX;
                 NUP_SpeedUpY.Value = GetMon(ind).SpeedUpY;
             }
@@ -155,17 +155,17 @@ namespace Pokemon_Shuffle_Save_Editor
             L_Level.Visible = NUP_Level.Visible = PB_Skill.Visible = NUP_Skill.Visible = CHK_CaughtMon.Checked;
             PB_Lollipop.Visible = NUP_Lollipop.Visible = (CHK_CaughtMon.Checked && NUP_Lollipop.Maximum != 0);
             PB_Mon.Image = GetCaughtImage(ind, CHK_CaughtMon.Checked);
-            PB_MegaX.Visible = CHK_MegaX.Visible = db.HasMega[db.Mons[ind].Item1][0];
-            PB_MegaY.Visible = CHK_MegaY.Visible = db.HasMega[db.Mons[ind].Item1][1];
-            PB_MegaX.Image = db.HasMega[db.Mons[ind].Item1][0] ? new Bitmap((Image)Properties.Resources.ResourceManager.GetObject("MegaStone" + db.Mons[ind].Item1.ToString("000") + (db.HasMega[db.Mons[ind].Item1][1] ? "_X" : string.Empty))) : new Bitmap(16, 16);
-            PB_MegaY.Image = db.HasMega[db.Mons[ind].Item1][1] ? new Bitmap((Image)Properties.Resources.ResourceManager.GetObject("MegaStone" + db.Mons[ind].Item1.ToString("000") + "_Y")) : new Bitmap(16, 16);
+            PB_MegaX.Visible = CHK_MegaX.Visible = db.HasMega[ind][0];
+            PB_MegaY.Visible = CHK_MegaY.Visible = db.HasMega[ind][1];
+            PB_MegaX.Image = db.HasMega[ind][0] ? new Bitmap((Image)Properties.Resources.ResourceManager.GetObject("MegaStone" + db.Mons[ind].Item1.ToString("000") + (db.HasMega[ind][1] ? "_X" : string.Empty))) : new Bitmap(16, 16);
+            PB_MegaY.Image = db.HasMega[ind][1] ? new Bitmap((Image)Properties.Resources.ResourceManager.GetObject("MegaStone" + db.Mons[ind].Item1.ToString("000") + "_Y")) : new Bitmap(16, 16);
             int mega_ofs = 0x406 + (ind + 2) / 4;
             CHK_MegaX.Checked = ((BitConverter.ToUInt16(savedata, mega_ofs) >> (5 + (ind << 1)) % 8) & 1) == 1;
             CHK_MegaY.Checked = (((BitConverter.ToUInt16(savedata, mega_ofs) >> (5 + (ind << 1)) % 8) >> 1) & 1) == 1;
             NUP_SpeedUpX.Visible = PB_SpeedUpX.Visible = CHK_CaughtMon.Checked && CHK_MegaX.Visible && CHK_MegaX.Checked;
             NUP_SpeedUpY.Visible = PB_SpeedUpY.Visible = CHK_CaughtMon.Checked && CHK_MegaY.Visible && CHK_MegaY.Checked; //Else NUP_SpeedUpY appears if the next mega in terms of offsets has been obtained
-            PB_SpeedUpX.Image = db.HasMega[db.Mons[ind].Item1][0] ? new Bitmap(ResizeImage((Image)Properties.Resources.ResourceManager.GetObject("mega_speedup"), 24, 24)) : new Bitmap(16, 16);
-            PB_SpeedUpY.Image = db.HasMega[db.Mons[ind].Item1][1] ? new Bitmap(ResizeImage((Image)Properties.Resources.ResourceManager.GetObject("mega_speedup"), 24, 24)) : new Bitmap(16, 16);
+            PB_SpeedUpX.Image = db.HasMega[ind][0] ? new Bitmap(ResizeImage((Image)Properties.Resources.ResourceManager.GetObject("mega_speedup"), 24, 24)) : new Bitmap(16, 16);
+            PB_SpeedUpY.Image = db.HasMega[ind][1] ? new Bitmap(ResizeImage((Image)Properties.Resources.ResourceManager.GetObject("mega_speedup"), 24, 24)) : new Bitmap(16, 16);
             #endregion
         }
 

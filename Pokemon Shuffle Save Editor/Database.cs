@@ -94,8 +94,8 @@ namespace Pokemon_Shuffle_Save_Editor
             for (int i = 0; i < Megas.Length; i++)
                 MegaList.Add(Megas[i].Item1);   
             Forms = new int[SpeciesList.Length];
-            HasMega = new bool[SpeciesList.Length][];
-            for (int i = 0; i < SpeciesList.Length; i++)
+            HasMega = new bool[MonsList.Length][];
+            for (int i = 0; i < MonsList.Length; i++)
                 HasMega[i] = new bool[2];
             Mons = new Tuple<int, int, bool, int, int, int, int, Tuple<int>>[BitConverter.ToUInt32(MonData, 0)];
             Rest = new Tuple<int>[BitConverter.ToUInt32(MonData, 0)];
@@ -116,7 +116,7 @@ namespace Pokemon_Shuffle_Save_Editor
                 Forms[spec]++;
             }
             for (int i = 0; i < Megas.Length; i++)
-                HasMega[Mons[BitConverter.ToUInt16(MegaStone, 0x54 + i * 4) & 0x3FF].Item1][(MegaStone[0x54 + (i * 4) + 1] >> 3) & 1] = true;
+                HasMega[BitConverter.ToUInt16(MegaStone, 0x54 + i * 4) & 0x3FF][(MegaStone[0x54 + (i * 4) + 1] >> 3) & 1] = true;
         }        
     }    
 }

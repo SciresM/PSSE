@@ -25,8 +25,8 @@ namespace Pokemon_Shuffle_Save_Editor
             int rml = Math.Min((BitConverter.ToUInt16(savedata, Lollipop.Ofset(ind)) >> Lollipop.Shift(ind)) & 0x3F, 5); //hardcoded 5 as a maximum
             int exp = (BitConverter.ToInt32(savedata, Experience.Ofset(ind)) >> Experience.Shift(ind)) & 0xFFFFFF;
             short stone = (short)((savedata[Mega.Ofset(ind)] >> Mega.Shift(ind)) & 3);  //0 = 00, 1 = X0, 2 = 0Y, 3 = XY
-            short speedUpX = (short)(db.HasMega[db.Mons[ind].Item1][0] ? (BitConverter.ToInt16(savedata, SpeedUpX.Ofset(ind)) >> SpeedUpX.Shift(ind)) & 0x7F : 0);
-            short speedUpY = (short)(db.HasMega[db.Mons[ind].Item1][1] ? (BitConverter.ToInt32(savedata, SpeedUpY.Ofset(ind)) >> SpeedUpY.Shift(ind)) & 0x7F : 0);
+            short speedUpX = (short)(db.HasMega[ind][0] ? (BitConverter.ToInt16(savedata, SpeedUpX.Ofset(ind)) >> SpeedUpX.Shift(ind)) & 0x7F : 0);
+            short speedUpY = (short)(db.HasMega[ind][1] ? (BitConverter.ToInt32(savedata, SpeedUpY.Ofset(ind)) >> SpeedUpY.Shift(ind)) & 0x7F : 0);
             short skillLvl = (short)((BitConverter.ToInt16(savedata, SkillLevel.Ofset(ind)) >> SkillLevel.Shift(ind)) & 0x7);
             skillLvl = (skillLvl < 2) ? (short)1 : skillLvl;
             short skillExp = savedata[SkillExp.Ofset(ind)];
@@ -71,15 +71,15 @@ namespace Pokemon_Shuffle_Save_Editor
 
         public static void SetSpeedup(int ind, bool X = false, int suX = 0, bool Y = false, int suY = 0)
         {
-            if (db.HasMega[db.Mons[ind].Item1][0] || db.HasMega[db.Mons[ind].Item1][1])
+            if (db.HasMega[ind][0] || db.HasMega[ind][1])
             {
                 int speedUp_Val = BitConverter.ToInt32(savedata, SpeedUpX.Ofset(ind));
-                if (db.HasMega[db.Mons[ind].Item1][0])
+                if (db.HasMega[ind][0])
                 {
                     speedUp_Val &= ~(0x7F << SpeedUpX.Shift(ind));
                     speedUp_Val |= (X ? suX : 0) << SpeedUpX.Shift(ind);
                 }
-                if (db.HasMega[db.Mons[ind].Item1][1])
+                if (db.HasMega[ind][1])
                 {   //Y shifts are relative to X ofsets.
                     speedUp_Val &= ~(0x7F << ((SpeedUpY.Ofset(ind) - SpeedUpX.Ofset(ind)) * 8 + SpeedUpY.Shift(ind)));
                     speedUp_Val |= (Y ? suY : 0) << ((SpeedUpY.Ofset(ind) - SpeedUpX.Ofset(ind)) * 8 + SpeedUpY.Shift(ind));
