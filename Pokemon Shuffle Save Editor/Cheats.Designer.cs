@@ -44,7 +44,6 @@
             this.Line = new System.Windows.Forms.Label();
             this.B_PokemonReset = new System.Windows.Forms.Button();
             this.B_StageReset = new System.Windows.Forms.Button();
-            this.B_ResourcesReset = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.B_MaxTalent = new System.Windows.Forms.Button();
             this.B_Test = new System.Windows.Forms.Button();
@@ -53,10 +52,10 @@
             // 
             // B_CaughtEverything
             // 
-            this.B_CaughtEverything.Location = new System.Drawing.Point(196, 128);
+            this.B_CaughtEverything.Location = new System.Drawing.Point(196, 200);
             this.B_CaughtEverything.Name = "B_CaughtEverything";
             this.B_CaughtEverything.Size = new System.Drawing.Size(65, 23);
-            this.B_CaughtEverything.TabIndex = 100;
+            this.B_CaughtEverything.TabIndex = 101;
             this.B_CaughtEverything.Text = "Caught All Pokemon";
             this.toolTip1.SetToolTip(this.B_CaughtEverything, "Marks all pokemon in the game\'s database as caught. \r\n\r\nResearchers only.");
             this.B_CaughtEverything.UseVisualStyleBackColor = true;
@@ -91,7 +90,7 @@
             this.B_MaxResources.Name = "B_MaxResources";
             this.B_MaxResources.Size = new System.Drawing.Size(138, 23);
             this.B_MaxResources.TabIndex = 7;
-            this.B_MaxResources.Text = "Maximum Resources";
+            this.B_MaxResources.Text = "(Maximum) Resources";
             this.toolTip1.SetToolTip(this.B_MaxResources, "Will give you 99 stock hearts, 99.999 coins, 150 jewels, 99 of all \"in-battle\" it" +
         "ems\r\n& 99 of all \"enhancements\" items.");
             this.B_MaxResources.UseVisualStyleBackColor = true;
@@ -99,10 +98,10 @@
             // 
             // B_AllStones
             // 
-            this.B_AllStones.Location = new System.Drawing.Point(156, 128);
+            this.B_AllStones.Location = new System.Drawing.Point(156, 200);
             this.B_AllStones.Name = "B_AllStones";
             this.B_AllStones.Size = new System.Drawing.Size(65, 23);
-            this.B_AllStones.TabIndex = 101;
+            this.B_AllStones.TabIndex = 100;
             this.B_AllStones.Text = "All Stones";
             this.toolTip1.SetToolTip(this.B_AllStones, "Gives you all megastones currently in the game\'s database.\r\n\r\nFor research only.");
             this.B_AllStones.UseVisualStyleBackColor = true;
@@ -115,7 +114,7 @@
             this.B_AllCaughtStones.Name = "B_AllCaughtStones";
             this.B_AllCaughtStones.Size = new System.Drawing.Size(138, 23);
             this.B_AllCaughtStones.TabIndex = 3;
-            this.B_AllCaughtStones.Text = "All Caught Megastones";
+            this.B_AllCaughtStones.Text = "(All Caught) Megastones";
             this.toolTip1.SetToolTip(this.B_AllCaughtStones, resources.GetString("B_AllCaughtStones.ToolTip"));
             this.B_AllCaughtStones.UseVisualStyleBackColor = true;
             this.B_AllCaughtStones.Click += new System.EventHandler(this.B_AllCaughtStones_Click);
@@ -155,7 +154,7 @@
             // 
             // B_StreetPassDelete
             // 
-            this.B_StreetPassDelete.Location = new System.Drawing.Point(156, 200);
+            this.B_StreetPassDelete.Location = new System.Drawing.Point(12, 200);
             this.B_StreetPassDelete.Name = "B_StreetPassDelete";
             this.B_StreetPassDelete.Size = new System.Drawing.Size(138, 23);
             this.B_StreetPassDelete.TabIndex = 53;
@@ -185,7 +184,7 @@
             this.Line.MinimumSize = new System.Drawing.Size(20, 2);
             this.Line.Name = "Line";
             this.Line.Size = new System.Drawing.Size(288, 2);
-            this.Line.TabIndex = 100;
+            this.Line.TabIndex = 50;
             // 
             // B_PokemonReset
             // 
@@ -211,17 +210,6 @@
             this.B_StageReset.UseVisualStyleBackColor = true;
             this.B_StageReset.Click += new System.EventHandler(this.B_StageReset_Click);
             // 
-            // B_ResourcesReset
-            // 
-            this.B_ResourcesReset.Location = new System.Drawing.Point(12, 200);
-            this.B_ResourcesReset.Name = "B_ResourcesReset";
-            this.B_ResourcesReset.Size = new System.Drawing.Size(138, 23);
-            this.B_ResourcesReset.TabIndex = 52;
-            this.B_ResourcesReset.Text = "Reset Resources";
-            this.toolTip1.SetToolTip(this.B_ResourcesReset, "Sets stock hearts, coins, jewels and every item to 0.");
-            this.B_ResourcesReset.UseVisualStyleBackColor = true;
-            this.B_ResourcesReset.Click += new System.EventHandler(this.B_ResourcesReset_Click);
-            // 
             // toolTip1
             // 
             this.toolTip1.IsBalloon = true;
@@ -243,7 +231,7 @@
             // 
             // B_Test
             // 
-            this.B_Test.Location = new System.Drawing.Point(235, 128);
+            this.B_Test.Location = new System.Drawing.Point(235, 200);
             this.B_Test.Name = "B_Test";
             this.B_Test.Size = new System.Drawing.Size(65, 23);
             this.B_Test.TabIndex = 102;
@@ -251,15 +239,16 @@
             this.toolTip1.SetToolTip(this.B_Test, "Used w/ B_Test_Click event to search for the \"skill+ drop\" flags in stagedata(s)." +
         "bin");
             this.B_Test.UseVisualStyleBackColor = true;
+            this.B_Test.Visible = false;
             this.B_Test.Click += new System.EventHandler(this.B_Test_Click);
             // 
             // B_PokathlonStep
             // 
-            this.B_PokathlonStep.Location = new System.Drawing.Point(156, 142);
+            this.B_PokathlonStep.Location = new System.Drawing.Point(156, 128);
             this.B_PokathlonStep.Name = "B_PokathlonStep";
-            this.B_PokathlonStep.Size = new System.Drawing.Size(65, 23);
-            this.B_PokathlonStep.TabIndex = 103;
-            this.B_PokathlonStep.Text = "Pokathlon";
+            this.B_PokathlonStep.Size = new System.Drawing.Size(138, 23);
+            this.B_PokathlonStep.TabIndex = 9;
+            this.B_PokathlonStep.Text = "Edit Pokathlon (50th) ";
             this.toolTip1.SetToolTip(this.B_PokathlonStep, resources.GetString("B_PokathlonStep.ToolTip"));
             this.B_PokathlonStep.UseVisualStyleBackColor = true;
             this.B_PokathlonStep.Click += new System.EventHandler(this.B_PokathlonStep_Click);
@@ -275,7 +264,6 @@
             this.Controls.Add(this.B_AllStones);
             this.Controls.Add(this.B_MaxTalent);
             this.Controls.Add(this.Line);
-            this.Controls.Add(this.B_ResourcesReset);
             this.Controls.Add(this.B_StageReset);
             this.Controls.Add(this.B_PokemonReset);
             this.Controls.Add(this.B_MaxExcalationBattle);
@@ -318,7 +306,6 @@
         private System.Windows.Forms.Label Line;
         private System.Windows.Forms.Button B_PokemonReset;
         private System.Windows.Forms.Button B_StageReset;
-        private System.Windows.Forms.Button B_ResourcesReset;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Button B_MaxTalent;
         private System.Windows.Forms.Button B_Test;

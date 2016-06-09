@@ -330,11 +330,12 @@ namespace Pokemon_Shuffle_Save_Editor
 
         private void B_PokathlonStep_Click(object sender, EventArgs e)
         {
-            int step = 0x32, moves = 99, opponent = BitConverter.ToInt16(savedata, 0xB762) >> 6;    //default values
+            int step = 0x32, moves = 99, opponent = 150;    //default values
+            bool enabled = true; //default values
             string str;
             if (ModifierKeys == Keys.Control)
             {
-                using (var form = new Pokathlon_Popup(opponent, (savedata[0xB768] & 0x7F), savedata[0xB760]))
+                using (var form = new Pokathlon_Popup(BitConverter.ToInt16(savedata, 0xB762) >> 6, (savedata[0xB768] & 0x7F), savedata[0xB760]))
                 {
                     form.ShowDialog();
                     if (form.DialogResult == DialogResult.OK)
@@ -342,6 +343,7 @@ namespace Pokemon_Shuffle_Save_Editor
                         step = form.retStep;
                         moves = form.retMoves;
                         opponent = form.retOpponent;
+                        enabled = form.retEnabled;
                     }
                     else return;
                 }
@@ -361,10 +363,12 @@ namespace Pokemon_Shuffle_Save_Editor
                     str = "th";
                     break;
             }
+            Array.Copy(BitConverter.GetBytes((BitConverter.ToInt16(savedata, 0xB768) & ~(0x3 << 7)) | ((enabled ? 3 : 0) << 7)), 0, savedata, 0xB768, 2);
             savedata[0xB760] = (byte)step;
             Array.Copy(BitConverter.GetBytes((BitConverter.ToInt16(savedata, 0xB768) & ~(0x7F)) | moves), 0, savedata, 0xB768, 2);
+            Array.Copy(BitConverter.GetBytes((BitConverter.ToInt16(savedata, 0xB762) & ~(0x3FF << 6)) | (opponent << 6)), 0, savedata, 0xB762, 2);
             string name = db.MonsList[BitConverter.ToInt16(db.StagesMain, 0x50 + BitConverter.ToInt32(db.StagesMain, 0x4) * opponent) & 0x3FF];
-            MessageBox.Show("You'll face survival mode's " + step + str +" step.\nNext opponent is " + name + " and you have " + (savedata[0xB768] & 0x7F) + " moves left.");
+            MessageBox.Show((!enabled ? "Survival Mode is disabled.\nYou should have faced" : "You'll face") + " survival mode's " + step + str +" step against " + name + " with " + (savedata[0xB768] & 0x7F) + " moves left.");
         }
     }
 }

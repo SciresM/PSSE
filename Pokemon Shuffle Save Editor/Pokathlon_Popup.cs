@@ -13,6 +13,13 @@ namespace Pokemon_Shuffle_Save_Editor
 {
     public partial class Pokathlon_Popup : Form
     {
+        public bool retEnabled
+        {
+            get
+            {
+                return CHK_Paused.Checked;
+            }
+        }
         public int retStep
         {
             get
@@ -35,7 +42,7 @@ namespace Pokemon_Shuffle_Save_Editor
             }
         }
 
-        public Pokathlon_Popup(int oValue, int mValue, int sValue, int oMin = 1, int mMin = 0, int sMin = 0, int oMax = 150, int mMax = 99, int sMax = 50)
+        public Pokathlon_Popup(int oValue, int mValue, int sValue, int oMin = 1, int mMin = 0, int sMin = 0, int oMax = 400, int mMax = 99, int sMax = 50)
         {
             InitializeComponent();
             int j = 0;
@@ -47,7 +54,8 @@ namespace Pokemon_Shuffle_Save_Editor
                 nup.Value = list[j];
                 j++;
             }
-            PB_Opponent.Image = ResizeImage(GetMonImage(BitConverter.ToInt16(db.StagesMain, 0x50 + BitConverter.ToInt32(db.StagesMain, 0x4) * (int)NUP_Opponent.Value) & 0x3FF), 48, 48);
+            UpdateForm();
+            CHK_Paused.Checked = (((BitConverter.ToInt16(savedata, 0xB768) >> 7) & 3) == 3);
         }
 
         protected override bool ProcessDialogKey(Keys keyData)  //Allows quit when Esc is pressed
@@ -60,7 +68,12 @@ namespace Pokemon_Shuffle_Save_Editor
             return base.ProcessDialogKey(keyData);
         }
 
-        private void NUP_ValueChanged(object sender, EventArgs e)
+        private void ValueChanged(object sender, EventArgs e)
+        {
+            UpdateForm();
+        }
+
+        private void UpdateForm()
         {
             B_Random.Visible = ((int)NUP_Step.Value > 0);
             PB_Opponent.Image = ResizeImage(GetMonImage(BitConverter.ToInt16(db.StagesMain, 0x50 + BitConverter.ToInt32(db.StagesMain, 0x4) * (int)NUP_Opponent.Value) & 0x3FF), 48, 48);
@@ -77,13 +90,13 @@ namespace Pokemon_Shuffle_Save_Editor
             int min, max;
             if (ModifierKeys == Keys.Control)
             {
-                min = (int)NUP_Opponent.Minimum;
-                max = (int)NUP_Opponent.Maximum;
+                min = db.PokathlonRand[(int)NUP_Step.Value - 1][0];
+                max = db.PokathlonRand[(int)NUP_Step.Value - 1][1] + 1; //Random() never equals its max value, hence max +1
             }
             else
             {
-                min = db.PokathlonRand[(int)NUP_Step.Value - 1][0];
-                max = db.PokathlonRand[(int)NUP_Step.Value - 1][1] + 1; //Random() never equals its max value, hence max +1
+                min = (int)NUP_Opponent.Minimum;
+                max = (int)NUP_Opponent.Maximum;
             }
             NUP_Opponent.Value = new Random().Next(min, max);
         }

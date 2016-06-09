@@ -120,9 +120,6 @@
   <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
-  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
   <data name="B_LevelMax.ToolTip" xml:space="preserve">
     <value>Sets everyone of your caught pokemon to their maximum level, and
 gives them the corresponding amount of experience &amp; lollipops.
@@ -186,18 +183,13 @@ than one active at the same time, only one should be affected.</value>
 or reset stages too.</value>
   </data>
   <data name="B_PokathlonStep.ToolTip" xml:space="preserve">
-    <value>Sets the next Survival mode step you'll face to be the 50th one.
-
-Ctrl + Click to select the step you wish to face.
+    <value>Sets your next Survival mode battle to be the 50th one, against
+Mega Mewtwo Y and with 99 moves left.
 
 /!\ It'll only works on saves exported after choosing to "Pause" the game
 during Survival mode (does nothing if not).
 
-/!\ Your next opponent is also stored in your savefile, so choosing a step
-which has a fixed opponent (such as 50th Mewtwo) will make you face
-your stored opponent instead of the fixed one, likely allowing you an
-easier win.
-Choose the previous step instead if you want to face the harder opponent.</value>
+Ctrl + Click to select whichever step, opponent and moves you wish.</value>
   </data>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>143</value>

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.L_Step = new System.Windows.Forms.Label();
             this.NUP_Step = new System.Windows.Forms.NumericUpDown();
             this.NUP_Moves = new System.Windows.Forms.NumericUpDown();
@@ -37,6 +38,8 @@
             this.NUP_Opponent = new System.Windows.Forms.NumericUpDown();
             this.B_OK = new System.Windows.Forms.Button();
             this.B_Random = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.CHK_Paused = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.NUP_Step)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUP_Moves)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PB_Opponent)).BeginInit();
@@ -73,7 +76,7 @@
             0,
             0,
             0});
-            this.NUP_Step.ValueChanged += new System.EventHandler(this.NUP_ValueChanged);
+            this.NUP_Step.ValueChanged += new System.EventHandler(this.ValueChanged);
             // 
             // NUP_Moves
             // 
@@ -96,7 +99,7 @@
             0,
             0,
             0});
-            this.NUP_Moves.ValueChanged += new System.EventHandler(this.NUP_ValueChanged);
+            this.NUP_Moves.ValueChanged += new System.EventHandler(this.ValueChanged);
             // 
             // L_Moves
             // 
@@ -145,12 +148,12 @@
             0,
             0,
             0});
-            this.NUP_Opponent.ValueChanged += new System.EventHandler(this.NUP_ValueChanged);
+            this.NUP_Opponent.ValueChanged += new System.EventHandler(this.ValueChanged);
             // 
             // B_OK
             // 
             this.B_OK.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.B_OK.Location = new System.Drawing.Point(46, 132);
+            this.B_OK.Location = new System.Drawing.Point(88, 132);
             this.B_OK.Name = "B_OK";
             this.B_OK.Size = new System.Drawing.Size(75, 23);
             this.B_OK.TabIndex = 62;
@@ -165,8 +168,27 @@
             this.B_Random.Size = new System.Drawing.Size(59, 23);
             this.B_Random.TabIndex = 63;
             this.B_Random.Text = "Random";
+            this.toolTip1.SetToolTip(this.B_Random, "Click to get a random opponent among the legit ones for that step.\r\n\r\nCtrl + Clic" +
+        "k to get a random opponent among the first 150 main stages.");
             this.B_Random.UseVisualStyleBackColor = true;
             this.B_Random.Click += new System.EventHandler(this.B_Random_Click);
+            // 
+            // toolTip1
+            // 
+            this.toolTip1.IsBalloon = true;
+            this.toolTip1.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.toolTip1.ToolTipTitle = "Button description";
+            // 
+            // CHK_Paused
+            // 
+            this.CHK_Paused.AutoSize = true;
+            this.CHK_Paused.Location = new System.Drawing.Point(15, 136);
+            this.CHK_Paused.Name = "CHK_Paused";
+            this.CHK_Paused.Size = new System.Drawing.Size(65, 17);
+            this.CHK_Paused.TabIndex = 64;
+            this.CHK_Paused.Text = "Enabled";
+            this.CHK_Paused.UseVisualStyleBackColor = true;
+            this.CHK_Paused.CheckedChanged += new System.EventHandler(this.ValueChanged);
             // 
             // Pokathlon_Popup
             // 
@@ -174,6 +196,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(181, 167);
+            this.Controls.Add(this.CHK_Paused);
             this.Controls.Add(this.B_Random);
             this.Controls.Add(this.B_OK);
             this.Controls.Add(this.NUP_Opponent);
@@ -212,5 +235,7 @@
         private System.Windows.Forms.NumericUpDown NUP_Opponent;
         private System.Windows.Forms.Button B_OK;
         private System.Windows.Forms.Button B_Random;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.CheckBox CHK_Paused;
     }
 }
