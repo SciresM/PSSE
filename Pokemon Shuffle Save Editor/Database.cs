@@ -19,6 +19,7 @@ namespace Pokemon_Shuffle_Save_Editor
 
         public string[] SpeciesList { get; private set; }
         public string[] MonsList { get; private set; }
+        public string[] PokathlonList { get; private set; }
         public int MegaStartIndex { get; private set; } // Indexes of first mega & second "---", respectively,...
         public int MonStopIndex { get; private set; }   //...should allow PSSE to work longer without needing an update. 
 
@@ -28,6 +29,8 @@ namespace Pokemon_Shuffle_Save_Editor
         public bool[][] HasMega { get; private set; }   // [X][0] = X, [X][1] = Y
         public Tuple<int, int, bool, int, int, int, int, Tuple<int>>[] Mons { get; private set; }   //specieIndex, formIndex, isMega, raiseMaxLevel, basePower, talent, type, Rest
         public Tuple<int>[] Rest { get; private set; }  //stageNum
+
+        public int[][] PokathlonRand { get; private set; }  // [step][0] = min, [step][1] = max
         #endregion
 
         public Database()
@@ -78,6 +81,7 @@ namespace Pokemon_Shuffle_Save_Editor
             }
             SpeciesList = Properties.Resources.species.Split(new[] { Environment.NewLine, "\n" }, StringSplitOptions.RemoveEmptyEntries);
             MonsList = Properties.Resources.mons.Split(new[] { Environment.NewLine, "\n" }, StringSplitOptions.RemoveEmptyEntries);
+            PokathlonList = Properties.Resources.pokathlon.Split(new[] { Environment.NewLine, "\n" }, StringSplitOptions.RemoveEmptyEntries);
 
             MegaStartIndex = MonsList.ToList().IndexOf("Mega Venusaur");
             MonStopIndex = MonsList.ToList().IndexOf("---", 1);
@@ -117,6 +121,13 @@ namespace Pokemon_Shuffle_Save_Editor
             }
             for (int i = 0; i < Megas.Length; i++)
                 HasMega[BitConverter.ToUInt16(MegaStone, 0x54 + i * 4) & 0x3FF][(MegaStone[0x54 + (i * 4) + 1] >> 3) & 1] = true;
+            PokathlonRand = new int[PokathlonList.Length / 2][];
+            for (int i = 0; i < PokathlonRand.Length; i++)
+            {
+                PokathlonRand[i] = new int[2];
+                Int32.TryParse(PokathlonList[2 * i], out PokathlonRand[i][0]);
+                Int32.TryParse(PokathlonList[1 + 2 * i], out PokathlonRand[i][1]);
+            }
         }        
     }    
 }

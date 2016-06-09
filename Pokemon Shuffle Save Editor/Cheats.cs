@@ -103,11 +103,13 @@ namespace Pokemon_Shuffle_Save_Editor
             {
                 using (var form = new NUP_Popup(0, 15, value, "max level"))
                 {
-                    if (form.ShowDialog() == DialogResult.OK)
+                    form.ShowDialog();
+                    if (form.DialogResult == DialogResult.OK)
                     {
                         value = form.retVal;
                         boool = true;
-                    }                        
+                    }
+                    else return;                 
                 }
             }
             for (int i = 0; i < db.MegaStartIndex; i++)
@@ -116,7 +118,7 @@ namespace Pokemon_Shuffle_Save_Editor
                     SetLevel(i, Math.Min(10 + db.Mons[i].Item4, value));
             }
             if (boool)
-                MessageBox.Show("Everything you've caught is now level " + value + " or below.");
+                MessageBox.Show("Everything you've caught is now level " + value + ((value > 10) ? " or below." : "."));
             else
                 MessageBox.Show("Everything you've caught is now level max.");
         }
@@ -128,8 +130,10 @@ namespace Pokemon_Shuffle_Save_Editor
             {
                 using (var form = new NUP_Popup(0, 999, value, "step"))
                 {
-                    if (form.ShowDialog() == DialogResult.OK)
+                    form.ShowDialog();
+                    if (form.DialogResult == DialogResult.OK)
                         value = form.retVal;
+                    else return;
                 }
             }
             SetExcalationStep(value);
@@ -138,14 +142,22 @@ namespace Pokemon_Shuffle_Save_Editor
 
         private void B_MaxResources_Click(object sender, EventArgs e)
         {
-            int[] items = new int[7];
-            for (int i = 0; i < 7; i++)
-                items[i] = 99;
-            int[] enhancements = new int[9];
-            for (int i = 0; i < 9; i++)
-                enhancements[i] = 99;
-            SetResources(99, 99999, 150, items, enhancements);
-            MessageBox.Show("Gave 99 hearts, 99999 coins, 150 jewels, and 99 of every item.");
+            if (ModifierKeys == Keys.Control)
+            {
+                SetResources();
+                MessageBox.Show("Deleted all stock hearts, coins, jewels and Items.");
+            }
+            else
+            {
+                int[] items = new int[7];
+                for (int i = 0; i < 7; i++)
+                    items[i] = 99;
+                int[] enhancements = new int[9];
+                for (int i = 0; i < 9; i++)
+                    enhancements[i] = 99;
+                SetResources(99, 99999, 150, items, enhancements);
+                MessageBox.Show("Gave 99 hearts, 99999 coins, 150 jewels, and 99 of every item.");
+            }            
         }
 
         private void B_MaxSpeedups_Click(object sender, EventArgs e)
@@ -156,11 +168,13 @@ namespace Pokemon_Shuffle_Save_Editor
             {
                 using (var form = new NUP_Popup(0, 127, value, "max speedUps"))
                 {
-                    if (form.ShowDialog() == DialogResult.OK)
+                    form.ShowDialog();
+                    if (form.DialogResult == DialogResult.OK)
                     {
                         value = form.retVal;
                         boool = true;
                     }
+                    else return;
                 }
             }
             for (int i = 0; i < db.MegaStartIndex; i++)
@@ -173,7 +187,7 @@ namespace Pokemon_Shuffle_Save_Editor
                 }
             }
             if (boool)
-                MessageBox.Show("All Owned Megas (for which you own the stone too) have been fed with " + value + " speedups or below.");
+                MessageBox.Show("All Owned Megas (for which you own the stone too) have been fed with " + value + " speedups" + ((value > 1) ? " or below." : "."));
             else
                 MessageBox.Show("All Owned Megas (for which you own the stone too) have been fed with as much Mega Speedups as possible.");
         }
@@ -185,8 +199,10 @@ namespace Pokemon_Shuffle_Save_Editor
             {
                 using (var form = new NUP_Popup(0, 5, value, "skill lvl"))
                 {
-                    if (form.ShowDialog() == DialogResult.OK)
+                    form.ShowDialog();
+                    if (form.DialogResult == DialogResult.OK)
                         value = form.retVal;
+                    else return;
                 }
             }
             for (int i = 0; i < db.MegaStartIndex; i++)
@@ -228,8 +244,10 @@ namespace Pokemon_Shuffle_Save_Editor
             {
                 using (var form = new NUP_Popup(0, 3, value, "rank"))
                 {
-                    if (form.ShowDialog() == DialogResult.OK)
+                    form.ShowDialog();
+                    if (form.DialogResult == DialogResult.OK)
                         value = form.retVal;
+                    else return;
                 }
             }
             foreach (byte[] stage in new byte[][] { db.StagesMain, db.StagesExpert })
@@ -260,8 +278,8 @@ namespace Pokemon_Shuffle_Save_Editor
                     str = "S";
                     break;
                 default:
-                    str = "null";
-                    break;
+                    MessageBox.Show("An error occured. Attempted to set rank to : " + value);
+                    return;
             }
             MessageBox.Show("All Completed Normal & Expert stages have been " + str + "-ranked.");
         }
@@ -290,7 +308,7 @@ namespace Pokemon_Shuffle_Save_Editor
             MessageBox.Show("StreetPass data have been cleared & StreetPass count reset to 0.");
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void B_Test_Click(object sender, EventArgs e)
         {   //don't bother, testing stuff
             int j = 0;
             foreach (byte[] stage in new byte[][] { db.StagesMain, db.StagesExpert, db.StagesEvent })
@@ -301,13 +319,52 @@ namespace Pokemon_Shuffle_Save_Editor
                 {
                     byte[] data = stage.Skip(0x50 + i * 0x5C).Take(0x5C).ToArray();
                     if (BitConverter.ToInt16(data, 0x43) != 0)
-                    {
+                    {   //returns 9319 (most skill+-droping stages), 9219 (uxie stage), 6106 (Eevee stage) or 0 (all other stages)
                         Console.WriteLine("{0:X}", BitConverter.ToInt16(data, 0x43));
                         Console.WriteLine(db.MonsList[BitConverter.ToInt16(data, 0) & 0x3FF]);
                     }
                 }
                 j++;
             }      
+        }
+
+        private void B_PokathlonStep_Click(object sender, EventArgs e)
+        {
+            int step = 0x32, moves = 99, opponent = BitConverter.ToInt16(savedata, 0xB762) >> 6;    //default values
+            string str;
+            if (ModifierKeys == Keys.Control)
+            {
+                using (var form = new Pokathlon_Popup(opponent, (savedata[0xB768] & 0x7F), savedata[0xB760]))
+                {
+                    form.ShowDialog();
+                    if (form.DialogResult == DialogResult.OK)
+                    {
+                        step = form.retStep;
+                        moves = form.retMoves;
+                        opponent = form.retOpponent;
+                    }
+                    else return;
+                }
+            }
+            switch (step % 10)
+            {
+                case 1:
+                    str = "st";
+                    break;
+                case 2:
+                    str = "nd";
+                    break;
+                case 3:
+                    str = "rd";
+                    break;
+                default:
+                    str = "th";
+                    break;
+            }
+            savedata[0xB760] = (byte)step;
+            Array.Copy(BitConverter.GetBytes((BitConverter.ToInt16(savedata, 0xB768) & ~(0x7F)) | moves), 0, savedata, 0xB768, 2);
+            string name = db.MonsList[BitConverter.ToInt16(db.StagesMain, 0x50 + BitConverter.ToInt32(db.StagesMain, 0x4) * opponent) & 0x3FF];
+            MessageBox.Show("You'll face survival mode's " + step + str +" step.\nNext opponent is " + name + " and you have " + (savedata[0xB768] & 0x7F) + " moves left.");
         }
     }
 }

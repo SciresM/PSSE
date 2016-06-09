@@ -47,7 +47,8 @@
             this.B_ResourcesReset = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.B_MaxTalent = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.B_Test = new System.Windows.Forms.Button();
+            this.B_PokathlonStep = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // B_CaughtEverything
@@ -79,7 +80,7 @@
             this.B_CaughtObtainables.Name = "B_CaughtObtainables";
             this.B_CaughtObtainables.Size = new System.Drawing.Size(138, 23);
             this.B_CaughtObtainables.TabIndex = 0;
-            this.B_CaughtObtainables.Text = "Caught All Obtainables";
+            this.B_CaughtObtainables.Text = "Catch All Obtainables";
             this.toolTip1.SetToolTip(this.B_CaughtObtainables, resources.GetString("B_CaughtObtainables.ToolTip"));
             this.B_CaughtObtainables.UseVisualStyleBackColor = true;
             this.B_CaughtObtainables.Click += new System.EventHandler(this.B_CaughtObtainables_Click);
@@ -154,7 +155,7 @@
             // 
             // B_StreetPassDelete
             // 
-            this.B_StreetPassDelete.Location = new System.Drawing.Point(162, 200);
+            this.B_StreetPassDelete.Location = new System.Drawing.Point(156, 200);
             this.B_StreetPassDelete.Name = "B_StreetPassDelete";
             this.B_StreetPassDelete.Size = new System.Drawing.Size(138, 23);
             this.B_StreetPassDelete.TabIndex = 53;
@@ -199,7 +200,7 @@
             // 
             // B_StageReset
             // 
-            this.B_StageReset.Location = new System.Drawing.Point(162, 171);
+            this.B_StageReset.Location = new System.Drawing.Point(156, 171);
             this.B_StageReset.Name = "B_StageReset";
             this.B_StageReset.Size = new System.Drawing.Size(138, 23);
             this.B_StageReset.TabIndex = 51;
@@ -240,25 +241,36 @@
             this.B_MaxTalent.UseVisualStyleBackColor = true;
             this.B_MaxTalent.Click += new System.EventHandler(this.B_MaxTalent_Click);
             // 
-            // button1
+            // B_Test
             // 
-            this.button1.Location = new System.Drawing.Point(235, 128);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(65, 23);
-            this.button1.TabIndex = 102;
-            this.button1.Text = "Test stuff";
-            this.toolTip1.SetToolTip(this.button1, "Used w/ button1_Click event to search for the \"skill+ drop\" flags in stagedata(s)" +
-        ".bin");
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Visible = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.B_Test.Location = new System.Drawing.Point(235, 128);
+            this.B_Test.Name = "B_Test";
+            this.B_Test.Size = new System.Drawing.Size(65, 23);
+            this.B_Test.TabIndex = 102;
+            this.B_Test.Text = "Test stuff";
+            this.toolTip1.SetToolTip(this.B_Test, "Used w/ B_Test_Click event to search for the \"skill+ drop\" flags in stagedata(s)." +
+        "bin");
+            this.B_Test.UseVisualStyleBackColor = true;
+            this.B_Test.Click += new System.EventHandler(this.B_Test_Click);
+            // 
+            // B_PokathlonStep
+            // 
+            this.B_PokathlonStep.Location = new System.Drawing.Point(156, 142);
+            this.B_PokathlonStep.Name = "B_PokathlonStep";
+            this.B_PokathlonStep.Size = new System.Drawing.Size(65, 23);
+            this.B_PokathlonStep.TabIndex = 103;
+            this.B_PokathlonStep.Text = "Pokathlon";
+            this.toolTip1.SetToolTip(this.B_PokathlonStep, resources.GetString("B_PokathlonStep.ToolTip"));
+            this.B_PokathlonStep.UseVisualStyleBackColor = true;
+            this.B_PokathlonStep.Click += new System.EventHandler(this.B_PokathlonStep_Click);
             // 
             // Cheats
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(312, 235);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.B_PokathlonStep);
+            this.Controls.Add(this.B_Test);
             this.Controls.Add(this.B_CaughtEverything);
             this.Controls.Add(this.B_AllStones);
             this.Controls.Add(this.B_MaxTalent);
@@ -309,6 +321,7 @@
         private System.Windows.Forms.Button B_ResourcesReset;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Button B_MaxTalent;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button B_Test;
+        private System.Windows.Forms.Button B_PokathlonStep;
     }
 }

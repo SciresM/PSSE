@@ -1734,6 +1734,114 @@ namespace Pokemon_Shuffle_Save_Editor.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 1
+        ///5
+        ///6
+        ///9
+        ///10
+        ///10
+        ///11
+        ///19
+        ///11
+        ///19
+        ///20
+        ///20
+        ///22
+        ///44
+        ///22
+        ///44
+        ///22
+        ///44
+        ///30
+        ///30
+        ///45
+        ///45
+        ///31
+        ///74
+        ///31
+        ///74
+        ///31
+        ///74
+        ///103
+        ///103
+        ///31
+        ///74
+        ///90
+        ///90
+        ///76
+        ///89
+        ///76
+        ///89
+        ///75
+        ///75
+        ///1
+        ///74
+        ///1
+        ///74
+        ///46
+        ///74
+        ///46
+        ///74
+        ///46
+        ///74
+        ///46
+        ///74
+        ///60
+        ///60
+        ///90
+        ///119
+        ///90
+        ///119
+        ///120
+        ///120
+        ///1
+        ///104
+        ///76
+        ///104
+        ///76
+        ///104
+        ///129
+        ///131
+        ///129
+        ///131
+        ///129
+        ///131
+        ///1
+        ///119
+        ///76
+        ///119
+        ///76
+        ///119
+        ///105
+        ///105
+        ///1
+        ///134
+        ///121
+        ///134
+        ///121
+        ///134
+        ///121
+        ///134
+        ///135
+        ///135
+        ///1
+        ///148
+        ///136
+        ///148
+        ///136
+        ///148
+        ///136
+        ///148
+        ///150
+        ///150.
+        /// </summary>
+        internal static string pokathlon {
+            get {
+                return ResourceManager.GetString("pokathlon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap pokemon_000 {
@@ -11194,7 +11302,8 @@ namespace Pokemon_Shuffle_Save_Editor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bulbasaur
+        ///   Looks up a localized string similar to ---
+        ///Bulbasaur
         ///Ivysaur
         ///Venusaur
         ///Charmander
@@ -11253,7 +11362,7 @@ namespace Pokemon_Shuffle_Save_Editor.Properties {
         ///Primeape
         ///Growlithe
         ///Arcanine
-        ///Poliwag [rest of string was truncated]&quot;;.
+        ///Pol [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string species {
             get {

@@ -97,6 +97,7 @@
             this.Name = "NUP_Popup";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Custom value requested";
             ((System.ComponentModel.ISupportInitialize)(this.NUP_Value)).EndInit();
             this.ResumeLayout(false);
