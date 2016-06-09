@@ -249,7 +249,9 @@
             this.B_PokathlonStep.Size = new System.Drawing.Size(138, 23);
             this.B_PokathlonStep.TabIndex = 9;
             this.B_PokathlonStep.Text = "Edit Pokathlon (50th) ";
-            this.toolTip1.SetToolTip(this.B_PokathlonStep, resources.GetString("B_PokathlonStep.ToolTip"));
+            this.toolTip1.SetToolTip(this.B_PokathlonStep, "Sets your next Survival mode battle to be the 50th one, against\r\nMega Mewtwo Y an" +
+        "d with 99 moves left.\r\n\r\nCtrl + Click to select whichever step, opponent and mov" +
+        "es you wish.");
             this.B_PokathlonStep.UseVisualStyleBackColor = true;
             this.B_PokathlonStep.Click += new System.EventHandler(this.B_PokathlonStep_Click);
             // 

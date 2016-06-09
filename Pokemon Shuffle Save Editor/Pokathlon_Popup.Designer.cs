@@ -143,6 +143,7 @@
             this.NUP_Opponent.Name = "NUP_Opponent";
             this.NUP_Opponent.Size = new System.Drawing.Size(59, 20);
             this.NUP_Opponent.TabIndex = 61;
+            this.toolTip1.SetToolTip(this.NUP_Opponent, "The numbers are the stage numbers of all Main stages.");
             this.NUP_Opponent.Value = new decimal(new int[] {
             1,
             0,
@@ -187,6 +188,8 @@
             this.CHK_Paused.Size = new System.Drawing.Size(65, 17);
             this.CHK_Paused.TabIndex = 64;
             this.CHK_Paused.Text = "Enabled";
+            this.toolTip1.SetToolTip(this.CHK_Paused, "If this is checked, the game will allow you to resume\r\na¨Pokathlon session on nex" +
+        "t launch.");
             this.CHK_Paused.UseVisualStyleBackColor = true;
             this.CHK_Paused.CheckedChanged += new System.EventHandler(this.ValueChanged);
             // 
@@ -214,7 +217,7 @@
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Pokathlon_Popup";
+            this.Text = "Pokathlon Editor";
             ((System.ComponentModel.ISupportInitialize)(this.NUP_Step)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUP_Moves)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PB_Opponent)).EndInit();

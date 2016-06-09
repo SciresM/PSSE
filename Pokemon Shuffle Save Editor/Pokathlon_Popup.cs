@@ -90,13 +90,13 @@ namespace Pokemon_Shuffle_Save_Editor
             int min, max;
             if (ModifierKeys == Keys.Control)
             {
-                min = db.PokathlonRand[(int)NUP_Step.Value - 1][0];
-                max = db.PokathlonRand[(int)NUP_Step.Value - 1][1] + 1; //Random() never equals its max value, hence max +1
+                min = (int)NUP_Opponent.Minimum;
+                max = (int)NUP_Opponent.Maximum;
             }
             else
             {
-                min = (int)NUP_Opponent.Minimum;
-                max = (int)NUP_Opponent.Maximum;
+                min = db.PokathlonRand[(int)NUP_Step.Value - 1][0];
+                max = db.PokathlonRand[(int)NUP_Step.Value - 1][1] + 1; //Random() never equals its max value, hence max +1
             }
             NUP_Opponent.Value = new Random().Next(min, max);
         }
