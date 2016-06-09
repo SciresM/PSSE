@@ -12,6 +12,20 @@ namespace Pokemon_Shuffle_Save_Editor
 {
     public static class ToolFunctions
     {
+
+        public static int GetTeam(int slot)
+        {
+            return (BitConverter.ToInt32(savedata, TeamData.Ofset(slot)) >> TeamData.Shift(slot)) & 0xFFF;
+        }
+
+        public static void SetTeam(int slot, int ind)
+        {
+            int data = BitConverter.ToInt32(savedata, TeamData.Ofset(slot));
+            data = (data & ~(0xFFF << TeamData.Shift(slot))) | (ind << TeamData.Shift(slot));
+            Array.Copy(BitConverter.GetBytes(data), 0, savedata, TeamData.Ofset(slot), 4);
+            ltir = 0;
+        }
+
         public static monItem GetMon(int ind)
         {
             bool caught = true;
@@ -232,6 +246,11 @@ namespace Pokemon_Shuffle_Save_Editor
             return bmp;
         }
 
+        public static Bitmap GetTeamImage(int ind, bool opacity = false, int w = 48, int h = 48)
+        {
+            return ResizeImage(ChangeOpacity(GetMonImage(ind), (float)(opacity ? 0.75 : 1)), w, h);
+        }
+
         public static Bitmap GetBlackImage(Bitmap bmp, bool visible = true)
         {
             if (!visible)
@@ -321,6 +340,19 @@ namespace Pokemon_Shuffle_Save_Editor
             }
 
             return destImage;
+        }
+
+        public static Bitmap ChangeOpacity(Image img, float opacityvalue)
+        {
+            Bitmap bmp = new Bitmap(img.Width, img.Height); // Determining Width and Height of Source Image
+            Graphics graphics = Graphics.FromImage(bmp);
+            ColorMatrix colormatrix = new ColorMatrix();
+            colormatrix.Matrix33 = opacityvalue;
+            ImageAttributes imgAttribute = new ImageAttributes();
+            imgAttribute.SetColorMatrix(colormatrix, ColorMatrixFlag.Default, ColorAdjustType.Bitmap);
+            graphics.DrawImage(img, new Rectangle(0, 0, bmp.Width, bmp.Height), 0, 0, img.Width, img.Height, GraphicsUnit.Pixel, imgAttribute);
+            graphics.Dispose();   // Releasing all resource used by graphics 
+            return bmp;
         }
     }
 
@@ -430,7 +462,7 @@ namespace Pokemon_Shuffle_Save_Editor
         {
             return (ind * 8) % 8;
         }
-    }    
+    }
 
     public static class Completed
     {
@@ -590,6 +622,18 @@ namespace Pokemon_Shuffle_Save_Editor
         public static int Shift()
         {
             return 20;
+        }
+    }
+
+    public static class TeamData
+    {
+        public static int Ofset(int slot)
+        {
+            return 0xE0 + new int[] { 0, 0x2, 0x3, 0x5 }[slot-1];
+        }
+        public static int Shift(int slot)
+        {
+            return new int[] { 5, 1 }[(slot-1) % 2];
         }
     }
     #endregion

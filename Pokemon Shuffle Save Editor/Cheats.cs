@@ -92,7 +92,7 @@ namespace Pokemon_Shuffle_Save_Editor
                     SetCaught(ind, true);
                 }
             }
-            MessageBox.Show("All obtainable Pokemon have now been caught.");
+            MessageBox.Show("You now own all obtainable pokemons.");
         }
 
         private void B_LevelMax_Click(object sender, EventArgs e)

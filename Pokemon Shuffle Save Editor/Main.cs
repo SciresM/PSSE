@@ -14,10 +14,11 @@ namespace Pokemon_Shuffle_Save_Editor
         public static byte[] savedata = null;
         public static Keys lastkeys;
 
-        bool loaded, updating, overrideHS;
-
         List<cbItem> monsel = new List<cbItem>();
         ShuffleItems SI_Items = new ShuffleItems();
+
+        bool loaded, updating, overrideHS;
+        public static int ltir; //Last TeamIndex Right-clicked
 
         public Main()
         {
@@ -46,6 +47,7 @@ namespace Pokemon_Shuffle_Save_Editor
             ItemsGrid.SelectedObject = null;
             TB_FilePath.Text = string.Empty;
             savedata = null;
+            ltir = 0;
         }
 
         private void Open(string file)
@@ -71,8 +73,9 @@ namespace Pokemon_Shuffle_Save_Editor
             return BitConverter.ToInt64(contents, 0) == 0x4000000009L;
         }
 
-        private void Parse()
+        private void Parse(int slot = 0)
         {
+            ltir = slot;
             UpdateResourceBox();
             UpdateStageBox();
             UpdateOwnedBox();
@@ -119,11 +122,12 @@ namespace Pokemon_Shuffle_Save_Editor
             int ind = (int)CB_MonIndex.SelectedValue;
 
             //team preview
-            byte[] teamData = savedata.Skip(0xE0).Take(0x7).ToArray();
-            PB_Team1.Image = ResizeImage(GetMonImage((BitConverter.ToInt32(teamData, 0) >> 5) & 0xFFF), 48, 48);
-            PB_Team2.Image = ResizeImage(GetMonImage((BitConverter.ToInt16(teamData, 0x02) >> 1) & 0xFFF), 48, 48);
-            PB_Team3.Image = ResizeImage(GetMonImage((BitConverter.ToInt32(teamData, 0x03) >> 5) & 0xFFF), 48, 48);
-            PB_Team4.Image = ResizeImage(GetMonImage((BitConverter.ToInt16(teamData, 0x05) >> 1) & 0xFFF), 48, 48);
+            int j = 1;
+            foreach (PictureBox pb in new[] { PB_Team1, PB_Team2, PB_Team3, PB_Team4 })
+            {
+                pb.Image = GetTeamImage(GetTeam(j), (ltir == j));
+                j++;
+            }
 
             //caught CHK
             CHK_CaughtMon.Checked = GetMon(ind).Caught;
@@ -288,10 +292,10 @@ namespace Pokemon_Shuffle_Save_Editor
                         CHK_CaughtMon.Checked = true;
                         NUP_Lollipop.Value = NUP_Lollipop.Maximum;
                         NUP_Level.Value = NUP_Level.Maximum;
-                        CHK_MegaX.Checked = db.HasMega[db.Mons[(int)CB_MonIndex.SelectedValue].Item1][0];
-                        CHK_MegaY.Checked = db.HasMega[db.Mons[(int)CB_MonIndex.SelectedValue].Item1][1];
-                        NUP_SpeedUpX.Value = (db.HasMega[db.Mons[(int)CB_MonIndex.SelectedValue].Item1][0]) ? NUP_SpeedUpX.Maximum : 0;
-                        NUP_SpeedUpY.Value = (db.HasMega[db.Mons[(int)CB_MonIndex.SelectedValue].Item1][1]) ? NUP_SpeedUpY.Maximum : 0;
+                        CHK_MegaX.Checked = db.HasMega[(int)CB_MonIndex.SelectedValue][0];
+                        CHK_MegaY.Checked = db.HasMega[(int)CB_MonIndex.SelectedValue][1];
+                        NUP_SpeedUpX.Value = (db.HasMega[(int)CB_MonIndex.SelectedValue][0]) ? NUP_SpeedUpX.Maximum : 0;
+                        NUP_SpeedUpY.Value = (db.HasMega[(int)CB_MonIndex.SelectedValue][1]) ? NUP_SpeedUpY.Maximum : 0;
                         NUP_Skill.Value = NUP_Skill.Maximum;
                     }
                     else CHK_CaughtMon.Checked = CHK_MegaX.Checked = CHK_MegaY.Checked = false;
@@ -329,8 +333,7 @@ namespace Pokemon_Shuffle_Save_Editor
                 max = (int)NUP_EventIndex.Maximum + 1;
             }
             else return;
-            MouseEventArgs me = (MouseEventArgs)e;
-            if (me.Button == System.Windows.Forms.MouseButtons.Left)    //Left Click
+            if ((e as MouseEventArgs).Button == MouseButtons.Left)    //Left Click
             {
                 if (GetStage(ind, i - 1).Completed) //is completed
                 {
@@ -344,7 +347,7 @@ namespace Pokemon_Shuffle_Save_Editor
                 }
                 //Nothing happens if uncompleted
             }
-            if (me.Button == System.Windows.Forms.MouseButtons.Right)   //Right Click
+            if ((e as MouseEventArgs).Button == System.Windows.Forms.MouseButtons.Right)   //Right Click
             {
                 SetStage(ind, i - 1, !GetStage(ind, i - 1).Completed);    //invert completed state
                 if (GetStage(ind, i - 1).Completed) //is completed (was uncompleted)
@@ -379,12 +382,7 @@ namespace Pokemon_Shuffle_Save_Editor
         }
 
         private void PB_Team_Click(object sender, EventArgs e)
-        {
-            byte[] data = savedata.Skip(0xE0).Take(0x7).ToArray();
-            int slot;
-            List<int> list = new List<int>();
-            for (int i = 0; i < monsel.Count; i++)
-                list.Add(monsel[i].Value); //get a list of index numbers from monsel.Values to use with IndexOf()
+        {            
             int s = 0;
             if ((sender as Control).Name.Contains("Team1"))
                 s = 1;
@@ -394,24 +392,53 @@ namespace Pokemon_Shuffle_Save_Editor
                 s = 3;
             if ((sender as Control).Name.Contains("Team4"))
                 s = 4;
-            switch (s)
-            {
-                case 1:
-                    slot = (BitConverter.ToInt32(data, 0) >> 5) & 0xFFF;
-                    break;
-                case 2:
-                    slot = (BitConverter.ToInt16(data, 0x02) >> 1) & 0xFFF;
-                    break;
-                case 3:
-                    slot = (BitConverter.ToInt32(data, 0x03) >> 5) & 0xFFF;
-                    break;
-                case 4:
-                    slot = (BitConverter.ToInt16(data, 0x05) >> 1) & 0xFFF;
-                    break;
-                default:
-                    return;
+            if (s > 0 && s < 5)
+            {                
+                if ((e as MouseEventArgs).Button == MouseButtons.Left)
+                {
+                    if (ModifierKeys == Keys.Control)
+                    {
+                        int ind = (int)CB_MonIndex.SelectedValue;
+                        for (int i = 1; i < 5; i++)
+                        {
+                            if (i != s && GetTeam(i) == ind)
+                                SetTeam(i, GetTeam(s));
+                        }
+                        if (!GetMon(ind).Caught)
+                            SetCaught(ind, true);
+                        SetTeam(s, ind);
+                    }
+                    else
+                    {
+                        List<int> list = new List<int>();
+                        for (int i = 0; i < monsel.Count; i++)
+                            list.Add(monsel[i].Value); //get a list of index numbers from monsel.Values to use with IndexOf()
+                        CB_MonIndex.SelectedIndex = list.IndexOf(GetTeam(s));
+                    }
+                    updating = true;
+                    Parse();
+                    updating = false;
+                }
+                else if ((e as MouseEventArgs).Button == MouseButtons.Right)
+                {
+                    if (ltir == 0)
+                    {
+                        updating = true;
+                        Parse(s);
+                        updating = false;
+                    }
+                    else
+                    {
+                        int temp = GetTeam(ltir);
+                        SetTeam(ltir, GetTeam(s));
+                        SetTeam(s, temp);
+                        updating = true;
+                        Parse();
+                        updating = false;
+                    }
+                }
             }
-            CB_MonIndex.SelectedIndex = list.IndexOf(slot);
+            else return;
         }
 
         private void TB_Filepath_DoubleClick(object sender, EventArgs e)
