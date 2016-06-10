@@ -356,7 +356,7 @@ namespace Pokemon_Shuffle_Save_Editor
             Array.Copy(BitConverter.GetBytes((BitConverter.ToInt16(savedata, 0xB768) & ~(0x7F)) | moves), 0, savedata, 0xB768, 2);
             Array.Copy(BitConverter.GetBytes((BitConverter.ToInt16(savedata, 0xB762) & ~(0x3FF << 6)) | (opponent << 6)), 0, savedata, 0xB762, 2);
             string name = db.MonsList[BitConverter.ToInt16(db.StagesMain, 0x50 + BitConverter.ToInt32(db.StagesMain, 0x4) * opponent) & 0x3FF];
-            string str = new string[] { "th", "st", "nd", "rd" }[(step % 10 > 3) ? 0 : step % 10];
+            string str = new string[] { "th", "st", "nd", "rd" }[(!(step > 10 && step < 14) && step % 10 < 4) ? step % 4 : 0];
             MessageBox.Show((!enabled ? "Survival Mode is disabled.\nYou should have faced" : "Survival mode enabled.\nYou'll face") + " survival mode's " + step + str + " step against " + name + " with " + (savedata[0xB768] & 0x7F) + " moves left.");
         }
     }
