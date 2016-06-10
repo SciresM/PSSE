@@ -38,8 +38,8 @@ namespace Pokemon_Shuffle_Save_Editor
                     if (GetMon(i).Caught && (db.HasMega[i][0] || db.HasMega[i][1]) && ((db.Mons[db.MegaStartIndex + db.MegaList.IndexOf(i)].Item6 != 7) || (db.Mons[db.MegaStartIndex + db.MegaList.IndexOf(i)].Item7 != 0) || (db.Megas[db.MegaList.IndexOf(i)].Item2 != 1)))
                         SetStone(i, db.HasMega[i][0], db.HasMega[i][1]);
                 }
-                MessageBox.Show("All available megastones have been owned for everything you've caught.");
-            }                
+                MessageBox.Show("You now own every released stone for each of your caught pokemons.");
+            }
         }
 
         private void B_AllCompleted_Click(object sender, EventArgs e)
@@ -109,7 +109,7 @@ namespace Pokemon_Shuffle_Save_Editor
                         value = form.retVal;
                         boool = true;
                     }
-                    else return;                 
+                    else return;
                 }
             }
             for (int i = 0; i < db.MegaStartIndex; i++)
@@ -137,7 +137,7 @@ namespace Pokemon_Shuffle_Save_Editor
                 }
             }
             SetExcalationStep(value);
-            MessageBox.Show("Curent escalation battle has been taken to step " + value + ".\nThis is the step you'll be facing next time you enter the escalation stage, and if you skipped rewards you'll get all of them at once after beating it.");
+            MessageBox.Show("Curent escalation battle has been taken to step " + value + ".\nIf you skipped rewards you'll get all of them at once after beating it.");
         }
 
         private void B_MaxResources_Click(object sender, EventArgs e)
@@ -157,7 +157,7 @@ namespace Pokemon_Shuffle_Save_Editor
                     enhancements[i] = 99;
                 SetResources(99, 99999, 150, items, enhancements);
                 MessageBox.Show("Gave 99 hearts, 99999 coins, 150 jewels, and 99 of every item.");
-            }            
+            }
         }
 
         private void B_MaxSpeedups_Click(object sender, EventArgs e)
@@ -181,8 +181,8 @@ namespace Pokemon_Shuffle_Save_Editor
             {   //if (caught && (hasMegaX || hasMegaY) && (at least one stone owned))
                 if (GetMon(i).Caught && (db.HasMega[i][0] || db.HasMega[i][1]) && (GetMon(i).Stone > 0 || GetMon(i).Stone < 4))
                 {
-                    int suX = Math.Min(db.HasMega[i][0] ? db.Megas[db.MegaList.IndexOf(i)].Item2 : 0, value);          //db.HasMega[i][0] ? db.Megas[db.MegaList.IndexOf(i)].Item2 : 0;
-                    int suY = Math.Min(db.HasMega[i][1] ? db.Megas[db.MegaList.IndexOf(i, db.MegaList.IndexOf(i) + 1)].Item2 : 0, value);           //db.HasMega[i][1] ? db.Megas[db.MegaList.IndexOf(i, db.MegaList.IndexOf(i) + 1)].Item2 : 0;
+                    int suX = Math.Min(db.HasMega[i][0] ? db.Megas[db.MegaList.IndexOf(i)].Item2 : 0, value);
+                    int suY = Math.Min(db.HasMega[i][1] ? db.Megas[db.MegaList.IndexOf(i, db.MegaList.IndexOf(i) + 1)].Item2 : 0, value);
                     SetSpeedup(i, (db.HasMega[i][0] && ((GetMon(i).Stone & 1) == 1)), suX, (db.HasMega[i][1] && ((GetMon(i).Stone & 2) == 2)), suY);   //(i, (hasMegaX && owned stoneX), max X value from db, (hasMegaY && owned stoneY), max Y value from db)
                 }
             }
@@ -217,7 +217,7 @@ namespace Pokemon_Shuffle_Save_Editor
         {
             for (int i = 1; i < db.MegaStartIndex; i++)
             {
-                SetCaught(i, false);    //Uncatch
+                SetCaught(i);    //Uncatch
                 SetLevel(i); //Un-level, Un-experience & Un-lollipop
                 SetSkill(i);
                 if (db.HasMega[i][0] || db.HasMega[i][1])
@@ -268,15 +268,19 @@ namespace Pokemon_Shuffle_Save_Editor
                 case 0:
                     str = "C";
                     break;
+
                 case 1:
                     str = "B";
                     break;
+
                 case 2:
                     str = "A";
                     break;
+
                 case 3:
                     str = "S";
                     break;
+
                 default:
                     MessageBox.Show("An error occured. Attempted to set rank to : " + value);
                     return;
@@ -325,14 +329,13 @@ namespace Pokemon_Shuffle_Save_Editor
                     }
                 }
                 j++;
-            }      
+            }
         }
 
         private void B_PokathlonStep_Click(object sender, EventArgs e)
         {
-            int step = 0x32, moves = 99, opponent = 150;    //default values
+            int step = 50, moves = 99, opponent = 150;    //default values
             bool enabled = true; //default values
-            string str;
             if (ModifierKeys == Keys.Control)
             {
                 using (var form = new Pokathlon_Popup(BitConverter.ToInt16(savedata, 0xB762) >> 6, (savedata[0xB768] & 0x7F), savedata[0xB760]))
@@ -348,27 +351,13 @@ namespace Pokemon_Shuffle_Save_Editor
                     else return;
                 }
             }
-            switch (step % 10)
-            {
-                case 1:
-                    str = "st";
-                    break;
-                case 2:
-                    str = "nd";
-                    break;
-                case 3:
-                    str = "rd";
-                    break;
-                default:
-                    str = "th";
-                    break;
-            }
             Array.Copy(BitConverter.GetBytes((BitConverter.ToInt16(savedata, 0xB768) & ~(0x3 << 7)) | ((enabled ? 3 : 0) << 7)), 0, savedata, 0xB768, 2);
             savedata[0xB760] = (byte)step;
             Array.Copy(BitConverter.GetBytes((BitConverter.ToInt16(savedata, 0xB768) & ~(0x7F)) | moves), 0, savedata, 0xB768, 2);
             Array.Copy(BitConverter.GetBytes((BitConverter.ToInt16(savedata, 0xB762) & ~(0x3FF << 6)) | (opponent << 6)), 0, savedata, 0xB762, 2);
             string name = db.MonsList[BitConverter.ToInt16(db.StagesMain, 0x50 + BitConverter.ToInt32(db.StagesMain, 0x4) * opponent) & 0x3FF];
-            MessageBox.Show((!enabled ? "Survival Mode is disabled.\nYou should have faced" : "You'll face") + " survival mode's " + step + str +" step against " + name + " with " + (savedata[0xB768] & 0x7F) + " moves left.");
+            string str = new string[] { "th", "st", "nd", "rd" }[(step % 10 > 3) ? 0 : step % 10];
+            MessageBox.Show((!enabled ? "Survival Mode is disabled.\nYou should have faced" : "Survival mode enabled.\nYou'll face") + " survival mode's " + step + str + " step against " + name + " with " + (savedata[0xB768] & 0x7F) + " moves left.");
         }
     }
 }

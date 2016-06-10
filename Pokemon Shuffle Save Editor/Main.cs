@@ -12,12 +12,12 @@ namespace Pokemon_Shuffle_Save_Editor
     {
         public static Database db = new Database();
         public static byte[] savedata = null;
-        public static Keys lastkeys;
+        public static Keys lastkeys;    //to detect if ItemsGrid was entered from Tab or Shift+Tab
 
-        List<cbItem> monsel = new List<cbItem>();
-        ShuffleItems SI_Items = new ShuffleItems();
+        private List<cbItem> monsel = new List<cbItem>();
+        private ShuffleItems SI_Items = new ShuffleItems();
 
-        bool loaded, updating, overrideHS;
+        private bool loaded, updating, overrideHS;
         public static int ltir; //Last TeamIndex Right-clicked
 
         public Main()
@@ -28,7 +28,7 @@ namespace Pokemon_Shuffle_Save_Editor
             monsel = monsel.OrderBy(x => x.Text).ToList();
             CB_MonIndex.DataSource = monsel;
             CB_MonIndex.DisplayMember = "Text";
-            CB_MonIndex.ValueMember = "Value";           
+            CB_MonIndex.ValueMember = "Value";
             FormInit();
         }
 
@@ -105,7 +105,7 @@ namespace Pokemon_Shuffle_Save_Editor
                 SetSpeedup(ind, (db.HasMega[ind][0] && CHK_CaughtMon.Checked && CHK_MegaX.Checked), (int)NUP_SpeedUpX.Value, (db.HasMega[ind][1] && CHK_CaughtMon.Checked && CHK_MegaY.Checked), (int)NUP_SpeedUpY.Value);
                 SetSkill(ind, (int)(CHK_CaughtMon.Checked ? NUP_Skill.Value : 1));
 
-                //Stages Box Properties          
+                //Stages Box Properties
                 SetScore((int)NUP_MainIndex.Value - 1, 0, (ulong)NUP_MainScore.Value);
                 SetScore((int)NUP_ExpertIndex.Value - 1, 1, (ulong)NUP_ExpertScore.Value);
                 SetScore((int)NUP_EventIndex.Value, 2, (ulong)NUP_EventScore.Value);
@@ -156,6 +156,7 @@ namespace Pokemon_Shuffle_Save_Editor
             }
 
             #region Visibility
+
             L_Level.Visible = NUP_Level.Visible = PB_Skill.Visible = NUP_Skill.Visible = CHK_CaughtMon.Checked;
             PB_Lollipop.Visible = NUP_Lollipop.Visible = (CHK_CaughtMon.Checked && NUP_Lollipop.Maximum != 0);
             PB_Mon.Image = GetCaughtImage(ind, CHK_CaughtMon.Checked);
@@ -170,7 +171,8 @@ namespace Pokemon_Shuffle_Save_Editor
             NUP_SpeedUpY.Visible = PB_SpeedUpY.Visible = CHK_CaughtMon.Checked && CHK_MegaY.Visible && CHK_MegaY.Checked; //Else NUP_SpeedUpY appears if the next mega in terms of offsets has been obtained
             PB_SpeedUpX.Image = db.HasMega[ind][0] ? new Bitmap(ResizeImage((Image)Properties.Resources.ResourceManager.GetObject("mega_speedup"), 24, 24)) : new Bitmap(16, 16);
             PB_SpeedUpY.Image = db.HasMega[ind][1] ? new Bitmap(ResizeImage((Image)Properties.Resources.ResourceManager.GetObject("mega_speedup"), 24, 24)) : new Bitmap(16, 16);
-            #endregion
+
+            #endregion Visibility
         }
 
         private void UpdateResourceBox()
@@ -182,7 +184,7 @@ namespace Pokemon_Shuffle_Save_Editor
                 SI_Items.Items[i] = GetRessources().Items[i];
             for (int i = 0; i < SI_Items.Enchantments.Length; i++)
                 SI_Items.Enchantments[i] = GetRessources().Enhancements[i];
-            ItemsGrid.Refresh();  
+            ItemsGrid.Refresh();
         }
 
         private void UpdateStageBox()
@@ -190,10 +192,10 @@ namespace Pokemon_Shuffle_Save_Editor
             int ind, type;
             byte[] stage;
             Object nup, pb;
-            foreach (Label lbl in new[] { L_RankM, L_RankEx, L_RankEv})
+            foreach (Label lbl in new[] { L_RankM, L_RankEx, L_RankEv })
             {
                 if (lbl == L_RankM)
-                {                    
+                {
                     ind = (int)NUP_MainIndex.Value - 1;
                     type = 0;
                     nup = NUP_MainScore;
@@ -279,13 +281,16 @@ namespace Pokemon_Shuffle_Save_Editor
                 case 1:
                     NUP_SpeedUpX.Value = (NUP_SpeedUpX.Value == 0) ? NUP_SpeedUpX.Maximum : 0;
                     break;
+
                 case 2:
                     NUP_SpeedUpY.Value = (NUP_SpeedUpY.Value == 0) ? NUP_SpeedUpY.Maximum : 0;
                     break;
+
                 case 3:
                     NUP_Lollipop.Value = (NUP_Lollipop.Value == 0) ? NUP_Lollipop.Maximum : 0;
                     NUP_Level.Value = 10 + NUP_Lollipop.Value;
                     break;
+
                 case 4:
                     if (!CHK_CaughtMon.Checked)
                     {
@@ -300,9 +305,11 @@ namespace Pokemon_Shuffle_Save_Editor
                     }
                     else CHK_CaughtMon.Checked = CHK_MegaX.Checked = CHK_MegaY.Checked = false;
                     break;
+
                 case 5:
                     NUP_Skill.Value = (NUP_Skill.Value == 1) ? NUP_Skill.Maximum : NUP_Skill.Minimum;
                     break;
+
                 default:
                     return;
             }
@@ -339,7 +346,7 @@ namespace Pokemon_Shuffle_Save_Editor
                 {
                     if (GetStage(ind, i - 1).Rank > 0 && GetStage(ind, i - 1).Rank < 4) //is rank != C
                         SetRank(ind, i - 1, GetStage(ind, i - 1).Rank - 1);   //minus 1 rank
-                    else //is rank = C or unknown    
+                    else //is rank = C or unknown
                     {
                         SetRank(ind, i - 1, 3);  //rank S
                         PatchScore(ind, i - 1);
@@ -382,7 +389,7 @@ namespace Pokemon_Shuffle_Save_Editor
         }
 
         private void PB_Team_Click(object sender, EventArgs e)
-        {            
+        {
             int s = 0;
             if ((sender as Control).Name.Contains("Team1"))
                 s = 1;
@@ -393,7 +400,7 @@ namespace Pokemon_Shuffle_Save_Editor
             if ((sender as Control).Name.Contains("Team4"))
                 s = 4;
             if (s > 0 && s < 5)
-            {                
+            {
                 if ((e as MouseEventArgs).Button == MouseButtons.Left)
                 {
                     if (ModifierKeys == Keys.Control)
@@ -524,5 +531,5 @@ namespace Pokemon_Shuffle_Save_Editor
             lastkeys = keyData;
             return base.ProcessCmdKey(ref msg, keyData);
         }
-    }   
+    }
 }

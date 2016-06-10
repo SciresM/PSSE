@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace Pokemon_Shuffle_Save_Editor
@@ -13,10 +7,7 @@ namespace Pokemon_Shuffle_Save_Editor
     {
         public int retVal
         {
-            get
-            {
-                return (int)NUP_Value.Value;
-            }
+            get { return (int)NUP_Value.Value; }
         }
 
         public NUP_Popup(int min, int max, int def, string str = "value")

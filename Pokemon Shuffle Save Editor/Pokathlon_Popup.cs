@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using static Pokemon_Shuffle_Save_Editor.Main;
 using static Pokemon_Shuffle_Save_Editor.ToolFunctions;
@@ -15,31 +9,19 @@ namespace Pokemon_Shuffle_Save_Editor
     {
         public bool retEnabled
         {
-            get
-            {
-                return CHK_Paused.Checked;
-            }
+            get { return CHK_Paused.Checked; }
         }
         public int retStep
         {
-            get
-            {
-                return (int)NUP_Step.Value;
-            }
+            get { return (int)NUP_Step.Value; }
         }
         public int retMoves
         {
-            get
-            {
-                return (int)NUP_Moves.Value;
-            }
+            get { return (int)NUP_Moves.Value; }
         }
         public int retOpponent
         {
-            get
-            {
-                return (int)NUP_Opponent.Value;
-            }
+            get { return (int)NUP_Opponent.Value; }
         }
 
         public Pokathlon_Popup(int oValue, int mValue, int sValue, int oMin = 1, int mMin = 0, int sMin = 0, int oMax = 400, int mMax = 99, int sMax = 50)
@@ -47,7 +29,7 @@ namespace Pokemon_Shuffle_Save_Editor
             InitializeComponent();
             int j = 0;
             int[] list = { oValue, mValue, sValue, oMin, mMin, sMin, oMax, mMax, sMax };
-            foreach (NumericUpDown nup in new[] { NUP_Opponent, NUP_Moves, NUP_Step})
+            foreach (NumericUpDown nup in new[] { NUP_Opponent, NUP_Moves, NUP_Step })
             {
                 nup.Minimum = list[3 + j];
                 nup.Maximum = list[6 + j];

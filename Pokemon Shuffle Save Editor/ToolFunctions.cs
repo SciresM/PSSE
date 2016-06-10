@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using static Pokemon_Shuffle_Save_Editor.Main;
 
@@ -12,7 +10,6 @@ namespace Pokemon_Shuffle_Save_Editor
 {
     public static class ToolFunctions
     {
-
         public static int GetTeam(int slot)
         {
             return (BitConverter.ToInt32(savedata, TeamData.Ofset(slot)) >> TeamData.Shift(slot)) & 0xFFF;
@@ -48,6 +45,12 @@ namespace Pokemon_Shuffle_Save_Editor
             return new monItem { Caught = caught, Level = lev, Lollipops = rml, Exp = exp, Stone = stone, SpeedUpX = speedUpX, SpeedUpY = speedUpY, SkillLevel = skillLvl, SkillExp = skillExp };
         }
 
+        public static void SetCaught(int ind, bool caught = false)
+        {
+            foreach (int array in Caught.Ofset(ind))
+                savedata[array] = (byte)((savedata[array] & (byte)(~(1 << Caught.Shift(ind)))) | (byte)((caught ? 1 : 0) << Caught.Shift(ind)));
+        }
+
         public static void SetLevel(int ind, int lev = 1, int set_rml = -1, int set_exp = -1)
         {
             if (savedata != null)
@@ -68,19 +71,20 @@ namespace Pokemon_Shuffle_Save_Editor
                 set_exp = (set_exp < 0) ? BitConverter.ToInt32(data, 0x4 * (db.Mons[ind].Item5 - 1)) : set_exp;
                 int exp = (BitConverter.ToInt32(savedata, Experience.Ofset(ind)) & ~(0xFFFFFF << Experience.Shift(ind))) | (set_exp << Experience.Shift(ind));
                 Array.Copy(BitConverter.GetBytes(exp), 0, savedata, Experience.Ofset(ind), 4);
-            }            
+            }
         }
 
-        public static void SetCaught(int ind, bool caught)
+        public static void SetSkill(int ind, int lvl = 1)
         {
-            foreach (int array in Caught.Ofset(ind))
-                savedata[array] = (byte)((savedata[array] & (byte)(~(1 << Caught.Shift(ind)))) | (byte)((caught ? 1 : 0) << Caught.Shift(ind)));
-        }
+            //level
+            lvl = (lvl < 2) ? 0 : ((lvl > 5) ? 5 : lvl);    //hardcoded skill level to be 5 max
+            int skilllvl = BitConverter.ToInt16(savedata, SkillLevel.Ofset(ind));
+            skilllvl = (skilllvl & ~(0x7 << SkillLevel.Shift(ind))) | (lvl << SkillLevel.Shift(ind));
+            Array.Copy(BitConverter.GetBytes(skilllvl), 0, savedata, SkillLevel.Ofset(ind), 2);
 
-        public static void SetStone(int ind, bool X = false, bool Y = false)
-        {
-            short mega_val = (short)((BitConverter.ToInt16(savedata, Mega.Ofset(ind)) & ~(3 << Mega.Shift(ind))) | (((X ? 1 : 0) | (Y ? 2 : 0)) << Mega.Shift(ind)));
-            Array.Copy(BitConverter.GetBytes(mega_val), 0, savedata, Mega.Ofset(ind), 2);
+            //exp
+            int entrylen = BitConverter.ToInt32(db.MonAbility, 0x4);
+            savedata[SkillExp.Ofset(ind)] = (lvl < 2) ? (byte)0 : db.MonAbility.Skip(0x50 + db.Mons[ind].Item6 * entrylen).Take(entrylen).ToArray()[0x1A + lvl];
         }
 
         public static void SetSpeedup(int ind, bool X = false, int suX = 0, bool Y = false, int suY = 0)
@@ -102,79 +106,10 @@ namespace Pokemon_Shuffle_Save_Editor
             }
         }
 
-        public static void SetSkill(int ind, int lvl = 1)
+        public static void SetStone(int ind, bool X = false, bool Y = false)
         {
-            //level
-            lvl = (lvl < 2) ? 0 : ((lvl > 5) ? 5 : lvl);    //hardcoded skill level to be 5 max
-            int skilllvl = BitConverter.ToInt16(savedata, SkillLevel.Ofset(ind));
-            skilllvl = (skilllvl & ~(0x7 << SkillLevel.Shift(ind))) | (lvl << SkillLevel.Shift(ind));
-            Array.Copy(BitConverter.GetBytes(skilllvl), 0, savedata, SkillLevel.Ofset(ind), 2);
-
-            //exp
-            int entrylen = BitConverter.ToInt32(db.MonAbility, 0x4);
-            savedata[SkillExp.Ofset(ind)] = (lvl < 2) ? (byte)0 : db.MonAbility.Skip(0x50 + db.Mons[ind].Item6 * entrylen).Take(entrylen).ToArray()[0x1A + lvl];
-        }
-
-        public static stgItem GetStage(int ind, int type)
-        {
-            return new stgItem {
-                Completed = ((BitConverter.ToInt16(savedata, Completed.Ofset(ind, type)) >> Completed.Shift(ind, type)) & 7) == 5,
-                Rank = (BitConverter.ToInt16(savedata, Rank.Ofset(ind, type)) >> Rank.Shift(ind, type)) & 0x3,
-                Score = (int)((BitConverter.ToUInt64(savedata, Score.Ofset(ind, type)) >> Score.Shift(ind, type)) & 0xFFFFFF)
-            };
-        }
-
-        public static void SetStage(int ind, int type, bool completed = false)
-        {
-            short stage = (short)(BitConverter.ToInt16(savedata, Completed.Ofset(ind, type)) & (~(0x7 << Completed.Shift(ind, type))) | ((completed ? 5 : 0) << Completed.Shift(ind, type)));
-            Array.Copy(BitConverter.GetBytes(stage), 0, savedata, Completed.Ofset(ind, type), 2);
-        }
-
-        public static void SetRank(int ind, int type, int newRank = 0)
-        {
-            short rank = (short)((BitConverter.ToInt16(savedata, Rank.Ofset(ind, type)) & ~(0x3 << Rank.Shift(ind, type))) | (newRank << Rank.Shift(ind, type)));
-            Array.Copy(BitConverter.GetBytes(rank), 0, savedata, Rank.Ofset(ind, type), 2);
-        }
-
-        public static void SetScore(int ind, int type, ulong newScore = 0)
-        {
-            ulong score = (ulong)((BitConverter.ToUInt64(savedata, Score.Ofset(ind, type)) & (uint)(~(0xFFFFFF << Score.Shift(ind, type)))) | (newScore << Score.Shift(ind, type)));
-            Array.Copy(BitConverter.GetBytes(score), 0, savedata, Score.Ofset(ind, type), 8);
-        }
-
-        public static void PatchScore(int ind, int type)
-        {
-            byte[] stage;
-            int index = ind;
-            switch (type)
-            {
-                case 0:
-                    stage = db.StagesMain;
-                    index = (ind + 1);
-                    break;
-                case 1:
-                    stage = db.StagesExpert;
-                    break;
-                case 2:
-                    stage = db.StagesEvent;
-                    break;
-                default:
-                    return;
-            }
-            int entrylen = BitConverter.ToInt32(stage, 0x4);
-            byte[] data = stage.Skip(0x50 + index * entrylen).Take(entrylen).ToArray();
-            SetScore(ind, type, Math.Max((ulong)GetStage(ind, type).Score, (BitConverter.ToUInt64(data, 0x4) & 0xFFFFFFFF) + (ulong)(Math.Min(7000, ((GetStage(ind, type).Rank > 0) ? ((BitConverter.ToInt16(data, 0x30 + GetStage(ind, type).Rank - 1) >> 4) & 0xFF) : 0) * 500)))); //score = Max(current_highscore, hitpoints + minimum_bonus_points (a.k.a min moves left times 500, capped at 7000))
-        }
-
-        public static void SetExcalationStep(int step = 1)  //Will only update 1 escalation battle. Update offsets if there ever are more than 1 at once
-        {
-            if (step < 1)
-                step = 1;
-            if (step > 999)
-                step = 999;
-            int data = BitConverter.ToUInt16(savedata, EscalationStep.Ofset());
-            data = (data & (~(0x3FF << EscalationStep.Shift()))) | (step-- << EscalationStep.Shift());  //sets previous step as beaten = selected step shown in game 
-            Array.Copy(BitConverter.GetBytes(data), 0, savedata, EscalationStep.Ofset(), 2); 
+            short mega_val = (short)((BitConverter.ToInt16(savedata, Mega.Ofset(ind)) & ~(3 << Mega.Shift(ind))) | (((X ? 1 : 0) | (Y ? 2 : 0)) << Mega.Shift(ind)));
+            Array.Copy(BitConverter.GetBytes(mega_val), 0, savedata, Mega.Ofset(ind), 2);
         }
 
         public static rsItem GetRessources()
@@ -213,42 +148,122 @@ namespace Pokemon_Shuffle_Save_Editor
                 savedata[Enhancements.Ofset(i)] = (byte)((((enhancements[i]) << Enhancements.Shift()) & 0xFE) | (savedata[Enhancements.Ofset(i)] & Enhancements.Shift()));
         }
 
-        public static Bitmap GetMonImage(int ind)
+        public static stgItem GetStage(int ind, int type)
         {
-            string imgname = string.Empty;
-            int mon_num = db.Mons[ind].Item1, form = db.Mons[ind].Item2;
-            bool mega = db.Mons[ind].Item3;
-            if (mega)
+            return new stgItem
             {
-                form -= db.HasMega[mon_num][1] ? 1 : 2; //Differenciate Rayquaza/Gyarados from Charizard/Mewtwo, otherwise either stage 300 is Shiny M-Ray or stage 150 is M-mewtwo X
-                imgname += "mega_";
-            }
-            imgname += "pokemon_" + mon_num.ToString("000");
-            if (form > 0 && mon_num > 0)
-                imgname += "_" + form.ToString("00");
-            if (mega)
-                imgname += "_lo";
-            return new Bitmap((Image)Properties.Resources.ResourceManager.GetObject(imgname));
+                Completed = ((BitConverter.ToInt16(savedata, Completed.Ofset(ind, type)) >> Completed.Shift(ind, type)) & 7) == 5,
+                Rank = (BitConverter.ToInt16(savedata, Rank.Ofset(ind, type)) >> Rank.Shift(ind, type)) & 0x3,
+                Score = (int)((BitConverter.ToUInt64(savedata, Score.Ofset(ind, type)) >> Score.Shift(ind, type)) & 0xFFFFFF)
+            };
         }
 
-        public static Bitmap GetStageImage(int ind, int type)
-        {
-            Bitmap bmp = new Bitmap(64, 80);
-            using (Graphics g = Graphics.FromImage(bmp))
+        public static void GetRankImage(Label label, int rank = default(int), bool completed = false) //Plain text until a way is found to extract Rank sprites from game's folders.
+        {                                                                                       //These are in several files in "Layout Archives", #127 for example,
+            if (completed)                                                                      //but I can't get a proper png without it being cropped or its colours distorted.
             {
-                if (db.Mons[ind].Item3 && (type == 0))
-                    g.DrawImage(Properties.Resources.PlateMega, new Point(0, 16));
-                else
-                    g.DrawImage(Properties.Resources.Plate, new Point(0, 16));
-                g.DrawImage(ResizeImage(GetMonImage(ind), 48, 48), new Point(8, 7));
-            }
+                switch (rank)
+                {
+                    case 0:
+                        label.Text = "C";
+                        //label.ForeColor = Color.Orchid;
+                        break;
 
+                    case 1:
+                        label.Text = "B";
+                        //label.ForeColor = Color.ForestGreen;
+                        break;
+
+                    case 2:
+                        label.Text = "A";
+                        //label.ForeColor = Color.RoyalBlue;
+                        break;
+
+                    case 3:
+                        label.Text = "S";
+                        //label.ForeColor = Color.Goldenrod;
+                        break;
+
+                    default:
+                        label.Text = "-";
+                        //label.ForeColor = Color.Black;
+                        break;
+                }
+            }
+            else
+            {
+                label.Text = "-";
+                //label.ForeColor = Color.Black;
+            }
+        }
+
+        public static void PatchScore(int ind, int type)
+        {
+            byte[] stage;
+            int index = ind;
+            switch (type)
+            {
+                case 0:
+                    stage = db.StagesMain;
+                    index = (ind + 1);
+                    break;
+
+                case 1:
+                    stage = db.StagesExpert;
+                    break;
+
+                case 2:
+                    stage = db.StagesEvent;
+                    break;
+
+                default:
+                    return;
+            }
+            int entrylen = BitConverter.ToInt32(stage, 0x4);
+            byte[] data = stage.Skip(0x50 + index * entrylen).Take(entrylen).ToArray();
+            SetScore(ind, type, Math.Max((ulong)GetStage(ind, type).Score, (BitConverter.ToUInt64(data, 0x4) & 0xFFFFFFFF) + (ulong)(Math.Min(7000, ((GetStage(ind, type).Rank > 0) ? ((BitConverter.ToInt16(data, 0x30 + GetStage(ind, type).Rank - 1) >> 4) & 0xFF) : 0) * 500)))); //score = Max(current_highscore, hitpoints + minimum_bonus_points (a.k.a min moves left times 500, capped at 7000))
+        }
+
+        public static void SetExcalationStep(int step = 1)
+        {   //Will only update 1 escalation battle. Update offsets if there ever are more than 1 at once
+            if (step < 1)
+                step = 1;
+            if (step > 999)
+                step = 999;
+            int data = BitConverter.ToUInt16(savedata, EscalationStep.Ofset());
+            data = (data & (~(0x3FF << EscalationStep.Shift()))) | (step-- << EscalationStep.Shift());  //sets previous step as beaten = selected step shown in game
+            Array.Copy(BitConverter.GetBytes(data), 0, savedata, EscalationStep.Ofset(), 2);
+        }
+
+        public static void SetRank(int ind, int type, int newRank = 0)
+        {
+            short rank = (short)((BitConverter.ToInt16(savedata, Rank.Ofset(ind, type)) & ~(0x3 << Rank.Shift(ind, type))) | (newRank << Rank.Shift(ind, type)));
+            Array.Copy(BitConverter.GetBytes(rank), 0, savedata, Rank.Ofset(ind, type), 2);
+        }
+
+        public static void SetScore(int ind, int type, ulong newScore = 0)
+        {
+            ulong score = (ulong)((BitConverter.ToUInt64(savedata, Score.Ofset(ind, type)) & (uint)(~(0xFFFFFF << Score.Shift(ind, type)))) | (newScore << Score.Shift(ind, type)));
+            Array.Copy(BitConverter.GetBytes(score), 0, savedata, Score.Ofset(ind, type), 8);
+        }
+
+        public static void SetStage(int ind, int type, bool completed = false)
+        {
+            short stage = (short)(BitConverter.ToInt16(savedata, Completed.Ofset(ind, type)) & (~(0x7 << Completed.Shift(ind, type))) | ((completed ? 5 : 0) << Completed.Shift(ind, type)));
+            Array.Copy(BitConverter.GetBytes(stage), 0, savedata, Completed.Ofset(ind, type), 2);
+        }
+
+        public static Bitmap ChangeOpacity(Image img, float opacityvalue)
+        {
+            Bitmap bmp = new Bitmap(img.Width, img.Height); // Determining Width and Height of Source Image
+            Graphics graphics = Graphics.FromImage(bmp);
+            ColorMatrix colormatrix = new ColorMatrix();
+            colormatrix.Matrix33 = opacityvalue;
+            ImageAttributes imgAttribute = new ImageAttributes();
+            imgAttribute.SetColorMatrix(colormatrix, ColorMatrixFlag.Default, ColorAdjustType.Bitmap);
+            graphics.DrawImage(img, new Rectangle(0, 0, bmp.Width, bmp.Height), 0, 0, img.Width, img.Height, GraphicsUnit.Pixel, imgAttribute);
+            graphics.Dispose();   // Releasing all resource used by graphics
             return bmp;
-        }
-
-        public static Bitmap GetTeamImage(int ind, bool opacity = false, int w = 48, int h = 48)
-        {
-            return ResizeImage(ChangeOpacity(GetMonImage(ind), (float)(opacity ? 0.75 : 1)), w, h);
         }
 
         public static Bitmap GetBlackImage(Bitmap bmp, bool visible = true)
@@ -281,39 +296,42 @@ namespace Pokemon_Shuffle_Save_Editor
             return bmp;
         }
 
-        public static void GetRankImage(Label label, int rank = default(int), bool completed = false) //Plain text until a way is found to extract Rank sprites from game's folders.
-        {                                                                                       //These are in several files in "Layout Archives", #127 for example,
-            if (completed)                                                                      //but I can't get a proper png without it being cropped or its colours distorted.
+        public static Bitmap GetStageImage(int ind, int type)
+        {
+            Bitmap bmp = new Bitmap(64, 80);
+            using (Graphics g = Graphics.FromImage(bmp))
             {
-                switch (rank)
-                {
-                    case 0:
-                        label.Text = "C";
-                        //label.ForeColor = Color.Orchid;
-                        break;
-                    case 1:
-                        label.Text = "B";
-                        //label.ForeColor = Color.ForestGreen;
-                        break;
-                    case 2:
-                        label.Text = "A";
-                        //label.ForeColor = Color.RoyalBlue;
-                        break;
-                    case 3:
-                        label.Text = "S";
-                        //label.ForeColor = Color.Goldenrod;
-                        break;
-                    default:
-                        label.Text = "-";
-                        //label.ForeColor = Color.Black;
-                        break;
-                }
+                if (db.Mons[ind].Item3 && (type == 0))
+                    g.DrawImage(Properties.Resources.PlateMega, new Point(0, 16));
+                else
+                    g.DrawImage(Properties.Resources.Plate, new Point(0, 16));
+                g.DrawImage(ResizeImage(GetMonImage(ind), 48, 48), new Point(8, 7));
             }
-            else
+
+            return bmp;
+        }
+
+        public static Bitmap GetMonImage(int ind)
+        {
+            string imgname = string.Empty;
+            int mon_num = db.Mons[ind].Item1, form = db.Mons[ind].Item2;
+            bool mega = db.Mons[ind].Item3;
+            if (mega)
             {
-                label.Text = "-";
-                //label.ForeColor = Color.Black;
+                form -= db.HasMega[mon_num][1] ? 1 : 2; //Differenciate Rayquaza/Gyarados from Charizard/Mewtwo, otherwise either stage 300 is Shiny M-Ray or stage 150 is M-mewtwo X
+                imgname += "mega_";
             }
+            imgname += "pokemon_" + mon_num.ToString("000");
+            if (form > 0 && mon_num > 0)
+                imgname += "_" + form.ToString("00");
+            if (mega)
+                imgname += "_lo";
+            return new Bitmap((Image)Properties.Resources.ResourceManager.GetObject(imgname));
+        }
+
+        public static Bitmap GetTeamImage(int ind, bool opacity = false, int w = 48, int h = 48)
+        {
+            return ResizeImage(ChangeOpacity(GetMonImage(ind), (float)(opacity ? 0.75 : 1)), w, h);
         }
 
         public static Bitmap ResizeImage(Image image, int width, int height)
@@ -341,22 +359,10 @@ namespace Pokemon_Shuffle_Save_Editor
 
             return destImage;
         }
-
-        public static Bitmap ChangeOpacity(Image img, float opacityvalue)
-        {
-            Bitmap bmp = new Bitmap(img.Width, img.Height); // Determining Width and Height of Source Image
-            Graphics graphics = Graphics.FromImage(bmp);
-            ColorMatrix colormatrix = new ColorMatrix();
-            colormatrix.Matrix33 = opacityvalue;
-            ImageAttributes imgAttribute = new ImageAttributes();
-            imgAttribute.SetColorMatrix(colormatrix, ColorMatrixFlag.Default, ColorAdjustType.Bitmap);
-            graphics.DrawImage(img, new Rectangle(0, 0, bmp.Width, bmp.Height), 0, 0, img.Width, img.Height, GraphicsUnit.Pixel, imgAttribute);
-            graphics.Dispose();   // Releasing all resource used by graphics 
-            return bmp;
-        }
     }
 
     #region Shifts&Ofsets
+
     public static class Caught
     {
         public static int[] Ofset(int ind)
@@ -370,9 +376,22 @@ namespace Pokemon_Shuffle_Save_Editor
             }
             return ofsets;
         }
+
         public static int Shift(int ind)
         {
             return ((ind - 1) + 6) % 8;
+        }
+    }
+    public static class Experience
+    {
+        public static int Ofset(int ind)
+        {
+            return 0x3241 + (4 + (ind - 1) * 24) / 8;
+        }
+
+        public static int Shift(int ind)
+        {
+            return (4 + (ind - 1) * 24) % 8;
         }
     }
     public static class Level
@@ -381,6 +400,7 @@ namespace Pokemon_Shuffle_Save_Editor
         {
             return 0x187 + ((ind - 1) * 4 + 1) / 8;
         }
+
         public static int Shift(int ind)
         {
             return ((ind - 1) * 4 + 1) % 8;
@@ -392,20 +412,10 @@ namespace Pokemon_Shuffle_Save_Editor
         {
             return 0xA9DB + (ind * 6) / 8;
         }
+
         public static int Shift(int ind)
         {
             return (ind * 6) % 8;
-        }
-    }
-    public static class Experience
-    {
-        public static int Ofset(int ind)
-        {
-            return 0x3241 + (4 + (ind - 1) * 24) / 8;
-        }
-        public static int Shift(int ind)
-        {
-            return (4 + (ind - 1) * 24) % 8;
         }
     }
     public static class Mega
@@ -414,9 +424,34 @@ namespace Pokemon_Shuffle_Save_Editor
         {
             return 0x406 + (ind + 2) / 4;
         }
+
         public static int Shift(int ind)
         {
             return (5 + (ind << 1)) % 8;
+        }
+    }
+    public static class SkillExp
+    {
+        public static int Ofset(int ind)
+        {
+            return 0xC9BB + (ind * 8) / 8;
+        }
+
+        public static int Shift(int ind)
+        {
+            return (ind * 8) % 8;
+        }
+    }
+    public static class SkillLevel
+    {
+        public static int Ofset(int ind)
+        {
+            return 0xAD9B + (ind * 3) / 8;
+        }
+
+        public static int Shift(int ind)
+        {
+            return (ind * 3) % 8;
         }
     }
     public static class SpeedUpX
@@ -425,6 +460,7 @@ namespace Pokemon_Shuffle_Save_Editor
         {
             return 0x2D5B + (db.MegaList.IndexOf(ind) * 7 + 3) / 8;
         }
+
         public static int Shift(int ind)
         {
             return (db.MegaList.IndexOf(ind) * 7 + 3) % 8;
@@ -436,31 +472,23 @@ namespace Pokemon_Shuffle_Save_Editor
         {
             return 0x2D5B + (db.MegaList.IndexOf(ind, db.MegaList.IndexOf(ind) + 1) * 7 + 3) / 8;
         }
+
         public static int Shift(int ind)
         {
             return (db.MegaList.IndexOf(ind, db.MegaList.IndexOf(ind) + 1) * 7 + 3) % 8;
         }
     }
-    public static class SkillLevel
+
+    public static class TeamData
     {
-        public static int Ofset(int ind)
+        public static int Ofset(int slot)
         {
-            return 0xAD9B + (ind * 3) / 8;
+            return 0xE0 + new int[] { 0, 0x2, 0x3, 0x5 }[slot - 1];
         }
-        public static int Shift(int ind)
+
+        public static int Shift(int slot)
         {
-            return (ind * 3) % 8;
-        }
-    }
-    public static class SkillExp
-    {
-        public static int Ofset(int ind)
-        {
-            return 0xC9BB + (ind * 8) / 8;
-        }
-        public static int Shift(int ind)
-        {
-            return (ind * 8) % 8;
+            return new int[] { 5, 1 }[(slot - 1) % 2];
         }
     }
 
@@ -472,27 +500,46 @@ namespace Pokemon_Shuffle_Save_Editor
             {
                 case 0: //Main
                     return 0x688 + ind * 3 / 8;
+
                 case 1: //Expert
                     return 0x84A + ind * 3 / 8;
+
                 case 2: //Event
                     return 0x8BA + (4 + ind * 3) / 8;
+
                 default:
                     throw new System.ArgumentException("Invalid type parameter", "type");
             }
         }
+
         public static int Shift(int ind, int type)
         {
             switch (type)
             {
                 case 0: //Main
                     return (ind * 3) % 8;
+
                 case 1: //Expert
                     return (ind * 3) % 8;
+
                 case 2: //Event
                     return (4 + ind * 3) % 8;
+
                 default:
                     throw new System.ArgumentException("Invalid type parameter", "type");
             }
+        }
+    }
+    public static class EscalationStep
+    {
+        public static int Ofset()
+        {
+            return 0x2D59;
+        }
+
+        public static int Shift()
+        {
+            return 2;
         }
     }
     public static class Rank
@@ -503,24 +550,31 @@ namespace Pokemon_Shuffle_Save_Editor
             {
                 case 0: //Main
                     return 0x987 + (7 + ind * 2) / 8;
+
                 case 1: //Expert
                     return 0xAB3 + (7 + ind * 2) / 8;
+
                 case 2: //Event
                     return 0xAFE + (7 + ind * 2) / 8;
+
                 default:
                     throw new System.ArgumentException("Invalid type parameter", "type");
             }
         }
+
         public static int Shift(int ind, int type)
         {
             switch (type)
             {
                 case 0: //Main
                     return (7 + ind * 2) % 8;
+
                 case 1: //Expert
                     return (7 + ind * 2) % 8;
+
                 case 2: //Event
                     return (7 + ind * 2) % 8;
+
                 default:
                     throw new System.ArgumentException("Invalid type parameter", "type");
             }
@@ -534,50 +588,47 @@ namespace Pokemon_Shuffle_Save_Editor
             {
                 case 0: //Main
                     return 0x4141 + 3 * ind;
+
                 case 1: //Expert
                     return 0x4F51 + 3 * ind;
+
                 case 2: //Event
                     return 0x52D5 + 3 * ind;
+
                 default:
                     throw new System.ArgumentException("Invalid type parameter", "type");
             }
         }
+
         public static int Shift(int ind, int type)
         {
             switch (type)
             {
                 case 0: //Main
                     return 4;
+
                 case 1: //Expert
                     return 4;
+
                 case 2: //Event
                     return 4;
+
                 default:
                     throw new System.ArgumentException("Invalid type parameter", "type");
             }
         }
     }
-    public static class EscalationStep
+
+    public static class Coins
     {
         public static int Ofset()
         {
-            return 0x2D59;
+            return 0x68;
         }
-        public static int Shift()
-        {
-            return 2;
-        }
-    }
 
-    public static class Items
-    {
-        public static int Ofset(int i)
-        {
-            return 0xD0 + i;
-        }
         public static int Shift()
         {
-            return 7;
+            return 3;
         }
     }
     public static class Enhancements
@@ -586,6 +637,7 @@ namespace Pokemon_Shuffle_Save_Editor
         {
             return 0x2D4C + i;
         }
+
         public static int Shift()
         {
             return 1;
@@ -597,20 +649,22 @@ namespace Pokemon_Shuffle_Save_Editor
         {
             return 0x2D4A;
         }
+
         public static int Shift()
         {
             return 7;
         }
     }
-    public static class Coins
+    public static class Items
     {
-        public static int Ofset()
+        public static int Ofset(int i)
         {
-            return 0x68;
+            return 0xD0 + i;
         }
+
         public static int Shift()
         {
-            return 3;
+            return 7;
         }
     }
     public static class Jewels
@@ -619,26 +673,17 @@ namespace Pokemon_Shuffle_Save_Editor
         {
             return 0x68;
         }
+
         public static int Shift()
         {
             return 20;
         }
     }
 
-    public static class TeamData
-    {
-        public static int Ofset(int slot)
-        {
-            return 0xE0 + new int[] { 0, 0x2, 0x3, 0x5 }[slot-1];
-        }
-        public static int Shift(int slot)
-        {
-            return new int[] { 5, 1 }[(slot-1) % 2];
-        }
-    }
-    #endregion
+    #endregion Shifts&Ofsets
 
     #region Custom Objects
+
     public class cbItem
     {
         public string Text { get; set; }
@@ -648,14 +693,23 @@ namespace Pokemon_Shuffle_Save_Editor
     public class monItem
     {
         public bool Caught { get; set; }
+        public int Exp { get; set; }
         public int Level { get; set; }
         public int Lollipops { get; set; }
-        public int Exp { get; set; }
-        public int Stone { get; set; }
+        public int SkillExp { get; set; }
+        public int SkillLevel { get; set; }
         public int SpeedUpX { get; set; }
         public int SpeedUpY { get; set; }
-        public int SkillLevel { get; set; }
-        public int SkillExp { get; set; }
+        public int Stone { get; set; }
+    }
+
+    public class rsItem
+    {
+        public int Coins { get; set; }
+        public int[] Enhancements { get; set; }
+        public int Hearts { get; set; }
+        public int[] Items { get; set; }
+        public int Jewels { get; set; }
     }
 
     public class stgItem
@@ -665,13 +719,5 @@ namespace Pokemon_Shuffle_Save_Editor
         public int Score { get; set; }
     }
 
-    public class rsItem
-    {
-        public int Hearts { get; set; }
-        public int Coins { get; set; }
-        public int Jewels { get; set; }
-        public int[] Items { get; set; }
-        public int[] Enhancements { get; set; }
-    }
-    #endregion
+    #endregion Custom Objects
 }

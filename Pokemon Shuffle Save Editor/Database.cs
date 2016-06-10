@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 
 namespace Pokemon_Shuffle_Save_Editor
 {
     public class Database
     {
         #region Properties
+
         public byte[] MonData { get; private set; }
         public byte[] StagesMain { get; private set; }
         public byte[] StagesEvent { get; private set; }
@@ -21,17 +21,18 @@ namespace Pokemon_Shuffle_Save_Editor
         public string[] MonsList { get; private set; }
         public string[] PokathlonList { get; private set; }
         public int MegaStartIndex { get; private set; } // Indexes of first mega & second "---", respectively,...
-        public int MonStopIndex { get; private set; }   //...should allow PSSE to work longer without needing an update. 
+        public int MonStopIndex { get; private set; }   //...should allow PSSE to work longer without needing an update.
 
         public Tuple<int, int>[] Megas { get; private set; }    //monsIndex, speedups
         public List<int> MegaList { get; private set; } //derivate a List from Megas.Item1 to use with IndexOf() functions (in UpdateForms() & UpdateOwnedBox())
-        public int[] Forms { get; private set; }     
+        public int[] Forms { get; private set; }
         public bool[][] HasMega { get; private set; }   // [X][0] = X, [X][1] = Y
         public Tuple<int, int, bool, int, int, int, int, Tuple<int>>[] Mons { get; private set; }   //specieIndex, formIndex, isMega, raiseMaxLevel, basePower, talent, type, Rest
         public Tuple<int>[] Rest { get; private set; }  //stageNum
 
         public int[][] PokathlonRand { get; private set; }  // [step][0] = min, [step][1] = max
-        #endregion
+
+        #endregion Properties
 
         public Database()
         {
@@ -58,21 +59,27 @@ namespace Pokemon_Shuffle_Save_Editor
                         case 0:
                             MegaStone = File.ReadAllBytes(resourcedir + filenames[i]);
                             break;
+
                         case 1:
                             MonData = File.ReadAllBytes(resourcedir + filenames[i]);
                             break;
+
                         case 2:
                             StagesMain = File.ReadAllBytes(resourcedir + filenames[i]);
                             break;
+
                         case 3:
                             StagesEvent = File.ReadAllBytes(resourcedir + filenames[i]);
                             break;
+
                         case 4:
                             StagesExpert = File.ReadAllBytes(resourcedir + filenames[i]);
                             break;
+
                         case 5:
                             MonLevel = File.ReadAllBytes(resourcedir + filenames[i]);
                             break;
+
                         case 6:
                             MonAbility = File.ReadAllBytes(resourcedir + filenames[i]);
                             break;
@@ -96,13 +103,13 @@ namespace Pokemon_Shuffle_Save_Editor
             }
             MegaList = new List<int>();
             for (int i = 0; i < Megas.Length; i++)
-                MegaList.Add(Megas[i].Item1);   
+                MegaList.Add(Megas[i].Item1);
             Forms = new int[SpeciesList.Length];
             HasMega = new bool[MonsList.Length][];
             for (int i = 0; i < MonsList.Length; i++)
                 HasMega[i] = new bool[2];
             Mons = new Tuple<int, int, bool, int, int, int, int, Tuple<int>>[BitConverter.ToUInt32(MonData, 0)];
-            Rest = new Tuple<int>[BitConverter.ToUInt32(MonData, 0)];
+            Rest = new Tuple<int>[Mons.Length];
             for (int i = 0; i < Mons.Length; i++)
             {
                 byte[] data = MonData.Skip(0x50 + entrylen * i).Take(entrylen).ToArray();
@@ -128,6 +135,6 @@ namespace Pokemon_Shuffle_Save_Editor
                 Int32.TryParse(PokathlonList[2 * i], out PokathlonRand[i][0]);
                 Int32.TryParse(PokathlonList[1 + 2 * i], out PokathlonRand[i][1]);
             }
-        }        
-    }    
+        }
+    }
 }
