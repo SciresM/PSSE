@@ -14,7 +14,9 @@
   * Double-click *Filepath field* to "eject" your save from PSSE and restore its windows to its original state (your edits won't be saved).
 
 * **Owned Pokemon**
-  * Click one of the *Team icons* to quickly access that pokemon.
+  * Left-click one of the *Team icons* to quickly access that pokemon.
+  * Right-click a *Team icon*, then another, to switch the pokemons in these slots.
+  * Ctrl+clic a *Team icon* to insert current active pokemon into that slot.
   * Click *Main pokemon icon* to switch between : Caught pokemon w/ everything maxxed out or Uncaught.
   * Click *Skill+ sprite* to switch between : Min or Max skill level for that pokemon.
   * Click *Lollipop sprite* to switch between : Min or Max lollipops and corresponding level for that pokemon.
@@ -25,7 +27,6 @@
   * Right-click *Stages icons* to switch between : Completed or Uncompleted stage.
   * Click *"Checked" sprite* to switch between : Safe or Unsafe mode.
   * In safe mode :
-    * stages icons are blacked out for stages you didn't complete (for Main stages only),
     * uncompleting a stage auto-uncompletes every stage that's after it (resets highscores & ranks),
     * completing a stage auto-completes every stage that's before it.
   * In unsafe mode, all of these are disabled.
@@ -33,3 +34,4 @@
   
 * **Bulk Edits**
   * Hover your mose above the buttons for a more detailled description of what it does.
+  * Most of the buttons can be Ctrl+clicked to apply a different value than the default one.
