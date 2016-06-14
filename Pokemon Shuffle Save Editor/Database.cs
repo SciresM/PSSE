@@ -9,28 +9,27 @@ namespace Pokemon_Shuffle_Save_Editor
     {
         #region Properties
 
+        public byte[] MegaStone { get; private set; }
+        public byte[] MonAbility { get; private set; }
         public byte[] MonData { get; private set; }
-        public byte[] StagesMain { get; private set; }
+        public byte[] MonLevel { get; private set; }
         public byte[] StagesEvent { get; private set; }
         public byte[] StagesExpert { get; private set; }
-        public byte[] MegaStone { get; private set; }
-        public byte[] MonLevel { get; private set; }
-        public byte[] MonAbility { get; private set; }
+        public byte[] StagesMain { get; private set; }
 
-        public string[] SpeciesList { get; private set; }
+        public bool[][] HasMega { get; private set; }   // [X][0] = X, [X][1] = Y
+        public int[] Forms { get; private set; }
+        public int[][] PokathlonRand { get; private set; }  // [step][0] = min, [step][1] = max
         public string[] MonsList { get; private set; }
         public string[] PokathlonList { get; private set; }
-        public int MegaStartIndex { get; private set; } // Indexes of first mega & second "---", respectively,...
-        public int MonStopIndex { get; private set; }   //...should allow PSSE to work longer without needing an update.
-
+        public string[] SpeciesList { get; private set; }
         public Tuple<int, int>[] Megas { get; private set; }    //monsIndex, speedups
-        public List<int> MegaList { get; private set; } //derivate a List from Megas.Item1 to use with IndexOf() functions (in UpdateForms() & UpdateOwnedBox())
-        public int[] Forms { get; private set; }
-        public bool[][] HasMega { get; private set; }   // [X][0] = X, [X][1] = Y
         public Tuple<int, int, bool, int, int, int, int, Tuple<int>>[] Mons { get; private set; }   //specieIndex, formIndex, isMega, raiseMaxLevel, basePower, talent, type, Rest
         public Tuple<int>[] Rest { get; private set; }  //stageNum
+        public List<int> MegaList { get; private set; } //derivate a List from Megas.Item1 to use with IndexOf() functions (in UpdateForms() & UpdateOwnedBox())
 
-        public int[][] PokathlonRand { get; private set; }  // [step][0] = min, [step][1] = max
+        public int MegaStartIndex { get; private set; } // Indexes of first mega & second "---", respectively,...
+        public int MonStopIndex { get; private set; }   //...should allow PSSE to work longer without needing an update.
 
         #endregion Properties
 
