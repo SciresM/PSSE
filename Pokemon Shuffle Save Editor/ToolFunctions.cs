@@ -479,19 +479,6 @@ namespace Pokemon_Shuffle_Save_Editor
         }
     }
 
-    public static class TeamData
-    {
-        public static int Ofset(int slot)
-        {
-            return 0xE0 + new int[] { 0, 0x2, 0x3, 0x5 }[slot - 1];
-        }
-
-        public static int Shift(int slot)
-        {
-            return new int[] { 5, 1 }[(slot - 1) % 2];
-        }
-    }
-
     public static class Completed
     {
         public static int Ofset(int ind, int type)
@@ -677,6 +664,37 @@ namespace Pokemon_Shuffle_Save_Editor
         public static int Shift()
         {
             return 20;
+        }
+    }
+
+    public static class TeamData
+    {
+        public static int Ofset(int slot)
+        {
+            return 0xE0 + new int[] { 0, 0x2, 0x3, 0x5 }[slot - 1];
+        }
+
+        public static int Shift(int slot)
+        {
+            return new int[] { 5, 1 }[(slot - 1) % 2];
+        }
+    }
+    public static class StreetCount
+    {
+        public static int Ofset()
+        {
+            return 0x5967;
+        }
+    }
+    public static class StreetTag
+    {
+        public static int Length()
+        {
+            return 0x68;
+        }
+        public static int Ofset(int i)
+        {
+            return 0x59A7 + (i * Length());
         }
     }
 

@@ -134,7 +134,10 @@ A pokemon will be set to its maximum instead if selected level is higher.</value
     <value>Marks as caught every pokemon that has been released.
 
 /!\ Any pokemon that has only been released as an event stage, is normal type
-and has 30BP &amp; "Opportunist" talent will be skiped. Add it manually if needed.</value>
+and has 30BP &amp; "Opportunist" talent will be skiped. Add it manually if needed.
+
+/!\ Event pokemons that are included in the resource files but planned to be 
+released at a further date will be included too. Uncatch them manually if needed.</value>
   </data>
   <data name="B_AllCaughtStones.ToolTip" xml:space="preserve">
     <value>Gives you megastones for everything that you've caught and for which a megastone has been released.
@@ -165,6 +168,17 @@ Highscores will be set as the smallest "legitimately" possible too, unless your 
 is already enough.
 
 Ctrl + Click to select a rank manually (0 = C, 1 = B, 2 = A, 3 = S).</value>
+  </data>
+  <data name="B_StreetPassDelete.ToolTip" xml:space="preserve">
+    <value>Sets number of streetpass encounters to 0 and deletes the 10 last ones that you can see
+in "Streetpass encounters" menu. This is usefull if entering this menu crashes your game.
+
+Ctrl+clic to set your  desired number of streetpass encounters and decide if you want to
+wipe your streetpass tags or not.
+
+For information, you get 1 jewel for your 1st and every 100 streetpasses, as well as 1 heart
+for your 5th and every 10 streetpasses.
+</value>
   </data>
   <data name="B_MaxExcalationBattle.ToolTip" xml:space="preserve">
     <value>Opens a popup to select your desired step (Ctrl + click sets step 999 by default).

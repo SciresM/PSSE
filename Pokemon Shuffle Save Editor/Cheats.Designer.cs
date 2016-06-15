@@ -52,7 +52,7 @@
             // 
             // B_CaughtEverything
             // 
-            this.B_CaughtEverything.Location = new System.Drawing.Point(196, 200);
+            this.B_CaughtEverything.Location = new System.Drawing.Point(196, 157);
             this.B_CaughtEverything.Name = "B_CaughtEverything";
             this.B_CaughtEverything.Size = new System.Drawing.Size(65, 23);
             this.B_CaughtEverything.TabIndex = 101;
@@ -98,7 +98,7 @@
             // 
             // B_AllStones
             // 
-            this.B_AllStones.Location = new System.Drawing.Point(156, 200);
+            this.B_AllStones.Location = new System.Drawing.Point(156, 157);
             this.B_AllStones.Name = "B_AllStones";
             this.B_AllStones.Size = new System.Drawing.Size(65, 23);
             this.B_AllStones.TabIndex = 100;
@@ -154,14 +154,12 @@
             // 
             // B_StreetPassDelete
             // 
-            this.B_StreetPassDelete.Location = new System.Drawing.Point(12, 200);
+            this.B_StreetPassDelete.Location = new System.Drawing.Point(12, 157);
             this.B_StreetPassDelete.Name = "B_StreetPassDelete";
             this.B_StreetPassDelete.Size = new System.Drawing.Size(138, 23);
             this.B_StreetPassDelete.TabIndex = 53;
-            this.B_StreetPassDelete.Text = "Delete StreetPass tags";
-            this.toolTip1.SetToolTip(this.B_StreetPassDelete, "Sets number of streetpass encounters to 0 and deletes the 10 last ones that you c" +
-        "an see\r\nin \"Streetpass encounters\" menu. This is usefull if entering this menu c" +
-        "rashes your game.");
+            this.B_StreetPassDelete.Text = "Edit StreetPass (reset)";
+            this.toolTip1.SetToolTip(this.B_StreetPassDelete, resources.GetString("B_StreetPassDelete.ToolTip"));
             this.B_StreetPassDelete.UseVisualStyleBackColor = true;
             this.B_StreetPassDelete.Click += new System.EventHandler(this.B_StreetPassDelete_Click);
             // 
@@ -179,7 +177,7 @@
             // Line
             // 
             this.Line.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.Line.Location = new System.Drawing.Point(12, 159);
+            this.Line.Location = new System.Drawing.Point(12, 190);
             this.Line.MaximumSize = new System.Drawing.Size(288, 2);
             this.Line.MinimumSize = new System.Drawing.Size(20, 2);
             this.Line.Name = "Line";
@@ -188,7 +186,8 @@
             // 
             // B_PokemonReset
             // 
-            this.B_PokemonReset.Location = new System.Drawing.Point(12, 171);
+            this.B_PokemonReset.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.B_PokemonReset.Location = new System.Drawing.Point(12, 200);
             this.B_PokemonReset.Name = "B_PokemonReset";
             this.B_PokemonReset.Size = new System.Drawing.Size(138, 23);
             this.B_PokemonReset.TabIndex = 50;
@@ -199,7 +198,8 @@
             // 
             // B_StageReset
             // 
-            this.B_StageReset.Location = new System.Drawing.Point(156, 171);
+            this.B_StageReset.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.B_StageReset.Location = new System.Drawing.Point(156, 200);
             this.B_StageReset.Name = "B_StageReset";
             this.B_StageReset.Size = new System.Drawing.Size(138, 23);
             this.B_StageReset.TabIndex = 51;
@@ -212,7 +212,10 @@
             // 
             // toolTip1
             // 
+            this.toolTip1.AutoPopDelay = 10000;
+            this.toolTip1.InitialDelay = 500;
             this.toolTip1.IsBalloon = true;
+            this.toolTip1.ReshowDelay = 100;
             this.toolTip1.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             this.toolTip1.ToolTipTitle = "Button description";
             // 
@@ -231,7 +234,7 @@
             // 
             // B_Test
             // 
-            this.B_Test.Location = new System.Drawing.Point(235, 200);
+            this.B_Test.Location = new System.Drawing.Point(235, 157);
             this.B_Test.Name = "B_Test";
             this.B_Test.Size = new System.Drawing.Size(65, 23);
             this.B_Test.TabIndex = 102;
@@ -280,7 +283,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(328, 274);
+            this.MaximumSize = new System.Drawing.Size(328, 999);
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(328, 274);
             this.Name = "Cheats";

@@ -306,10 +306,28 @@ namespace Pokemon_Shuffle_Save_Editor
 
         private void B_StreetPassDelete_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < 10; i++)
-                Array.Copy(new byte[0x68], 0, savedata, 0x59A7 + (i * 0x68), 0x68); //Erase StreetPass tags
-            Array.Copy(BitConverter.GetBytes(0x00), 0, savedata, 0x5967, 2); //Resets streetpass count to 0
-            MessageBox.Show("StreetPass data have been cleared & StreetPass count reset to 0.");
+            int value = 0;    //default value
+            bool boool = true;  //default value
+            if (ModifierKeys == Keys.Control)
+            {
+                using (var form = new NUP_Popup(0, 9999, value, boool, "streetpass encounters", "Wipe tags"))
+                {
+                    form.ShowDialog();
+                    if (form.DialogResult == DialogResult.OK)
+                    {
+                        value = form.retVal;
+                        boool = form.retChk;
+                    }
+                    else return;
+                }
+            }
+            Array.Copy(BitConverter.GetBytes(value), 0, savedata, StreetCount.Ofset(), 2); //Sets streetpass count to value
+            if (boool)
+            {
+                for (int i = 0; i < 10; i++)
+                    Array.Copy(new byte[StreetTag.Length()], 0, savedata, StreetTag.Ofset(i), StreetTag.Length()); //Erase StreetPass tags
+            }
+            MessageBox.Show("Streetpass count set to " + value + ".\nStreetpass tags " + (boool ? "" : "not ") + "wiped.");
         }
 
         private void B_Test_Click(object sender, EventArgs e)
