@@ -242,7 +242,6 @@
             this.toolTip1.SetToolTip(this.B_Test, "Used w/ B_Test_Click event to search for the \"skill+ drop\" flags in stagedata(s)." +
         "bin");
             this.B_Test.UseVisualStyleBackColor = true;
-            this.B_Test.Visible = false;
             this.B_Test.Click += new System.EventHandler(this.B_Test_Click);
             // 
             // B_PokathlonStep

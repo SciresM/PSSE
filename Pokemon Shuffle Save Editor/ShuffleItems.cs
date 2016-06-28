@@ -4,8 +4,12 @@ namespace Pokemon_Shuffle_Save_Editor
 {
     internal class ShuffleItems
     {
-        private int[] items = new int[7];
-        private int[] enchantments = new int[9];
+        //Edit these to change number of supported items globally
+        public static int ILength { get { return 7; } }
+        public static int ELength { get { return 10; } }
+
+        private int[] items = new int[ILength];
+        private int[] enchantments = new int[ELength];
 
         // Items -- things you use for a stage
         [Browsable(false)]
@@ -203,6 +207,17 @@ namespace Pokemon_Shuffle_Save_Editor
         {
             get { return enchantments[8]; }
             set { enchantments[8] = value; }
+        }
+
+        [Browsable(true)]
+        [ReadOnly(false)]
+        [Category("Pokémon Enhancements")]
+        [DisplayName("Skill\t\t\t Swap")]
+        [Description("This item will do stuff.")]
+        public int SkillSwap
+        {
+            get { return enchantments[9]; }
+            set { enchantments[9] = value; }
         }
     }
 }

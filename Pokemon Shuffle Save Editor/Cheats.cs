@@ -149,11 +149,11 @@ namespace Pokemon_Shuffle_Save_Editor
             }
             else
             {
-                int[] items = new int[7];
-                for (int i = 0; i < 7; i++)
+                int[] items = new int[ShuffleItems.ILength];
+                for (int i = 0; i < items.Length; i++)
                     items[i] = 99;
-                int[] enhancements = new int[9];
-                for (int i = 0; i < 9; i++)
+                int[] enhancements = new int[ShuffleItems.ELength];
+                for (int i = 0; i < enhancements.Length; i++)
                     enhancements[i] = 99;
                 SetResources(99, 99999, 150, items, enhancements);
                 MessageBox.Show("Gave 99 hearts, 99999 coins, 150 jewels, and 99 of every item.");
@@ -332,22 +332,28 @@ namespace Pokemon_Shuffle_Save_Editor
 
         private void B_Test_Click(object sender, EventArgs e)
         {   //don't bother, testing stuff
-            int j = 0;
-            foreach (byte[] stage in new byte[][] { db.StagesMain, db.StagesExpert, db.StagesEvent })
-            {
-                Console.WriteLine(j + "\n==============");
-                int entrylen = BitConverter.ToInt32(stage, 4);
-                for (int i = 0; i < BitConverter.ToInt32(stage, 0); i++)
-                {
-                    byte[] data = stage.Skip(0x50 + i * 0x5C).Take(0x5C).ToArray();
-                    if (BitConverter.ToInt16(data, 0x43) != 0)
-                    {   //returns 9319 (most skill+-droping stages), 9219 (uxie stage), 6106 (Eevee stage) or 0 (all other stages)
-                        Console.WriteLine("{0:X}", BitConverter.ToInt16(data, 0x43));
-                        Console.WriteLine(db.MonsList[BitConverter.ToInt16(data, 0) & 0x3FF]);
-                    }
-                }
-                j++;
-            }
+            #region Skill+-dropping stages
+            //int j = 0;
+            //foreach (byte[] stage in new byte[][] { db.StagesMain, db.StagesExpert, db.StagesEvent })
+            //{
+            //    Console.WriteLine(j + "\n==============");
+            //    int entrylen = BitConverter.ToInt32(stage, 4);
+            //    for (int i = 0; i < BitConverter.ToInt32(stage, 0); i++)
+            //    {
+            //        byte[] data = stage.Skip(0x50 + i * 0x5C).Take(0x5C).ToArray();
+            //        if (BitConverter.ToInt16(data, 0x43) != 0)
+            //        {   //returns 9319 (most skill+-droping stages), 9219 (uxie stage), 9119 (Tornadus stage), 6106 (Eevee stage) or 0 (all other stages)
+            //            Console.WriteLine("{0:X}", BitConverter.ToInt16(data, 0x43));
+            //            Console.WriteLine(db.MonsList[BitConverter.ToInt16(data, 0) & 0x3FF]);
+            //        }
+            //    }
+            //    j++;
+            //}
+            #endregion
+
+            #region event timestamps
+            //Console.WriteLine(DateTime.FromBinary(0x0d001d56407b990));
+            #endregion
         }
 
         private void B_PokathlonStep_Click(object sender, EventArgs e)
@@ -375,7 +381,7 @@ namespace Pokemon_Shuffle_Save_Editor
             Array.Copy(BitConverter.GetBytes((BitConverter.ToInt16(savedata, 0xB762) & ~(0x3FF << 6)) | (opponent << 6)), 0, savedata, 0xB762, 2);
             string name = db.MonsList[BitConverter.ToInt16(db.StagesMain, 0x50 + BitConverter.ToInt32(db.StagesMain, 0x4) * opponent) & 0x3FF];
             string str = new string[] { "th", "st", "nd", "rd" }[(!(step > 10 && step < 14) && step % 10 < 4) ? step % 4 : 0];
-            MessageBox.Show((!enabled ? "Survival Mode is disabled.\nYou should have faced" : "Survival mode enabled.\nYou'll face") + " survival mode's " + step + str + " step against " + name + " with " + (savedata[0xB768] & 0x7F) + " moves left.");
+            MessageBox.Show((enabled ? "Survival mode enabled.\nYou'll face" : "Survival Mode is disabled.\nYou should have faced") + " survival mode's " + step + str + " step against " + name + " with " + (savedata[0xB768] & 0x7F) + " moves left.");
         }
     }
 }

@@ -114,37 +114,37 @@ namespace Pokemon_Shuffle_Save_Editor
 
         public static rsItem GetRessources()
         {
-            int[] items = new int[7], enhancements = new int[9];
-            for (int i = 0; i < items.Length; i++)
-                items[i] = (BitConverter.ToUInt16(savedata, Items.Ofset(i)) >> Items.Shift()) & 0x7F;
-            for (int i = 0; i < enhancements.Length; i++)
-                enhancements[i] = (savedata[Enhancements.Ofset(i)] >> Enhancements.Shift()) & 0x7F;
+            ShuffleItems res = new ShuffleItems();
+            for (int i = 0; i < res.Items.Length; i++)
+                res.Items[i] = (BitConverter.ToUInt16(savedata, Items.Ofset(i)) >> Items.Shift()) & 0x7F;
+            for (int i = 0; i < res.Enchantments.Length; i++)
+                res.Enchantments[i] = (savedata[Enhancements.Ofset(i)] >> Enhancements.Shift()) & 0x7F;
             return new rsItem
             {
                 Hearts = (BitConverter.ToUInt16(savedata, Hearts.Ofset()) >> Hearts.Shift()) & 0x7F,
                 Coins = (BitConverter.ToInt32(savedata, Coins.Ofset()) >> Coins.Shift()) & 0x1FFFF,
                 Jewels = (BitConverter.ToInt32(savedata, Jewels.Ofset()) >> Jewels.Shift()) & 0xFF,
-                Items = items,
-                Enhancements = enhancements
+                Items = res.Items,
+                Enhancements = res.Enchantments
             };
         }
 
         public static void SetResources(int hearts = 0, uint coins = 0, uint jewels = 0, int[] items = null, int[] enhancements = null)
         {
             if (items == null)
-                items = new int[7];
+                items = new int[ShuffleItems.ILength];
             if (enhancements == null)
-                enhancements = new int[9];
+                enhancements = new int[ShuffleItems.ELength];
             Array.Copy(BitConverter.GetBytes((BitConverter.ToUInt32(savedata, Coins.Ofset()) & 0xF0000007) | (coins << Coins.Shift()) | (jewels << Jewels.Shift())), 0, savedata, Coins.Ofset(), 4);
             Array.Copy(BitConverter.GetBytes((BitConverter.ToUInt16(savedata, Hearts.Ofset()) & 0xC07F) | (hearts << Hearts.Shift())), 0, savedata, Hearts.Ofset(), 2);
-            for (int i = 0; i < 7; i++) //Items (battle)
+            for (int i = 0; i < ShuffleItems.ILength; i++) //Items (battle)
             {
                 ushort val = BitConverter.ToUInt16(savedata, Items.Ofset(i));
                 val &= 0x7F;
                 val |= (ushort)(items[i] << Items.Shift());
                 Array.Copy(BitConverter.GetBytes(val), 0, savedata, Items.Ofset(i), 2);
             }
-            for (int i = 0; i < 9; i++) //Enhancements (pokemon)
+            for (int i = 0; i < ShuffleItems.ELength; i++) //Enhancements (pokemon)
                 savedata[Enhancements.Ofset(i)] = (byte)((((enhancements[i]) << Enhancements.Shift()) & 0xFE) | (savedata[Enhancements.Ofset(i)] & Enhancements.Shift()));
         }
 
