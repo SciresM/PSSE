@@ -4,7 +4,7 @@ namespace Pokemon_Shuffle_Save_Editor
 {
     internal class ShuffleItems
     {
-        //Edit these to change number of supported items globally
+        //Edit these to change number of supported items globally. Don't forget to change parameters in ItemsGrid's intialisation (Main.Designer) too! 
         public static int ILength { get { return 7; } }
         public static int ELength { get { return 10; } }
 
@@ -212,8 +212,8 @@ namespace Pokemon_Shuffle_Save_Editor
         [Browsable(true)]
         [ReadOnly(false)]
         [Category("Pokémon Enhancements")]
-        [DisplayName("Skill\t\t\t Swap")]
-        [Description("This item will do stuff.")]
+        [DisplayName("Skill\t\t\t Swapper")]
+        [Description("This enhancement changes a Pokémon's skill. Place it on a Pokémon to see what changes!")]
         public int SkillSwap
         {
             get { return enchantments[9]; }
