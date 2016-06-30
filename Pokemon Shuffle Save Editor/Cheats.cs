@@ -35,7 +35,7 @@ namespace Pokemon_Shuffle_Save_Editor
             {
                 for (int i = 0; i < db.MegaStartIndex; i++)
                 {   //if (caught && (hasMegaX || hasMegaY) && (at least 1 of these not equals to "default" : talent, type, max speedups). Doesn't check if Y form has been released, but both Charizard's & Mewtwo's already have.
-                    if (GetMon(i).Caught && (db.HasMega[i][0] || db.HasMega[i][1]) && ((db.Mons[db.MegaStartIndex + db.MegaList.IndexOf(i)].Item6 != 7) || (db.Mons[db.MegaStartIndex + db.MegaList.IndexOf(i)].Item7 != 0) || (db.Megas[db.MegaList.IndexOf(i)].Item2 != 1)))
+                    if (GetMon(i).Caught && (db.HasMega[i][0] || db.HasMega[i][1]) && ((db.Mons[db.MegaStartIndex + db.MegaList.IndexOf(i)].Item6[0] != 7) || (db.Mons[db.MegaStartIndex + db.MegaList.IndexOf(i)].Item7 != 0) || (db.Megas[db.MegaList.IndexOf(i)].Item2 != 1)))
                         SetStone(i, db.HasMega[i][0], db.HasMega[i][1]);
                 }
                 MessageBox.Show("You now own every released stone for each of your caught pokemons.");
@@ -82,7 +82,7 @@ namespace Pokemon_Shuffle_Save_Editor
         private void B_CaughtObtainables_Click(object sender, EventArgs e)
         {
             for (int i = 1; i < db.MegaStartIndex; i++)
-                SetCaught(i, (db.Mons[i].Rest.Item1 != 999) && ((db.Mons[i].Item5 != 1) || (db.Mons[i].Item6 != 1) || (db.Mons[i].Item7 != 0))); //((displayed number isn't 999) && (at least 1 of these isn't "default" : base power, talent, type))
+                SetCaught(i, (db.Mons[i].Rest.Item1 != 999) && ((db.Mons[i].Item5 != 1) || (db.Mons[i].Item6[0] != 1) || (db.Mons[i].Item7 != 0))); //((displayed number isn't 999) && (at least 1 of these isn't "default" : base power, talent, type))
             int stagelen = BitConverter.ToInt32(db.StagesMain, 0x4);
             foreach (byte[] stage in new byte[][] { db.StagesMain, db.StagesExpert })
             {
@@ -208,9 +208,12 @@ namespace Pokemon_Shuffle_Save_Editor
             for (int i = 0; i < db.MegaStartIndex; i++)
             {
                 if (GetMon(i).Caught)
-                    SetSkill(i, value);
+                {
+                    for (int j = 0; j < db.Rest[i].Item2; j++)
+                        SetSkill(i, value, j);
+                }                    
             }
-            MessageBox.Show("Every pokemon that you have caught now has its talent powered to level " + value + " !");
+            MessageBox.Show("Every pokemon that you have caught now has all its skills powered to level " + value + " !");
         }
 
         private void B_PokemonReset_Click(object sender, EventArgs e)

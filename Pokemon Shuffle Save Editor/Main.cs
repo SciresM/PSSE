@@ -103,7 +103,7 @@ namespace Pokemon_Shuffle_Save_Editor
                 SetLevel(ind, set_level, set_rml);
                 SetStone(ind, CHK_MegaX.Checked, CHK_MegaY.Checked);
                 SetSpeedup(ind, (db.HasMega[ind][0] && CHK_CaughtMon.Checked && CHK_MegaX.Checked), (int)NUP_SpeedUpX.Value, (db.HasMega[ind][1] && CHK_CaughtMon.Checked && CHK_MegaY.Checked), (int)NUP_SpeedUpY.Value);
-                SetSkill(ind, (int)(CHK_CaughtMon.Checked ? NUP_Skill.Value : 1));
+                SetSkill(ind, (int)(CHK_CaughtMon.Checked ? NUP_SkillLvl.Value : 1), (int)(CHK_CaughtMon.Checked ? NUP_Skill.Value - 1 : 0), true);
 
                 //Stages Box Properties
                 SetScore((int)NUP_MainIndex.Value - 1, 0, (ulong)NUP_MainScore.Value);
@@ -139,7 +139,9 @@ namespace Pokemon_Shuffle_Save_Editor
             NUP_Level.Value = GetMon(ind).Level;
 
             //Skill level value
-            NUP_Skill.Value = GetMon(ind).SkillLevel;
+            NUP_Skill.Maximum = db.Rest[ind].Item2;
+            NUP_Skill.Value = GetMon(ind).CurrentSkill + 1;
+            NUP_SkillLvl.Value = GetMon(ind).SkillLevel[(int)NUP_Skill.Value - 1];
 
             //Speedup values
             if (db.MegaList.IndexOf(ind) != -1) //temporary fix while there are still some mega forms missing in megastone.bin
@@ -151,13 +153,13 @@ namespace Pokemon_Shuffle_Save_Editor
             }
             else
             {
-                NUP_SpeedUpX.Maximum = NUP_SpeedUpY.Maximum = 1;
+                NUP_SpeedUpX.Maximum = NUP_SpeedUpY.Maximum = 3;
                 NUP_SpeedUpX.Value = NUP_SpeedUpY.Value = 0;
             }
 
             #region Visibility
 
-            L_Level.Visible = NUP_Level.Visible = PB_Skill.Visible = NUP_Skill.Visible = CHK_CaughtMon.Checked;
+            L_Level.Visible = L_Skill.Visible = NUP_Level.Visible = PB_Skill.Visible = NUP_Skill.Visible = NUP_SkillLvl.Visible = CHK_CaughtMon.Checked;
             PB_Lollipop.Visible = NUP_Lollipop.Visible = (CHK_CaughtMon.Checked && NUP_Lollipop.Maximum != 0);
             PB_Mon.Image = GetCaughtImage(ind, CHK_CaughtMon.Checked);
             PB_MegaX.Visible = CHK_MegaX.Visible = db.HasMega[ind][0];
@@ -172,7 +174,7 @@ namespace Pokemon_Shuffle_Save_Editor
             PB_SpeedUpX.Image = db.HasMega[ind][0] ? new Bitmap(ResizeImage((Image)Properties.Resources.ResourceManager.GetObject("mega_speedup"), 24, 24)) : new Bitmap(16, 16);
             PB_SpeedUpY.Image = db.HasMega[ind][1] ? new Bitmap(ResizeImage((Image)Properties.Resources.ResourceManager.GetObject("mega_speedup"), 24, 24)) : new Bitmap(16, 16);
 
-            #endregion Visibility
+            #endregion Visibility            
         }
 
         private void UpdateResourceBox()
@@ -301,13 +303,26 @@ namespace Pokemon_Shuffle_Save_Editor
                         CHK_MegaY.Checked = db.HasMega[(int)CB_MonIndex.SelectedValue][1];
                         NUP_SpeedUpX.Value = (db.HasMega[(int)CB_MonIndex.SelectedValue][0]) ? NUP_SpeedUpX.Maximum : 0;
                         NUP_SpeedUpY.Value = (db.HasMega[(int)CB_MonIndex.SelectedValue][1]) ? NUP_SpeedUpY.Maximum : 0;
-                        NUP_Skill.Value = NUP_Skill.Maximum;
+                        NUP_SkillLvl.Value = NUP_SkillLvl.Maximum;
                     }
                     else CHK_CaughtMon.Checked = CHK_MegaX.Checked = CHK_MegaY.Checked = false;
                     break;
 
                 case 5:
-                    NUP_Skill.Value = (NUP_Skill.Value == 1) ? NUP_Skill.Maximum : NUP_Skill.Minimum;
+                    bool boool = false;
+                    foreach (int sLv in GetMon((int)CB_MonIndex.SelectedValue).SkillLevel)
+                    {
+                        if (sLv != 5)
+                            boool = true;
+                    }
+                    for (int i = 0; i < db.Rest[(int)CB_MonIndex.SelectedValue].Item2; i++)
+                    {
+                        if (boool)
+                            SetSkill((int)CB_MonIndex.SelectedValue, 5, i);
+                        else
+                            SetSkill((int)CB_MonIndex.SelectedValue, 1, i);
+                    }
+                    //NUP_SkillLvl.Value = (NUP_SkillLvl.Value == 1) ? NUP_SkillLvl.Maximum : NUP_SkillLvl.Minimum;
                     break;
 
                 default:
@@ -519,6 +534,12 @@ namespace Pokemon_Shuffle_Save_Editor
         {
             if (lastkeys == Keys.Tab) { ItemsGrid.SelectedGridItem = ItemsGrid.EnumerateAllItems().First((item) => item.PropertyDescriptor != null); }
             else if (lastkeys == (Keys.Tab | Keys.Shift)) { ItemsGrid.SelectedGridItem = ItemsGrid.EnumerateAllItems().Last(); }
+        }
+
+        private void UpdateSkill(object s, EventArgs e)
+        {
+            NUP_SkillLvl.Value = GetMon((int)CB_MonIndex.SelectedValue).SkillLevel[(int)NUP_Skill.Value - 1];
+            UpdateForm(s, e);
         }
 
         private void UpdateProperty(object s, PropertyValueChangedEventArgs e)

@@ -24,8 +24,8 @@ namespace Pokemon_Shuffle_Save_Editor
         public string[] PokathlonList { get; private set; }
         public string[] SpeciesList { get; private set; }
         public Tuple<int, int>[] Megas { get; private set; }    //monsIndex, speedups
-        public Tuple<int, int, bool, int, int, int, int, Tuple<int>>[] Mons { get; private set; }   //specieIndex, formIndex, isMega, raiseMaxLevel, basePower, talent, type, Rest
-        public Tuple<int>[] Rest { get; private set; }  //stageNum
+        public Tuple<int, int, bool, int, int, int[], int, Tuple<int, int>>[] Mons { get; private set; }   //specieIndex, formIndex, isMega, raiseMaxLevel, basePower, skills, type, Rest
+        public Tuple<int, int>[] Rest { get; private set; }  //stageNum, skillsCount
         public List<int> MegaList { get; private set; } //derivate a List from Megas.Item1 to use with IndexOf() functions (in UpdateForms() & UpdateOwnedBox())
 
         public int MegaStartIndex { get; private set; } // Indexes of first mega & second "---", respectively,...
@@ -107,8 +107,8 @@ namespace Pokemon_Shuffle_Save_Editor
             HasMega = new bool[MonsList.Length][];
             for (int i = 0; i < MonsList.Length; i++)
                 HasMega[i] = new bool[2];
-            Mons = new Tuple<int, int, bool, int, int, int, int, Tuple<int>>[BitConverter.ToUInt32(MonData, 0)];
-            Rest = new Tuple<int>[Mons.Length];
+            Mons = new Tuple<int, int, bool, int, int, int[], int, Tuple<int, int>>[BitConverter.ToUInt32(MonData, 0)];
+            Rest = new Tuple<int, int>[Mons.Length];
             for (int i = 0; i < Mons.Length; i++)
             {
                 byte[] data = MonData.Skip(0x50 + entrylen * i).Take(entrylen).ToArray();
@@ -118,11 +118,20 @@ namespace Pokemon_Shuffle_Save_Editor
                     : (BitConverter.ToInt32(data, 0xE) >> 6) & 0x7FF;
                 int raiseMaxLevel = (BitConverter.ToInt16(data, 0x4)) & 0x3F;
                 int basePower = (BitConverter.ToInt16(data, 0x3)) & 0x7; //ranges 1-7 for now (30-90 BP), may need an update later on
-                int talent = (BitConverter.ToInt16(data, 0x02)) & 0x7F; //ranges 1-~100 for now ("Opportunist" to "Transform"), ordered list in MESSAGE_XX/09 (0x44C-C76 for US)
+                int[] skill = new int[5];
+                int j = 0;
+                int skillCount = 0;
+                foreach (int adr in new int[] { 0x02, 0x20, 0x21, 0x22, 0x23})
+                {
+                    skill[j] = data[adr] & 0x7F; //ranges 1-~100 for now ("Opportunist" to "Transform"), ordered list in MESSAGE_XX/09 (0x44C-C76 for US)
+                    skillCount += (skill[j] != 0 ? 1 : 0);
+                    j++;
+                }
+                skillCount = Math.Max(skillCount, 1);
                 int type = (BitConverter.ToInt16(data, 0x01) >> 3) & 0x1F; //ranges 0-17 (normal - fairy) (https://gbatemp.net/threads/psse-pokemon-shuffle-save-editor.396499/page-33#post-6278446)
                 int index = (BitConverter.ToInt16(data, 0)) & 0x3FF; //ranges 1-999, it's the number you can see on the team selection menu
-                Rest[i] = new Tuple<int>(index); //Mons has more than 7 arguments so 8th one and beyond must be included in another Tuple
-                Mons[i] = new Tuple<int, int, bool, int, int, int, int, Tuple<int>>(spec, Forms[spec], isMega, raiseMaxLevel, basePower, talent, type, Rest[i]);
+                Rest[i] = new Tuple<int, int>(index, skillCount); //Mons has more than 7 arguments so 8th one and beyond must be included in another Tuple
+                Mons[i] = new Tuple<int, int, bool, int, int, int[], int, Tuple<int, int>>(spec, Forms[spec], isMega, raiseMaxLevel, basePower, skill, type, Rest[i]);
                 Forms[spec]++;
             }
             for (int i = 0; i < Megas.Length; i++)

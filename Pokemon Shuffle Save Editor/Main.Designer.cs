@@ -57,8 +57,10 @@
             this.PB_Expert = new System.Windows.Forms.PictureBox();
             this.PB_Main = new System.Windows.Forms.PictureBox();
             this.GB_Caught = new System.Windows.Forms.GroupBox();
-            this.PB_Skill = new System.Windows.Forms.PictureBox();
+            this.L_Skill = new System.Windows.Forms.Label();
             this.NUP_Skill = new System.Windows.Forms.NumericUpDown();
+            this.PB_Skill = new System.Windows.Forms.PictureBox();
+            this.NUP_SkillLvl = new System.Windows.Forms.NumericUpDown();
             this.PB_Lollipop = new System.Windows.Forms.PictureBox();
             this.NUP_Lollipop = new System.Windows.Forms.NumericUpDown();
             this.L_Level = new System.Windows.Forms.Label();
@@ -75,6 +77,7 @@
             this.CB_MonIndex = new System.Windows.Forms.ComboBox();
             this.PB_Mon = new System.Windows.Forms.PictureBox();
             this.GB_Resources = new System.Windows.Forms.GroupBox();
+            this.ItemsGrid = new Pokemon_Shuffle_Save_Editor.TabbedPropertyGrid();
             this.NUP_Jewels = new System.Windows.Forms.NumericUpDown();
             this.NUP_Coins = new System.Windows.Forms.NumericUpDown();
             this.NUP_Hearts = new System.Windows.Forms.NumericUpDown();
@@ -86,7 +89,6 @@
             this.PB_Team2 = new System.Windows.Forms.PictureBox();
             this.PB_Team3 = new System.Windows.Forms.PictureBox();
             this.PB_Team4 = new System.Windows.Forms.PictureBox();
-            this.ItemsGrid = new Pokemon_Shuffle_Save_Editor.TabbedPropertyGrid();
             this.GB_HighScore.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PB_override)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUP_EventScore)).BeginInit();
@@ -99,8 +101,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.PB_Expert)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PB_Main)).BeginInit();
             this.GB_Caught.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PB_Skill)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUP_Skill)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PB_Skill)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NUP_SkillLvl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PB_Lollipop)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUP_Lollipop)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PB_SpeedUpY)).BeginInit();
@@ -178,7 +181,7 @@
             this.GB_HighScore.Controls.Add(this.PB_Expert);
             this.GB_HighScore.Controls.Add(this.PB_Main);
             this.GB_HighScore.Enabled = false;
-            this.GB_HighScore.Location = new System.Drawing.Point(12, 430);
+            this.GB_HighScore.Location = new System.Drawing.Point(12, 447);
             this.GB_HighScore.Name = "GB_HighScore";
             this.GB_HighScore.Size = new System.Drawing.Size(493, 118);
             this.GB_HighScore.TabIndex = 6;
@@ -424,8 +427,10 @@
             // 
             // GB_Caught
             // 
-            this.GB_Caught.Controls.Add(this.PB_Skill);
+            this.GB_Caught.Controls.Add(this.L_Skill);
             this.GB_Caught.Controls.Add(this.NUP_Skill);
+            this.GB_Caught.Controls.Add(this.PB_Skill);
+            this.GB_Caught.Controls.Add(this.NUP_SkillLvl);
             this.GB_Caught.Controls.Add(this.PB_Lollipop);
             this.GB_Caught.Controls.Add(this.NUP_Lollipop);
             this.GB_Caught.Controls.Add(this.L_Level);
@@ -444,26 +449,26 @@
             this.GB_Caught.Enabled = false;
             this.GB_Caught.Location = new System.Drawing.Point(12, 168);
             this.GB_Caught.Name = "GB_Caught";
-            this.GB_Caught.Size = new System.Drawing.Size(228, 203);
+            this.GB_Caught.Size = new System.Drawing.Size(228, 181);
             this.GB_Caught.TabIndex = 3;
             this.GB_Caught.TabStop = false;
             this.GB_Caught.Text = "Owned Pokemon";
             // 
-            // PB_Skill
+            // L_Skill
             // 
-            this.PB_Skill.Location = new System.Drawing.Point(6, 97);
-            this.PB_Skill.Name = "PB_Skill";
-            this.PB_Skill.Size = new System.Drawing.Size(24, 24);
-            this.PB_Skill.TabIndex = 70;
-            this.PB_Skill.TabStop = false;
-            this.PB_Skill.Visible = false;
-            this.PB_Skill.Click += new System.EventHandler(this.PB_Owned_Click);
+            this.L_Skill.AutoSize = true;
+            this.L_Skill.Location = new System.Drawing.Point(6, 135);
+            this.L_Skill.Name = "L_Skill";
+            this.L_Skill.Size = new System.Drawing.Size(58, 13);
+            this.L_Skill.TabIndex = 71;
+            this.L_Skill.Text = "Skill Level:";
+            this.L_Skill.Visible = false;
             // 
             // NUP_Skill
             // 
-            this.NUP_Skill.Location = new System.Drawing.Point(36, 99);
+            this.NUP_Skill.Location = new System.Drawing.Point(105, 151);
             this.NUP_Skill.Maximum = new decimal(new int[] {
-            5,
+            8,
             0,
             0,
             0});
@@ -474,18 +479,52 @@
             0});
             this.NUP_Skill.Name = "NUP_Skill";
             this.NUP_Skill.Size = new System.Drawing.Size(34, 20);
-            this.NUP_Skill.TabIndex = 69;
+            this.NUP_Skill.TabIndex = 72;
             this.NUP_Skill.Value = new decimal(new int[] {
             1,
             0,
             0,
             0});
             this.NUP_Skill.Visible = false;
-            this.NUP_Skill.ValueChanged += new System.EventHandler(this.UpdateForm);
+            this.NUP_Skill.ValueChanged += new System.EventHandler(this.UpdateSkill);
+            // 
+            // PB_Skill
+            // 
+            this.PB_Skill.Location = new System.Drawing.Point(75, 149);
+            this.PB_Skill.Name = "PB_Skill";
+            this.PB_Skill.Size = new System.Drawing.Size(24, 24);
+            this.PB_Skill.TabIndex = 70;
+            this.PB_Skill.TabStop = false;
+            this.PB_Skill.Visible = false;
+            this.PB_Skill.Click += new System.EventHandler(this.PB_Owned_Click);
+            // 
+            // NUP_SkillLvl
+            // 
+            this.NUP_SkillLvl.Location = new System.Drawing.Point(6, 151);
+            this.NUP_SkillLvl.Maximum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.NUP_SkillLvl.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.NUP_SkillLvl.Name = "NUP_SkillLvl";
+            this.NUP_SkillLvl.Size = new System.Drawing.Size(64, 20);
+            this.NUP_SkillLvl.TabIndex = 69;
+            this.NUP_SkillLvl.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.NUP_SkillLvl.Visible = false;
+            this.NUP_SkillLvl.ValueChanged += new System.EventHandler(this.UpdateForm);
             // 
             // PB_Lollipop
             // 
-            this.PB_Lollipop.Location = new System.Drawing.Point(6, 166);
+            this.PB_Lollipop.Location = new System.Drawing.Point(75, 110);
             this.PB_Lollipop.Name = "PB_Lollipop";
             this.PB_Lollipop.Size = new System.Drawing.Size(24, 24);
             this.PB_Lollipop.TabIndex = 68;
@@ -495,7 +534,7 @@
             // 
             // NUP_Lollipop
             // 
-            this.NUP_Lollipop.Location = new System.Drawing.Point(36, 168);
+            this.NUP_Lollipop.Location = new System.Drawing.Point(105, 112);
             this.NUP_Lollipop.Maximum = new decimal(new int[] {
             5,
             0,
@@ -510,7 +549,7 @@
             // L_Level
             // 
             this.L_Level.AutoSize = true;
-            this.L_Level.Location = new System.Drawing.Point(6, 124);
+            this.L_Level.Location = new System.Drawing.Point(6, 96);
             this.L_Level.Name = "L_Level";
             this.L_Level.Size = new System.Drawing.Size(36, 13);
             this.L_Level.TabIndex = 32;
@@ -519,7 +558,7 @@
             // 
             // PB_SpeedUpY
             // 
-            this.PB_SpeedUpY.Location = new System.Drawing.Point(198, 97);
+            this.PB_SpeedUpY.Location = new System.Drawing.Point(198, 135);
             this.PB_SpeedUpY.Name = "PB_SpeedUpY";
             this.PB_SpeedUpY.Size = new System.Drawing.Size(24, 24);
             this.PB_SpeedUpY.TabIndex = 27;
@@ -529,7 +568,7 @@
             // 
             // PB_SpeedUpX
             // 
-            this.PB_SpeedUpX.Location = new System.Drawing.Point(124, 97);
+            this.PB_SpeedUpX.Location = new System.Drawing.Point(198, 87);
             this.PB_SpeedUpX.Name = "PB_SpeedUpX";
             this.PB_SpeedUpX.Size = new System.Drawing.Size(24, 24);
             this.PB_SpeedUpX.TabIndex = 26;
@@ -539,7 +578,7 @@
             // 
             // NUP_SpeedUpY
             // 
-            this.NUP_SpeedUpY.Location = new System.Drawing.Point(160, 99);
+            this.NUP_SpeedUpY.Location = new System.Drawing.Point(160, 137);
             this.NUP_SpeedUpY.Maximum = new decimal(new int[] {
             127,
             0,
@@ -553,7 +592,7 @@
             // 
             // NUP_SpeedUpX
             // 
-            this.NUP_SpeedUpX.Location = new System.Drawing.Point(86, 99);
+            this.NUP_SpeedUpX.Location = new System.Drawing.Point(160, 89);
             this.NUP_SpeedUpX.Maximum = new decimal(new int[] {
             127,
             0,
@@ -567,7 +606,7 @@
             // 
             // PB_MegaX
             // 
-            this.PB_MegaX.Location = new System.Drawing.Point(86, 77);
+            this.PB_MegaX.Location = new System.Drawing.Point(160, 67);
             this.PB_MegaX.Name = "PB_MegaX";
             this.PB_MegaX.Size = new System.Drawing.Size(16, 16);
             this.PB_MegaX.TabIndex = 23;
@@ -576,7 +615,7 @@
             // 
             // PB_MegaY
             // 
-            this.PB_MegaY.Location = new System.Drawing.Point(160, 77);
+            this.PB_MegaY.Location = new System.Drawing.Point(160, 115);
             this.PB_MegaY.Name = "PB_MegaY";
             this.PB_MegaY.Size = new System.Drawing.Size(16, 16);
             this.PB_MegaY.TabIndex = 22;
@@ -586,7 +625,7 @@
             // CHK_MegaX
             // 
             this.CHK_MegaX.AutoSize = true;
-            this.CHK_MegaX.Location = new System.Drawing.Point(108, 79);
+            this.CHK_MegaX.Location = new System.Drawing.Point(182, 69);
             this.CHK_MegaX.Name = "CHK_MegaX";
             this.CHK_MegaX.Size = new System.Drawing.Size(15, 14);
             this.CHK_MegaX.TabIndex = 35;
@@ -598,7 +637,7 @@
             // 
             this.CHK_MegaY.AutoSize = true;
             this.CHK_MegaY.Cursor = System.Windows.Forms.Cursors.Default;
-            this.CHK_MegaY.Location = new System.Drawing.Point(182, 79);
+            this.CHK_MegaY.Location = new System.Drawing.Point(182, 117);
             this.CHK_MegaY.Name = "CHK_MegaY";
             this.CHK_MegaY.Size = new System.Drawing.Size(15, 14);
             this.CHK_MegaY.TabIndex = 37;
@@ -608,7 +647,7 @@
             // 
             // NUP_Level
             // 
-            this.NUP_Level.Location = new System.Drawing.Point(6, 140);
+            this.NUP_Level.Location = new System.Drawing.Point(6, 112);
             this.NUP_Level.Maximum = new decimal(new int[] {
             15,
             0,
@@ -672,10 +711,59 @@
             this.GB_Resources.Enabled = false;
             this.GB_Resources.Location = new System.Drawing.Point(252, 6);
             this.GB_Resources.Name = "GB_Resources";
-            this.GB_Resources.Size = new System.Drawing.Size(253, 423);
+            this.GB_Resources.Size = new System.Drawing.Size(253, 439);
             this.GB_Resources.TabIndex = 5;
             this.GB_Resources.TabStop = false;
             this.GB_Resources.Text = "Resources";
+            // 
+            // ItemsGrid
+            // 
+            this.ItemsGrid.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.ItemsGrid.Location = new System.Drawing.Point(6, 65);
+            this.ItemsGrid.Name = "ItemsGrid";
+            shuffleItems1.AttackUp = 0;
+            shuffleItems1.Complexity = 0;
+            shuffleItems1.Disruption = 0;
+            shuffleItems1.Enchantments = new int[] {
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0};
+            shuffleItems1.Experience = 0;
+            shuffleItems1.ExperienceBoostL = 0;
+            shuffleItems1.ExperienceBoostM = 0;
+            shuffleItems1.ExperienceBoostS = 0;
+            shuffleItems1.Items = new int[] {
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0};
+            shuffleItems1.LevelUp = 0;
+            shuffleItems1.MegaSpeedup = 0;
+            shuffleItems1.MegaStart = 0;
+            shuffleItems1.Moves = 0;
+            shuffleItems1.RaiseMaxLevel = 0;
+            shuffleItems1.SkillBoosterL = 0;
+            shuffleItems1.SkillBoosterM = 0;
+            shuffleItems1.SkillBoosterS = 0;
+            shuffleItems1.SkillSwap = 0;
+            shuffleItems1.Time = 0;
+            this.ItemsGrid.SelectedObject = shuffleItems1;
+            this.ItemsGrid.Size = new System.Drawing.Size(241, 369);
+            this.ItemsGrid.TabIndex = 54;
+            this.ItemsGrid.ToolbarVisible = false;
+            this.ItemsGrid.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.UpdateProperty);
+            this.ItemsGrid.EnabledChanged += new System.EventHandler(this.ItemsGrid_EnabledChanged);
+            this.ItemsGrid.Enter += new System.EventHandler(this.ItemsGrid_Enter);
             // 
             // NUP_Jewels
             // 
@@ -749,7 +837,7 @@
             this.B_CheatsForm.Enabled = false;
             this.B_CheatsForm.Location = new System.Drawing.Point(12, 377);
             this.B_CheatsForm.Name = "B_CheatsForm";
-            this.B_CheatsForm.Size = new System.Drawing.Size(109, 47);
+            this.B_CheatsForm.Size = new System.Drawing.Size(121, 47);
             this.B_CheatsForm.TabIndex = 4;
             this.B_CheatsForm.Text = "Bulk Edits";
             this.B_CheatsForm.UseVisualStyleBackColor = true;
@@ -791,61 +879,12 @@
             this.PB_Team4.TabStop = false;
             this.PB_Team4.Click += new System.EventHandler(this.PB_Team_Click);
             // 
-            // ItemsGrid
-            // 
-            this.ItemsGrid.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.ItemsGrid.Location = new System.Drawing.Point(6, 65);
-            this.ItemsGrid.Name = "ItemsGrid";
-            shuffleItems1.AttackUp = 0;
-            shuffleItems1.Complexity = 0;
-            shuffleItems1.Disruption = 0;
-            shuffleItems1.Enchantments = new int[] {
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0};
-            shuffleItems1.Experience = 0;
-            shuffleItems1.ExperienceBoostL = 0;
-            shuffleItems1.ExperienceBoostM = 0;
-            shuffleItems1.ExperienceBoostS = 0;
-            shuffleItems1.Items = new int[] {
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0};
-            shuffleItems1.LevelUp = 0;
-            shuffleItems1.MegaSpeedup = 0;
-            shuffleItems1.MegaStart = 0;
-            shuffleItems1.Moves = 0;
-            shuffleItems1.RaiseMaxLevel = 0;
-            shuffleItems1.SkillBoosterL = 0;
-            shuffleItems1.SkillBoosterM = 0;
-            shuffleItems1.SkillBoosterS = 0;
-            shuffleItems1.SkillSwap = 0;
-            shuffleItems1.Time = 0;
-            this.ItemsGrid.SelectedObject = shuffleItems1;
-            this.ItemsGrid.Size = new System.Drawing.Size(241, 353);
-            this.ItemsGrid.TabIndex = 54;
-            this.ItemsGrid.ToolbarVisible = false;
-            this.ItemsGrid.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.UpdateProperty);
-            this.ItemsGrid.EnabledChanged += new System.EventHandler(this.ItemsGrid_EnabledChanged);
-            this.ItemsGrid.Enter += new System.EventHandler(this.ItemsGrid_Enter);
-            // 
             // Main
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(517, 560);
+            this.ClientSize = new System.Drawing.Size(517, 577);
             this.Controls.Add(this.PB_Team4);
             this.Controls.Add(this.PB_Team3);
             this.Controls.Add(this.PB_Team2);
@@ -859,8 +898,8 @@
             this.Controls.Add(this.B_Open);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(533, 599);
-            this.MinimumSize = new System.Drawing.Size(533, 599);
+            this.MaximumSize = new System.Drawing.Size(533, 616);
+            this.MinimumSize = new System.Drawing.Size(533, 616);
             this.Name = "Main";
             this.Text = "Pokemon Shuffle Save Editor";
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.Main_DragDrop);
@@ -879,8 +918,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.PB_Main)).EndInit();
             this.GB_Caught.ResumeLayout(false);
             this.GB_Caught.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PB_Skill)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUP_Skill)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PB_Skill)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NUP_SkillLvl)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PB_Lollipop)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUP_Lollipop)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PB_SpeedUpY)).EndInit();
@@ -963,6 +1003,8 @@
         private System.Windows.Forms.Label L_Level;
         private System.Windows.Forms.PictureBox PB_override;
         private System.Windows.Forms.PictureBox PB_Skill;
+        private System.Windows.Forms.NumericUpDown NUP_SkillLvl;
+        private System.Windows.Forms.Label L_Skill;
         private System.Windows.Forms.NumericUpDown NUP_Skill;
     }
 }

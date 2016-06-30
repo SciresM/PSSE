@@ -38,11 +38,16 @@ namespace Pokemon_Shuffle_Save_Editor
             short stone = (short)((savedata[Mega.Ofset(ind)] >> Mega.Shift(ind)) & 3);  //0 = 00, 1 = X0, 2 = 0Y, 3 = XY
             short speedUpX = (short)(db.HasMega[ind][0] ? (BitConverter.ToInt16(savedata, SpeedUpX.Ofset(ind)) >> SpeedUpX.Shift(ind)) & 0x7F : 0);
             short speedUpY = (short)(db.HasMega[ind][1] ? (BitConverter.ToInt32(savedata, SpeedUpY.Ofset(ind)) >> SpeedUpY.Shift(ind)) & 0x7F : 0);
-            short skillLvl = (short)((BitConverter.ToInt16(savedata, SkillLevel.Ofset(ind)) >> SkillLevel.Shift(ind)) & 0x7);
-            skillLvl = (skillLvl < 2) ? (short)1 : skillLvl;
-            short skillExp = savedata[SkillExp.Ofset(ind)];
+            short selSkill = (short)((BitConverter.ToInt16(savedata, CurrentSkill.Ofset(ind)) >> CurrentSkill.Shift(ind)) & 0x7);
+            int[] skillLvl = new int[db.Rest[ind].Item2], skillExp = new int[db.Rest[ind].Item2];
+            for (int i = 0; i < db.Rest[ind].Item2; i++)
+            {
+                int sLv = (BitConverter.ToInt16(savedata, SkillLevel.Ofset(ind, i)) >> SkillLevel.Shift(ind)) & 0x7;
+                skillLvl[i] = (sLv < 2) ? 1 : sLv;
+                skillExp[i] = savedata[SkillExp.Ofset(ind, i)];
+            }
 
-            return new monItem { Caught = caught, Level = lev, Lollipops = rml, Exp = exp, Stone = stone, SpeedUpX = speedUpX, SpeedUpY = speedUpY, SkillLevel = skillLvl, SkillExp = skillExp };
+            return new monItem { Caught = caught, Level = lev, Lollipops = rml, Exp = exp, Stone = stone, SpeedUpX = speedUpX, SpeedUpY = speedUpY, CurrentSkill = selSkill, SkillLevel = skillLvl, SkillExp = skillExp };
         }
 
         public static void SetCaught(int ind, bool caught = false)
@@ -74,17 +79,25 @@ namespace Pokemon_Shuffle_Save_Editor
             }
         }
 
-        public static void SetSkill(int ind, int lvl = 1)
+        public static void SetSkill(int ind, int lvl = 1, int skill = 0, bool selected = false)
         {
+            //selected
+            if (selected)
+            {
+                int selskill = BitConverter.ToInt16(savedata, CurrentSkill.Ofset(ind));
+                selskill = (selskill & ~(0x7 << CurrentSkill.Shift(ind))) | (skill << CurrentSkill.Shift(ind));
+                Array.Copy(BitConverter.GetBytes(selskill), 0, savedata, CurrentSkill.Ofset(ind), 2);
+            }
+            
             //level
             lvl = (lvl < 2) ? 0 : ((lvl > 5) ? 5 : lvl);    //hardcoded skill level to be 5 max
-            int skilllvl = BitConverter.ToInt16(savedata, SkillLevel.Ofset(ind));
+            int skilllvl = BitConverter.ToInt16(savedata, SkillLevel.Ofset(ind, skill));
             skilllvl = (skilllvl & ~(0x7 << SkillLevel.Shift(ind))) | (lvl << SkillLevel.Shift(ind));
-            Array.Copy(BitConverter.GetBytes(skilllvl), 0, savedata, SkillLevel.Ofset(ind), 2);
+            Array.Copy(BitConverter.GetBytes(skilllvl), 0, savedata, SkillLevel.Ofset(ind, skill), 2);
 
             //exp
             int entrylen = BitConverter.ToInt32(db.MonAbility, 0x4);
-            savedata[SkillExp.Ofset(ind)] = (lvl < 2) ? (byte)0 : db.MonAbility.Skip(0x50 + db.Mons[ind].Item6 * entrylen).Take(entrylen).ToArray()[0x1A + lvl];
+            savedata[SkillExp.Ofset(ind, skill)] = (lvl < 2) ? (byte)0 : db.MonAbility.Skip(0x50 + db.Mons[ind].Item6[skill] * entrylen).Take(entrylen).ToArray()[0x1A + lvl];
         }
 
         public static void SetSpeedup(int ind, bool X = false, int suX = 0, bool Y = false, int suY = 0)
@@ -418,6 +431,42 @@ namespace Pokemon_Shuffle_Save_Editor
             return (ind * 6) % 8;
         }
     }
+    public static class CurrentSkill
+    {
+        public static int Ofset(int ind)
+        {
+            return 0xA43B + ind * 3 / 8;
+        }
+
+        public static int Shift(int ind)
+        {
+            return ind * 3 % 8;
+        }
+    }
+    public static class SkillExp
+    {
+        public static int Ofset(int ind, int skill)
+        {
+            return 0xC9BB + 0x500 * skill + (ind * 8) / 8;
+        }
+
+        public static int Shift(int ind)
+        {
+            return (ind * 8) % 8;
+        }
+    }
+    public static class SkillLevel
+    {
+        public static int Ofset(int ind, int skill)
+        {
+            return 0xAD9B + 0x1E0 * skill + (ind * 3) / 8;
+        }
+
+        public static int Shift(int ind)
+        {
+            return (ind * 3) % 8;
+        }
+    }
     public static class Mega
     {
         public static int Ofset(int ind)
@@ -428,30 +477,6 @@ namespace Pokemon_Shuffle_Save_Editor
         public static int Shift(int ind)
         {
             return (5 + (ind << 1)) % 8;
-        }
-    }
-    public static class SkillExp
-    {
-        public static int Ofset(int ind)
-        {
-            return 0xC9BB + (ind * 8) / 8;
-        }
-
-        public static int Shift(int ind)
-        {
-            return (ind * 8) % 8;
-        }
-    }
-    public static class SkillLevel
-    {
-        public static int Ofset(int ind)
-        {
-            return 0xAD9B + (ind * 3) / 8;
-        }
-
-        public static int Shift(int ind)
-        {
-            return (ind * 3) % 8;
         }
     }
     public static class SpeedUpX
@@ -714,8 +739,9 @@ namespace Pokemon_Shuffle_Save_Editor
         public int Exp { get; set; }
         public int Level { get; set; }
         public int Lollipops { get; set; }
-        public int SkillExp { get; set; }
-        public int SkillLevel { get; set; }
+        public int CurrentSkill { get; set; }
+        public int[] SkillExp { get; set; }
+        public int[] SkillLevel { get; set; }
         public int SpeedUpX { get; set; }
         public int SpeedUpY { get; set; }
         public int Stone { get; set; }
