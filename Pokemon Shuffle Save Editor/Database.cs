@@ -96,7 +96,12 @@ namespace Pokemon_Shuffle_Save_Editor
             for (int i = 0; i < Megas.Length; i++)
             {
                 int monIndex = BitConverter.ToUInt16(MegaStone, 0x54 + i * 4) & 0x3FF;
-                byte[] data = MonData.Skip(0x50 + entrylen * (i + MegaStartIndex)).Take(entrylen).ToArray();
+                string str = "Mega " + MonsList[monIndex];
+                if (monIndex == 6 || monIndex == 150)
+                    str += (monIndex != (BitConverter.ToUInt16(MegaStone, 0x54 + (i - 1) * 4) & 0x3FF))
+                        ? " X"
+                        : " Y";
+                byte[] data = MonData.Skip(0x50 + entrylen * MonsList.ToList().IndexOf(str)).Take(entrylen).ToArray();
                 int maxSpeedup = (BitConverter.ToInt32(data, 0xA) >> 7) & 0x7F;
                 Megas[i] = new Tuple<int, int>(monIndex, maxSpeedup);
             }
@@ -112,8 +117,8 @@ namespace Pokemon_Shuffle_Save_Editor
             for (int i = 0; i < Mons.Length; i++)
             {
                 byte[] data = MonData.Skip(0x50 + entrylen * i).Take(entrylen).ToArray();
-                bool isMega = i >= MegaStartIndex && i <= MegaStartIndex + Megas.Length - 1;
-                int spec = isMega
+                bool isMega = i >= MegaStartIndex && i <= MonsList.Count() - 1;
+                int spec = (isMega && i <= MegaStartIndex + Megas.Length - 1)
                     ? SpeciesList.ToList().IndexOf(MonsList[Megas[i - MegaStartIndex].Item1].Replace("Shiny", "").Replace("Winking", "").Replace("Smiling", "").Replace(" ", "")) //crappy but needed for IndexOf() to find the pokemon's name in specieslist (only adjectives on Megas names matter)
                     : (BitConverter.ToInt32(data, 0xE) >> 6) & 0x7FF;
                 int raiseMaxLevel = (BitConverter.ToInt16(data, 0x4)) & 0x3F;

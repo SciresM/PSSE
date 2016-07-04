@@ -153,7 +153,7 @@ namespace Pokemon_Shuffle_Save_Editor
             }
             else
             {
-                NUP_SpeedUpX.Maximum = NUP_SpeedUpY.Maximum = 3;
+                NUP_SpeedUpX.Maximum = NUP_SpeedUpY.Maximum = 1;
                 NUP_SpeedUpX.Value = NUP_SpeedUpY.Value = 0;
             }
 
