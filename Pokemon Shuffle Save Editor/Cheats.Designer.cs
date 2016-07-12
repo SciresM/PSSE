@@ -30,11 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Cheats));
-            this.B_CaughtEverything = new System.Windows.Forms.Button();
             this.B_LevelMax = new System.Windows.Forms.Button();
             this.B_CaughtObtainables = new System.Windows.Forms.Button();
             this.B_MaxResources = new System.Windows.Forms.Button();
-            this.B_AllStones = new System.Windows.Forms.Button();
             this.B_AllCaughtStones = new System.Windows.Forms.Button();
             this.B_MaxSpeedups = new System.Windows.Forms.Button();
             this.B_AllCompleted = new System.Windows.Forms.Button();
@@ -48,19 +46,8 @@
             this.B_MaxTalent = new System.Windows.Forms.Button();
             this.B_Test = new System.Windows.Forms.Button();
             this.B_PokathlonStep = new System.Windows.Forms.Button();
+            this.B_Crystal_Hearts = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
-            // B_CaughtEverything
-            // 
-            this.B_CaughtEverything.Location = new System.Drawing.Point(196, 157);
-            this.B_CaughtEverything.Name = "B_CaughtEverything";
-            this.B_CaughtEverything.Size = new System.Drawing.Size(65, 23);
-            this.B_CaughtEverything.TabIndex = 101;
-            this.B_CaughtEverything.Text = "Caught All Pokemon";
-            this.toolTip1.SetToolTip(this.B_CaughtEverything, "Marks all pokemon in the game\'s database as caught. \r\n\r\nResearchers only.");
-            this.B_CaughtEverything.UseVisualStyleBackColor = true;
-            this.B_CaughtEverything.Visible = false;
-            this.B_CaughtEverything.Click += new System.EventHandler(this.B_CaughtEverything_Click);
             // 
             // B_LevelMax
             // 
@@ -95,18 +82,6 @@
         "ems\r\n& 99 of all \"enhancements\" items.");
             this.B_MaxResources.UseVisualStyleBackColor = true;
             this.B_MaxResources.Click += new System.EventHandler(this.B_MaxResources_Click);
-            // 
-            // B_AllStones
-            // 
-            this.B_AllStones.Location = new System.Drawing.Point(156, 157);
-            this.B_AllStones.Name = "B_AllStones";
-            this.B_AllStones.Size = new System.Drawing.Size(65, 23);
-            this.B_AllStones.TabIndex = 100;
-            this.B_AllStones.Text = "All Stones";
-            this.toolTip1.SetToolTip(this.B_AllStones, "Gives you all megastones currently in the game\'s database.\r\n\r\nFor research only.");
-            this.B_AllStones.UseVisualStyleBackColor = true;
-            this.B_AllStones.Visible = false;
-            this.B_AllStones.Click += new System.EventHandler(this.B_AllStones_Click);
             // 
             // B_AllCaughtStones
             // 
@@ -234,7 +209,7 @@
             // 
             // B_Test
             // 
-            this.B_Test.Location = new System.Drawing.Point(235, 157);
+            this.B_Test.Location = new System.Drawing.Point(121, 178);
             this.B_Test.Name = "B_Test";
             this.B_Test.Size = new System.Drawing.Size(65, 23);
             this.B_Test.TabIndex = 102;
@@ -242,6 +217,7 @@
             this.toolTip1.SetToolTip(this.B_Test, "Used w/ B_Test_Click event to search for the \"skill+ drop\" flags in stagedata(s)." +
         "bin");
             this.B_Test.UseVisualStyleBackColor = true;
+            this.B_Test.Visible = false;
             this.B_Test.Click += new System.EventHandler(this.B_Test_Click);
             // 
             // B_PokathlonStep
@@ -257,15 +233,25 @@
             this.B_PokathlonStep.UseVisualStyleBackColor = true;
             this.B_PokathlonStep.Click += new System.EventHandler(this.B_PokathlonStep_Click);
             // 
+            // B_Crystal_Hearts
+            // 
+            this.B_Crystal_Hearts.Location = new System.Drawing.Point(156, 157);
+            this.B_Crystal_Hearts.Name = "B_Crystal_Hearts";
+            this.B_Crystal_Hearts.Size = new System.Drawing.Size(138, 23);
+            this.B_Crystal_Hearts.TabIndex = 103;
+            this.B_Crystal_Hearts.Text = "WIP crystal hearts";
+            this.toolTip1.SetToolTip(this.B_Crystal_Hearts, resources.GetString("B_Crystal_Hearts.ToolTip"));
+            this.B_Crystal_Hearts.UseVisualStyleBackColor = true;
+            this.B_Crystal_Hearts.Click += new System.EventHandler(this.B_Crystal_Hearts_Click);
+            // 
             // Cheats
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(312, 235);
+            this.Controls.Add(this.B_Crystal_Hearts);
             this.Controls.Add(this.B_PokathlonStep);
             this.Controls.Add(this.B_Test);
-            this.Controls.Add(this.B_CaughtEverything);
-            this.Controls.Add(this.B_AllStones);
             this.Controls.Add(this.B_MaxTalent);
             this.Controls.Add(this.Line);
             this.Controls.Add(this.B_StageReset);
@@ -295,12 +281,9 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Button B_CaughtEverything;
         private System.Windows.Forms.Button B_LevelMax;
         private System.Windows.Forms.Button B_CaughtObtainables;
         private System.Windows.Forms.Button B_MaxResources;
-        private System.Windows.Forms.Button B_AllStones;
         private System.Windows.Forms.Button B_AllCaughtStones;
         private System.Windows.Forms.Button B_MaxSpeedups;
         private System.Windows.Forms.Button B_AllCompleted;
@@ -314,5 +297,6 @@
         private System.Windows.Forms.Button B_MaxTalent;
         private System.Windows.Forms.Button B_Test;
         private System.Windows.Forms.Button B_PokathlonStep;
+        private System.Windows.Forms.Button B_Crystal_Hearts;
     }
 }

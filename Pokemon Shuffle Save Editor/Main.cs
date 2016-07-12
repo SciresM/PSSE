@@ -161,6 +161,7 @@ namespace Pokemon_Shuffle_Save_Editor
 
             L_Level.Visible = L_Skill.Visible = NUP_Level.Visible = PB_Skill.Visible = NUP_Skill.Visible = NUP_SkillLvl.Visible = CHK_CaughtMon.Checked;
             PB_Lollipop.Visible = NUP_Lollipop.Visible = (CHK_CaughtMon.Checked && NUP_Lollipop.Maximum != 0);
+            PB_Skill.Visible = NUP_Skill.Visible = (CHK_CaughtMon.Checked && NUP_Skill.Maximum > 1);
             PB_Mon.Image = GetCaughtImage(ind, CHK_CaughtMon.Checked);
             PB_MegaX.Visible = CHK_MegaX.Visible = db.HasMega[ind][0];
             PB_MegaY.Visible = CHK_MegaY.Visible = db.HasMega[ind][1];

@@ -62,23 +62,6 @@ namespace Pokemon_Shuffle_Save_Editor
             MessageBox.Show("All Normal & Expert stages have been marked as completed.\n\nRewards like megastones or jewels can still be redeemed by beating the stage.");
         }
 
-        private void B_AllStones_Click(object sender, EventArgs e)
-        {   //advanced user stuff
-            for (int i = 0; i < db.MegaStartIndex; i++)
-            {
-                if (db.HasMega[i][0] || db.HasMega[i][1])
-                    SetStone(i, db.HasMega[i][0], db.HasMega[i][1]);
-            }
-            MessageBox.Show("All Mega Stones are now owned.");
-        }
-
-        private void B_CaughtEverything_Click(object sender, EventArgs e)
-        {   //advanced user stuff
-            for (int i = 1; i < db.MegaStartIndex; i++) //includes 15 reserved slots
-                SetCaught(i, true);
-            MessageBox.Show("All Pokemon are now caught.");
-        }
-
         private void B_CaughtObtainables_Click(object sender, EventArgs e)
         {
             for (int i = 1; i < db.MegaStartIndex; i++)
@@ -333,32 +316,6 @@ namespace Pokemon_Shuffle_Save_Editor
             MessageBox.Show("Streetpass count set to " + value + ".\nStreetpass tags " + (boool ? "" : "not ") + "wiped.");
         }
 
-        private void B_Test_Click(object sender, EventArgs e)
-        {   //don't bother, testing stuff
-            #region Skill+-dropping stages
-            //int j = 0;
-            //foreach (byte[] stage in new byte[][] { db.StagesMain, db.StagesExpert, db.StagesEvent })
-            //{
-            //    Console.WriteLine(j + "\n==============");
-            //    int entrylen = BitConverter.ToInt32(stage, 4);
-            //    for (int i = 0; i < BitConverter.ToInt32(stage, 0); i++)
-            //    {
-            //        byte[] data = stage.Skip(0x50 + i * 0x5C).Take(0x5C).ToArray();
-            //        if (BitConverter.ToInt16(data, 0x43) != 0)
-            //        {   //returns 9319 (most skill+-droping stages), 9219 (uxie stage), 9119 (Tornadus stage), 6106 (Eevee stage) or 0 (all other stages)
-            //            Console.WriteLine("{0:X}", BitConverter.ToInt16(data, 0x43));
-            //            Console.WriteLine(db.MonsList[BitConverter.ToInt16(data, 0) & 0x3FF]);
-            //        }
-            //    }
-            //    j++;
-            //}
-            #endregion
-
-            #region event timestamps
-            //Console.WriteLine(DateTime.FromBinary(0x0d001d56407b990));
-            #endregion
-        }
-
         private void B_PokathlonStep_Click(object sender, EventArgs e)
         {
             int step = 50, moves = 99, opponent = 150;    //default values
@@ -385,6 +342,51 @@ namespace Pokemon_Shuffle_Save_Editor
             string name = db.MonsList[BitConverter.ToInt16(db.StagesMain, 0x50 + BitConverter.ToInt32(db.StagesMain, 0x4) * opponent) & 0x3FF];
             string str = new string[] { "th", "st", "nd", "rd" }[(!(step > 10 && step < 14) && step % 10 < 4) ? step % 4 : 0];
             MessageBox.Show((enabled ? "Survival mode enabled.\nYou'll face" : "Survival Mode is disabled.\nYou should have faced") + " survival mode's " + step + str + " step against " + name + " with " + (savedata[0xB768] & 0x7F) + " moves left.");
+        }
+
+        private void B_Crystal_Hearts_Click(object sender, EventArgs e)
+        {
+            bool boool = (ModifierKeys == Keys.Control);
+            Array.Copy(boool ? new byte[6] : new byte[] { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF }, 0, savedata, 0xB7FB, 6);
+            string str = boool ? "Crystal hearts disabled." : "Crystal hearts unlocked : You have 7 stock hearts and win 700 coins each time you connect this month.";
+                MessageBox.Show(str + "\n\nWork In Progress, report if something bad happens.");
+        }
+
+        private void B_Test_Click(object sender, EventArgs e)
+        {   //don't bother, testing stuff
+            #region catch'em all
+            //for (int i = 1; i < db.MegaStartIndex; i++) //includes 15 reserved slots
+            //    SetCaught(i, true);
+            //MessageBox.Show("All Pokemon are now caught.");
+            #endregion
+
+            #region get stoned
+            //for (int i = 0; i < db.MegaStartIndex; i++)
+            //{
+            //    if (db.HasMega[i][0] || db.HasMega[i][1])
+            //        SetStone(i, db.HasMega[i][0], db.HasMega[i][1]);
+            //}
+            //MessageBox.Show("All Mega Stones are now owned.");
+            #endregion
+
+            #region Skill+-dropping stages research
+            //int j = 0;
+            //foreach (byte[] stage in new byte[][] { db.StagesMain, db.StagesExpert, db.StagesEvent })
+            //{
+            //    Console.WriteLine(j + "\n==============");
+            //    int entrylen = BitConverter.ToInt32(stage, 4);
+            //    for (int i = 0; i < BitConverter.ToInt32(stage, 0); i++)
+            //    {
+            //        byte[] data = stage.Skip(0x50 + i * 0x5C).Take(0x5C).ToArray();
+            //        if (BitConverter.ToInt16(data, 0x43) != 0)
+            //        {   //returns 9319 (most skill+-droping stages), 9219 (uxie stage), 9119 (Tornadus stage), 6106 (Eevee stage) or 0 (all other stages)
+            //            Console.WriteLine("{0:X}", BitConverter.ToInt16(data, 0x43));
+            //            Console.WriteLine(db.MonsList[BitConverter.ToInt16(data, 0) & 0x3FF]);
+            //        }
+            //    }
+            //    j++;
+            //}
+            #endregion
         }
     }
 }
