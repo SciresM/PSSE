@@ -722,6 +722,17 @@ namespace Pokemon_Shuffle_Save_Editor
             return 0x59A7 + (i * Length());
         }
     }
+    public static class MissionCards
+    {
+        public static int Ofset(int card, int mission = 0)
+        {
+            return 0xB6FC + (card * 10 + mission) / 8;
+        }
+        public static int Shift(int card, int mission = 0)
+        {
+            return (card * 10 + mission) % 8;
+        }
+    }
 
     #endregion Shifts&Ofsets
 

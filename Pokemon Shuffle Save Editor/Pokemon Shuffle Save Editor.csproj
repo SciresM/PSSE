@@ -71,6 +71,12 @@
       <DependentUpon>Cheats.cs</DependentUpon>
     </Compile>
     <Compile Include="Database.cs" />
+    <Compile Include="Mission_Popup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Mission_Popup.Designer.cs">
+      <DependentUpon>Mission_Popup.cs</DependentUpon>
+    </Compile>
     <Compile Include="NUP_Popup.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -101,6 +107,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mission_Popup.resx">
+      <DependentUpon>Mission_Popup.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NUP_Popup.resx">
       <DependentUpon>NUP_Popup.cs</DependentUpon>

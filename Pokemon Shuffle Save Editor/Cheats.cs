@@ -388,5 +388,66 @@ namespace Pokemon_Shuffle_Save_Editor
             //}
             #endregion
         }
+
+        private void B_MissionCards_Click(object sender, EventArgs e)
+        {
+            bool[][] missions = new bool[50][]; //default values
+            for (int i = 0 ; i < missions.Length ; i++)
+            {
+                missions[i] = new bool[10];
+                for (int j = 0 ; j < missions[i].Length ; j++)
+                    missions[i][j] = true;
+            }
+            int active = Math.Min((int)savedata[0xB6FB], 50);   //default values
+            bool boool = false; //default values
+            if (ModifierKeys == Keys.Control)
+            {
+                using (var form = new Mission_Popup(active))
+                {
+                    form.ShowDialog();
+                    if (form.DialogResult == DialogResult.OK)
+                    {
+                        active = Math.Min(form.retActive, 50);
+                        missions = form.retStates;
+                        boool = true;
+                    }
+                    else return;
+                }
+            }
+            savedata[MissionCards.Ofset(0) - 1] = (byte)active;
+            for (int j = 0 ; j < missions.Length ; j++)
+            {
+                int data = BitConverter.ToInt32(savedata, MissionCards.Ofset(j)) & ~(0x3FF << MissionCards.Shift(j));
+                for (int k = 0 ; k < missions[j].Length ; k++)
+                    data |= ((missions[j][k] ? 1 : 0) << (MissionCards.Shift(j) + k));
+                Array.Copy(BitConverter.GetBytes(data), 0, savedata, MissionCards.Ofset(j), 4);
+            }
+            string str;
+            if (!boool)
+                str = "All Mission cards have been fully completed.";
+            else
+            {
+                bool baal = false;
+                for (int i = 0; i < missions.Length ; i++)
+                {
+                    if (!baal)
+                    {
+                        foreach (bool bl in missions[i])
+                        {
+                            if (bl)
+                            {
+                                baal = true;
+                                break;
+                            }
+                        }
+                    }
+                    else break;
+                }
+                str = baal
+                    ? "Selected missions marked as completed."
+                    : "Mission cards fully reseted.";
+            }
+            MessageBox.Show(str);
+        }
     }
 }

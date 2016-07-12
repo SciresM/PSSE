@@ -47,6 +47,7 @@
             this.B_Test = new System.Windows.Forms.Button();
             this.B_PokathlonStep = new System.Windows.Forms.Button();
             this.B_Crystal_Hearts = new System.Windows.Forms.Button();
+            this.B_MissionCards = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // B_LevelMax
@@ -151,8 +152,10 @@
             // 
             // Line
             // 
+            this.Line.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.Line.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.Line.Location = new System.Drawing.Point(12, 190);
+            this.Line.Location = new System.Drawing.Point(12, 215);
             this.Line.MaximumSize = new System.Drawing.Size(288, 2);
             this.Line.MinimumSize = new System.Drawing.Size(20, 2);
             this.Line.Name = "Line";
@@ -162,7 +165,7 @@
             // B_PokemonReset
             // 
             this.B_PokemonReset.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.B_PokemonReset.Location = new System.Drawing.Point(12, 200);
+            this.B_PokemonReset.Location = new System.Drawing.Point(12, 225);
             this.B_PokemonReset.Name = "B_PokemonReset";
             this.B_PokemonReset.Size = new System.Drawing.Size(138, 23);
             this.B_PokemonReset.TabIndex = 50;
@@ -174,7 +177,7 @@
             // B_StageReset
             // 
             this.B_StageReset.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.B_StageReset.Location = new System.Drawing.Point(156, 200);
+            this.B_StageReset.Location = new System.Drawing.Point(156, 225);
             this.B_StageReset.Name = "B_StageReset";
             this.B_StageReset.Size = new System.Drawing.Size(138, 23);
             this.B_StageReset.TabIndex = 51;
@@ -209,7 +212,7 @@
             // 
             // B_Test
             // 
-            this.B_Test.Location = new System.Drawing.Point(121, 178);
+            this.B_Test.Location = new System.Drawing.Point(188, 186);
             this.B_Test.Name = "B_Test";
             this.B_Test.Size = new System.Drawing.Size(65, 23);
             this.B_Test.TabIndex = 102;
@@ -240,15 +243,28 @@
             this.B_Crystal_Hearts.Size = new System.Drawing.Size(138, 23);
             this.B_Crystal_Hearts.TabIndex = 103;
             this.B_Crystal_Hearts.Text = "WIP crystal hearts";
-            this.toolTip1.SetToolTip(this.B_Crystal_Hearts, resources.GetString("B_Crystal_Hearts.ToolTip"));
+            this.toolTip1.SetToolTip(this.B_Crystal_Hearts, "Enables crystal hearts (7 renewable hearts & 700 coins at each connexion).\r\nWARNI" +
+        "NG : This is still a WIP. Report if this breaks something or doesn\'t work.");
             this.B_Crystal_Hearts.UseVisualStyleBackColor = true;
             this.B_Crystal_Hearts.Click += new System.EventHandler(this.B_Crystal_Hearts_Click);
+            // 
+            // B_MissionCards
+            // 
+            this.B_MissionCards.Location = new System.Drawing.Point(12, 186);
+            this.B_MissionCards.Name = "B_MissionCards";
+            this.B_MissionCards.Size = new System.Drawing.Size(138, 23);
+            this.B_MissionCards.TabIndex = 104;
+            this.B_MissionCards.Text = "Complete Mission cards";
+            this.toolTip1.SetToolTip(this.B_MissionCards, "stuff");
+            this.B_MissionCards.UseVisualStyleBackColor = true;
+            this.B_MissionCards.Click += new System.EventHandler(this.B_MissionCards_Click);
             // 
             // Cheats
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(312, 235);
+            this.ClientSize = new System.Drawing.Size(312, 260);
+            this.Controls.Add(this.B_MissionCards);
             this.Controls.Add(this.B_Crystal_Hearts);
             this.Controls.Add(this.B_PokathlonStep);
             this.Controls.Add(this.B_Test);
@@ -268,9 +284,9 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(328, 999);
+            this.MaximumSize = new System.Drawing.Size(328, 299);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(328, 274);
+            this.MinimumSize = new System.Drawing.Size(328, 299);
             this.Name = "Cheats";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
@@ -298,5 +314,6 @@
         private System.Windows.Forms.Button B_Test;
         private System.Windows.Forms.Button B_PokathlonStep;
         private System.Windows.Forms.Button B_Crystal_Hearts;
+        private System.Windows.Forms.Button B_MissionCards;
     }
 }
