@@ -137,6 +137,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <None Include="Resources\bin\megaStone.bin" />
+    <None Include="Resources\bin\MissionCard.bin" />
     <None Include="Resources\bin\PokemonAbility.bin" />
     <None Include="Resources\bin\pokemonData.bin" />
     <None Include="Resources\bin\pokemonLevel.bin" />

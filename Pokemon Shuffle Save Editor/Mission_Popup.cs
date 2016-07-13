@@ -1,13 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using static Pokemon_Shuffle_Save_Editor.Main;
-using static Pokemon_Shuffle_Save_Editor.ToolFunctions;
 
 namespace Pokemon_Shuffle_Save_Editor
 {
@@ -24,22 +17,26 @@ namespace Pokemon_Shuffle_Save_Editor
         {
             InitializeComponent();
             StatesInit();
-            for (int i = 0; i < 50; i++)
+            for (int i = 0; i < retStates.Length; i++)
             {
-                for (int j = 0; j < 10; j++)
+                for (int j = 0; j < retStates[i].Length; j++)
                 {
                     retStates[i][j] = (((savedata[MissionCards.Ofset(i, j)] >> MissionCards.Shift(i, j)) & 1) == 1);
                 }
             }
             NUP_Active.Value = active;
             NUP_Mission.Value = (active > 0) ? active : 1;
+            NUP_Active.Maximum = NUP_Mission.Maximum = db.Missions.Length;
             UpdateForm();         
         }
 
         private void UpdateForm()
         {
             foreach (CheckBox chk in GB_States.Controls)
-                chk.Checked = retStates[(int)NUP_Mission.Value - 1][Int32.Parse(chk.Name.Replace("CB_", "")) - 1];
+            {
+                chk.Visible = db.Missions[(int)NUP_Mission.Value - 1][Int32.Parse(chk.Text) - 1];
+                chk.Checked = db.Missions[(int)NUP_Mission.Value - 1][Int32.Parse(chk.Text) - 1] && retStates[(int)NUP_Mission.Value - 1][Int32.Parse(chk.Text) - 1];
+            }
         }
 
         private void StatesInit()
@@ -66,7 +63,7 @@ namespace Pokemon_Shuffle_Save_Editor
 
         private void CheckedChanged(object sender, EventArgs e)
         {
-            retStates[(int)NUP_Mission.Value - 1][Int32.Parse((sender as CheckBox).Name.Replace("CB_", "")) - 1] = (sender as CheckBox).Checked;
+            retStates[(int)NUP_Mission.Value - 1][Int32.Parse((sender as CheckBox).Text) - 1] = (sender as CheckBox).Checked;
         }
 
         private void B_Erase_Click(object sender, EventArgs e)

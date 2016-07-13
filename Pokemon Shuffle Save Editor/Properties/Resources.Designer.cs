@@ -1651,6 +1651,16 @@ namespace Pokemon_Shuffle_Save_Editor.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] missionCard {
+            get {
+                object obj = ResourceManager.GetObject("missionCard", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ---
         ///Bulbasaur
         ///Ivysaur
@@ -11356,13 +11366,7 @@ namespace Pokemon_Shuffle_Save_Editor.Properties {
         ///Dugtrio
         ///Meowth
         ///Persian
-        ///Psyduck
-        ///Golduck
-        ///Mankey
-        ///Primeape
-        ///Growlithe
-        ///Arcanine
-        ///Pol [rest of string was truncated]&quot;;.
+        /// [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string species {
             get {

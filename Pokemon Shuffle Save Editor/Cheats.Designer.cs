@@ -255,7 +255,8 @@
             this.B_MissionCards.Size = new System.Drawing.Size(138, 23);
             this.B_MissionCards.TabIndex = 104;
             this.B_MissionCards.Text = "Complete Mission cards";
-            this.toolTip1.SetToolTip(this.B_MissionCards, "stuff");
+            this.toolTip1.SetToolTip(this.B_MissionCards, "Completes all cards missions. \r\nCtrl+clic to select which missions to complete an" +
+        "d\r\nsee/choose active card.");
             this.B_MissionCards.UseVisualStyleBackColor = true;
             this.B_MissionCards.Click += new System.EventHandler(this.B_MissionCards_Click);
             // 

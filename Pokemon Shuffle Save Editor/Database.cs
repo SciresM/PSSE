@@ -16,10 +16,12 @@ namespace Pokemon_Shuffle_Save_Editor
         public byte[] StagesEvent { get; private set; }
         public byte[] StagesExpert { get; private set; }
         public byte[] StagesMain { get; private set; }
+        public byte[] MissionCard { get; private set; }
 
         public bool[][] HasMega { get; private set; }   // [X][0] = X, [X][1] = Y
         public int[] Forms { get; private set; }
         public int[][] PokathlonRand { get; private set; }  // [step][0] = min, [step][1] = max
+        public bool[][] Missions { get; private set; }
         public string[] MonsList { get; private set; }
         public string[] PokathlonList { get; private set; }
         public string[] SpeciesList { get; private set; }
@@ -42,17 +44,19 @@ namespace Pokemon_Shuffle_Save_Editor
             MegaStone = Properties.Resources.megaStone;
             MonLevel = Properties.Resources.pokemonLevel;
             MonAbility = Properties.Resources.pokemonAbility;
+            MissionCard = Properties.Resources.missionCard;
             string resourcedir = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + Path.DirectorySeparatorChar + "resources" + Path.DirectorySeparatorChar;
             if (!Directory.Exists(resourcedir))
                 Directory.CreateDirectory(resourcedir);
-            byte[][] files = { MegaStone, MonData, StagesMain, StagesEvent, StagesExpert, MonLevel, MonAbility };
-            string[] filenames = { "MegaStone.bin", "pokemonData.bin", "stageData.bin", "stageDataEvent.bin", "stageDataExtra.bin", "pokemonLevel.bin", "pokemonAbility.bin" };
+            byte[][] files = { MegaStone, MonData, StagesMain, StagesEvent, StagesExpert, MonLevel, MonAbility, MissionCard };
+            string[] filenames = { "MegaStone.bin", "pokemonData.bin", "stageData.bin", "stageDataEvent.bin", "stageDataExtra.bin", "pokemonLevel.bin", "pokemonAbility.bin", "MissionCard.bin" };
             for (int i = 0; i < files.Length; i++)
             {
                 if (!File.Exists(resourcedir + filenames[i]))
                     File.WriteAllBytes(resourcedir + filenames[i], files[i]);
                 else
                 {
+                    files[i] = File.ReadAllBytes(resourcedir + filenames[i]);
                     switch (i)
                     {
                         case 0:
@@ -81,6 +85,9 @@ namespace Pokemon_Shuffle_Save_Editor
 
                         case 6:
                             MonAbility = File.ReadAllBytes(resourcedir + filenames[i]);
+                            break;
+                        case 7:
+                            MissionCard = File.ReadAllBytes(resourcedir + filenames[i]);
                             break;
                     }
                 }
@@ -147,6 +154,15 @@ namespace Pokemon_Shuffle_Save_Editor
                 PokathlonRand[i] = new int[2];
                 Int32.TryParse(PokathlonList[2 * i], out PokathlonRand[i][0]);
                 Int32.TryParse(PokathlonList[1 + 2 * i], out PokathlonRand[i][1]);
+            }
+            Missions = new bool[BitConverter.ToInt32(MissionCard, 0)][];
+            for(int i = 0 ; i < Missions.Length; i++)
+            {
+                Missions[i] = new bool[10];
+                int ientrylen = BitConverter.ToInt32(MissionCard, 0x4);
+                byte[] data = MissionCard.Skip(BitConverter.ToInt32(MissionCard, 0x10) + i * ientrylen).Take(ientrylen).ToArray();
+                for (int j = 0; j < Missions[i].Length; j++)
+                    Missions[i][j] = BitConverter.ToInt16(data, 0x8 + 2 * j) != 0;
             }
         }
     }

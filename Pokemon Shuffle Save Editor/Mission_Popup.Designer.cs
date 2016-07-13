@@ -31,16 +31,16 @@
             this.NUP_Mission = new System.Windows.Forms.NumericUpDown();
             this.L_Top = new System.Windows.Forms.Label();
             this.GB_States = new System.Windows.Forms.GroupBox();
-            this.CB_10 = new System.Windows.Forms.CheckBox();
-            this.CB_09 = new System.Windows.Forms.CheckBox();
-            this.CB_08 = new System.Windows.Forms.CheckBox();
-            this.CB_07 = new System.Windows.Forms.CheckBox();
-            this.CB_06 = new System.Windows.Forms.CheckBox();
-            this.CB_05 = new System.Windows.Forms.CheckBox();
-            this.CB_04 = new System.Windows.Forms.CheckBox();
-            this.CB_03 = new System.Windows.Forms.CheckBox();
-            this.CB_02 = new System.Windows.Forms.CheckBox();
-            this.CB_01 = new System.Windows.Forms.CheckBox();
+            this.CHK_10 = new System.Windows.Forms.CheckBox();
+            this.CHK_09 = new System.Windows.Forms.CheckBox();
+            this.CHK_08 = new System.Windows.Forms.CheckBox();
+            this.CHK_07 = new System.Windows.Forms.CheckBox();
+            this.CHK_06 = new System.Windows.Forms.CheckBox();
+            this.CHK_05 = new System.Windows.Forms.CheckBox();
+            this.CHK_04 = new System.Windows.Forms.CheckBox();
+            this.CHK_03 = new System.Windows.Forms.CheckBox();
+            this.CHK_02 = new System.Windows.Forms.CheckBox();
+            this.CHK_01 = new System.Windows.Forms.CheckBox();
             this.button1 = new System.Windows.Forms.Button();
             this.L_Active = new System.Windows.Forms.Label();
             this.NUP_Active = new System.Windows.Forms.NumericUpDown();
@@ -84,16 +84,16 @@
             // 
             // GB_States
             // 
-            this.GB_States.Controls.Add(this.CB_10);
-            this.GB_States.Controls.Add(this.CB_09);
-            this.GB_States.Controls.Add(this.CB_08);
-            this.GB_States.Controls.Add(this.CB_07);
-            this.GB_States.Controls.Add(this.CB_06);
-            this.GB_States.Controls.Add(this.CB_05);
-            this.GB_States.Controls.Add(this.CB_04);
-            this.GB_States.Controls.Add(this.CB_03);
-            this.GB_States.Controls.Add(this.CB_02);
-            this.GB_States.Controls.Add(this.CB_01);
+            this.GB_States.Controls.Add(this.CHK_10);
+            this.GB_States.Controls.Add(this.CHK_09);
+            this.GB_States.Controls.Add(this.CHK_08);
+            this.GB_States.Controls.Add(this.CHK_07);
+            this.GB_States.Controls.Add(this.CHK_06);
+            this.GB_States.Controls.Add(this.CHK_05);
+            this.GB_States.Controls.Add(this.CHK_04);
+            this.GB_States.Controls.Add(this.CHK_03);
+            this.GB_States.Controls.Add(this.CHK_02);
+            this.GB_States.Controls.Add(this.CHK_01);
             this.GB_States.Location = new System.Drawing.Point(12, 38);
             this.GB_States.Name = "GB_States";
             this.GB_States.Size = new System.Drawing.Size(260, 101);
@@ -101,115 +101,115 @@
             this.GB_States.TabStop = false;
             this.GB_States.Text = "Missions state";
             // 
-            // CB_10
+            // CHK_10
             // 
-            this.CB_10.AutoSize = true;
-            this.CB_10.Location = new System.Drawing.Point(216, 75);
-            this.CB_10.Name = "CB_10";
-            this.CB_10.Size = new System.Drawing.Size(38, 17);
-            this.CB_10.TabIndex = 12;
-            this.CB_10.Text = "10";
-            this.CB_10.UseVisualStyleBackColor = true;
-            this.CB_10.CheckedChanged += new System.EventHandler(this.CheckedChanged);
+            this.CHK_10.AutoSize = true;
+            this.CHK_10.Location = new System.Drawing.Point(216, 75);
+            this.CHK_10.Name = "CHK_10";
+            this.CHK_10.Size = new System.Drawing.Size(38, 17);
+            this.CHK_10.TabIndex = 12;
+            this.CHK_10.Text = "10";
+            this.CHK_10.UseVisualStyleBackColor = true;
+            this.CHK_10.CheckedChanged += new System.EventHandler(this.CheckedChanged);
             // 
-            // CB_09
+            // CHK_09
             // 
-            this.CB_09.AutoSize = true;
-            this.CB_09.Location = new System.Drawing.Point(168, 75);
-            this.CB_09.Name = "CB_09";
-            this.CB_09.Size = new System.Drawing.Size(38, 17);
-            this.CB_09.TabIndex = 11;
-            this.CB_09.Text = "09";
-            this.CB_09.UseVisualStyleBackColor = true;
-            this.CB_09.CheckedChanged += new System.EventHandler(this.CheckedChanged);
+            this.CHK_09.AutoSize = true;
+            this.CHK_09.Location = new System.Drawing.Point(168, 75);
+            this.CHK_09.Name = "CHK_09";
+            this.CHK_09.Size = new System.Drawing.Size(38, 17);
+            this.CHK_09.TabIndex = 11;
+            this.CHK_09.Text = "09";
+            this.CHK_09.UseVisualStyleBackColor = true;
+            this.CHK_09.CheckedChanged += new System.EventHandler(this.CheckedChanged);
             // 
-            // CB_08
+            // CHK_08
             // 
-            this.CB_08.AutoSize = true;
-            this.CB_08.Location = new System.Drawing.Point(115, 75);
-            this.CB_08.Name = "CB_08";
-            this.CB_08.Size = new System.Drawing.Size(38, 17);
-            this.CB_08.TabIndex = 10;
-            this.CB_08.Text = "08";
-            this.CB_08.UseVisualStyleBackColor = true;
-            this.CB_08.CheckedChanged += new System.EventHandler(this.CheckedChanged);
+            this.CHK_08.AutoSize = true;
+            this.CHK_08.Location = new System.Drawing.Point(115, 75);
+            this.CHK_08.Name = "CHK_08";
+            this.CHK_08.Size = new System.Drawing.Size(38, 17);
+            this.CHK_08.TabIndex = 10;
+            this.CHK_08.Text = "08";
+            this.CHK_08.UseVisualStyleBackColor = true;
+            this.CHK_08.CheckedChanged += new System.EventHandler(this.CheckedChanged);
             // 
-            // CB_07
+            // CHK_07
             // 
-            this.CB_07.AutoSize = true;
-            this.CB_07.Location = new System.Drawing.Point(66, 75);
-            this.CB_07.Name = "CB_07";
-            this.CB_07.Size = new System.Drawing.Size(38, 17);
-            this.CB_07.TabIndex = 9;
-            this.CB_07.Text = "07";
-            this.CB_07.UseVisualStyleBackColor = true;
-            this.CB_07.CheckedChanged += new System.EventHandler(this.CheckedChanged);
+            this.CHK_07.AutoSize = true;
+            this.CHK_07.Location = new System.Drawing.Point(66, 75);
+            this.CHK_07.Name = "CHK_07";
+            this.CHK_07.Size = new System.Drawing.Size(38, 17);
+            this.CHK_07.TabIndex = 9;
+            this.CHK_07.Text = "07";
+            this.CHK_07.UseVisualStyleBackColor = true;
+            this.CHK_07.CheckedChanged += new System.EventHandler(this.CheckedChanged);
             // 
-            // CB_06
+            // CHK_06
             // 
-            this.CB_06.AutoSize = true;
-            this.CB_06.Location = new System.Drawing.Point(6, 75);
-            this.CB_06.Name = "CB_06";
-            this.CB_06.Size = new System.Drawing.Size(38, 17);
-            this.CB_06.TabIndex = 8;
-            this.CB_06.Text = "06";
-            this.CB_06.UseVisualStyleBackColor = true;
-            this.CB_06.CheckedChanged += new System.EventHandler(this.CheckedChanged);
+            this.CHK_06.AutoSize = true;
+            this.CHK_06.Location = new System.Drawing.Point(6, 75);
+            this.CHK_06.Name = "CHK_06";
+            this.CHK_06.Size = new System.Drawing.Size(38, 17);
+            this.CHK_06.TabIndex = 8;
+            this.CHK_06.Text = "06";
+            this.CHK_06.UseVisualStyleBackColor = true;
+            this.CHK_06.CheckedChanged += new System.EventHandler(this.CheckedChanged);
             // 
-            // CB_05
+            // CHK_05
             // 
-            this.CB_05.AutoSize = true;
-            this.CB_05.Location = new System.Drawing.Point(216, 19);
-            this.CB_05.Name = "CB_05";
-            this.CB_05.Size = new System.Drawing.Size(38, 17);
-            this.CB_05.TabIndex = 7;
-            this.CB_05.Text = "05";
-            this.CB_05.UseVisualStyleBackColor = true;
-            this.CB_05.CheckedChanged += new System.EventHandler(this.CheckedChanged);
+            this.CHK_05.AutoSize = true;
+            this.CHK_05.Location = new System.Drawing.Point(216, 19);
+            this.CHK_05.Name = "CHK_05";
+            this.CHK_05.Size = new System.Drawing.Size(38, 17);
+            this.CHK_05.TabIndex = 7;
+            this.CHK_05.Text = "05";
+            this.CHK_05.UseVisualStyleBackColor = true;
+            this.CHK_05.CheckedChanged += new System.EventHandler(this.CheckedChanged);
             // 
-            // CB_04
+            // CHK_04
             // 
-            this.CB_04.AutoSize = true;
-            this.CB_04.Location = new System.Drawing.Point(168, 19);
-            this.CB_04.Name = "CB_04";
-            this.CB_04.Size = new System.Drawing.Size(38, 17);
-            this.CB_04.TabIndex = 6;
-            this.CB_04.Text = "04";
-            this.CB_04.UseVisualStyleBackColor = true;
-            this.CB_04.CheckedChanged += new System.EventHandler(this.CheckedChanged);
+            this.CHK_04.AutoSize = true;
+            this.CHK_04.Location = new System.Drawing.Point(168, 19);
+            this.CHK_04.Name = "CHK_04";
+            this.CHK_04.Size = new System.Drawing.Size(38, 17);
+            this.CHK_04.TabIndex = 6;
+            this.CHK_04.Text = "04";
+            this.CHK_04.UseVisualStyleBackColor = true;
+            this.CHK_04.CheckedChanged += new System.EventHandler(this.CheckedChanged);
             // 
-            // CB_03
+            // CHK_03
             // 
-            this.CB_03.AutoSize = true;
-            this.CB_03.Location = new System.Drawing.Point(115, 19);
-            this.CB_03.Name = "CB_03";
-            this.CB_03.Size = new System.Drawing.Size(38, 17);
-            this.CB_03.TabIndex = 5;
-            this.CB_03.Text = "03";
-            this.CB_03.UseVisualStyleBackColor = true;
-            this.CB_03.CheckedChanged += new System.EventHandler(this.CheckedChanged);
+            this.CHK_03.AutoSize = true;
+            this.CHK_03.Location = new System.Drawing.Point(115, 19);
+            this.CHK_03.Name = "CHK_03";
+            this.CHK_03.Size = new System.Drawing.Size(38, 17);
+            this.CHK_03.TabIndex = 5;
+            this.CHK_03.Text = "03";
+            this.CHK_03.UseVisualStyleBackColor = true;
+            this.CHK_03.CheckedChanged += new System.EventHandler(this.CheckedChanged);
             // 
-            // CB_02
+            // CHK_02
             // 
-            this.CB_02.AutoSize = true;
-            this.CB_02.Location = new System.Drawing.Point(66, 19);
-            this.CB_02.Name = "CB_02";
-            this.CB_02.Size = new System.Drawing.Size(38, 17);
-            this.CB_02.TabIndex = 4;
-            this.CB_02.Text = "02";
-            this.CB_02.UseVisualStyleBackColor = true;
-            this.CB_02.CheckedChanged += new System.EventHandler(this.CheckedChanged);
+            this.CHK_02.AutoSize = true;
+            this.CHK_02.Location = new System.Drawing.Point(66, 19);
+            this.CHK_02.Name = "CHK_02";
+            this.CHK_02.Size = new System.Drawing.Size(38, 17);
+            this.CHK_02.TabIndex = 4;
+            this.CHK_02.Text = "02";
+            this.CHK_02.UseVisualStyleBackColor = true;
+            this.CHK_02.CheckedChanged += new System.EventHandler(this.CheckedChanged);
             // 
-            // CB_01
+            // CHK_01
             // 
-            this.CB_01.AutoSize = true;
-            this.CB_01.Location = new System.Drawing.Point(6, 19);
-            this.CB_01.Name = "CB_01";
-            this.CB_01.Size = new System.Drawing.Size(38, 17);
-            this.CB_01.TabIndex = 3;
-            this.CB_01.Text = "01";
-            this.CB_01.UseVisualStyleBackColor = true;
-            this.CB_01.CheckedChanged += new System.EventHandler(this.CheckedChanged);
+            this.CHK_01.AutoSize = true;
+            this.CHK_01.Location = new System.Drawing.Point(6, 19);
+            this.CHK_01.Name = "CHK_01";
+            this.CHK_01.Size = new System.Drawing.Size(38, 17);
+            this.CHK_01.TabIndex = 3;
+            this.CHK_01.Text = "01";
+            this.CHK_01.UseVisualStyleBackColor = true;
+            this.CHK_01.CheckedChanged += new System.EventHandler(this.CheckedChanged);
             // 
             // button1
             // 
@@ -284,16 +284,16 @@
         private System.Windows.Forms.NumericUpDown NUP_Mission;
         private System.Windows.Forms.Label L_Top;
         private System.Windows.Forms.GroupBox GB_States;
-        private System.Windows.Forms.CheckBox CB_01;
-        private System.Windows.Forms.CheckBox CB_10;
-        private System.Windows.Forms.CheckBox CB_09;
-        private System.Windows.Forms.CheckBox CB_08;
-        private System.Windows.Forms.CheckBox CB_07;
-        private System.Windows.Forms.CheckBox CB_06;
-        private System.Windows.Forms.CheckBox CB_05;
-        private System.Windows.Forms.CheckBox CB_04;
-        private System.Windows.Forms.CheckBox CB_03;
-        private System.Windows.Forms.CheckBox CB_02;
+        private System.Windows.Forms.CheckBox CHK_01;
+        private System.Windows.Forms.CheckBox CHK_10;
+        private System.Windows.Forms.CheckBox CHK_09;
+        private System.Windows.Forms.CheckBox CHK_08;
+        private System.Windows.Forms.CheckBox CHK_07;
+        private System.Windows.Forms.CheckBox CHK_06;
+        private System.Windows.Forms.CheckBox CHK_05;
+        private System.Windows.Forms.CheckBox CHK_04;
+        private System.Windows.Forms.CheckBox CHK_03;
+        private System.Windows.Forms.CheckBox CHK_02;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label L_Active;
         private System.Windows.Forms.NumericUpDown NUP_Active;
