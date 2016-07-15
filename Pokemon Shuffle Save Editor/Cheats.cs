@@ -347,9 +347,60 @@ namespace Pokemon_Shuffle_Save_Editor
         private void B_Crystal_Hearts_Click(object sender, EventArgs e)
         {
             bool boool = (ModifierKeys == Keys.Control);
-            Array.Copy(boool ? new byte[6] : new byte[] { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF }, 0, savedata, 0xB7FB, 6);
+            Array.Copy(boool ? new byte[6] : new byte[] {0, 0, 0, 0, 0x3F, 0x48 }, 0, savedata, 0xB7FB, 6);
             string str = boool ? "Crystal hearts disabled." : "Crystal hearts unlocked : You have 7 stock hearts and win 700 coins each time you connect this month.";
                 MessageBox.Show(str + "\n\nWork In Progress, report if something bad happens.");
+        }
+
+        private void B_MissionCards_Click(object sender, EventArgs e)
+        {
+            bool[][] missions = db.Missions;    //default values
+            int max = missions.Length, active = Math.Min(savedata[0xB6FB], max);   //default values
+            bool boool = false; //default values
+            if (ModifierKeys == Keys.Control)
+            {
+                using (var form = new Mission_Popup(active))
+                {
+                    form.ShowDialog();
+                    if (form.DialogResult == DialogResult.OK)
+                    {
+                        active = Math.Min(form.retActive, max);
+                        missions = form.retStates;
+                        boool = true;
+                    }
+                    else return;
+                }
+            }
+            savedata[MissionCards.Ofset(0) - 1] = (byte)active;
+            for (int i = 0 ; i < missions.Length ; i++)
+            {
+                int data = BitConverter.ToInt32(savedata, MissionCards.Ofset(i)) & ~(0x3FF << MissionCards.Shift(i));
+                for (int j = 0 ; j < missions[i].Length ; j++)
+                    data |= ((missions[i][j] ? 1 : 0) << (MissionCards.Shift(i) + j));
+                Array.Copy(BitConverter.GetBytes(data), 0, savedata, MissionCards.Ofset(i), 4);
+            }
+            string str = null;
+            if (!boool || missions == db.Missions)
+                str = "All Mission cards have been fully completed.";
+            else
+            {
+                Cases cases = 0;
+                for (int i = 0; i < missions.Length ; i++)
+                {
+                    for (int j = 0; db.Missions[i][j] == true; j++)
+                    {
+                        if (cases == Cases.Full && missions[i][j] == false) { cases = Cases.Select; }
+                        if (cases == Cases.Select && missions[i][j] == true) { cases = Cases.None; }
+                    }
+                }
+                if (cases == Cases.Select) { str = "Mission cards fully reseted."; }
+                if (cases == Cases.None) { str = "Selected missions marked as completed."; }
+            }
+            str += "\n";
+            str += (active == 0)
+                ? "No Mission Card currently selected."
+                : "Selected Mission Card is number " + active + ".";
+            MessageBox.Show(str);
         }
 
         private void B_Test_Click(object sender, EventArgs e)
@@ -389,59 +440,6 @@ namespace Pokemon_Shuffle_Save_Editor
             #endregion
         }
 
-        private void B_MissionCards_Click(object sender, EventArgs e)
-        {
-            bool[][] missions = db.Missions;    //default values
-            int max = missions.Length, active = Math.Min(savedata[0xB6FB], max);   //default values
-            bool boool = false; //default values
-            if (ModifierKeys == Keys.Control)
-            {
-                using (var form = new Mission_Popup(active))
-                {
-                    form.ShowDialog();
-                    if (form.DialogResult == DialogResult.OK)
-                    {
-                        active = Math.Min(form.retActive, max);
-                        missions = form.retStates;
-                        boool = true;
-                    }
-                    else return;
-                }
-            }
-            savedata[MissionCards.Ofset(0) - 1] = (byte)active;
-            for (int i = 0 ; i < missions.Length ; i++)
-            {
-                int data = BitConverter.ToInt32(savedata, MissionCards.Ofset(i)) & ~(0x3FF << MissionCards.Shift(i));
-                for (int j = 0 ; j < missions[i].Length ; j++)
-                    data |= ((missions[i][j] ? 1 : 0) << (MissionCards.Shift(i) + j));
-                Array.Copy(BitConverter.GetBytes(data), 0, savedata, MissionCards.Ofset(i), 4);
-            }
-            string str;
-            if (!boool)
-                str = "All Mission cards have been fully completed.";
-            else
-            {
-                bool baal = false;
-                for (int i = 0; i < missions.Length ; i++)
-                {
-                    if (!baal)
-                    {
-                        foreach (bool bl in missions[i])
-                        {
-                            if (bl)
-                            {
-                                baal = true;
-                                break;
-                            }
-                        }
-                    }
-                    else break;
-                }
-                str = baal
-                    ? "Selected missions marked as completed."
-                    : "Mission cards fully reseted.";
-            }
-            MessageBox.Show(str);
-        }
+        enum Cases { Full, Select, None };  //for B_MissionCards_Click
     }
 }

@@ -41,9 +41,9 @@ namespace Pokemon_Shuffle_Save_Editor
 
         private void StatesInit()
         {
-            retStates = new bool[50][];
+            retStates = new bool[db.Missions.Length][];
             for (int i = 0; i < retStates.Length; i++)
-                retStates[i] = new bool[10];
+                retStates[i] = new bool[db.Missions[i].Length];
         }
 
         protected override bool ProcessDialogKey(Keys keyData)  //Allows quit when Esc is pressed
