@@ -243,8 +243,7 @@
             this.B_Crystal_Hearts.Size = new System.Drawing.Size(138, 23);
             this.B_Crystal_Hearts.TabIndex = 103;
             this.B_Crystal_Hearts.Text = "WIP crystal hearts";
-            this.toolTip1.SetToolTip(this.B_Crystal_Hearts, "Enables crystal hearts (7 renewable hearts & 700 coins at each connexion).\r\nWARNI" +
-        "NG : This is still a WIP. Report if this breaks something or doesn\'t work.");
+            this.toolTip1.SetToolTip(this.B_Crystal_Hearts, resources.GetString("B_Crystal_Hearts.ToolTip"));
             this.B_Crystal_Hearts.UseVisualStyleBackColor = true;
             this.B_Crystal_Hearts.Click += new System.EventHandler(this.B_Crystal_Hearts_Click);
             // 

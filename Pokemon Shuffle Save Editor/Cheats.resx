@@ -196,6 +196,12 @@ than one active at the same time, only one should be affected.</value>
 /!\ Manually add at least Espurr, Bulbasaur, Squirtle and charmander,
 or reset stages too.</value>
   </data>
+  <data name="B_Crystal_Hearts.ToolTip" xml:space="preserve">
+    <value>Enables crystal hearts (7 renewable hearts &amp; 700 coins at each connexion).
+
+WARNING : This is still a WIP &amp; will not look legit on your savefile.
+Use at your own risk and report if this breaks something or doesn't work.</value>
+  </data>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>143</value>
   </metadata>
