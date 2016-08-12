@@ -25,6 +25,8 @@ namespace Pokemon_Shuffle_Save_Editor
         public string[] MonsList { get; private set; }
         public string[] PokathlonList { get; private set; }
         public string[] SpeciesList { get; private set; }
+        public string[] SkillsList { get; private set; }
+        public string[] SkillsTextList { get; private set; }
         public Tuple<int, int>[] Megas { get; private set; }    //monsIndex, speedups
         public Tuple<int, int, bool, int, int, int[], int, Tuple<int, int>>[] Mons { get; private set; }   //specieIndex, formIndex, isMega, raiseMaxLevel, basePower, skills, type, Rest
         public Tuple<int, int>[] Rest { get; private set; }  //stageNum, skillsCount
@@ -135,7 +137,7 @@ namespace Pokemon_Shuffle_Save_Editor
                 int skillCount = 0;
                 foreach (int adr in new int[] { 0x02, 0x20, 0x21, 0x22, 0x23})
                 {
-                    skill[j] = data[adr] & 0x7F; //ranges 1-~100 for now ("Opportunist" to "Transform"), ordered list in MESSAGE_XX/message_PokedexXX.bin (0x44C-C76 for US)
+                    skill[j] = data[adr] & 0x7F; //ranges 1-~100 for now ("Opportunist" to "Transform"), ordered list in MESSAGE_XX/message_PokedexXX.bin
                     skillCount += (skill[j] != 0 ? 1 : 0);
                     j++;
                 }
@@ -164,6 +166,20 @@ namespace Pokemon_Shuffle_Save_Editor
                 for (int j = 0; j < Missions[i].Length; j++)
                     Missions[i][j] = BitConverter.ToInt16(data, 0x8 + 2 * j) != 0;
             }
+            byte[] HexValue = Properties.Resources.messagePokedex_US;
+            string StrValue = "";
+            List<string> List = new List<string>();
+            for (int i = 0; i < HexValue.Length; i += 2)
+            {
+                if (BitConverter.ToChar(HexValue, i) == '\0' && StrValue != "" && !(StrValue.EndsWith("\u0001ă\u0001\u0003\u0003慮敭") || StrValue.EndsWith("\u0001ă\u0001\u0003\u0005敭慧慎敭")))
+                {
+                    List.Add(StrValue.Replace("\u0001ă\u0001\u0003\u0003慮敭\0", "[name]").Replace("\u0001ă\u0001\u0003\u0005敭慧慎敭\0", "[name]"));
+                    StrValue = "";
+                }
+                else StrValue += BitConverter.ToChar(HexValue, i);
+            }
+            SkillsList = List.Skip(List.IndexOf("Opportunist")).Take(List.IndexOf("Attacks can occasionally deal\ngreater damage than usual.") - List.IndexOf("Opportunist")).ToArray();
+            SkillsTextList = List.Skip(List.IndexOf("Attacks can occasionally deal\ngreater damage than usual.")).Take(List.IndexOf("Attacks can occasionally deal\ngreater damage than usual.") - List.IndexOf("Opportunist")).ToArray();
         }
     }
 }

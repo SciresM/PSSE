@@ -1653,6 +1653,16 @@ namespace Pokemon_Shuffle_Save_Editor.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] messagePokedex_US {
+            get {
+                object obj = ResourceManager.GetObject("messagePokedex_US", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] missionCard {
             get {
                 object obj = ResourceManager.GetObject("missionCard", resourceCulture);

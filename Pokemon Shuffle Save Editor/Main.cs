@@ -15,6 +15,7 @@ namespace Pokemon_Shuffle_Save_Editor
         public static Keys lastkeys;    //to detect if ItemsGrid was entered from Tab or Shift+Tab
 
         private List<cbItem> monsel = new List<cbItem>();
+        private List<cbItem> skillsel = new List<cbItem>();
         private ShuffleItems SI_Items = new ShuffleItems();
 
         private bool loaded, updating, overrideHS;
@@ -27,13 +28,17 @@ namespace Pokemon_Shuffle_Save_Editor
                 monsel.Add(new cbItem { Text = db.MonsList[i], Value = i });
             monsel = monsel.OrderBy(x => x.Text).ToList();
             CB_MonIndex.DataSource = monsel;
-            CB_MonIndex.DisplayMember = "Text";
-            CB_MonIndex.ValueMember = "Value";
+            CB_Skill.DataSource = skillsel;
+            CB_MonIndex.DisplayMember = CB_Skill.DisplayMember = "Text";
+            CB_MonIndex.ValueMember = CB_Skill.ValueMember = "Value";
+            CB_Skill_Init();
             FormInit();
         }
 
         private void FormInit()
         {
+            CB_MonIndex.SelectedIndex = 0;
+            CB_Skill.Visible = CHK_CurrentSkill.Visible = false;
             B_Save.Enabled = GB_Caught.Enabled = GB_HighScore.Enabled = GB_Resources.Enabled = B_CheatsForm.Enabled = ItemsGrid.Enabled = loaded = false;
             PB_Mon.Image = GetCaughtImage((int)CB_MonIndex.SelectedValue, CHK_CaughtMon.Checked);
             PB_Main.Image = PB_Event.Image = PB_Expert.Image = GetStageImage(0, 0);
@@ -81,37 +86,56 @@ namespace Pokemon_Shuffle_Save_Editor
             UpdateOwnedBox();
         }
 
+        private void CB_Skill_Init()
+        {
+            skillsel.Clear();
+            for (int i = 0; i < db.Mons[(int)CB_MonIndex.SelectedValue].Item6.Length; i++)
+            {
+                if (db.Mons[(int)CB_MonIndex.SelectedValue].Item6[i] == 0)
+                    break;
+                skillsel.Add(new cbItem { Text = db.SkillsList[db.Mons[(int)CB_MonIndex.SelectedValue].Item6[i] - 1], Value = i });
+            }
+            CB_Skill.DataSource = skillsel.OrderBy(x => x.Value).ToList(); //for some reason the display doesn't update if I don't do this pointless reorderng stuff
+        }
+
         private void UpdateForm(object sender, EventArgs e)
         {
             if (!loaded || updating)
                 return;
             updating = true;
-            if (sender != null && !((sender as Control).Name.ToLower().Contains("index")))
+            if (sender != null)
             {
-                //Owned Bow Properties
-                int ind = (int)CB_MonIndex.SelectedValue;
-                ushort set_level = (ushort)(CHK_CaughtMon.Checked ? (NUP_Level.Value == 1 ? 0 : NUP_Level.Value) : 0);
-                ushort set_rml = (ushort)(CHK_CaughtMon.Checked ? NUP_Lollipop.Value : 0);
-                if (set_level > 10 + set_rml)
+                if ((sender as Control).Name.ToLower().Contains("index"))
+                    CB_Skill_Init();
+                else
                 {
-                    if ((sender as Control).Name.Contains("Level"))
-                        set_rml = (ushort)(set_level - 10);
-                    else if ((sender as Control).Name.Contains("Lollipop"))
-                        set_level = (ushort)(10 + set_rml);
+                    //Owned Bow Properties
+                    int ind = (int)CB_MonIndex.SelectedValue;
+                    ushort set_level = (ushort)(CHK_CaughtMon.Checked ? (NUP_Level.Value == 1 ? 0 : NUP_Level.Value) : 0);
+                    ushort set_rml = (ushort)(CHK_CaughtMon.Checked ? NUP_Lollipop.Value : 0);
+                    if (set_level > 10 + set_rml)
+                    {
+                        if ((sender as Control).Name.Contains("Level"))
+                            set_rml = (ushort)(set_level - 10);
+                        else if ((sender as Control).Name.Contains("Lollipop"))
+                            set_level = (ushort)(10 + set_rml);
+                    }
+                    SetCaught(ind, CHK_CaughtMon.Checked);
+                    SetLevel(ind, set_level, set_rml);
+                    SetStone(ind, CHK_MegaX.Checked, CHK_MegaY.Checked);
+                    SetSpeedup(ind, (db.HasMega[ind][0] && CHK_CaughtMon.Checked && CHK_MegaX.Checked), (int)NUP_SpeedUpX.Value, (db.HasMega[ind][1] && CHK_CaughtMon.Checked && CHK_MegaY.Checked), (int)NUP_SpeedUpY.Value);
+                    SetSkill(ind, (int)(CHK_CaughtMon.Checked ? NUP_SkillLvl.Value : 1), (int)(CHK_CaughtMon.Checked ? CB_Skill.SelectedValue : 0));
+                    if ((sender as Control).Name.ToLower().Contains("currentskill") && CHK_CurrentSkill.Checked)
+                        SetCurrentSkill(ind, (int)CB_Skill.SelectedValue);
+
+                    //Stages Box Properties
+                    SetScore((int)NUP_MainIndex.Value - 1, 0, (ulong)NUP_MainScore.Value);
+                    SetScore((int)NUP_ExpertIndex.Value - 1, 1, (ulong)NUP_ExpertScore.Value);
+                    SetScore((int)NUP_EventIndex.Value, 2, (ulong)NUP_EventScore.Value);
+
+                    //Ressources Box Properties
+                    SetResources((int)NUP_Hearts.Value, (uint)NUP_Coins.Value, (uint)NUP_Jewels.Value, SI_Items.Items, SI_Items.Enchantments);
                 }
-                SetCaught(ind, CHK_CaughtMon.Checked);
-                SetLevel(ind, set_level, set_rml);
-                SetStone(ind, CHK_MegaX.Checked, CHK_MegaY.Checked);
-                SetSpeedup(ind, (db.HasMega[ind][0] && CHK_CaughtMon.Checked && CHK_MegaX.Checked), (int)NUP_SpeedUpX.Value, (db.HasMega[ind][1] && CHK_CaughtMon.Checked && CHK_MegaY.Checked), (int)NUP_SpeedUpY.Value);
-                SetSkill(ind, (int)(CHK_CaughtMon.Checked ? NUP_SkillLvl.Value : 1), (int)(CHK_CaughtMon.Checked ? NUP_Skill.Value - 1 : 0), true);
-
-                //Stages Box Properties
-                SetScore((int)NUP_MainIndex.Value - 1, 0, (ulong)NUP_MainScore.Value);
-                SetScore((int)NUP_ExpertIndex.Value - 1, 1, (ulong)NUP_ExpertScore.Value);
-                SetScore((int)NUP_EventIndex.Value, 2, (ulong)NUP_EventScore.Value);
-
-                //Ressources Box Properties
-                SetResources((int)NUP_Hearts.Value, (uint)NUP_Coins.Value, (uint)NUP_Jewels.Value, SI_Items.Items, SI_Items.Enchantments);
             }
             Parse();
             updating = false;
@@ -137,11 +161,13 @@ namespace Pokemon_Shuffle_Save_Editor
             NUP_Lollipop.Value = GetMon(ind).Lollipops;
             NUP_Level.Maximum = 10 + NUP_Lollipop.Maximum;
             NUP_Level.Value = GetMon(ind).Level;
-
+            
             //Skill level value
-            NUP_Skill.Maximum = db.Rest[ind].Item2;
-            NUP_Skill.Value = GetMon(ind).CurrentSkill + 1;
-            NUP_SkillLvl.Value = GetMon(ind).SkillLevel[(int)NUP_Skill.Value - 1];
+            //NUP_Skill.Maximum = db.Rest[ind].Item2;
+            CHK_CurrentSkill.Checked = (GetMon(ind).CurrentSkill == (int)CB_Skill.SelectedValue);
+            //NUP_Skill.Value = GetMon(ind).CurrentSkill + 1;
+            NUP_SkillLvl.Value = GetMon(ind).SkillLevel[(int)CB_Skill.SelectedValue];
+            toolTip1.SetToolTip(CB_Skill, db.SkillsTextList[db.Mons[ind].Item6[(int)CB_Skill.SelectedValue] - 1]);
 
             //Speedup values
             if (db.MegaList.IndexOf(ind) != -1) //temporary fix while there are still some mega forms missing in megastone.bin
@@ -159,17 +185,16 @@ namespace Pokemon_Shuffle_Save_Editor
 
             #region Visibility
 
-            L_Level.Visible = L_Skill.Visible = NUP_Level.Visible = PB_Skill.Visible = NUP_Skill.Visible = NUP_SkillLvl.Visible = CHK_CaughtMon.Checked;
+            L_Level.Visible = L_Skill.Visible = NUP_Level.Visible = PB_Skill.Visible = NUP_SkillLvl.Visible = CB_Skill.Visible = CHK_CurrentSkill.Visible = CHK_CaughtMon.Checked;
+            //NUP_Skill.Visible = (CHK_CaughtMon.Checked && NUP_Skill.Maximum > 1);
             PB_Lollipop.Visible = NUP_Lollipop.Visible = (CHK_CaughtMon.Checked && NUP_Lollipop.Maximum != 0);
-            PB_Skill.Visible = NUP_Skill.Visible = (CHK_CaughtMon.Checked && NUP_Skill.Maximum > 1);
             PB_Mon.Image = GetCaughtImage(ind, CHK_CaughtMon.Checked);
             PB_MegaX.Visible = CHK_MegaX.Visible = db.HasMega[ind][0];
             PB_MegaY.Visible = CHK_MegaY.Visible = db.HasMega[ind][1];
             PB_MegaX.Image = db.HasMega[ind][0] ? new Bitmap((Image)Properties.Resources.ResourceManager.GetObject("MegaStone" + db.Mons[ind].Item1.ToString("000") + (db.HasMega[ind][1] ? "_X" : string.Empty))) : new Bitmap(16, 16);
             PB_MegaY.Image = db.HasMega[ind][1] ? new Bitmap((Image)Properties.Resources.ResourceManager.GetObject("MegaStone" + db.Mons[ind].Item1.ToString("000") + "_Y")) : new Bitmap(16, 16);
-            int mega_ofs = 0x406 + (ind + 2) / 4;
-            CHK_MegaX.Checked = ((BitConverter.ToUInt16(savedata, mega_ofs) >> (5 + (ind << 1)) % 8) & 1) == 1;
-            CHK_MegaY.Checked = (((BitConverter.ToUInt16(savedata, mega_ofs) >> (5 + (ind << 1)) % 8) >> 1) & 1) == 1;
+            CHK_MegaX.Checked = (GetMon(ind).Stone & 1) != 0;
+            CHK_MegaY.Checked = (GetMon(ind).Stone & 2) != 0;
             NUP_SpeedUpX.Visible = PB_SpeedUpX.Visible = CHK_CaughtMon.Checked && CHK_MegaX.Visible && CHK_MegaX.Checked;
             NUP_SpeedUpY.Visible = PB_SpeedUpY.Visible = CHK_CaughtMon.Checked && CHK_MegaY.Visible && CHK_MegaY.Checked; //Else NUP_SpeedUpY appears if the next mega in terms of offsets has been obtained
             PB_SpeedUpX.Image = db.HasMega[ind][0] ? new Bitmap(ResizeImage((Image)Properties.Resources.ResourceManager.GetObject("mega_speedup"), 24, 24)) : new Bitmap(16, 16);
@@ -313,16 +338,11 @@ namespace Pokemon_Shuffle_Save_Editor
                     bool boool = false;
                     foreach (int sLv in GetMon((int)CB_MonIndex.SelectedValue).SkillLevel)
                     {
-                        if (sLv != 5)
+                        if (sLv != 5 && sLv != 0)
                             boool = true;
                     }
                     for (int i = 0; i < db.Rest[(int)CB_MonIndex.SelectedValue].Item2; i++)
-                    {
-                        if (boool)
-                            SetSkill((int)CB_MonIndex.SelectedValue, 5, i);
-                        else
-                            SetSkill((int)CB_MonIndex.SelectedValue, 1, i);
-                    }
+                            SetSkill((int)CB_MonIndex.SelectedValue, (boool ? 5 : 1), i);
                     //NUP_SkillLvl.Value = (NUP_SkillLvl.Value == 1) ? NUP_SkillLvl.Maximum : NUP_SkillLvl.Minimum;
                     break;
 
@@ -431,13 +451,8 @@ namespace Pokemon_Shuffle_Save_Editor
                             SetCaught(ind, true);
                         SetTeam(s, ind);
                     }
-                    else
-                    {
-                        List<int> list = new List<int>();
-                        for (int i = 0; i < monsel.Count; i++)
-                            list.Add(monsel[i].Value); //get a list of index numbers from monsel.Values to use with IndexOf()
-                        CB_MonIndex.SelectedIndex = list.IndexOf(GetTeam(s));
-                    }
+                    else                    
+                        CB_MonIndex.SelectedValue = GetTeam(s);
                     updating = true;
                     Parse();
                     updating = false;
@@ -539,8 +554,14 @@ namespace Pokemon_Shuffle_Save_Editor
 
         private void UpdateSkill(object s, EventArgs e)
         {
-            NUP_SkillLvl.Value = GetMon((int)CB_MonIndex.SelectedValue).SkillLevel[(int)NUP_Skill.Value - 1];
+            NUP_SkillLvl.Value = GetMon((int)CB_MonIndex.SelectedValue).SkillLevel[(int)CB_Skill.SelectedValue];
             UpdateForm(s, e);
+        }
+
+        private void CB_MonIndex_EnabledChanged(object sender, EventArgs e)
+        {
+            if (CB_MonIndex.Enabled)
+                CB_Skill_Init();
         }
 
         private void UpdateProperty(object s, PropertyValueChangedEventArgs e)

@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Windows.Forms;
 using static Pokemon_Shuffle_Save_Editor.Main;
 using static Pokemon_Shuffle_Save_Editor.ToolFunctions;
@@ -437,6 +439,25 @@ namespace Pokemon_Shuffle_Save_Editor
             //    }
             //    j++;
             //}
+            #endregion
+
+            #region string implementation
+            //byte[] HexValue = Properties.Resources.messagePokedex_US;
+            //string StrValue = "";
+            //List<string> List = new List<string>();
+            //for (int i = 0; i < HexValue.Length; i += 2)
+            //{
+            //    if (BitConverter.ToChar(HexValue, i) == '\0' && StrValue != "" && !(StrValue.EndsWith("\u0001ă\u0001\u0003\u0003慮敭") || StrValue.EndsWith("\u0001ă\u0001\u0003\u0005敭慧慎敭")))
+            //    {
+            //        List.Add(StrValue.Replace("\u0001ă\u0001\u0003\u0003慮敭\0", "[name]").Replace("\u0001ă\u0001\u0003\u0005敭慧慎敭\0", "[name]"));
+            //        StrValue = "";
+            //    }
+            //    else StrValue += BitConverter.ToChar(HexValue, i);
+            //}
+            ////foreach (string str in Talents)
+            ////    Console.WriteLine(str);
+            //String[] Skills = List.Skip(List.IndexOf("Coup Critique")).Take(List.IndexOf("Augmente parfois les dégâts.") - List.IndexOf("Coup Critique")).ToArray();
+            //String[] SkillsTexts = List.Skip(List.IndexOf("Augmente parfois les dégâts.")).Take(List.IndexOf("Augmente parfois les dégâts.") - List.IndexOf("Coup Critique")).ToArray();
             #endregion
         }
 
