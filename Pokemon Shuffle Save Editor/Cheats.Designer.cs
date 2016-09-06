@@ -133,7 +133,7 @@
             this.B_StreetPassDelete.Location = new System.Drawing.Point(12, 157);
             this.B_StreetPassDelete.Name = "B_StreetPassDelete";
             this.B_StreetPassDelete.Size = new System.Drawing.Size(138, 23);
-            this.B_StreetPassDelete.TabIndex = 53;
+            this.B_StreetPassDelete.TabIndex = 10;
             this.B_StreetPassDelete.Text = "Edit StreetPass (reset)";
             this.toolTip1.SetToolTip(this.B_StreetPassDelete, resources.GetString("B_StreetPassDelete.ToolTip"));
             this.B_StreetPassDelete.UseVisualStyleBackColor = true;
@@ -160,7 +160,7 @@
             this.Line.MinimumSize = new System.Drawing.Size(20, 2);
             this.Line.Name = "Line";
             this.Line.Size = new System.Drawing.Size(288, 2);
-            this.Line.TabIndex = 50;
+            this.Line.TabIndex = 99;
             // 
             // B_PokemonReset
             // 
@@ -168,7 +168,7 @@
             this.B_PokemonReset.Location = new System.Drawing.Point(12, 199);
             this.B_PokemonReset.Name = "B_PokemonReset";
             this.B_PokemonReset.Size = new System.Drawing.Size(138, 23);
-            this.B_PokemonReset.TabIndex = 50;
+            this.B_PokemonReset.TabIndex = 100;
             this.B_PokemonReset.Text = "Reset Pokemon";
             this.toolTip1.SetToolTip(this.B_PokemonReset, resources.GetString("B_PokemonReset.ToolTip"));
             this.B_PokemonReset.UseVisualStyleBackColor = true;
@@ -180,7 +180,7 @@
             this.B_StageReset.Location = new System.Drawing.Point(156, 199);
             this.B_StageReset.Name = "B_StageReset";
             this.B_StageReset.Size = new System.Drawing.Size(138, 23);
-            this.B_StageReset.TabIndex = 51;
+            this.B_StageReset.TabIndex = 101;
             this.B_StageReset.Text = "Reset Stages";
             this.toolTip1.SetToolTip(this.B_StageReset, "-Marks every Normal & Expert stages a uncompleted\r\n-Sets their rank to C & highsc" +
         "ore to 0\r\n\r\n/!\\ Manually un-own any pokemon that should have been caught in one " +
@@ -215,7 +215,7 @@
             this.B_Test.Location = new System.Drawing.Point(229, 170);
             this.B_Test.Name = "B_Test";
             this.B_Test.Size = new System.Drawing.Size(65, 23);
-            this.B_Test.TabIndex = 102;
+            this.B_Test.TabIndex = 51;
             this.B_Test.Text = "Test stuff";
             this.toolTip1.SetToolTip(this.B_Test, "Used w/ B_Test_Click event to search for the \"skill+ drop\" flags in stagedata(s)." +
         "bin");
@@ -241,7 +241,7 @@
             this.B_Crystal_Hearts.Location = new System.Drawing.Point(156, 169);
             this.B_Crystal_Hearts.Name = "B_Crystal_Hearts";
             this.B_Crystal_Hearts.Size = new System.Drawing.Size(138, 23);
-            this.B_Crystal_Hearts.TabIndex = 103;
+            this.B_Crystal_Hearts.TabIndex = 50;
             this.B_Crystal_Hearts.Text = "WIP crystal hearts";
             this.toolTip1.SetToolTip(this.B_Crystal_Hearts, resources.GetString("B_Crystal_Hearts.ToolTip"));
             this.B_Crystal_Hearts.UseVisualStyleBackColor = true;
@@ -253,7 +253,7 @@
             this.B_MissionCards.Location = new System.Drawing.Point(156, 157);
             this.B_MissionCards.Name = "B_MissionCards";
             this.B_MissionCards.Size = new System.Drawing.Size(138, 23);
-            this.B_MissionCards.TabIndex = 104;
+            this.B_MissionCards.TabIndex = 11;
             this.B_MissionCards.Text = "Complete Mission cards";
             this.toolTip1.SetToolTip(this.B_MissionCards, "Completes all cards missions. \r\nCtrl+clic to select which missions to complete an" +
         "d\r\nsee/choose active card.");

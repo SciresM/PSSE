@@ -96,6 +96,7 @@ namespace Pokemon_Shuffle_Save_Editor
                 skillsel.Add(new cbItem { Text = db.SkillsList[db.Mons[(int)CB_MonIndex.SelectedValue].Item6[i] - 1], Value = i });
             }
             CB_Skill.DataSource = skillsel.OrderBy(x => x.Value).ToList(); //for some reason the display doesn't update if I don't do this pointless reorderng stuff
+            CHK_CurrentSkill.Visible = (CHK_CaughtMon.Checked && skillsel.Count > 1);
         }
 
         private void UpdateForm(object sender, EventArgs e)
@@ -125,8 +126,8 @@ namespace Pokemon_Shuffle_Save_Editor
                     SetStone(ind, CHK_MegaX.Checked, CHK_MegaY.Checked);
                     SetSpeedup(ind, (db.HasMega[ind][0] && CHK_CaughtMon.Checked && CHK_MegaX.Checked), (int)NUP_SpeedUpX.Value, (db.HasMega[ind][1] && CHK_CaughtMon.Checked && CHK_MegaY.Checked), (int)NUP_SpeedUpY.Value);
                     SetSkill(ind, (int)(CHK_CaughtMon.Checked ? NUP_SkillLvl.Value : 1), (int)(CHK_CaughtMon.Checked ? CB_Skill.SelectedValue : 0));
-                    if ((sender as Control).Name.ToLower().Contains("currentskill") && CHK_CurrentSkill.Checked)
-                        SetCurrentSkill(ind, (int)CB_Skill.SelectedValue);
+                    if (!CHK_CaughtMon.Checked || ((sender as Control).Name.ToLower().Contains("currentskill") && CHK_CurrentSkill.Checked))
+                        SetCurrentSkill(ind, CHK_CaughtMon.Checked ? (int)CB_Skill.SelectedValue : 0);
 
                     //Stages Box Properties
                     SetScore((int)NUP_MainIndex.Value - 1, 0, (ulong)NUP_MainScore.Value);
@@ -162,10 +163,8 @@ namespace Pokemon_Shuffle_Save_Editor
             NUP_Level.Maximum = 10 + NUP_Lollipop.Maximum;
             NUP_Level.Value = GetMon(ind).Level;
             
-            //Skill level value
-            //NUP_Skill.Maximum = db.Rest[ind].Item2;
+            //Skill level
             CHK_CurrentSkill.Checked = (GetMon(ind).CurrentSkill == (int)CB_Skill.SelectedValue);
-            //NUP_Skill.Value = GetMon(ind).CurrentSkill + 1;
             NUP_SkillLvl.Value = GetMon(ind).SkillLevel[(int)CB_Skill.SelectedValue];
             toolTip1.SetToolTip(CB_Skill, db.SkillsTextList[db.Mons[ind].Item6[(int)CB_Skill.SelectedValue] - 1]);
 
@@ -185,9 +184,9 @@ namespace Pokemon_Shuffle_Save_Editor
 
             #region Visibility
 
-            L_Level.Visible = L_Skill.Visible = NUP_Level.Visible = PB_Skill.Visible = NUP_SkillLvl.Visible = CB_Skill.Visible = CHK_CurrentSkill.Visible = CHK_CaughtMon.Checked;
-            //NUP_Skill.Visible = (CHK_CaughtMon.Checked && NUP_Skill.Maximum > 1);
+            L_Level.Visible = L_Skill.Visible = NUP_Level.Visible = PB_Skill.Visible = NUP_SkillLvl.Visible = CB_Skill.Visible = CHK_CaughtMon.Checked;
             PB_Lollipop.Visible = NUP_Lollipop.Visible = (CHK_CaughtMon.Checked && NUP_Lollipop.Maximum != 0);
+            CHK_CurrentSkill.Visible = (CHK_CaughtMon.Checked && db.Mons[ind].Rest.Item2 > 1);
             PB_Mon.Image = GetCaughtImage(ind, CHK_CaughtMon.Checked);
             PB_MegaX.Visible = CHK_MegaX.Visible = db.HasMega[ind][0];
             PB_MegaY.Visible = CHK_MegaY.Visible = db.HasMega[ind][1];
@@ -343,7 +342,6 @@ namespace Pokemon_Shuffle_Save_Editor
                     }
                     for (int i = 0; i < db.Rest[(int)CB_MonIndex.SelectedValue].Item2; i++)
                             SetSkill((int)CB_MonIndex.SelectedValue, (boool ? 5 : 1), i);
-                    //NUP_SkillLvl.Value = (NUP_SkillLvl.Value == 1) ? NUP_SkillLvl.Maximum : NUP_SkillLvl.Minimum;
                     break;
 
                 default:

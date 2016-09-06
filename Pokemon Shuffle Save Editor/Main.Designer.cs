@@ -429,7 +429,6 @@
             // 
             // GB_Caught
             // 
-            this.GB_Caught.Controls.Add(this.CHK_CurrentSkill);
             this.GB_Caught.Controls.Add(this.CB_Skill);
             this.GB_Caught.Controls.Add(this.L_Skill);
             this.GB_Caught.Controls.Add(this.PB_Skill);
@@ -449,6 +448,7 @@
             this.GB_Caught.Controls.Add(this.CHK_CaughtMon);
             this.GB_Caught.Controls.Add(this.CB_MonIndex);
             this.GB_Caught.Controls.Add(this.PB_Mon);
+            this.GB_Caught.Controls.Add(this.CHK_CurrentSkill);
             this.GB_Caught.Enabled = false;
             this.GB_Caught.Location = new System.Drawing.Point(12, 168);
             this.GB_Caught.Name = "GB_Caught";
@@ -464,7 +464,7 @@
             this.CHK_CurrentSkill.Location = new System.Drawing.Point(6, 182);
             this.CHK_CurrentSkill.Name = "CHK_CurrentSkill";
             this.CHK_CurrentSkill.Size = new System.Drawing.Size(60, 17);
-            this.CHK_CurrentSkill.TabIndex = 74;
+            this.CHK_CurrentSkill.TabIndex = 35;
             this.CHK_CurrentSkill.Text = "Current";
             this.CHK_CurrentSkill.UseVisualStyleBackColor = true;
             this.CHK_CurrentSkill.Visible = false;
@@ -477,7 +477,7 @@
             this.CB_Skill.Location = new System.Drawing.Point(6, 151);
             this.CB_Skill.Name = "CB_Skill";
             this.CB_Skill.Size = new System.Drawing.Size(121, 21);
-            this.CB_Skill.TabIndex = 73;
+            this.CB_Skill.TabIndex = 34;
             this.toolTip1.SetToolTip(this.CB_Skill, "Default text");
             this.CB_Skill.Visible = false;
             this.CB_Skill.SelectedValueChanged += new System.EventHandler(this.UpdateForm);
@@ -494,7 +494,7 @@
             // 
             // PB_Skill
             // 
-            this.PB_Skill.Location = new System.Drawing.Point(72, 178);
+            this.PB_Skill.Location = new System.Drawing.Point(64, 179);
             this.PB_Skill.Name = "PB_Skill";
             this.PB_Skill.Size = new System.Drawing.Size(24, 24);
             this.PB_Skill.TabIndex = 70;
@@ -504,7 +504,7 @@
             // 
             // NUP_SkillLvl
             // 
-            this.NUP_SkillLvl.Location = new System.Drawing.Point(102, 180);
+            this.NUP_SkillLvl.Location = new System.Drawing.Point(94, 181);
             this.NUP_SkillLvl.Maximum = new decimal(new int[] {
             5,
             0,
@@ -517,7 +517,7 @@
             0});
             this.NUP_SkillLvl.Name = "NUP_SkillLvl";
             this.NUP_SkillLvl.Size = new System.Drawing.Size(30, 20);
-            this.NUP_SkillLvl.TabIndex = 69;
+            this.NUP_SkillLvl.TabIndex = 36;
             this.NUP_SkillLvl.Value = new decimal(new int[] {
             1,
             0,
@@ -546,7 +546,7 @@
             0});
             this.NUP_Lollipop.Name = "NUP_Lollipop";
             this.NUP_Lollipop.Size = new System.Drawing.Size(30, 20);
-            this.NUP_Lollipop.TabIndex = 34;
+            this.NUP_Lollipop.TabIndex = 33;
             this.NUP_Lollipop.Visible = false;
             this.NUP_Lollipop.ValueChanged += new System.EventHandler(this.UpdateForm);
             // 
@@ -590,7 +590,7 @@
             0});
             this.NUP_SpeedUpY.Name = "NUP_SpeedUpY";
             this.NUP_SpeedUpY.Size = new System.Drawing.Size(37, 20);
-            this.NUP_SpeedUpY.TabIndex = 38;
+            this.NUP_SpeedUpY.TabIndex = 40;
             this.NUP_SpeedUpY.Visible = false;
             this.NUP_SpeedUpY.ValueChanged += new System.EventHandler(this.UpdateForm);
             // 
@@ -604,7 +604,7 @@
             0});
             this.NUP_SpeedUpX.Name = "NUP_SpeedUpX";
             this.NUP_SpeedUpX.Size = new System.Drawing.Size(37, 20);
-            this.NUP_SpeedUpX.TabIndex = 36;
+            this.NUP_SpeedUpX.TabIndex = 38;
             this.NUP_SpeedUpX.Visible = false;
             this.NUP_SpeedUpX.ValueChanged += new System.EventHandler(this.UpdateForm);
             // 
@@ -632,7 +632,7 @@
             this.CHK_MegaX.Location = new System.Drawing.Point(182, 67);
             this.CHK_MegaX.Name = "CHK_MegaX";
             this.CHK_MegaX.Size = new System.Drawing.Size(15, 14);
-            this.CHK_MegaX.TabIndex = 35;
+            this.CHK_MegaX.TabIndex = 37;
             this.CHK_MegaX.UseVisualStyleBackColor = true;
             this.CHK_MegaX.Visible = false;
             this.CHK_MegaX.CheckedChanged += new System.EventHandler(this.UpdateForm);
@@ -644,7 +644,7 @@
             this.CHK_MegaY.Location = new System.Drawing.Point(182, 115);
             this.CHK_MegaY.Name = "CHK_MegaY";
             this.CHK_MegaY.Size = new System.Drawing.Size(15, 14);
-            this.CHK_MegaY.TabIndex = 37;
+            this.CHK_MegaY.TabIndex = 39;
             this.CHK_MegaY.UseVisualStyleBackColor = true;
             this.CHK_MegaY.Visible = false;
             this.CHK_MegaY.CheckedChanged += new System.EventHandler(this.UpdateForm);
@@ -664,7 +664,7 @@
             0});
             this.NUP_Level.Name = "NUP_Level";
             this.NUP_Level.Size = new System.Drawing.Size(52, 20);
-            this.NUP_Level.TabIndex = 33;
+            this.NUP_Level.TabIndex = 32;
             this.NUP_Level.Value = new decimal(new int[] {
             15,
             0,
