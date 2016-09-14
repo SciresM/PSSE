@@ -275,10 +275,11 @@ namespace Pokemon_Shuffle_Save_Editor
                 return;
             updating = true;
             SaveFileDialog sfd = new SaveFileDialog { FileName = Path.GetFileName(TB_FilePath.Text), Filter = ".bin files (*.bin)|*.bin|All files (*.*)|*.*", FilterIndex = 1 };
-            if (sfd.ShowDialog() != DialogResult.OK) return;
-
-            File.WriteAllBytes(sfd.FileName, savedata);
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                File.WriteAllBytes(sfd.FileName, savedata);
             MessageBox.Show("Saved save file to " + sfd.FileName + "." + Environment.NewLine + "Remember to delete secure value before importing.");
+            }            
             updating = false;
         }
 
