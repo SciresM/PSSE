@@ -1,0 +1,6 @@
+.vs/
+Pokemon Shuffle Save Editor/bin/
+obj/
+
+# Xamarin
+*.userprefs

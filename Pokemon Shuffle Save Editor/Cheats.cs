@@ -1,148 +1,466 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Windows.Forms;
+using static Pokemon_Shuffle_Save_Editor.Main;
+using static Pokemon_Shuffle_Save_Editor.ToolFunctions;
 
 namespace Pokemon_Shuffle_Save_Editor
 {
     public partial class Cheats : Form
     {
-        private byte[] mondata;
-        private byte[] stagesMain;
-        private byte[] stagesEvent;
-        private byte[] stagesExpert;
-        private byte[] megaStone;
-        public Cheats(byte[] md, byte[] sm, byte[] sev, byte[] sex, byte[] ms, bool[][] hm, Tuple<int, int, bool>[] m, ref byte[] sd)
+        public Cheats()
         {
             InitializeComponent();
-            mondata = md;
-            stagesMain = sm;
-            stagesEvent = sev;
-            stagesExpert = sex;
-            megaStone = ms;
-            HasMega = hm;
-            savedata = sd;
-            mons = m;
-        }
-        bool[][] HasMega; // [X][0] = X, [X][1] = Y
-
-        byte[] savedata;
-
-        Tuple<int, int, bool>[] mons;
-
-        private void B_CaughtEverything_Click(object sender, EventArgs e)
-        {
-            for (int i = 1; i < 780; i++)
-            {
-                SetPokemon(i, true);
-            }
-            MessageBox.Show("All Pokemon are now caught.");
         }
 
-        private void B_CaughtObtainables_Click(object sender, EventArgs e)
+        protected override bool ProcessDialogKey(Keys keyData)  //Allows quit when Esc is pressed
         {
-            int stagelen = BitConverter.ToInt32(stagesMain, 0x4);
-            int Num_MainStages = BitConverter.ToInt32(stagesMain, 0);
-            int Num_ExpertStages = BitConverter.ToInt32(stagesExpert, 0);                     
-            for (int i = 1; i < Num_MainStages; i++)
+            if (Form.ModifierKeys == Keys.None && keyData == Keys.Escape)
             {
-                int ind = BitConverter.ToUInt16(stagesMain, 0x50 + stagelen * (i)) & 0x3FF;
-                SetPokemon(ind, true);
+                this.Close();
+                return true;
             }
-            for (int i = 1; i < Num_ExpertStages; i++)
-            {
-                int ind = BitConverter.ToUInt16(stagesExpert, 0x50 + stagelen * (i)) & 0x3FF;
-                SetPokemon(ind, true);
-            }
-            MessageBox.Show("All obtainable non-event Pokemon are now caught.");
-        }
-
-        private void B_AllStones_Click(object sender, EventArgs e)
-        {
-            for (int i = 0; i < 780; i++)
-            {
-                if (HasMega[mons[i].Item1][0] || HasMega[mons[i].Item1][1])
-                {
-                    SetMegaStone(i, HasMega[mons[i].Item1][0], HasMega[mons[i].Item1][1]);
-                }
-            }
-            MessageBox.Show("All Mega Stones are now owned.");
+            return base.ProcessDialogKey(keyData);
         }
 
         private void B_AllCaughtStones_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < 780; i++)
+            if (ModifierKeys == Keys.Control)
             {
-                if (GetPokemon(i))
-                {
-                    if (HasMega[mons[i].Item1][0] || HasMega[mons[i].Item1][1])
-                    {
-                        SetMegaStone(i, HasMega[mons[i].Item1][0], HasMega[mons[i].Item1][1]);
-                    }
-                }
+                for (int i = 0; i < db.MegaStartIndex; i++)
+                    SetStone(i);
+                MessageBox.Show("You don't own any stone anymore.");
             }
-            MessageBox.Show("All Mega Stones are now owned for everything you've caught.");
+            else
+            {
+                for (int i = 0; i < db.MegaStartIndex; i++)
+                {   //if (caught && (hasMegaX || hasMegaY) && (at least 1 of these not equals to "default" : talent, type, max speedups). Doesn't check if Y form has been released, but both Charizard's & Mewtwo's already have.
+                    if (GetMon(i).Caught && (db.HasMega[i][0] || db.HasMega[i][1]) && ((db.Mons[db.MegaStartIndex + db.MegaList.IndexOf(i)].Item6[0] != 7) || (db.Mons[db.MegaStartIndex + db.MegaList.IndexOf(i)].Item7 != 0) || (db.Megas[db.MegaList.IndexOf(i)].Item2 != 1)))
+                        SetStone(i, db.HasMega[i][0], db.HasMega[i][1]);
+                }
+                MessageBox.Show("You now own every released stone for each of your caught pokemons.");
+            }
         }
 
-        private void B_Level10_Click(object sender, EventArgs e)
+        private void B_AllCompleted_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < 780; i++)
+            int j = 0;
+            foreach (byte[] stage in new byte[][] { db.StagesMain, db.StagesExpert })
             {
-                if (GetPokemon(i))
+                int entrylen = BitConverter.ToInt32(stage, 4);
+                for (int i = 0; i < (BitConverter.ToInt32(stage, 0) - 1); i++)
                 {
-                    SetLevel(i, 10);
+                    byte[] data = stage.Skip(0x50 + i * entrylen).Take(entrylen).ToArray();
+                    if ((BitConverter.ToInt16(data, 0x4C) & 0x3FF) != 999)  //checks number of S ranks needed to unlock in order to skip "unreleased" expert stages. Not-expert stages should always return 0.
+                    {
+                        SetStage(i, j, true);
+                        PatchScore(i, j);
+                    }
+                }
+                j++;
+            }
+            MessageBox.Show("All Normal & Expert stages have been marked as completed.\n\nRewards like megastones or jewels can still be redeemed by beating the stage.");
+        }
+
+        private void B_CaughtObtainables_Click(object sender, EventArgs e)
+        {
+            for (int i = 1; i < db.MegaStartIndex; i++)
+                SetCaught(i, (db.Mons[i].Rest.Item1 != 999) && ((db.Mons[i].Item5 != 1) || (db.Mons[i].Item6[0] != 1) || (db.Mons[i].Item7 != 0))); //((displayed number isn't 999) && (at least 1 of these isn't "default" : base power, talent, type))
+            int stagelen = BitConverter.ToInt32(db.StagesMain, 0x4);
+            foreach (byte[] stage in new byte[][] { db.StagesMain, db.StagesExpert })
+            {
+                for (int i = 1; i < BitConverter.ToInt32(stage, 0); i++)
+                {
+                    int ind = BitConverter.ToUInt16(stage, 0x50 + stagelen * (i)) & 0x3FF;
+                    SetCaught(ind, true);
                 }
             }
-            MessageBox.Show("Everything you've caught is now level 10.");
+            MessageBox.Show("You now own all obtainable pokemons.");
+        }
+
+        private void B_LevelMax_Click(object sender, EventArgs e)
+        {
+            int value = 15;    //default value
+            bool boool = false;
+            if (ModifierKeys == Keys.Control)
+            {
+                using (var form = new NUP_Popup(0, 15, value, "max level"))
+                {
+                    form.ShowDialog();
+                    if (form.DialogResult == DialogResult.OK)
+                    {
+                        value = form.retVal;
+                        boool = true;
+                    }
+                    else return;
+                }
+            }
+            for (int i = 0; i < db.MegaStartIndex; i++)
+            {
+                if (GetMon(i).Caught)
+                    SetLevel(i, Math.Min(10 + db.Mons[i].Item4, value));
+            }
+            if (boool)
+                MessageBox.Show("Everything you've caught is now level " + value + ((value > 10) ? " or below." : "."));
+            else
+                MessageBox.Show("Everything you've caught is now level max.");
+        }
+
+        private void B_MaxExcalationBattle_Click(object sender, EventArgs e)
+        {
+            int value = 999;    //default value
+            if (ModifierKeys == Keys.Control)
+            {
+                using (var form = new NUP_Popup(0, 999, value, "step"))
+                {
+                    form.ShowDialog();
+                    if (form.DialogResult == DialogResult.OK)
+                        value = form.retVal;
+                    else return;
+                }
+            }
+            SetExcalationStep(value);
+            MessageBox.Show("Curent escalation battle has been taken to step " + value + ".\nIf you skipped rewards you'll get all of them at once after beating it.");
         }
 
         private void B_MaxResources_Click(object sender, EventArgs e)
         {
-            Array.Copy(BitConverter.GetBytes((BitConverter.ToUInt32(savedata, 0x68) & 0xF0000007) | ((uint)99999 << 3) | ((uint)150 << 20)), 0, savedata, 0x68, 4);
-            Array.Copy(BitConverter.GetBytes((BitConverter.ToUInt16(savedata, 0x2D4A) & 0xC07F) | (99 << 7)), 0, savedata, 0x2D4A, 2);
-            for (int i = 0; i < 7; i++)
+            if (ModifierKeys == Keys.Control)
             {
-                ushort val = BitConverter.ToUInt16(savedata, 0xd0 + i);
-                val &= 0x7F;
-                val |= (99 << 7);
-                Array.Copy(BitConverter.GetBytes(val), 0, savedata, 0xd0 + i, 2);
+                SetResources();
+                MessageBox.Show("Deleted all stock hearts, coins, jewels and Items.");
             }
-            savedata[0x2D4C] = (byte)((((99) << 1) & 0xFE) | (savedata[0x2D4C] & 1)); // Mega Speedups
-            MessageBox.Show("Gave 99 hearts, 99999 coins, 150 jewels, and 99 of every item.");
-        }
-
-        private void SetLevel(int ind, int lev)
-        {
-            int level_ofs = (((ind - 1) * 4) / 8);
-            int level_shift = ((((ind - 1) * 4) + 1) % 8);
-            ushort level = BitConverter.ToUInt16(savedata, 0x187 + level_ofs);
-            level = (ushort)((level & (ushort)(~(0xF << level_shift))) | (lev << level_shift));
-            Array.Copy(BitConverter.GetBytes(level), 0, savedata, 0x187 + level_ofs, 2);
-        }
-
-        private void SetPokemon(int ind, bool caught)
-        {
-            int caught_ofs = (((ind - 1) + 6) / 8);
-            int caught_shift = (((ind - 1) + 6) % 8);
-            foreach (int caught_array_start in new[] { 0xE6, 0x546, 0x5E6 })
+            else
             {
-                savedata[caught_array_start + caught_ofs] = (byte)(savedata[caught_array_start + caught_ofs] & (byte)(~(1 << caught_shift)) | ((caught ? 1 : 0) << caught_shift));
+                int[] items = new int[ShuffleItems.ILength];
+                for (int i = 0; i < items.Length; i++)
+                    items[i] = 99;
+                int[] enhancements = new int[ShuffleItems.ELength];
+                for (int i = 0; i < enhancements.Length; i++)
+                    enhancements[i] = 99;
+                SetResources(99, 99999, 150, items, enhancements);
+                MessageBox.Show("Gave 99 hearts, 99999 coins, 150 jewels, and 99 of every item.");
             }
         }
 
-        private bool GetPokemon(int ind)
+        private void B_MaxSpeedups_Click(object sender, EventArgs e)
         {
-            int caught_ofs = 0x546 + (((ind - 1) + 6) / 8);
-            return ((savedata[caught_ofs] >> ((((ind - 1) + 6) % 8))) & 1) == 1;
+            int value = 127;    //default value
+            bool boool = false;
+            if (ModifierKeys == Keys.Control)
+            {
+                using (var form = new NUP_Popup(0, 127, value, "max speedUps"))
+                {
+                    form.ShowDialog();
+                    if (form.DialogResult == DialogResult.OK)
+                    {
+                        value = form.retVal;
+                        boool = true;
+                    }
+                    else return;
+                }
+            }
+            for (int i = 0; i < db.MegaStartIndex; i++)
+            {   //if (caught && (hasMegaX || hasMegaY) && (at least one stone owned))
+                if (GetMon(i).Caught && (db.HasMega[i][0] || db.HasMega[i][1]) && (GetMon(i).Stone > 0 || GetMon(i).Stone < 4))
+                {
+                    int suX = Math.Min(db.HasMega[i][0] ? db.Megas[db.MegaList.IndexOf(i)].Item2 : 0, value);
+                    int suY = Math.Min(db.HasMega[i][1] ? db.Megas[db.MegaList.IndexOf(i, db.MegaList.IndexOf(i) + 1)].Item2 : 0, value);
+                    SetSpeedup(i, (db.HasMega[i][0] && ((GetMon(i).Stone & 1) == 1)), suX, (db.HasMega[i][1] && ((GetMon(i).Stone & 2) == 2)), suY);   //(i, (hasMegaX && owned stoneX), max X value from db, (hasMegaY && owned stoneY), max Y value from db)
+                }
+            }
+            if (boool)
+                MessageBox.Show("All Owned Megas (for which you own the stone too) have been fed with " + value + " speedups" + ((value > 1) ? " or below." : "."));
+            else
+                MessageBox.Show("All Owned Megas (for which you own the stone too) have been fed with as much Mega Speedups as possible.");
         }
 
-        private void SetMegaStone(int ind, bool Y, bool X)
+        private void B_MaxTalent_Click(object sender, EventArgs e)
         {
-            int mega_ofs = 0x406 + ((ind + 2) / 4);
-            ushort mega_val = BitConverter.ToUInt16(savedata, mega_ofs);
-            mega_val &= (ushort)(~(3 << ((5 + (ind << 1)) % 8)));
-            ushort new_mega_insert = (ushort)(0 | (Y ? 1 : 0) | (X ? 2 : 0));
-            mega_val |= (ushort)(new_mega_insert << ((5 + (ind << 1)) % 8));
-            Array.Copy(BitConverter.GetBytes(mega_val), 0, savedata, mega_ofs, 2);
+            int value = 5;    //default value
+            if (ModifierKeys == Keys.Control)
+            {
+                using (var form = new NUP_Popup(0, 5, value, "skill lvl"))
+                {
+                    form.ShowDialog();
+                    if (form.DialogResult == DialogResult.OK)
+                        value = form.retVal;
+                    else return;
+                }
+            }
+            for (int i = 0; i < db.MegaStartIndex; i++)
+            {
+                if (GetMon(i).Caught)
+                {
+                    for (int j = 0; j < db.Rest[i].Item2; j++)
+                        SetSkill(i, value, j);
+                }                    
+            }
+            MessageBox.Show("Every pokemon that you have caught now has all its skills powered to level " + value + " !");
         }
 
+        private void B_PokemonReset_Click(object sender, EventArgs e)
+        {
+            for (int i = 1; i < db.MegaStartIndex; i++)
+            {
+                SetCaught(i);    //Uncatch
+                SetLevel(i); //Un-level, Un-experience & Un-lollipop
+                SetSkill(i);
+                if (db.HasMega[i][0] || db.HasMega[i][1])
+                {
+                    SetStone(i); //Un-stone
+                    SetSpeedup(i);   //Unfeed speedups
+                }
+            }
+            MessageBox.Show("All pokemons have been uncaught, reset to level 1 & lost their Mega Stones, speedups or lollipops.\n\nEither reset stages too or make sure to catch at least Espurr, Bulbasaur, Squirtle & Charmander manually.");
+        }
+
+        private void B_ResourcesReset_Click(object sender, EventArgs e)
+        {
+            SetResources();
+            MessageBox.Show("Deleted all stock hearts, coins, jewels and Items.");
+        }
+
+        private void B_SRankCompleted_Click(object sender, EventArgs e)
+        {
+            int value = 3;    //default value
+            int j = 0;
+            string str;
+            if (ModifierKeys == Keys.Control)
+            {
+                using (var form = new NUP_Popup(0, 3, value, "rank"))
+                {
+                    form.ShowDialog();
+                    if (form.DialogResult == DialogResult.OK)
+                        value = form.retVal;
+                    else return;
+                }
+            }
+            foreach (byte[] stage in new byte[][] { db.StagesMain, db.StagesExpert })
+            {
+                int entrylen = BitConverter.ToInt32(stage, 0x4);
+                for (int i = 0; i < (BitConverter.ToInt32(stage, 0) - ((stage == db.StagesMain) ? 1 : 0)); i++)
+                {
+                    if (GetStage(i, j).Completed)
+                    {
+                        SetRank(i, j, value);
+                        PatchScore(i, j);
+                    }
+                }
+                j++;
+            }
+            switch (value)
+            {
+                case 0:
+                    str = "C";
+                    break;
+
+                case 1:
+                    str = "B";
+                    break;
+
+                case 2:
+                    str = "A";
+                    break;
+
+                case 3:
+                    str = "S";
+                    break;
+
+                default:
+                    MessageBox.Show("An error occured. Attempted to set rank to : " + value);
+                    return;
+            }
+            MessageBox.Show("All Completed Normal & Expert stages have been " + str + "-ranked.");
+        }
+
+        private void B_StageReset_Click(object sender, EventArgs e)
+        {
+            int j = 0;
+            foreach (int length in new int[] { (BitConverter.ToInt32(db.StagesMain, 0) - 1), BitConverter.ToInt32(db.StagesExpert, 0), 100 })//{number of Main stages, number of Expert stages, 100}. Max number of event levels could be up to 549 but it's unlikely there ever are more than 100 at any given time (and that space could be used for something else later).
+            {
+                for (int i = 0; i < length; i++)
+                {
+                    SetStage(i, j);
+                    SetRank(i, j);
+                    SetScore(i, j);
+                }
+                j++;
+            }
+            MessageBox.Show("All stages have been reset to C Rank, 0 score & uncompleted state.");
+        }
+
+        private void B_StreetPassDelete_Click(object sender, EventArgs e)
+        {
+            int value = 0;    //default value
+            bool boool = true;  //default value
+            if (ModifierKeys == Keys.Control)
+            {
+                using (var form = new NUP_Popup(0, 9999, value, boool, "streetpass encounters", "Wipe tags"))
+                {
+                    form.ShowDialog();
+                    if (form.DialogResult == DialogResult.OK)
+                    {
+                        value = form.retVal;
+                        boool = form.retChk;
+                    }
+                    else return;
+                }
+            }
+            Array.Copy(BitConverter.GetBytes(value), 0, savedata, StreetCount.Ofset(), 2); //Sets streetpass count to value
+            if (boool)
+            {
+                for (int i = 0; i < 10; i++)
+                    Array.Copy(new byte[StreetTag.Length()], 0, savedata, StreetTag.Ofset(i), StreetTag.Length()); //Erase StreetPass tags
+            }
+            MessageBox.Show("Streetpass count set to " + value + ".\nStreetpass tags " + (boool ? "" : "not ") + "wiped.");
+        }
+
+        private void B_PokathlonStep_Click(object sender, EventArgs e)
+        {
+            int step = 50, moves = 99, opponent = 150;    //default values
+            bool enabled = true; //default values
+            if (ModifierKeys == Keys.Control)
+            {
+                using (var form = new Pokathlon_Popup(BitConverter.ToInt16(savedata, 0xB762) >> 6, (savedata[0xB768] & 0x7F), savedata[0xB760]))
+                {
+                    form.ShowDialog();
+                    if (form.DialogResult == DialogResult.OK)
+                    {
+                        step = form.retStep;
+                        moves = form.retMoves;
+                        opponent = form.retOpponent;
+                        enabled = form.retEnabled;
+                    }
+                    else return;
+                }
+            }
+            Array.Copy(BitConverter.GetBytes((BitConverter.ToInt16(savedata, 0xB768) & ~(0x3 << 7)) | ((enabled ? 3 : 0) << 7)), 0, savedata, 0xB768, 2);
+            savedata[0xB760] = (byte)step;
+            Array.Copy(BitConverter.GetBytes((BitConverter.ToInt16(savedata, 0xB768) & ~(0x7F)) | moves), 0, savedata, 0xB768, 2);
+            Array.Copy(BitConverter.GetBytes((BitConverter.ToInt16(savedata, 0xB762) & ~(0x3FF << 6)) | (opponent << 6)), 0, savedata, 0xB762, 2);
+            string name = db.MonsList[BitConverter.ToInt16(db.StagesMain, 0x50 + BitConverter.ToInt32(db.StagesMain, 0x4) * opponent) & 0x3FF];
+            string str = new string[] { "th", "st", "nd", "rd" }[(!(step > 10 && step < 14) && step % 10 < 4) ? step % 4 : 0];
+            MessageBox.Show((enabled ? "Survival mode enabled.\nYou'll face" : "Survival Mode is disabled.\nYou should have faced") + " survival mode's " + step + str + " step against " + name + " with " + (savedata[0xB768] & 0x7F) + " moves left.");
+        }
+
+        private void B_Crystal_Hearts_Click(object sender, EventArgs e)
+        {
+            bool boool = (ModifierKeys == Keys.Control);
+            Array.Copy(boool ? new byte[6] : new byte[] {0, 0, 0, 0, 0x3F, 0x48 }, 0, savedata, 0xB7FB, 6);
+            string str = boool ? "Crystal hearts disabled." : "Crystal hearts unlocked : You have 7 stock hearts and win 700 coins each time you connect this month.";
+                MessageBox.Show(str + "\n\nWork In Progress, report if something bad happens.");
+        }
+
+        private void B_MissionCards_Click(object sender, EventArgs e)
+        {
+            bool[][] missions = db.Missions;    //default values
+            int max = missions.Length, active = Math.Min(savedata[0xB6FB], max);   //default values
+            bool boool = false; //default values
+            if (ModifierKeys == Keys.Control)
+            {
+                using (var form = new Mission_Popup(active))
+                {
+                    form.ShowDialog();
+                    if (form.DialogResult == DialogResult.OK)
+                    {
+                        active = Math.Min(form.retActive, max);
+                        missions = form.retStates;
+                        boool = true;
+                    }
+                    else return;
+                }
+            }
+            savedata[MissionCards.Ofset(0) - 1] = (byte)active;
+            for (int i = 0 ; i < missions.Length ; i++)
+            {
+                int data = BitConverter.ToInt32(savedata, MissionCards.Ofset(i)) & ~(0x3FF << MissionCards.Shift(i));
+                for (int j = 0 ; j < missions[i].Length ; j++)
+                    data |= ((missions[i][j] ? 1 : 0) << (MissionCards.Shift(i) + j));
+                Array.Copy(BitConverter.GetBytes(data), 0, savedata, MissionCards.Ofset(i), 4);
+            }
+            string str = null;
+            if (!boool || missions == db.Missions)
+                str = "All Mission cards have been fully completed.";
+            else
+            {
+                Cases cases = 0;
+                for (int i = 0; i < missions.Length ; i++)
+                {
+                    for (int j = 0; db.Missions[i][j] == true; j++)
+                    {
+                        if (cases == Cases.Full && missions[i][j] == false) { cases = Cases.Select; }
+                        if (cases == Cases.Select && missions[i][j] == true) { cases = Cases.None; }
+                    }
+                }
+                if (cases == Cases.Select) { str = "Mission cards fully reseted."; }
+                if (cases == Cases.None) { str = "Selected missions marked as completed."; }
+            }
+            str += "\n";
+            str += (active == 0)
+                ? "No Mission Card currently selected."
+                : "Selected Mission Card is number " + active + ".";
+            MessageBox.Show(str);
+        }
+
+        private void B_Test_Click(object sender, EventArgs e)
+        {   //don't bother, testing stuff
+            #region catch'em all
+            //for (int i = 1; i < db.MegaStartIndex; i++) //includes 15 reserved slots
+            //    SetCaught(i, true);
+            //MessageBox.Show("All Pokemon are now caught.");
+            #endregion
+
+            #region get stoned
+            //for (int i = 0; i < db.MegaStartIndex; i++)
+            //{
+            //    if (db.HasMega[i][0] || db.HasMega[i][1])
+            //        SetStone(i, db.HasMega[i][0], db.HasMega[i][1]);
+            //}
+            //MessageBox.Show("All Mega Stones are now owned.");
+            #endregion
+
+            #region Skill+-dropping stages research
+            //int j = 0;
+            //foreach (byte[] stage in new byte[][] { db.StagesMain, db.StagesExpert, db.StagesEvent })
+            //{
+            //    Console.WriteLine(j + "\n==============");
+            //    int entrylen = BitConverter.ToInt32(stage, 4);
+            //    for (int i = 0; i < BitConverter.ToInt32(stage, 0); i++)
+            //    {
+            //        byte[] data = stage.Skip(0x50 + i * 0x5C).Take(0x5C).ToArray();
+            //        if (BitConverter.ToInt16(data, 0x43) != 0)
+            //        {   //returns 9319 (most skill+-droping stages), 9219 (uxie stage), 9119 (Tornadus stage), 6106 (Eevee stage) or 0 (all other stages)
+            //            Console.WriteLine("{0:X}", BitConverter.ToInt16(data, 0x43));
+            //            Console.WriteLine(db.MonsList[BitConverter.ToInt16(data, 0) & 0x3FF]);
+            //        }
+            //    }
+            //    j++;
+            //}
+            #endregion
+
+            #region string implementation
+            //byte[] HexValue = Properties.Resources.messagePokedex_US;
+            //string StrValue = "";
+            //List<string> List = new List<string>();
+            //for (int i = 0; i < HexValue.Length; i += 2)
+            //{
+            //    if (BitConverter.ToChar(HexValue, i) == '\0' && StrValue != "" && !(StrValue.EndsWith("\u0001ă\u0001\u0003\u0003慮敭") || StrValue.EndsWith("\u0001ă\u0001\u0003\u0005敭慧慎敭")))
+            //    {
+            //        List.Add(StrValue.Replace("\u0001ă\u0001\u0003\u0003慮敭\0", "[name]").Replace("\u0001ă\u0001\u0003\u0005敭慧慎敭\0", "[name]"));
+            //        StrValue = "";
+            //    }
+            //    else StrValue += BitConverter.ToChar(HexValue, i);
+            //}
+            ////foreach (string str in Talents)
+            ////    Console.WriteLine(str);
+            //String[] Skills = List.Skip(List.IndexOf("Coup Critique")).Take(List.IndexOf("Augmente parfois les dégâts.") - List.IndexOf("Coup Critique")).ToArray();
+            //String[] SkillsTexts = List.Skip(List.IndexOf("Augmente parfois les dégâts.")).Take(List.IndexOf("Augmente parfois les dégâts.") - List.IndexOf("Coup Critique")).ToArray();
+            #endregion
+        }
+
+        enum Cases { Full, Select, None };  //for B_MissionCards_Click
     }
 }
